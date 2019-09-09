@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/LoadManager/LoadManager.iml" filepath="$PROJECT_DIR$/LoadManager/LoadManager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Popup/Popup.iml" filepath="$PROJECT_DIR$/Popup/Popup.iml" />
+      <module fileurl="file://$PROJECT_DIR$/WheelPicker/WheelPicker.iml" filepath="$PROJECT_DIR$/WheelPicker/WheelPicker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/WheelView/WheelView.iml" filepath="$PROJECT_DIR$/WheelView/WheelView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/XrefreshLibrary/XrefreshLibrary.iml" filepath="$PROJECT_DIR$/XrefreshLibrary/XrefreshLibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/biu_coach_android.iml" filepath="$PROJECT_DIR$/.idea/biu_coach_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/calendarview/calendarview.iml" filepath="$PROJECT_DIR$/calendarview/calendarview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/datepicker/datepicker.iml" filepath="$PROJECT_DIR$/datepicker/datepicker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/easyPhotos/easyPhotos.iml" filepath="$PROJECT_DIR$/easyPhotos/easyPhotos.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libbannerandroidx/libbannerandroidx.iml" filepath="$PROJECT_DIR$/libbannerandroidx/libbannerandroidx.iml" />
+      <module fileurl="file://$PROJECT_DIR$/okhttputils/okhttputils.iml" filepath="$PROJECT_DIR$/okhttputils/okhttputils.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spinner_lib/spinner_lib.iml" filepath="$PROJECT_DIR$/spinner_lib/spinner_lib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/timelinelibrary/timelinelibrary.iml" filepath="$PROJECT_DIR$/timelinelibrary/timelinelibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/viewpagerindicator/viewpagerindicator.iml" filepath="$PROJECT_DIR$/viewpagerindicator/viewpagerindicator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/zzsecondarylinkage/zzsecondarylinkage.iml" filepath="$PROJECT_DIR$/zzsecondarylinkage/zzsecondarylinkage.iml" />
+    </modules>
+  </component>
+</project>

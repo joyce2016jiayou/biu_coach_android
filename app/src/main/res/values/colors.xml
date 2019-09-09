@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#ffffff</color>
+    <color name="transparent">#00000000</color>
+    <color name="color_70000000">#70000000</color>
+    <color name="top_heiziti">#292C31</color>
+    <color name="color_00000000">#00000000</color>
+    <color name="color_333333">#333333</color>
+    <color name="color_777777">#777777</color>
+    <color name="color_292c31">#292C31</color>
+    <color name="bga_pp_photo_selected_mask">#4D000000</color>
+    <color name="color_F8F8F8">#F8F8F8</color>
+    <color name="color_6D7278">#6D7278</color>
+
+
+    <!--zxing-->
+    <color name="contents_text">#000000</color>
+    <color name="possible_result_points">#ffbd21</color>
+    <color name="result_view">#000000</color>
+    <color name="viewfinder_mask">#50000000</color>
+    <color name="react">#ffffff</color>
+    <color name="scanLineColor">#ffffff</color>
+    <color name="btn_text_color">#76CEE1</color>
+    <color name="edit_bg_color">#F4F4F4</color>
+    <color name="btn_text_gray">#cfcfcf</color>
+
+</resources>

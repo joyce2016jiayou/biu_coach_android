@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">user</string>
+    <string name="setting">设置</string>
+
+    <string name="perm_tip">
+        当前应用缺少必要权限。\n请点击"设置"-"权限"-打开所需权限。\n最后点击两次后退按钮，即可返回。
+    </string>
+    <string name="ask_again">请给予应用必要权限，让程序可正常工作。</string>
+    <string name="cancel">取消</string>
+
+    <string name="alert_dialog_tishi1">温馨提示</string>
+    <string name="alert_dialog_tishi2">解绑银行卡</string>
+    <string name="alert_dialog_cached_cancel">取消</string>
+    <string name="alert_dialog_cached_ok">确认</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <!--zxing-->
+    <string name="msg_camera_framework_bug">The camera is occupied or has no camera permission, please check</string>
+    <string name="button_ok">Exit</string>
+    <string name="scan_code">扫描二维码</string>
+    <string name="open_flash">打开闪关灯</string>
+    <string name="close_flash">关闭闪光灯</string>
+    <string name="gallery">相册</string>
+    <string name="scan_failed_tip">Scan image failed, please retry.</string>
+
+    <string name="tips_1">“出门打开手机就能搜到附近美食，长了肉我也很心痛”\n在哔呦，无论出差旅游搬家换工作，都能快速预定周边健身房，心痛不如行动。</string>
+    <string name="tips_2">“昨天问我的私教最擅长哪个领域，他说是销售” \n哔呦为每位教练设定星级成长系统，更有用户标签，帮你找到最合适的专业教练。</string>
+    <string name="tips_3">““你看那家烤肉店，好像在勾引我……” \n先来哔呦定一场明天的燃脂团课，让你的及时享乐不再有罪恶感～</string>
+
+    <string name="find">发现</string>
+    <string name="date_table">时间表</string>
+    <string name="message">消息</string>
+    <string name="my_info">我的</string>
+
+    <string name="edit_hint1">请输入手机号</string>
+    <string name="edit_hint5">请输入验证码</string>
+    <string name="tv1">登 录</string>
+
+    <string name="tv6">发送验证码</string>
+
+
+</resources>

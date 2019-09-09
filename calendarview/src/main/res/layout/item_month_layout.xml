@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:gravity="center"
+              android:orientation="vertical">
+
+
+    <LinearLayout
+            android:id="@+id/lin_tv_bg"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+        <TextView
+                android:id="@+id/solar_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="111"/>
+
+        <ImageView
+                android:id="@+id/circle_status"
+                android:layout_width="7dp"
+                android:layout_height="7dp"
+                android:src="@drawable/circle_bg"
+                android:visibility="visible"/>
+    </LinearLayout>
+
+    <TextView
+            android:id="@+id/lunar_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="222"
+            android:textColor="@android:color/holo_red_dark"
+            android:visibility="gone"/>
+
+</LinearLayout>

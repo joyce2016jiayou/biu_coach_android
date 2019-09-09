@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: org.linwg1988:lcardview:1.4.2@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4b0b7d090d884173f65494673159aa23/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4b0b7d090d884173f65494673159aa23/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.linwg1988/lcardview/1.4.2/16b2be5ec558a252c0267c5d88bd25c5ee459edc/lcardview-1.4.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
