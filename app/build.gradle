@@ -161,12 +161,8 @@ dependencies {
     //下拉框
     implementation project(':spinner_lib')
 
-    //时间选择
-    implementation project(':WheelPicker')
-
     //日志打印
     implementation 'com.orhanobut:logger:2.2.0'
-
 
     //九宫格图片
     implementation 'com.github.bumptech.glide:glide:3.7.0'
@@ -224,4 +220,8 @@ dependencies {
 
     //微信SDK接入
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+
+    //pickview
+    implementation project(':pickerview1')
+
 }

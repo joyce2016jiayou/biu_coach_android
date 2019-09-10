@@ -33,10 +33,58 @@
     <string name="my_info">我的</string>
 
     <string name="edit_hint1">请输入手机号</string>
+    <string name="edit_hint2">请输入密码</string>
+    <string name="edit_hint3">请再次输入密码</string>
+
     <string name="edit_hint5">请输入验证码</string>
     <string name="tv1">登 录</string>
-
+    <string name="tv2">biu一下，遇见自己</string>
+    <string name="tv3">密码登录</string>
+    <string name="tv4">忘记密码</string>
+    <string name="tv5">用户协议及隐私政策</string>
     <string name="tv6">发送验证码</string>
+    <string name="tv7">不同意</string>
+    <string name="tv8">同意</string>
+    <string name="tv9">申请成为哔哟教练</string>
+    <string name="tv10">哔哟让你：</string>
+    <string name="tv11">不受场馆制约，人人都是你的潜在用户</string>
+    <string name="tv12">教练不再做销售，我们帮你宣传自己</string>
+    <string name="tv13">手机接单更方便，工作时间自己做主</string>
+    <string name="tv14">团课教练</string>
+    <string name="tv15">私人教练</string>
+    <string name="tv16">您已选择申请团课教练，如后续想要变换或添加申请，可去我的-设置-教练类型管理中操作。</string>
+    <string name="tv17">取消</string>
+    <string name="tv18">确定</string>
+    <string name="tv19">您已选择申请私人教练，如后续想要变换或添加申请，可去我的-设置-教练类型管理中操作。</string>
+    <string name="tv20">密码设置</string>
+    <string name="tv21">跳过</string>
+    <string name="tv22">请输入6-18位同时包含字母、数字的密码</string>
+    <string name="tv23">确认</string>
+    <string name="tv24">教练入驻</string>
+    <string name="tv25">上传您的身份证照片</string>
+    <string name="tv26">身份证正面</string>
+    <string name="tv27">身份证反面</string>
+    <string name="tv28">拍摄照片要求</string>
+    <string name="tv29">标准拍摄</string>
+    <string name="tv30">边框缺失</string>
+    <string name="tv31">照片模糊</string>
+    <string name="tv32">照片曝光</string>
+    <string name="tv33">姓名</string>
+    <string name="tv34">请输入真实姓名</string>
+    <string name="tv35">身份证号</string>
+    <string name="tv36">请输入身份证号</string>
+    <string name="tv37">性别</string>
+    <string name="tv38">请选择</string>
+    <string name="tv39">手机号</string>
+    <string name="tv40">请输入手机号</string>
+    <string name="tv41">所在城市</string>
+    <string name="tv42">请选择城市</string>
+    <string name="tv43">入行时间</string>
+    <string name="tv44">毕业院校</string>
+    <string name="tv45">请输入毕业院校</string>
+    <string name="tv46">下一步</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

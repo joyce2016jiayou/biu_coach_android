@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:orientation="vertical"
+            tools:context=".fragment.StepOneFragment">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+        <include
+                layout="@layout/ruzhu_tem1"/>
+
+        <include
+                layout="@layout/ruzhu_tem2"
+                />
+        <com.noplugins.keepfit.coachplatform.util.ui.LoadingButton
+                android:id="@+id/xiayibu_btn"
+                android:layout_width="@dimen/m209"
+                android:layout_gravity="center_horizontal"
+                app:btnText="@string/tv46"
+                android:layout_marginTop="@dimen/m25"
+                android:layout_marginBottom="@dimen/m27"
+                app:quickClickLimit="2000"
+                android:layout_height="@dimen/m50"/>
+    </LinearLayout>
+
+</ScrollView>

@@ -25,11 +25,11 @@ public class StepView extends View {
     private Paint linePaint;    //进度线画笔
     private int stepNum = 0;
     private int currentStep = 0;    //当前步骤(从0开始)
-    private int lineDoneColor = Color.parseColor("#76CEE1");
+    private int lineDoneColor = Color.parseColor("#00BABB");
     private int lineDefaultColor = Color.parseColor("#cfcfcf");
-    private int circleSelectColor = Color.parseColor("#76CEE1");
+    private int circleSelectColor = Color.parseColor("#00BABB");
     private int circleDefaultColor = Color.parseColor("#cfcfcf");
-    private int textSelectColor = Color.parseColor("#76CEE1");
+    private int textSelectColor = Color.parseColor("#00BABB");
     private int textDefaultColor = Color.parseColor("#cfcfcf");
     private int quanDefaultColor = Color.parseColor("#ffffff");
 

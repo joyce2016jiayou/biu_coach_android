@@ -74,13 +74,24 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:usesCleartextTraffic="true"
             tools:ignore="GoogleAppIndexingWarning">
-
-        <activity android:name=".activity.SplashActivity">
+        <activity android:name=".activity.CheckStatusActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".activity.SetPasswordActivity">
+        </activity>
+        <activity android:name=".activity.TuankeRoleActivity">
+        </activity>
+        <activity android:name=".activity.SelectRoleActivity">
+        </activity>
+        <activity android:name=".activity.SplashActivity">
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN"/>-->
+            <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--</intent-filter>-->
         </activity>
         <activity android:name=".activity.WelcomeGuideActivity">
         </activity>
@@ -88,18 +99,14 @@
                 android:name=".MainActivity"
                 android:launchMode="singleTask">
         </activity>
-
         <activity android:name=".activity.LoginActivity">
-
         </activity>
-
 
         <meta-data
                 android:name="com.amap.api.v2.apikey"
                 android:value="f6c5c161b7e9378879e0d7a901eb868f"/>
 
-        <service android:name="com.amap.api.location.APSService"/>
-        <!-- 存储权限 authorities="你的包名+fileprovider" -->
+        <service android:name="com.amap.api.location.APSService"/> <!-- 存储权限 authorities="你的包名+fileprovider" -->
         <provider
                 android:name="androidx.core.content.FileProvider"
                 android:authorities="com.noplugins.keepfit.coachplatform.fileprovider"

@@ -26,4 +26,9 @@
         <attr name="isShowRowLine" format="boolean"/>
         <attr name="isLinearGradient" format="boolean"/>
     </declare-styleable>
+    <declare-styleable name="LoadingButton">
+        <attr name="btnText" format="string"/>
+        <attr name="quickClickLimit" format="integer"/>
+        <attr name="bg" format="reference"/>
+    </declare-styleable>
 </resources>

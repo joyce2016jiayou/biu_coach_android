@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <LinearLayout
+            android:layout_width="@dimen/m270"
+            android:layout_marginTop="@dimen/m63"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical"
+            android:background="@drawable/select_role2"
+            android:layout_height="@dimen/m157">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv14"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:layout_marginTop="@dimen/m9"
+                android:layout_gravity="center_horizontal"
+                />
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/m20"
+                android:layout_marginLeft="@dimen/m4"
+                android:layout_height="wrap_content">
+
+            <ImageView
+                    android:layout_width="@dimen/m16"
+                    android:layout_height="@dimen/m16"
+                    android:layout_marginTop="@dimen/m4"
+                    android:layout_gravity="top"
+                    android:src="@drawable/gantanhao"
+                    />
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:layout_marginLeft="@dimen/m2"
+                    android:layout_marginRight="@dimen/m20"
+                    android:layout_gravity="top"
+                    android:lineSpacingExtra="@dimen/m10"
+                    android:textColor="@color/white"
+                    android:text="@string/tv16"
+                    />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+            android:layout_marginLeft="@dimen/m20"
+            android:layout_marginRight="@dimen/m20"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="@dimen/m106"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:id="@+id/cancel_sijiao_btn"
+                android:text="@string/tv17"
+                android:textSize="20sp"
+                android:background="@drawable/quxiao_bg1"
+                android:textColor="@color/white"
+                android:layout_width="@dimen/m140"
+                android:gravity="center"
+                android:layout_alignParentLeft="true"
+                android:layout_height="@dimen/m44"/>
+
+        <TextView
+                android:id="@+id/sijiao_sure_btn"
+                android:text="@string/tv18"
+                android:textSize="20sp"
+                android:background="@drawable/quxiao_bg1"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:layout_width="@dimen/m140"
+                android:layout_alignParentRight="true"
+                android:layout_height="@dimen/m44"/>
+
+    </RelativeLayout>
+</RelativeLayout>

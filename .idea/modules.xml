@@ -14,9 +14,12 @@
       <module fileurl="file://$PROJECT_DIR$/easyPhotos/easyPhotos.iml" filepath="$PROJECT_DIR$/easyPhotos/easyPhotos.iml" />
       <module fileurl="file://$PROJECT_DIR$/libbannerandroidx/libbannerandroidx.iml" filepath="$PROJECT_DIR$/libbannerandroidx/libbannerandroidx.iml" />
       <module fileurl="file://$PROJECT_DIR$/okhttputils/okhttputils.iml" filepath="$PROJECT_DIR$/okhttputils/okhttputils.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pickerview/pickerview.iml" filepath="$PROJECT_DIR$/pickerview/pickerview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pickerview1/pickerview1.iml" filepath="$PROJECT_DIR$/pickerview1/pickerview1.iml" />
       <module fileurl="file://$PROJECT_DIR$/spinner_lib/spinner_lib.iml" filepath="$PROJECT_DIR$/spinner_lib/spinner_lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/timelinelibrary/timelinelibrary.iml" filepath="$PROJECT_DIR$/timelinelibrary/timelinelibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/viewpagerindicator/viewpagerindicator.iml" filepath="$PROJECT_DIR$/viewpagerindicator/viewpagerindicator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wheelview1/wheelview1.iml" filepath="$PROJECT_DIR$/wheelview1/wheelview1.iml" />
       <module fileurl="file://$PROJECT_DIR$/zzsecondarylinkage/zzsecondarylinkage.iml" filepath="$PROJECT_DIR$/zzsecondarylinkage/zzsecondarylinkage.iml" />
     </modules>
   </component>
