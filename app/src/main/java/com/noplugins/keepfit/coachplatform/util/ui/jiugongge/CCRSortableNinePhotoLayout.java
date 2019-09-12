@@ -45,7 +45,8 @@ import static androidx.recyclerview.widget.ItemTouchHelper.ACTION_STATE_IDLE;
 
 /**
  * 在此写用途
- *拖拽排序九宫格图片控件
+ * 拖拽排序九宫格图片控件
+ *
  * @Author: Acheng
  * @Email: 345887272@qq.com
  * @Date: 2017-09-22 16:47
@@ -336,8 +337,8 @@ public class CCRSortableNinePhotoLayout extends RecyclerView implements CCROnIte
         int height = resolveSize(expectHeight, heightMeasureSpec);
         width = Math.min(width, expectWidth);
         height = Math.min(height, expectHeight);
-        Log.e("放假看来都是",width+"");
-        Log.e("q1111放假看来都是",height+"");
+        Log.e("放假看来都是", width + "");
+        Log.e("q1111放假看来都是", height + "");
 
         setMeasuredDimension(width, height);
     }
@@ -410,7 +411,10 @@ public class CCRSortableNinePhotoLayout extends RecyclerView implements CCROnIte
 
     public void setDelegate(Delegate delegate) {
         mDelegate = delegate;
+
     }
+
+
 
     private class PhotoAdapter extends CCRRecyclerViewAdapter<String> {
         private int mImageSize;
@@ -418,11 +422,14 @@ public class CCRSortableNinePhotoLayout extends RecyclerView implements CCROnIte
         public PhotoAdapter(RecyclerView recyclerView) {
             super(recyclerView, R.layout.bga_pp_item_nine_photo_update);
             mImageSize = CCRPhotoPickerUtil.getScreenWidth() / (mItemSpanCount > 3 ? 8 : 6);
+
         }
 
         @Override
         protected void setItemChildListener(CCRViewHolderHelper helper, int viewType) {
             helper.setItemChildClickListener(R.id.iv_item_nine_photo_flag);
+
+
         }
 
         @Override
@@ -532,10 +539,16 @@ public class CCRSortableNinePhotoLayout extends RecyclerView implements CCROnIte
     }
 
     public interface Delegate {
-        void onClickAddNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view, int position, ArrayList<String> models);
+        void onClickAddNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view,
+                                     int position, ArrayList<String> models);
 
-        void onClickDeleteNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view, int position, String model, ArrayList<String> models);
+        void onClickDeleteNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view,
+                                        int position, String model, ArrayList<String> models);
 
-        void onClickNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view, int position, String model, ArrayList<String> models);
+        void onClickNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view,
+                                  int position, String model, ArrayList<String> models);
+
+
+
     }
 }

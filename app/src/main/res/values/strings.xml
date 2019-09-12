@@ -83,6 +83,26 @@
     <string name="tv44">毕业院校</string>
     <string name="tv45">请输入毕业院校</string>
     <string name="tv46">下一步</string>
+    <string name="tv47">拍照</string>
+    <string name="tv48">选择图片</string>
+    <string name="tv49">擅长课程</string>
+    <string name="tv50">证书资质</string>
+    <string name="tv51">注：</string>
+    <string name="tv52">1. 上传有效期内您本人的专业证书，证书请完整显示姓名、证书名称、颁发日期及有效期。</string>
+    <string name="tv53">2. 不超过40张照片。</string>
+    <string name="tv54">授课图片</string>
+    <string name="tv55">1. 上传照片需提现本人授课情况。</string>
+    <string name="tv56">2. 不超过10张照片。</string>
+    <string name="tv57">添加证书</string>
+    <string name="tv58">证书类型</string>
+    <string name="tv59">证书名称</string>
+    <string name="tv60">请输入证书名称</string>
+    <string name="tv61">获证时间</string>
+    <string name="tv62">证书图片</string>
+    <string name="tv63">可清晰看出证书姓名、有效期。</string>
+    <string name="tv64">继续添加</string>
+    <string name="tv65">完成</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

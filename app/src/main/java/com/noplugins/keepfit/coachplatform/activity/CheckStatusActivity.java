@@ -13,6 +13,7 @@ import com.noplugins.keepfit.coachplatform.adapter.ContentPagerAdapterMy;
 import com.noplugins.keepfit.coachplatform.base.BaseActivity;
 import com.noplugins.keepfit.coachplatform.callback.DialogCallBack;
 import com.noplugins.keepfit.coachplatform.fragment.StepOneFragment;
+import com.noplugins.keepfit.coachplatform.fragment.StepTwoFragment;
 import com.noplugins.keepfit.coachplatform.util.ui.LoadingButton;
 import com.noplugins.keepfit.coachplatform.util.ui.NoScrollViewPager;
 import com.noplugins.keepfit.coachplatform.util.ui.PopWindowHelper;
@@ -65,7 +66,7 @@ public class CheckStatusActivity extends BaseActivity {
 
         //设置视图
         tabFragments.add(StepOneFragment.homeInstance("第一页"));
-        tabFragments.add(StepOneFragment.homeInstance("第二页"));
+        tabFragments.add(StepTwoFragment.homeInstance("第二页"));
         tabFragments.add(StepOneFragment.homeInstance("第三页"));
         ContentPagerAdapterMy contentAdapter = new ContentPagerAdapterMy(getSupportFragmentManager(), tabFragments);
         viewpager_content.setAdapter(contentAdapter);

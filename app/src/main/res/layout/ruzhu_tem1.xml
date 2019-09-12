@@ -4,6 +4,7 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
+
     <www.linwg.org.lib.LCardView
             android:layout_width="match_parent"
             android:orientation="vertical"
@@ -28,105 +29,104 @@
                     android:textSize="15sp"
                     />
 
-            <FrameLayout
-                    android:layout_width="wrap_content"
+
+            <RelativeLayout
                     android:layout_marginTop="@dimen/m10"
+                    android:id="@+id/select_card_zheng"
+                    android:layout_width="@dimen/m245"
                     android:layout_gravity="center"
-                    android:layout_height="wrap_content">
-
-                <RelativeLayout
-                        android:layout_width="@dimen/m245"
-                        android:layout_gravity="clip_horizontal"
-                        android:layout_height="@dimen/m141">
-
-                    <ImageView
-                            android:layout_width="@dimen/m130"
-                            android:src="@drawable/card_zheng"
-                            android:layout_centerVertical="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_height="@dimen/m88"/>
-
-                    <View
-                            android:layout_width="match_parent"
-                            android:background="@drawable/mengban"
-                            android:layout_height="match_parent"/>
-
-                    <ImageView
-                            android:layout_width="@dimen/m42"
-                            android:src="@drawable/camare_white"
-                            android:layout_centerVertical="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_height="@dimen/m42"/>
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/tv26"
-                            android:layout_centerHorizontal="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginBottom="@dimen/m8"
-                            android:textColor="@color/white"
-                            android:textSize="12sp"
-                            />
-                </RelativeLayout>
+                    android:background="@color/white"
+                    android:layout_height="@dimen/m141">
 
                 <ImageView
-                        android:layout_width="@dimen/m245"
+                        android:id="@+id/card_zheng_img"
+                        android:layout_width="match_parent"
                         android:src="@color/white"
                         android:visibility="gone"
-                        android:layout_height="@dimen/m141"/>
+                        android:scaleType="fitCenter"
+                        android:layout_height="match_parent"/>
 
-            </FrameLayout>
+                <ImageView
+                        android:id="@+id/card_zheng_view"
+                        android:layout_width="@dimen/m130"
+                        android:src="@drawable/card_zheng"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_height="@dimen/m88"/>
 
-            <FrameLayout
-                    android:layout_width="wrap_content"
+                <View
+                        android:layout_width="match_parent"
+                        android:background="@drawable/mengban"
+                        android:layout_height="match_parent"/>
+
+                <ImageView
+                        android:layout_width="@dimen/m42"
+                        android:src="@drawable/camare_white"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_height="@dimen/m42"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tv26"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="@dimen/m8"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                    android:id="@+id/select_card_fan"
+                    android:layout_width="@dimen/m245"
                     android:layout_marginTop="@dimen/m15"
                     android:layout_gravity="center"
-                    android:layout_height="wrap_content">
-
-                <RelativeLayout
-                        android:layout_width="@dimen/m245"
-                        android:layout_gravity="clip_horizontal"
-                        android:layout_height="@dimen/m141">
-
-                    <ImageView
-                            android:layout_width="@dimen/m130"
-                            android:src="@drawable/card_fan"
-                            android:layout_centerVertical="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_height="@dimen/m88"/>
-
-                    <View
-                            android:layout_width="match_parent"
-                            android:background="@drawable/mengban"
-                            android:layout_height="match_parent"/>
-
-                    <ImageView
-                            android:layout_width="@dimen/m42"
-                            android:src="@drawable/camare_white"
-                            android:layout_centerVertical="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_height="@dimen/m42"/>
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/tv27"
-                            android:layout_centerHorizontal="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginBottom="@dimen/m8"
-                            android:textColor="@color/white"
-                            android:textSize="12sp"
-                            />
-                </RelativeLayout>
+                    android:background="@color/white"
+                    android:layout_height="@dimen/m141">
 
                 <ImageView
-                        android:layout_width="@dimen/m245"
+                        android:id="@+id/card_fan_img"
+                        android:layout_width="match_parent"
                         android:src="@color/white"
                         android:visibility="gone"
-                        android:layout_height="@dimen/m141"/>
+                        android:scaleType="fitCenter"
+                        android:layout_height="match_parent"/>
 
-            </FrameLayout>
+                <ImageView
+                        android:id="@+id/card_fan_view"
+                        android:layout_width="@dimen/m130"
+                        android:src="@drawable/card_fan"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_height="@dimen/m88"/>
+
+                <View
+                        android:layout_width="match_parent"
+                        android:background="@drawable/mengban"
+                        android:layout_height="match_parent"/>
+
+                <ImageView
+                        android:layout_width="@dimen/m42"
+                        android:src="@drawable/camare_white"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_height="@dimen/m42"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tv27"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="@dimen/m8"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        />
+            </RelativeLayout>
+
 
             <LinearLayout
                     android:layout_width="match_parent"
@@ -166,25 +166,30 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="@dimen/m14"
                     android:layout_height="wrap_content">
+
                 <LinearLayout
                         android:layout_width="wrap_content"
                         android:orientation="vertical"
                         android:gravity="center_horizontal"
                         android:layout_height="wrap_content">
+
                     <ImageView
                             android:layout_width="@dimen/m80"
                             android:src="@drawable/card1"
                             android:layout_height="@dimen/m52"
                             />
+
                     <LinearLayout
                             android:layout_width="wrap_content"
                             android:orientation="horizontal"
                             android:gravity="center_vertical"
                             android:layout_height="wrap_content">
+
                         <ImageView
                                 android:layout_width="@dimen/m16"
                                 android:src="@drawable/duihao"
                                 android:layout_height="@dimen/m16"/>
+
                         <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_marginLeft="@dimen/m5"
@@ -195,25 +200,30 @@
                                 />
                     </LinearLayout>
                 </LinearLayout>
+
                 <LinearLayout
                         android:layout_width="wrap_content"
                         android:orientation="vertical"
                         android:gravity="center_horizontal"
                         android:layout_height="wrap_content">
+
                     <ImageView
                             android:layout_width="@dimen/m80"
                             android:src="@drawable/card2"
                             android:layout_height="@dimen/m52"
                             />
+
                     <LinearLayout
                             android:layout_width="wrap_content"
                             android:orientation="horizontal"
                             android:gravity="center_vertical"
                             android:layout_height="wrap_content">
+
                         <ImageView
                                 android:layout_width="@dimen/m13"
                                 android:src="@drawable/chahao"
                                 android:layout_height="@dimen/m13"/>
+
                         <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_marginLeft="@dimen/m5"
@@ -224,25 +234,30 @@
                                 />
                     </LinearLayout>
                 </LinearLayout>
+
                 <LinearLayout
                         android:layout_width="wrap_content"
                         android:orientation="vertical"
                         android:gravity="center_horizontal"
                         android:layout_height="wrap_content">
+
                     <ImageView
                             android:layout_width="@dimen/m80"
                             android:src="@drawable/card3"
                             android:layout_height="@dimen/m52"
                             />
+
                     <LinearLayout
                             android:layout_width="wrap_content"
                             android:orientation="horizontal"
                             android:gravity="center_vertical"
                             android:layout_height="wrap_content">
+
                         <ImageView
                                 android:layout_width="@dimen/m13"
                                 android:src="@drawable/chahao"
                                 android:layout_height="@dimen/m13"/>
+
                         <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_marginLeft="@dimen/m5"
@@ -253,25 +268,30 @@
                                 />
                     </LinearLayout>
                 </LinearLayout>
+
                 <LinearLayout
                         android:layout_width="wrap_content"
                         android:orientation="vertical"
                         android:gravity="center_horizontal"
                         android:layout_height="wrap_content">
+
                     <ImageView
                             android:layout_width="@dimen/m80"
                             android:src="@drawable/card4"
                             android:layout_height="@dimen/m52"
                             />
+
                     <LinearLayout
                             android:layout_width="wrap_content"
                             android:orientation="horizontal"
                             android:gravity="center_vertical"
                             android:layout_height="wrap_content">
+
                         <ImageView
                                 android:layout_width="@dimen/m13"
                                 android:src="@drawable/chahao"
                                 android:layout_height="@dimen/m13"/>
+
                         <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_marginLeft="@dimen/m3"

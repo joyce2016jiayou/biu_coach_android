@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+                android:id="@+id/pop_bg"
+              android:layout_height="match_parent">
+
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:background="@drawable/sex_pop_bg"
+            android:layout_alignParentBottom="true"
+            android:layout_height="@dimen/m194">
+
+    <TextView
+            android:id="@+id/paizhao_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_alignParentTop="true"
+            android:text="@string/tv47"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/m27"
+            android:textColor="@color/color_lan"
+
+            />
+
+    <TextView
+            android:layout_below="@+id/paizhao_btn"
+            android:id="@+id/xiangce_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/tv48"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/m20"
+            android:textColor="@color/color_lan"
+            />
+
+    <View
+            android:layout_below="@+id/xiangce_btn"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/m22"
+            android:background="@color/btn_text_gray"
+            android:layout_height="@dimen/m1"/>
+
+    <TextView
+            android:id="@+id/cancel_btn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/m68"
+            android:gravity="center"
+            android:text="@string/cancel"
+            android:layout_alignParentBottom="true"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/color_B7B7B7"
+
+            />
+    </RelativeLayout>
+
+</RelativeLayout>

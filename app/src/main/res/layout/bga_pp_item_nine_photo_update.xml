@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="54dp"
-    android:layout_height="54dp">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:orientation="vertical"
+                android:layout_width="@dimen/m95"
+                android:layout_height="@dimen/m95">
 
 
-        <com.noplugins.keepfit.coachplatform.util.ui.jiugongge.CCRImageView
+    <com.noplugins.keepfit.coachplatform.util.ui.jiugongge.CCRImageView
             android:id="@+id/iv_item_nine_photo_photo"
-            android:layout_width="44dp"
+            android:layout_width="@dimen/m90"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_height="44dp"
+            android:layout_height="@dimen/m90"
             app:bga_iv_square="true"
             android:scaleType="centerCrop"
-            android:src="@drawable/jia_image" />
+            android:src="@drawable/jia_image"/>
 
-        <ImageView
+    <ImageView
             android:id="@+id/iv_item_nine_photo_flag"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_marginRight="3dp"
-            android:layout_marginTop="3dp"
+            android:layout_width="@dimen/m16"
+            android:layout_height="@dimen/m16"
+            android:layout_marginRight="@dimen/m2"
+            android:layout_marginTop="@dimen/m2"
             android:clickable="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:visibility="gone"
             tools:visibility="visible"
-            android:src="@drawable/delete_image" />
+            android:src="@drawable/delete_image"/>
 </RelativeLayout>

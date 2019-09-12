@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:app="http://schemas.android.com/apk/res-auto"
+       android:orientation="vertical"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+    <www.linwg.org.lib.LCardView
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            app:shadowStartAlpha="10"
+            app:cornerRadius="@dimen/m8"
+            app:shadowSize="@dimen/m2"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <LinearLayout
+                    android:id="@+id/lin_left"
+                    android:layout_width="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="@dimen/m20"
+                    android:layout_marginTop="@dimen/m20"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="@dimen/m15"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:text="@string/tv49"
+                        android:textColor="@color/top_heiziti"
+                        android:textSize="15sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:id="@+id/tag_num"
+                        android:text="(2/7)"
+                        android:textColor="@color/color_4A4A4A"
+                        android:layout_marginTop="@dimen/m5"
+                        android:textSize="13sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <GridView
+                    android:id="@+id/grid_view"
+                    android:layout_toRightOf="@+id/lin_left"
+                    android:layout_width="wrap_content"
+                    android:layout_marginRight="@dimen/m6"
+                    android:layout_marginBottom="@dimen/m15"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/m15"
+                    android:layout_marginLeft="@dimen/m30"
+                    android:gravity="center"
+                    android:numColumns="3"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="@dimen/m11"/>
+        </RelativeLayout>
+    </www.linwg.org.lib.LCardView>
+</merge>

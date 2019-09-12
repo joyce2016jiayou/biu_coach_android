@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <www.linwg.org.lib.LCardView
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            app:shadowStartAlpha="10"
+            android:layout_marginTop="@dimen/m5"
+            app:cornerRadius="@dimen/m8"
+            app:shadowSize="@dimen/m2"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:text="@string/tv50"
+                    android:textColor="@color/top_heiziti"
+                    android:textSize="15sp"
+                    android:layout_marginTop="@dimen/m15"
+                    android:layout_marginLeft="@dimen/m20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <TextView
+                    android:text="@string/tv51"
+                    android:textColor="@color/color_4A4A4A"
+                    android:layout_marginTop="@dimen/m5"
+                    android:textSize="10sp"
+                    android:layout_marginLeft="@dimen/m20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <TextView
+                    android:text="@string/tv52"
+                    android:textColor="@color/color_4A4A4A"
+                    android:layout_marginTop="@dimen/m3"
+                    android:textSize="10sp"
+                    android:layout_marginLeft="@dimen/m20"
+                    android:layout_marginRight="@dimen/m20"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            <TextView
+                    android:text="@string/tv53"
+                    android:textColor="@color/color_4A4A4A"
+                    android:layout_marginTop="@dimen/m3"
+                    android:textSize="10sp"
+                    android:layout_marginLeft="@dimen/m20"
+                    android:layout_marginRight="@dimen/m20"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            <com.noplugins.keepfit.coachplatform.util.ui.jiugongge.CCRSortableNinePhotoLayout
+                    android:id="@+id/select_zhengshu_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:bga_snpl_deleteDrawable="@drawable/delete_image"
+                    app:bga_snpl_deleteDrawableOverlapQuarter="false"
+                    app:bga_snpl_editable="true"
+                    app:bga_snpl_itemCornerRadius="0dp"
+                    app:bga_snpl_itemSpanCount="3"
+                    app:bga_snpl_itemWhiteSpacing="0dp"
+                    android:layout_marginLeft="@dimen/m20"
+                    android:layout_marginRight="@dimen/m20"
+                    app:bga_snpl_itemWidth="0dp"
+                    app:bga_snpl_maxItemCount="40"
+                    app:bga_snpl_placeholderDrawable="@drawable/bga_pp_ic_holder_dark"
+                    app:bga_snpl_plusDrawable="@drawable/add_image_moren"
+                    app:bga_snpl_plusEnable="true"
+                    app:bga_snpl_sortable="true"/>
+
+        </LinearLayout>
+    </www.linwg.org.lib.LCardView>
+</LinearLayout>

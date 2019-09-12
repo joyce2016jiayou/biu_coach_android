@@ -12,6 +12,9 @@ public class AppConstants {
     public static final String LOCATION = "location";
     public static final String LAT = "currentLat";//维度
     public static final String LON = "currentLon";//精度
-    public static String IS_SET_ALIAS="is_set_alias";
+    public static String IS_SET_ALIAS = "is_set_alias";
+    public static int SELECT_ZHENGSHU_IMAGE_SIZE = 0;//上证书图片的数量
+    public static int SELECT_SHOUKE_IMAGE_SIZE = 0;//上传授课图片的数量
+    public static int SELECT_ZHENGSHU_IMAGE_SIZE_TWO = 0;//上证书图片的数量
 
 }

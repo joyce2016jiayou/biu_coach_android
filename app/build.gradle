@@ -46,11 +46,13 @@ android {
             debuggable true
             jniDebuggable true
 //            minifyEnabled true /*发布版一定要混淆，下面是混淆文件*/
-//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
 
         }
+
     }
+
     packagingOptions {
         exclude('META-INF/LICENSE')
         exclude 'META-INF/rxjava.properties'
@@ -223,5 +225,10 @@ dependencies {
 
     //pickview
     implementation project(':pickerview1')
+
+    //身份证拍照
+    //implementation project(':idcardcamera')
+    implementation project(':idcardcamera')
+
 
 }

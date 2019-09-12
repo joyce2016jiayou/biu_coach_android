@@ -117,6 +117,7 @@
                         android:layout_height="@dimen/m31">
 
                     <TextView
+                            android:id="@+id/sex_tv"
                             android:layout_width="wrap_content"
                             android:hint="@string/tv38"
                             android:background="@null"
@@ -221,6 +222,7 @@
                         android:layout_height="@dimen/m31">
 
                     <TextView
+                            android:id="@+id/address_tv"
                             android:layout_width="wrap_content"
                             android:hint="@string/tv42"
                             android:background="@null"
@@ -306,6 +308,7 @@
                         android:layout_height="@dimen/m31">
 
                     <TextView
+                            android:id="@+id/time_tv"
                             android:layout_width="wrap_content"
                             android:hint="@string/tv38"
                             android:background="@null"
