@@ -16,7 +16,8 @@
     <color name="color_4A4A4A">#4A4A4A</color>
     <color name="color_929292">#929292</color>
 
-
+    <color name="color_181818">#181818</color>
+    <color name="line_color">#1A000000</color>
 
     <!--zxing-->
     <color name="contents_text">#000000</color>

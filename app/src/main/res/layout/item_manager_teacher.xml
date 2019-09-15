@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<www.linwg.org.lib.LCardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tool="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/m20"
+        android:layout_marginRight="@dimen/m20">
+
+    <RelativeLayout
+            android:id="@+id/rl_jump"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:id="@+id/tv_time_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_4A4A4A"
+                android:textSize="13sp"
+                tool:text="2019-09-11"
+                android:layout_marginLeft="@dimen/m10"
+                android:layout_marginTop="@dimen/m10"/>
+
+        <TextView
+                android:id="@+id/tv_time_week"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_4A4A4A"
+                android:layout_toRightOf="@+id/tv_time_day"
+                android:textSize="13sp"
+                android:layout_marginTop="@dimen/m10"
+                android:layout_marginLeft="@dimen/m20"
+                tool:text="周三"/>
+
+        <TextView
+                android:id="@+id/tv_time_hour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_4A4A4A"
+                android:layout_toRightOf="@+id/tv_time_week"
+                android:textSize="13sp"
+                android:layout_marginTop="@dimen/m10"
+                android:layout_marginLeft="@dimen/m20"
+                tool:text="11:30-12:10"
+                android:layout_toLeftOf="@+id/tv_item"/>
+
+        <TextView
+                android:id="@+id/tv_item"
+                android:layout_width="@dimen/m59"
+                android:layout_height="@dimen/m24"
+                android:textSize="13sp"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:text="已上架"
+                android:background="@drawable/type_bg"
+                android:layout_marginRight="@dimen/m20"
+                android:layout_marginTop="@dimen/m10"
+                android:layout_alignParentRight="true"/>
+
+        <TextView
+                android:id="@+id/tv_teacher_class"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_4A4A4A"
+                android:textSize="13sp"
+                android:layout_below="@+id/tv_time_day"
+                tool:text="课程：拳击-初级格斗拳击"
+                android:layout_marginLeft="@dimen/m10"
+                android:layout_marginTop="@dimen/m10"/>
+
+        <FrameLayout
+                android:id="@+id/rl_rep"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_teacher_class"
+                android:layout_marginLeft="@dimen/m10"
+                android:layout_marginTop="@dimen/m12">
+
+            <TextView
+                    android:id="@+id/tv_teacher_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_4A4A4A"
+                    android:textSize="13sp"
+                    tool:text="时长:1h"/>
+
+            <TextView
+                    android:id="@+id/tv_teacher_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_4A4A4A"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="@dimen/m20"
+                    tool:text="¥213"/>
+        </FrameLayout>
+
+
+        <RelativeLayout
+                android:id="@+id/ll_rep"
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@+id/rl_rep"
+                android:layout_margin="@dimen/m10"
+                android:layout_height="@dimen/m24">
+
+            <TextView
+                    android:id="@+id/tv_sales_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/m24"
+                    android:textSize="13sp"
+                    android:gravity="center"
+                    android:textColor="@color/color_4A4A4A"
+                    tool:text="已售：32"/>
+            <TextView
+                    android:id="@+id/tv_up_down"
+                    android:layout_width="@dimen/m59"
+                    android:layout_height="@dimen/m24"
+                    android:textSize="13sp"
+                    android:gravity="center"
+                    android:textColor="@color/color_00BABB"
+                    android:layout_alignParentRight="true"
+                    tool:text="下架"/>
+            <TextView
+                    android:id="@+id/tv_edit"
+                    android:layout_width="@dimen/m59"
+                    android:layout_height="@dimen/m24"
+                    android:textSize="13sp"
+                    android:layout_toLeftOf="@+id/tv_up_down"
+                    android:gravity="center"
+                    android:textColor="@color/color_00BABB"
+                    android:layout_marginRight="@dimen/m30"
+                    tool:text="编辑"/>
+        </RelativeLayout>
+    </RelativeLayout>
+</www.linwg.org.lib.LCardView>
