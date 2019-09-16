@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.multidex.MultiDex;
 import androidx.multidex.MultiDexApplication;
 import cn.jpush.android.api.JPushInterface;
+import com.noplugins.keepfit.coachplatform.R;
 import com.noplugins.keepfit.coachplatform.util.net.callback.ErrorCallback;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
@@ -18,6 +19,10 @@ import com.qiniu.android.storage.Recorder;
 import com.qiniu.android.storage.UploadManager;
 import com.qiniu.android.storage.persistent.FileRecorder;
 import com.ql0571.loadmanager.core.LoadManager;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.*;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -58,6 +63,25 @@ public class MyApplication extends MultiDexApplication {
     private static Map<String, Activity> destoryMap = new HashMap<>();
 
     public static UploadManager uploadManager;
+
+    static {
+        //设置全局的Header构建器
+        SmartRefreshLayout.setDefaultRefreshHeaderCreator(new DefaultRefreshHeaderCreator() {
+            @Override
+            public RefreshHeader createRefreshHeader(Context context, RefreshLayout layout) {
+                layout.setPrimaryColorsId(R.color.transparent, android.R.color.darker_gray);//全局设置主题颜色
+                return new ClassicsHeader(context);//.setTimeFormat(new DynamicTimeFormat("更新于 %s"));//指定为经典Header，默认是 贝塞尔雷达Header
+            }
+        });
+        //设置全局的Footer构建器
+        SmartRefreshLayout.setDefaultRefreshFooterCreator(new DefaultRefreshFooterCreator() {
+            @Override
+            public RefreshFooter createRefreshFooter(Context context, RefreshLayout layout) {
+                //指定为经典Footer，默认是 BallPulseFooter
+                return new ClassicsFooter(context).setDrawableSize(20);
+            }
+        });
+    }
 
     @Override
     public void onCreate() {

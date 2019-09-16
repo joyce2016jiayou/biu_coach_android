@@ -64,7 +64,7 @@ public class RecyclerViewEmptySupport extends RecyclerView {
     @Override
     public void setAdapter(Adapter adapter) {
         super.setAdapter(adapter);
-        Log.i(TAG, "setAdapter: adapter::" + adapter);
+        Log.i(TAG, "setAdapterManager: adapterManager::" + adapter);
         if (adapter != null) {
             //这里用了观察者模式，同时把这个观察者添加进去，
             // 至于这个模式怎么用，谷歌一下，不多讲了，因为这个涉及到了Adapter的一些原理，感兴趣可以点进去看看源码，还是受益匪浅的

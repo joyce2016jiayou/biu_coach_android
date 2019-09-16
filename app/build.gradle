@@ -223,12 +223,17 @@ dependencies {
     //微信SDK接入
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
 
+    //bugly
+    implementation 'com.tencent.bugly:crashreport:latest.release'
+
     //pickview
     implementation project(':pickerview1')
 
     //身份证拍照
-    //implementation project(':idcardcamera')
     implementation project(':idcardcamera')
 
+
+    //SmartRefreshLayout
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'
 
 }

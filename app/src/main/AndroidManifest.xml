@@ -78,8 +78,14 @@
 
         </activity>
         <activity android:name=".activity.CheckStatusActivity">
+      <!--  <activity android:name=".activity.ClassManagerActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
 
-        </activity>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>-->
+
         <activity android:name=".activity.SetPasswordActivity">
         </activity>
         <activity android:name=".activity.TuankeRoleActivity">
@@ -88,10 +94,6 @@
         </activity>
         <activity android:name=".activity.SplashActivity">
 
-            <!-- <intent-filter>
-                 <action android:name="android.intent.action.MAIN"/>
-                 <category android:name="android.intent.category.LAUNCHER"/>
-             </intent-filter>-->
         </activity>
         <activity android:name=".activity.WelcomeGuideActivity">
         </activity>
