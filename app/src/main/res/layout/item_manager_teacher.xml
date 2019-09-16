@@ -121,7 +121,7 @@
                     android:layout_height="@dimen/m24"
                     android:textSize="13sp"
                     android:gravity="center"
-                    android:textColor="@color/color_00BABB"
+                    android:textColor="@color/color_lan"
                     android:layout_alignParentRight="true"
                     tool:text="下架"/>
             <TextView
@@ -131,7 +131,7 @@
                     android:textSize="13sp"
                     android:layout_toLeftOf="@+id/tv_up_down"
                     android:gravity="center"
-                    android:textColor="@color/color_00BABB"
+                    android:textColor="@color/color_lan"
                     android:layout_marginRight="@dimen/m30"
                     tool:text="编辑"/>
         </RelativeLayout>

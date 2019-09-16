@@ -154,14 +154,14 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
             R.id.btn_movie -> {
                 viewpager_content.currentItem = 2
-                xianshi_three()
+                xianshi_two()
                 home_name.setTextColor(resources.getColor(R.color.contents_text))
                 movie_name.setTextColor(resources.getColor(R.color.btn_text_color))
                 mine_name.setTextColor(resources.getColor(R.color.contents_text))
             }
             R.id.btn_mine -> {
                 viewpager_content.currentItem = 3
-                xianshi_four()
+                xianshi_three()
                 home_name.setTextColor(resources.getColor(R.color.contents_text))
                 movie_name.setTextColor(resources.getColor(R.color.contents_text))
                 mine_name.setTextColor(resources.getColor(R.color.btn_text_color))
@@ -173,7 +173,6 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         bottom_iamge_views.get(0).setImageResource(R.drawable.icon_home_on)
         bottom_iamge_views.get(1).setImageResource(R.drawable.icon_discover_off)
         bottom_iamge_views.get(2).setImageResource(R.drawable.icon_issue_off)
-        bottom_iamge_views.get(3).setImageResource(R.drawable.icon_user_off)
 
 
     }
@@ -182,22 +181,15 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         bottom_iamge_views.get(0).setImageResource(R.drawable.icon_home_off)
         bottom_iamge_views.get(1).setImageResource(R.drawable.icon_discover_on)
         bottom_iamge_views.get(2).setImageResource(R.drawable.icon_issue_off)
-        bottom_iamge_views.get(3).setImageResource(R.drawable.icon_user_off)
     }
 
     private fun xianshi_three() {
         bottom_iamge_views.get(0).setImageResource(R.drawable.icon_home_off)
         bottom_iamge_views.get(1).setImageResource(R.drawable.icon_discover_off)
         bottom_iamge_views.get(2).setImageResource(R.drawable.icon_issue_on)
-        bottom_iamge_views.get(3).setImageResource(R.drawable.icon_user_off)
     }
 
-    private fun xianshi_four() {
-        bottom_iamge_views.get(0).setImageResource(R.drawable.icon_home_off)
-        bottom_iamge_views.get(1).setImageResource(R.drawable.icon_discover_off)
-        bottom_iamge_views.get(2).setImageResource(R.drawable.icon_issue_off)
-        bottom_iamge_views.get(3).setImageResource(R.drawable.icon_user_on)
-    }
+
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun upadate(messageEvent: MessageEvent) {

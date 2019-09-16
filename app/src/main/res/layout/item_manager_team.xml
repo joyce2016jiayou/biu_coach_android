@@ -184,7 +184,7 @@
                         android:visibility="gone"
                         android:gravity="center"
                         android:layout_gravity="center_vertical|right"
-                        android:textColor="@color/color_00BABB"
+                        android:textColor="@color/color_lan"
                         android:layout_marginRight="@dimen/m10"
                         tool:text="重新申请"/>
             </FrameLayout>
