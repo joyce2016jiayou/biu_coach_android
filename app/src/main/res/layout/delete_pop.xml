@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:gravity="center"
+              android:id="@+id/content_layout"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+            android:layout_width="@dimen/m321"
+            android:orientation="vertical"
+            android:background="@drawable/rizhi_pop_bg"
+            android:layout_height="@dimen/m163">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/top_heiziti"
+                android:textSize="18sp"
+                android:layout_marginTop="@dimen/m24"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/tv66"
+                android:textStyle="bold"
+                />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_4A4A4A"
+                android:textSize="15sp"
+                android:layout_marginTop="@dimen/m15"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/tv67"
+                android:textStyle="normal"
+                />
+
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/m22"
+                android:layout_marginLeft="@dimen/m44"
+                android:layout_marginRight="@dimen/m44"
+                android:layout_height="wrap_content">
+
+            <LinearLayout
+                    android:id="@+id/sure_layout"
+                    android:layout_width="@dimen/m86"
+                    android:orientation="vertical"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center"
+                    android:background="@drawable/sure_bg"
+                    android:layout_height="@dimen/m30">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="normal"
+                        android:text="@string/tv18"
+                        android:textSize="15sp"
+                        android:textColor="@color/color_4A4A4A"
+                        />
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/cancel_layout"
+                    android:layout_width="@dimen/m86"
+                    android:orientation="vertical"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center"
+                    android:background="@drawable/cancel_bg"
+                    android:layout_height="@dimen/m30">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="normal"
+                        android:text="@string/cancel"
+                        android:textSize="15sp"
+                        android:textColor="@color/white"
+                        />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             tools:context=".fragment.StepThreeFragment">
+
+    <LinearLayout
+            android:id="@+id/success_layout"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone"
+            android:layout_height="match_parent">
+
+        <ImageView
+                android:layout_width="@dimen/m40"
+                android:src="@drawable/duigou"
+                android:layout_gravity="center"
+                android:layout_height="@dimen/m40"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/top_heiziti"
+                android:textSize="20sp"
+                android:layout_marginTop="@dimen/m15"
+                android:text="@string/tv69"
+                android:textStyle="bold"
+                />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_4A4A4A"
+                android:textSize="15sp"
+                android:layout_marginTop="@dimen/m15"
+                android:text="@string/tv70"
+                android:textStyle="normal"
+                />
+    </LinearLayout>
+
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="@dimen/m20"
+            android:layout_marginRight="@dimen/m20"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_4A4A4A"
+                    android:textSize="15sp"
+                    android:layout_marginTop="@dimen/m100"
+                    android:text="@string/tv71"
+                    android:textStyle="normal"
+                    />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_4A4A4A"
+                    android:textSize="15sp"
+                    android:layout_marginTop="@dimen/m15"
+                    android:text="@string/tv72"
+                    android:textStyle="normal"
+                    />
+        </LinearLayout>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_4A4A4A"
+                android:textSize="15sp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/m15"
+                android:text="@string/tv73"
+                android:textStyle="normal"
+                />
+
+        <com.noplugins.keepfit.coachplatform.util.ui.LoadingButton
+                android:id="@+id/return_submit"
+                android:layout_width="@dimen/m209"
+                android:layout_gravity="center_horizontal"
+                app:btnText="@string/tv74"
+                android:layout_marginTop="@dimen/m80"
+                app:quickClickLimit="2000"
+                android:layout_height="@dimen/m50"/>
+    </LinearLayout>
+</FrameLayout>

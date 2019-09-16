@@ -11,6 +11,7 @@ import com.google.gson.Gson
 import com.noplugins.keepfit.coachplatform.adapter.ContentPagerAdapterMy
 import com.noplugins.keepfit.coachplatform.base.BaseActivity
 import com.noplugins.keepfit.coachplatform.base.MyApplication
+import com.noplugins.keepfit.coachplatform.fragment.ScheduleFragment
 import com.noplugins.keepfit.coachplatform.global.AppConstants
 import com.noplugins.keepfit.coachplatform.jpush.TagAliasOperatorHelper
 import com.noplugins.keepfit.coachplatform.util.MessageEvent
@@ -45,12 +46,10 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         SpUtils.putString(applicationContext, AppConstants.LON, "" + 121.473701)
 
         bottom_iamge_views.add(home_img)
-        bottom_iamge_views.add(shipu_img)
         bottom_iamge_views.add(movie_img)
         bottom_iamge_views.add(mine_img)
 
         btn_home.setOnClickListener(this)
-        btn_shipu.setOnClickListener(this)
         btn_movie.setOnClickListener(this)
         btn_mine.setOnClickListener(this)
 
@@ -66,10 +65,9 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
     override fun doBusiness(mContext: Context?) {
         //初始化页面
-//        tabFragments.add(FindFragment.findInstance("第一页"))
-//        tabFragments.add(TimeLinFormatFragment.newInstance("第二页"))
-//        tabFragments.add(MessageFragment.newInstance("第三页"))
-//        tabFragments.add(MineFragment.newInstance("第四页"))
+        tabFragments.add(ScheduleFragment.getInstance("第一页"))
+        tabFragments.add(ScheduleFragment.getInstance("第二页"))
+        tabFragments.add(ScheduleFragment.getInstance("第三页"))
         //初始化viewpager
         val contentAdapter = ContentPagerAdapterMy(supportFragmentManager, tabFragments)
         viewpager_content.setAdapter(contentAdapter)
@@ -150,23 +148,14 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                 viewpager_content.currentItem = 0
                 xianshi_one()
                 home_name.setTextColor(resources.getColor(R.color.btn_text_color))
-                shipu_name.setTextColor(resources.getColor(R.color.contents_text))
                 movie_name.setTextColor(resources.getColor(R.color.contents_text))
                 mine_name.setTextColor(resources.getColor(R.color.contents_text))
             }
-            R.id.btn_shipu -> {
-                viewpager_content.currentItem = 1
-                xianshi_two()
-                home_name.setTextColor(resources.getColor(R.color.contents_text))
-                shipu_name.setTextColor(resources.getColor(R.color.btn_text_color))
-                movie_name.setTextColor(resources.getColor(R.color.contents_text))
-                mine_name.setTextColor(resources.getColor(R.color.contents_text))
-            }
+
             R.id.btn_movie -> {
                 viewpager_content.currentItem = 2
                 xianshi_three()
                 home_name.setTextColor(resources.getColor(R.color.contents_text))
-                shipu_name.setTextColor(resources.getColor(R.color.contents_text))
                 movie_name.setTextColor(resources.getColor(R.color.btn_text_color))
                 mine_name.setTextColor(resources.getColor(R.color.contents_text))
             }
@@ -174,7 +163,6 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                 viewpager_content.currentItem = 3
                 xianshi_four()
                 home_name.setTextColor(resources.getColor(R.color.contents_text))
-                shipu_name.setTextColor(resources.getColor(R.color.contents_text))
                 movie_name.setTextColor(resources.getColor(R.color.contents_text))
                 mine_name.setTextColor(resources.getColor(R.color.btn_text_color))
             }
@@ -214,7 +202,6 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun upadate(messageEvent: MessageEvent) {
         if (messageEvent.message == "update_message_num") {//获取消息总数，设置消息总数
-            Log.e("九分裤都是", "kfsld")
             //get_message_all()
         }
     }

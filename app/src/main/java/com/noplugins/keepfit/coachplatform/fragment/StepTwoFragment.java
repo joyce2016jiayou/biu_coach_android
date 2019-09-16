@@ -1,6 +1,7 @@
 package com.noplugins.keepfit.coachplatform.fragment;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,13 +19,23 @@ import com.huantansheng.easyphotos.EasyPhotos;
 import com.huantansheng.easyphotos.models.album.entity.Photo;
 import com.noplugins.keepfit.coachplatform.R;
 import com.noplugins.keepfit.coachplatform.activity.AddZhengshuActivity;
+import com.noplugins.keepfit.coachplatform.activity.CheckStatusActivity;
 import com.noplugins.keepfit.coachplatform.adapter.MineTagAdapter;
+import com.noplugins.keepfit.coachplatform.bean.AddPhotoBean;
 import com.noplugins.keepfit.coachplatform.bean.TagEntity;
 import com.noplugins.keepfit.coachplatform.global.AppConstants;
 import com.noplugins.keepfit.coachplatform.util.GlideEngine;
+import com.noplugins.keepfit.coachplatform.util.MessageEvent;
+import com.noplugins.keepfit.coachplatform.util.ui.LoadingButton;
+import com.noplugins.keepfit.coachplatform.util.ui.NoScrollViewPager;
+import com.noplugins.keepfit.coachplatform.util.ui.StepView;
 import com.noplugins.keepfit.coachplatform.util.ui.ViewPagerFragment;
 import com.noplugins.keepfit.coachplatform.util.ui.jiugongge.CCRSortableNinePhotoLayout;
 import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow;
+import com.orhanobut.logger.Logger;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -45,6 +56,10 @@ public class StepTwoFragment extends ViewPagerFragment {
     CCRSortableNinePhotoLayout select_shouke_view;
     @BindView(R.id.select_zhengshu_view)
     CCRSortableNinePhotoLayout select_zhengshu_view;
+    @BindView(R.id.submit_btn)
+    LoadingButton submit_btn;
+    private CheckStatusActivity checkStatusActivity;
+    private StepView stepView;
 
     int select_sum = 0;
 
@@ -52,7 +67,8 @@ public class StepTwoFragment extends ViewPagerFragment {
     private int select_shouke_max_num = 0;
 
     private List<String> shouke_images_select = new ArrayList<>();
-    private List<String> zhengshu_images_select = new ArrayList<>();
+    private List<AddPhotoBean> zhengshu_images_select = new ArrayList<>();
+    private NoScrollViewPager viewpager_content;
 
 
     public static StepTwoFragment homeInstance(String title) {
@@ -71,6 +87,7 @@ public class StepTwoFragment extends ViewPagerFragment {
             view = inflater.inflate(R.layout.fragment_step_two, container, false);
             ButterKnife.bind(this, view);//绑定黄牛刀
             initView();
+            EventBus.getDefault().register(StepTwoFragment.this);
         }
         return view;
     }
@@ -80,8 +97,50 @@ public class StepTwoFragment extends ViewPagerFragment {
         set_tag();
         //设置九宫格图片
         set_zhengshu_view();
+        submit_btn.setBtnOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                submit_btn.startLoading();
+                submit_btn.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        submit_btn.loadingComplete();
+                        viewpager_content.setCurrentItem(2);
+                        int step = stepView.getCurrentStep();//设置进度条
+                        stepView.setCurrentStep((step + 1) % stepView.getStepNum());
 
 
+
+
+                    }
+                }, 2000);
+            }
+        });
+
+
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        AppConstants.SELECT_PHOTO_NUM.clear();//退出时清除选中的照片数据
+        EventBus.getDefault().unregister(StepTwoFragment.this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void upadate(MessageEvent messageEvent) {
+        if (messageEvent.getMessage().equals(AppConstants.UPDATE_SELECT_PHOTO)) {
+            //Logger.e("进来了", "进来了");
+            zhengshu_images_select.clear();
+            zhengshu_images_select.addAll(AppConstants.SELECT_PHOTO_NUM);
+            List<String> iamge_paths = new ArrayList<>();
+            for (AddPhotoBean addPhotoBean : zhengshu_images_select) {
+                iamge_paths.add(addPhotoBean.getImage_path());
+            }
+            select_zhengshu_view.setData(iamge_paths);
+            AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE = zhengshu_images_select.size();
+
+        }
     }
 
     private void set_zhengshu_view() {
@@ -151,8 +210,9 @@ public class StepTwoFragment extends ViewPagerFragment {
 
         @Override
         public void onClickDeleteNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view, int position, String model, ArrayList<String> models) {
-            select_zhengshu_view.removeItem(position);
-            AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE = AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE - 1;
+            delete_pop(position);
+
+
         }
 
         @Override
@@ -163,20 +223,45 @@ public class StepTwoFragment extends ViewPagerFragment {
 
     /**
      * 删除图片
+     *
+     * @param position
      */
-    private void delete_pop() {
+    private void delete_pop(int position) {
         CommonPopupWindow popupWindow = new CommonPopupWindow.Builder(getActivity())
-                .setView(R.layout.camera_pop)
+                .setView(R.layout.delete_pop)//我的主页，选择相机camera_pop
                 .setBackGroundLevel(0.5f)//0.5f
                 .setAnimationStyle(R.style.main_menu_animstyle)
                 .setWidthAndHeight(WindowManager.LayoutParams.MATCH_PARENT,
-                        WindowManager.LayoutParams.WRAP_CONTENT)
+                        WindowManager.LayoutParams.MATCH_PARENT)
                 .setOutSideTouchable(true).create();
         popupWindow.showAsDropDown(select_zhengshu_view);
 
         /**设置逻辑*/
         View view = popupWindow.getContentView();
-
+        LinearLayout sure_layout = view.findViewById(R.id.sure_layout);
+        sure_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                select_zhengshu_view.removeItem(position);
+                AppConstants.SELECT_PHOTO_NUM.remove(position);
+                AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE = AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE - 1;
+                popupWindow.dismiss();
+            }
+        });
+        LinearLayout cancel_layout = view.findViewById(R.id.cancel_layout);
+        cancel_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popupWindow.dismiss();
+            }
+        });
+        LinearLayout content_layout = view.findViewById(R.id.content_layout);
+        content_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popupWindow.dismiss();
+            }
+        });
 
     }
 
@@ -208,6 +293,16 @@ public class StepTwoFragment extends ViewPagerFragment {
         }
     };
 
+    @Override
+    public void onAttach(Context activity) {
+        // TODO Auto-generated method stub
+        super.onAttach(activity);
+        if (activity instanceof CheckStatusActivity) {
+            checkStatusActivity = (CheckStatusActivity) activity;
+            stepView = (StepView) checkStatusActivity.findViewById(R.id.step_view);
+            viewpager_content = checkStatusActivity.findViewById(R.id.viewpager_content);
+        }
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, final Intent data) {
@@ -222,10 +317,10 @@ public class StepTwoFragment extends ViewPagerFragment {
                 }
                 boolean selectedOriginal = data.getBooleanExtra(EasyPhotos.RESULT_SELECTED_ORIGINAL, false);
                 */
-                ArrayList<String> resultPaths = data.getStringArrayListExtra(EasyPhotos.RESULT_PATHS);
-                zhengshu_images_select.addAll(resultPaths);
-                select_zhengshu_view.setData(zhengshu_images_select);//设置九宫格
-                AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE = zhengshu_images_select.size();
+//                ArrayList<String> resultPaths = data.getStringArrayListExtra(EasyPhotos.RESULT_PATHS);
+//                zhengshu_images_select.addAll(resultPaths);
+//                select_zhengshu_view.setData(zhengshu_images_select);
+//                AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE = zhengshu_images_select.size();
                 return;
             } else if (requestCode == 102) {
                 ArrayList<String> resultPaths = data.getStringArrayListExtra(EasyPhotos.RESULT_PATHS);

@@ -129,6 +129,7 @@
                         android:layout_height="@dimen/m31">
 
                     <EditText
+                            android:id="@+id/zhengshu_tv"
                             android:layout_width="match_parent"
                             android:hint="@string/tv60"
                             android:background="@null"
@@ -255,6 +256,7 @@
             app:bga_snpl_sortable="true"/>
 
     <LinearLayout
+            android:id="@+id/continue_add"
             android:layout_width="@dimen/m140"
             android:background="@drawable/add_bg"
             android:layout_marginTop="@dimen/m104"
@@ -271,6 +273,7 @@
                 />
     </LinearLayout>
     <LinearLayout
+            android:id="@+id/done_btn"
             android:layout_width="@dimen/m140"
             android:background="@drawable/add_bg"
             android:layout_marginTop="@dimen/m38"

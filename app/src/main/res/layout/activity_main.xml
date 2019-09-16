@@ -46,33 +46,6 @@
 
         </RelativeLayout>
 
-        <RelativeLayout
-                android:id="@+id/btn_shipu"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-            <ImageView
-                    android:id="@+id/shipu_img"
-                    android:layout_width="30dp"
-                    android:layout_height="31dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/m6"
-                    android:src="@drawable/icon_discover_off"/>
-
-            <TextView
-                    android:id="@+id/shipu_name"
-                    android:textColor="@color/contents_text"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/shipu_img"
-                    android:layout_width="30dp"
-                    android:gravity="center"
-                    android:textSize="9sp"
-                    android:text="@string/date_table"/>
-
-        </RelativeLayout>
 
 
         <RelativeLayout

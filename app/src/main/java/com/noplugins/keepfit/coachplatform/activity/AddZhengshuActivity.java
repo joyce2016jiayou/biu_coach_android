@@ -20,12 +20,16 @@ import com.huantansheng.easyphotos.constant.Type;
 import com.noplugins.keepfit.coachplatform.R;
 import com.noplugins.keepfit.coachplatform.adapter.TypeAdapter;
 import com.noplugins.keepfit.coachplatform.base.BaseActivity;
+import com.noplugins.keepfit.coachplatform.bean.AddPhotoBean;
 import com.noplugins.keepfit.coachplatform.global.AppConstants;
 import com.noplugins.keepfit.coachplatform.util.GlideEngine;
+import com.noplugins.keepfit.coachplatform.util.MessageEvent;
 import com.noplugins.keepfit.coachplatform.util.screen.KeyboardUtils;
 import com.noplugins.keepfit.coachplatform.util.ui.MyListView;
 import com.noplugins.keepfit.coachplatform.util.ui.jiugongge.CCRSortableNinePhotoLayout;
 import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow;
+import com.orhanobut.logger.Logger;
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -46,9 +50,15 @@ public class AddZhengshuActivity extends BaseActivity {
     RelativeLayout select_time_btn;
     @BindView(R.id.time_tv)
     TextView time_tv;
+    @BindView(R.id.done_btn)
+    LinearLayout done_btn;
+    @BindView(R.id.continue_add)
+    LinearLayout continue_add;
+    @BindView(R.id.zhengshu_tv)
+    TextView zhengshu_tv;
 
     private int select_zhengshu_max_num = 0;
-    private List<String> zhengshu_images_select = new ArrayList<>();
+    private List<AddPhotoBean> zhengshu_images_select = new ArrayList<>();
     TimePickerView pvCustomTime;
 
     @Override
@@ -85,6 +95,32 @@ public class AddZhengshuActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 select_time_pop();
+
+            }
+        });
+        //完成添加
+        done_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MessageEvent messageEvent = new MessageEvent(AppConstants.UPDATE_SELECT_PHOTO);
+                EventBus.getDefault().postSticky(messageEvent);
+                finish();
+            }
+        });
+        //继续添加
+        continue_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //保存已经选中的图片
+                MessageEvent messageEvent = new MessageEvent(AppConstants.UPDATE_SELECT_PHOTO);
+                EventBus.getDefault().postSticky(messageEvent);
+
+                //清空页面数据
+                zhengshu_type_tv.setText("");
+                zhengshu_tv.setText("");
+                time_tv.setText("");
+                zhengshu_images_select.clear();
+                set_zhengshu_view();
 
             }
         });
@@ -169,7 +205,13 @@ public class AddZhengshuActivity extends BaseActivity {
                 .build();
         pvCustomTime.show();
         //影藏键盘
-        KeyboardUtils.hideSoftKeyboard(this);
+        if (KeyboardUtils.isSoftVisiable(AddZhengshuActivity.this)) {
+            //Log.e("是否显示","显示");
+            KeyboardUtils.hideSoftKeyboard(AddZhengshuActivity.this);
+
+        } else {
+            //Log.e("是否显示","影藏");
+        }
     }
 
     private void select_type_pop() {
@@ -200,7 +242,15 @@ public class AddZhengshuActivity extends BaseActivity {
             }
         });
         //影藏键盘
-        KeyboardUtils.hideSoftKeyboard(this);
+        if (KeyboardUtils.isSoftVisiable(AddZhengshuActivity.this)) {
+            //Log.e("是否显示","显示");
+            KeyboardUtils.hideSoftKeyboard(AddZhengshuActivity.this);
+
+        } else {
+            //Log.e("是否显示","影藏");
+
+        }
+
 
     }
 
@@ -248,14 +298,49 @@ public class AddZhengshuActivity extends BaseActivity {
                 boolean selectedOriginal = data.getBooleanExtra(EasyPhotos.RESULT_SELECTED_ORIGINAL, false);
                 */
                 ArrayList<String> resultPaths = data.getStringArrayListExtra(EasyPhotos.RESULT_PATHS);
-                zhengshu_images_select.addAll(resultPaths);
-                add_zhengshu_photos_view.setData(zhengshu_images_select);//设置九宫格
-                AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE_TWO = zhengshu_images_select.size();
+                List<AddPhotoBean> return_selet = new ArrayList<>();
+                for (int i = 0; i < resultPaths.size(); i++) {
+                    if (i == 0) {
+                        AddPhotoBean addPhotoBean = new AddPhotoBean();
+                        addPhotoBean.setZhengshu_type(zhengshu_type_tv.getText().toString());
+                        addPhotoBean.setZhengshu_name(zhengshu_tv.getText().toString());
+                        addPhotoBean.setGet_zhengshu_time(time_tv.getText().toString());
+                        addPhotoBean.setImage_path(resultPaths.get(i));
+                        return_selet.add(addPhotoBean);
+                    } else {
+                        AddPhotoBean addPhotoBean = new AddPhotoBean();
+                        addPhotoBean.setImage_path(resultPaths.get(i));
+                        return_selet.add(addPhotoBean);
+                    }
+                }
+                zhengshu_images_select.addAll(return_selet);
+                set_zhengshu_view();
+
                 return;
             }
 
         } else if (RESULT_CANCELED == resultCode) {
             //Toast.makeText(this, "cancel", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void set_zhengshu_view() {
+        List<String> iamges = new ArrayList<>();
+        for (AddPhotoBean addPhotoBean : zhengshu_images_select) {
+            iamges.add(addPhotoBean.getImage_path());
+        }
+        add_zhengshu_photos_view.setData(iamges);//设置九宫格
+        AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE_TWO = zhengshu_images_select.size();
+        if (zhengshu_images_select.size() > 0) {
+            AppConstants.SELECT_PHOTO_NUM.add(zhengshu_images_select.get(0));
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.e("进来了吗", "进来了");
+        AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE_TWO = 0;
+        zhengshu_images_select.clear();
     }
 }
