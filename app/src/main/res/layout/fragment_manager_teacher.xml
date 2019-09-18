@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,44 +7,53 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".activity.ClassManagerActivity">
-    <RadioGroup
+    <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/m40"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-        <RadioButton
-                android:id="@+id/rb_1"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:gravity="center_vertical|right"
-                android:button="@null"
-                android:layout_marginRight="@dimen/m23"
-                android:checked="true"
-                android:textColor="@drawable/btn_radio_select"
-                android:text="已上架"/>
-        <RadioButton
-                android:id="@+id/rb_2"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:layout_marginLeft="@dimen/m23"
-                android:gravity="center_vertical|left"
-                android:button="@null"
-                android:textColor="@drawable/btn_radio_select"
-                android:text="已下架"/>
-    </RadioGroup>
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-            android:id="@+id/refresh_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_list"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+        <RadioGroup
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="@dimen/m40"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+            <RadioButton
+                    android:id="@+id/rb_1"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:gravity="center_vertical|right"
+                    android:button="@null"
+                    android:background="@null"
+                    android:layout_marginRight="@dimen/m23"
+                    android:checked="true"
+                    android:textColor="@drawable/btn_radio_select"
+                    android:text="已上架"/>
+            <RadioButton
+                    android:id="@+id/rb_2"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:layout_marginLeft="@dimen/m23"
+                    android:gravity="center_vertical|left"
+                    android:button="@null"
+                    android:background="@null"
+                    android:textColor="@drawable/btn_radio_select"
+                    android:text="已下架"/>
+        </RadioGroup>
+        <androidx.viewpager.widget.ViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+    </LinearLayout>
 
-        </androidx.recyclerview.widget.RecyclerView>
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-</LinearLayout>
+    <ImageView
+            android:id="@+id/iv_teacher_add"
+            android:layout_width="@dimen/m60"
+            android:layout_height="@dimen/m60"
+            android:src="@drawable/add_img"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="@dimen/m29"
+            android:layout_marginRight="@dimen/m20"/>
+</FrameLayout>

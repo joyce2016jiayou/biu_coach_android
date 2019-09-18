@@ -236,4 +236,7 @@ dependencies {
     //SmartRefreshLayout
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'
 
+    //
+    implementation 'me.relex:recyclerpager:1.0.4'
+
 }

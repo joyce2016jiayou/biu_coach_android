@@ -6,22 +6,25 @@ import androidx.annotation.Nullable;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.noplugins.keepfit.coachplatform.R;
+import com.noplugins.keepfit.coachplatform.bean.manager.ManagerTeacherBean;
 
 import java.util.List;
 
-public class ManagerTeacherAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
-    public ManagerTeacherAdapter(@Nullable List<String> data) {
+public class ManagerTeacherAdapter extends BaseQuickAdapter<ManagerTeacherBean, BaseViewHolder> {
+    public ManagerTeacherAdapter(@Nullable List<ManagerTeacherBean> data) {
         super(R.layout.item_manager_teacher,data);
     }
 
     @Override
-    protected void convert(@NonNull BaseViewHolder helper, String item) {
+    protected void convert(@NonNull BaseViewHolder helper, ManagerTeacherBean item) {
         helper.setText(R.id.tv_time_day,"2019-10-11");
         helper.setText(R.id.tv_time_week,"周三");
         helper.setText(R.id.tv_time_hour,"8:10-9:30");
         helper.setText(R.id.tv_teacher_class,"课程：拳击-初级拳击格斗");
         helper.setText(R.id.tv_teacher_time,"时长：1h");
-        if (helper.getLayoutPosition() %2 == 0){
+
+
+        if (item.getType() == 1){
             helper.setText(R.id.tv_item,"已上架");
             helper.setText(R.id.tv_up_down,"下架");
         } else {
