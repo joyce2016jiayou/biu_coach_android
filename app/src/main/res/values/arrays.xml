@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <string-array name="private_class_types">
+        <item>增肌塑形</item>
+        <item>减脂塑形</item>
+        <item>拳击格斗</item>
+        <item>拉伸</item>
+        <item>儿童体适能</item>
+        <item>老年人课程</item>
+        <item>康复课程</item>
+        <item>产后恢复</item>
+        <item>体态矫正</item>
+    </string-array>
 
 </resources>
