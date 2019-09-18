@@ -112,6 +112,13 @@
     <string name="tv73">身份证件与手机号不匹配。</string>
     <string name="tv74">重新提交</string>
     <string name="tv75">签约并上架</string>
+    <string name="tv76">日程</string>
+    <string name="tv77">授课时间</string>
+    <string name="tv78">授课场馆</string>
+    <string name="tv79">课程管理</string>
+    <string name="tv80">约课信息</string>
+    <string name="tv81">更多</string>
+    <string name="tv82">请向场馆出示二维码，扫描签到后即可上课。</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

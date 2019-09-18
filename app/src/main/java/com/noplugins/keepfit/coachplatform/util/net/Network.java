@@ -39,7 +39,7 @@ public class Network {
     public MyService service;
     public static String token = "";
     //测试服
-    private String test_main_url = "http://192.168.1.205:8888/api/cust-service";
+    private String test_main_url = "http://192.168.1.45:8888/api/cust-service";
     private String main_url = "http://kft.ahcomg.com/api/cust-service";
     private static String MRTHOD_NAME = "";
 

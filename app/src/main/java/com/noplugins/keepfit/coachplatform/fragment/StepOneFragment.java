@@ -585,6 +585,7 @@ public class StepOneFragment extends ViewPagerFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (resultCode == IDCardCamera.RESULT_CODE) {
             //获取图片路径，显示图片
             String path = IDCardCamera.getImagePath(data);

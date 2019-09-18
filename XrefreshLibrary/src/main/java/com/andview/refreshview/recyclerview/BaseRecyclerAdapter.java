@@ -1,12 +1,10 @@
 package com.andview.refreshview.recyclerview;
 
 import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewParent;
+import android.view.*;
 import android.widget.FrameLayout;
 import androidx.annotation.LayoutRes;
+import androidx.core.view.MotionEventCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import com.andview.refreshview.XRefreshView;
@@ -305,4 +303,5 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder> ex
         public static final int HEADER = -3;
         public static final int NORMAL = -4;
     }
+
 }
