@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".activity.TeacherTimeActivity">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/m53"
+            android:layout_height="wrap_content">
+
+        <ImageView
+                android:id="@+id/back_img"
+                android:layout_width="@dimen/m22"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/m20"
+                android:layout_height="@dimen/m19"
+                android:layout_centerVertical="true"
+                android:src="@drawable/back_img"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv83"
+                android:layout_centerHorizontal="true"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_centerVertical="true"
+                android:textColor="@color/top_heiziti"/>
+    </RelativeLayout>
+
+    <www.linwg.org.lib.LCardView
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            app:shadowStartAlpha="10"
+            app:cornerRadius="@dimen/m8"
+            android:layout_marginLeft="@dimen/m11"
+            android:layout_marginRight="@dimen/m11"
+            app:shadowSize="@dimen/m2"
+            android:layout_marginTop="@dimen/m16"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/m58">
+
+            <ImageView
+                    android:id="@+id/img1"
+                    android:layout_width="@dimen/m16"
+                    android:src="@drawable/shouke_icon"
+                    android:layout_marginLeft="@dimen/m14"
+                    android:layout_centerVertical="true"
+                    android:layout_height="@dimen/m16"/>
+
+            <TextView
+                    android:layout_toRightOf="@+id/img1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/top_heiziti"
+                    android:layout_marginLeft="@dimen/m7"
+                    android:layout_centerVertical="true"
+                    android:textSize="15sp"
+                    android:text="@string/tv84"
+                    />
+
+            <com.noplugins.keepfit.coachplatform.util.ui.switchbutton.ToogleButton
+                    android:id="@+id/switch_button"
+                    android:layout_width="@dimen/m55"
+                    android:layout_alignParentRight="true"
+                    android:layout_height="@dimen/m24"
+                    android:layout_marginRight="@dimen/m14"
+                    android:layout_centerVertical="true"
+                    app:border_width="1dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+        </RelativeLayout>
+    </www.linwg.org.lib.LCardView>
+
+    <www.linwg.org.lib.LCardView
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            app:shadowStartAlpha="10"
+            app:cornerRadius="@dimen/m8"
+            android:layout_marginLeft="@dimen/m11"
+            android:layout_marginRight="@dimen/m11"
+            app:shadowSize="@dimen/m2"
+            android:layout_marginTop="@dimen/m26"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="@dimen/m167">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv85"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/top_heiziti"
+                    android:layout_marginTop="@dimen/m10"
+                    android:textSize="15sp"
+                    />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv86"
+                    android:layout_marginLeft="@dimen/m10"
+                    android:textColor="@color/color_4A4A4A"
+                    android:layout_marginTop="@dimen/m10"
+                    android:textSize="13sp"
+                    />
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/m9"
+                    android:layout_height="wrap_content">
+
+                <LinearLayout
+                        android:layout_width="@dimen/m166"
+                        android:background="@drawable/lv_bg"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/m9"
+                        android:layout_height="@dimen/m32">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="时间"
+                            android:textSize="13sp"
+                            android:textColor="@color/color_929292"
+                            />
+
+                    <LinearLayout
+                            android:layout_marginLeft="@dimen/m1"
+                            android:layout_width="@dimen/m35"
+                            android:background="@color/color_929292"
+                            android:layout_marginRight="@dimen/m1"
+                            android:layout_height="@dimen/m1"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="时间"
+                            android:textSize="13sp"
+                            android:textColor="@color/color_929292"
+                            />
+                </LinearLayout>
+
+                <LinearLayout
+                        android:layout_width="@dimen/m74"
+                        android:background="@drawable/select_shijian_bg"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/m10"
+                        android:layout_centerVertical="true"
+                        android:layout_height="@dimen/m32">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="选择时间"
+                            android:textSize="13sp"
+                            android:textColor="@color/color_lan"
+                            />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                    android:layout_width="@dimen/m74"
+                    android:background="@drawable/add_bg"
+                    android:orientation="horizontal"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/m29"
+                    android:layout_height="@dimen/m32">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tv87"
+                        android:textSize="13sp"
+                        android:textColor="@color/white"
+                        />
+
+            </LinearLayout>
+        </LinearLayout>
+    </www.linwg.org.lib.LCardView>
+
+    <www.linwg.org.lib.LCardView
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            app:shadowStartAlpha="10"
+            app:cornerRadius="@dimen/m8"
+            android:layout_marginLeft="@dimen/m11"
+            android:layout_marginRight="@dimen/m11"
+            app:shadowSize="@dimen/m2"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/m26"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="@dimen/m167">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv88"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/top_heiziti"
+                    android:layout_marginTop="@dimen/m10"
+                    android:textSize="15sp"
+                    />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv89"
+                    android:layout_marginLeft="@dimen/m10"
+                    android:textColor="@color/color_4A4A4A"
+                    android:layout_marginTop="@dimen/m10"
+                    android:textSize="13sp"
+                    />
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/m9"
+                    android:layout_height="wrap_content">
+                <LinearLayout
+                        android:id="@+id/select_date_bg"
+                        android:layout_width="@dimen/m98"
+                        android:background="@drawable/lv_bg"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/m9"
+                        android:layout_height="@dimen/m32">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Y/M/D"
+                            android:textSize="13sp"
+                            android:textColor="@color/color_929292"
+                            />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                        android:layout_toRightOf="@+id/select_date_bg"
+                        android:layout_width="@dimen/m126"
+                        android:background="@drawable/lv_bg"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/m9"
+                        android:layout_height="@dimen/m32">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="时间"
+                            android:textSize="13sp"
+                            android:textColor="@color/color_929292"
+                            />
+
+                    <LinearLayout
+                            android:layout_marginLeft="@dimen/m1"
+                            android:layout_width="@dimen/m35"
+                            android:background="@color/color_929292"
+                            android:layout_marginRight="@dimen/m1"
+                            android:layout_height="@dimen/m1"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="时间"
+                            android:textSize="13sp"
+                            android:textColor="@color/color_929292"
+                            />
+                </LinearLayout>
+
+                <LinearLayout
+                        android:layout_width="@dimen/m47"
+                        android:background="@drawable/select_shijian_bg"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/m10"
+                        android:layout_centerVertical="true"
+                        android:layout_height="@dimen/m32">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="添加"
+                            android:textSize="13sp"
+                            android:textColor="@color/color_lan"
+                            />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                    android:layout_width="@dimen/m74"
+                    android:background="@drawable/add_bg"
+                    android:orientation="horizontal"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/m29"
+                    android:layout_height="@dimen/m32">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tv87"
+                        android:textSize="13sp"
+                        android:textColor="@color/white"
+                        />
+
+            </LinearLayout>
+        </LinearLayout>
+    </www.linwg.org.lib.LCardView>
+</LinearLayout>

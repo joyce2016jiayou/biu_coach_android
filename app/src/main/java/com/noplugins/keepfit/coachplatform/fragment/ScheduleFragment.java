@@ -1,7 +1,6 @@
 package com.noplugins.keepfit.coachplatform.fragment;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,24 +9,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.huantansheng.easyphotos.models.puzzle.Line;
 import com.noplugins.keepfit.coachplatform.R;
 import com.noplugins.keepfit.coachplatform.adapter.ClassAdapter;
 import com.noplugins.keepfit.coachplatform.adapter.DateSelectAdapter;
 import com.noplugins.keepfit.coachplatform.bean.ClassDateBean;
 import com.noplugins.keepfit.coachplatform.bean.SelectDateBean;
 import com.noplugins.keepfit.coachplatform.util.data.DateUtils;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnMultiPurposeListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import de.hdodenhof.circleimageview.CircleImageView;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 public class ScheduleFragment extends Fragment {
@@ -70,7 +60,7 @@ public class ScheduleFragment extends Fragment {
         touxiang_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DateUtils.getmoredate();
+
             }
         });
 
@@ -129,8 +119,7 @@ public class ScheduleFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recycler_view.setLayoutManager(linearLayoutManager);
-        List<SelectDateBean> selectDateBeans = new ArrayList<>();
-        selectDateBeans.addAll(DateUtils.getSevendate());
+        List<SelectDateBean> selectDateBeans = new ArrayList<>(DateUtils.getmoredate());
         DateSelectAdapter dateSelectAdapter = new DateSelectAdapter(selectDateBeans, getActivity());
         recycler_view.setAdapter(dateSelectAdapter);
         dateSelectAdapter.setOnItemClickListener(new DateSelectAdapter.OnItemClickListener() {
@@ -143,7 +132,6 @@ public class ScheduleFragment extends Fragment {
                     selectDateBeans.get(position).setIs_check(true);
                 }
                 dateSelectAdapter.notifyDataSetChanged();
-
             }
         });
 

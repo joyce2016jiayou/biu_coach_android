@@ -106,73 +106,43 @@ public class DateUtils {
         String date_str;
     }
 
-    /**
-     * 获取今天往后一周的日期（几月几号）
-     */
-    public static List<SelectDateBean> getSevendate() {
-        List<SelectDateBean> dates = new ArrayList<SelectDateBean>();
-        final Calendar c = Calendar.getInstance();
-        c.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
-        List<String> weeksList = get7week();
-
-        for (int i = 0; i < get_max_day; i++) {
-            SelectDateBean selectDateBean = new SelectDateBean();
-            /**获取日期*/
-            mYear = String.valueOf(c.get(Calendar.YEAR));// 获取当前年份
-            mMonth = String.valueOf(c.get(Calendar.MONTH) + 1);// 获取当前月份
-            mDay = String.valueOf(c.get(Calendar.DAY_OF_MONTH) + i);// 获取当前日份的日期号码
-            //Log.e("当月最大日期", MaxDayFromDay_OF_MONTH(Integer.parseInt(mYear), Integer.parseInt(mMonth)) + "");
-            int max_date_of_month = MaxDayFromDay_OF_MONTH(Integer.parseInt(mYear), Integer.parseInt(mMonth));
-
-            if (Integer.parseInt(mDay) > max_date_of_month) {
-                mMonth = String.valueOf(c.get(Calendar.MONTH) + 2);// 获取当前月份
-                int day = (c.get(Calendar.DAY_OF_MONTH) + i) - max_date_of_month;
-                mDay = String.valueOf(day);// 获取当前日份的日期号码
-            }
-            selectDateBean.setYear(mYear);
-            selectDateBean.setMonth(mMonth);
-            selectDateBean.setDate(mDay);
-            selectDateBean.setWeek_str(weeksList.get(i));
-            //Log.e("获取到的往后的时间", mMonth+"/"+mDay);
-            //Log.e("获取到的往后星期", weeksList.get(i));
-            dates.add(selectDateBean);
-        }
-
-        return dates;
-    }
 
     /**
-     * 获取今天往后一周的日期（几月几号）
+     * 获取今天往后一段时间日期（几月几号）
      */
     public static List<SelectDateBean> getmoredate() {
         List<SelectDateBean> dates = new ArrayList<SelectDateBean>();
-        final Calendar c = Calendar.getInstance();
-        c.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+        final Calendar calendar = Calendar.getInstance();
+        calendar.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
         List<String> weeksList = get7week();
+        mYear = String.valueOf(calendar.get(Calendar.YEAR));// 获取当前年份
+        mMonth = String.valueOf(calendar.get(Calendar.MONTH) + 1);// 获取当前月份
+        int max_date_of_month = MaxDayFromDay_OF_MONTH(Integer.parseInt(mYear), Integer.parseInt(mMonth));
+        int next_max_month = (get_max_day - max_date_of_month) / 31; //获取往后可能有几个月
 
-        for (int i = 0; i < 17; i++) {
-            SelectDateBean selectDateBean = new SelectDateBean();
-            /**获取日期*/
-            mYear = String.valueOf(c.get(Calendar.YEAR));// 获取当前年份
-            mMonth = String.valueOf(c.get(Calendar.MONTH) + 1);// 获取当前月份
-            mDay = String.valueOf(c.get(Calendar.DAY_OF_MONTH) + i);// 获取当前日份的日期号码
-            //Log.e("当月最大日期", MaxDayFromDay_OF_MONTH(Integer.parseInt(mYear), Integer.parseInt(mMonth)) + "");
-            int max_date_of_month = MaxDayFromDay_OF_MONTH(Integer.parseInt(mYear), Integer.parseInt(mMonth));
-
-            if (Integer.parseInt(mDay) > max_date_of_month) {
-                mMonth = String.valueOf(c.get(Calendar.MONTH) + 2);// 获取当前月份
-                int day = (c.get(Calendar.DAY_OF_MONTH) + i) - max_date_of_month;
-                mDay = String.valueOf(day);// 获取当前日份的日期号码
+        for (int k = 0; k <= next_max_month; k++) {//需要循环设置几个月
+            for (int i = 0; i < get_max_day; i++) {
+                SelectDateBean selectDateBean = new SelectDateBean();
+                mDay = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH) + i);// 获取当前日份的日期号码
+                if (Integer.parseInt(mDay) > max_date_of_month) {
+                    mMonth = String.valueOf(calendar.get(Calendar.MONTH) + (k + 1));// 获取当前月份
+                    int day = Integer.valueOf(mDay) - max_date_of_month;
+                    mDay = String.valueOf(day);// 获取当前日份的日期号码
+                }
+                selectDateBean.setYear(mYear);
+                selectDateBean.setMonth(mMonth);
+                selectDateBean.setDate(mDay);
+                if (weeksList.get(i).equals("今天")) {
+                    selectDateBean.setIs_check(true);
+                }
+                selectDateBean.setWeek_str(weeksList.get(i));
+//                Log.e("获取到的往后的时间", mMonth + "/" + mDay);
+//                Log.e("获取到的往后星期", weeksList.get(i));
+                dates.add(selectDateBean);
             }
-            selectDateBean.setYear(mYear);
-            selectDateBean.setMonth(mMonth);
-            selectDateBean.setDate(mDay);
-            selectDateBean.setWeek_str(weeksList.get(i));
-            //Log.e("获取到的往后的时间", mMonth+"/"+mDay);
-            //Log.e("获取到的往后星期", weeksList.get(i));
-            dates.add(selectDateBean);
-        }
+            get_max_day = get_max_day - max_date_of_month;
 
+        }
         return dates;
     }
 

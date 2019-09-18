@@ -159,4 +159,16 @@
         <item name="android:windowEnterAnimation">@anim/pop_enter_anim</item>
         <item name="android:windowExitAnimation">@anim/pop_exit_anim</item>
     </style>
+    <declare-styleable name="ToogleButton">
+        <attr name="border_width" format="dimension"></attr>
+        <attr name="border_color" format="color"></attr>
+        <attr name="checked_bg_color" format="color"></attr>
+        <attr name="unchecked_bg_color" format="color"></attr>
+        <attr name="button_color" format="color"></attr>
+        <attr name="button_ring_color" format="color"></attr>
+        <attr name="button_ring_width" format="dimension"></attr>
+        <attr name="button_offset" format="dimension"></attr>
+        <attr name="button_radius_rate" format="float"></attr>
+        <attr name="animation_duration" format="integer"></attr>
+    </declare-styleable>
 </resources>

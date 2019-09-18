@@ -28,6 +28,7 @@ import com.noplugins.keepfit.coachplatform.util.screen.KeyboardUtils;
 import com.noplugins.keepfit.coachplatform.util.ui.MyListView;
 import com.noplugins.keepfit.coachplatform.util.ui.jiugongge.CCRSortableNinePhotoLayout;
 import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow;
+import com.noplugins.keepfit.coachplatform.util.ui.switchbutton.ToogleButton;
 import com.orhanobut.logger.Logger;
 import org.greenrobot.eventbus.EventBus;
 
@@ -56,6 +57,7 @@ public class AddZhengshuActivity extends BaseActivity {
     LinearLayout continue_add;
     @BindView(R.id.zhengshu_tv)
     TextView zhengshu_tv;
+
 
     private int select_zhengshu_max_num = 0;
     private List<AddPhotoBean> zhengshu_images_select = new ArrayList<>();
@@ -124,7 +126,11 @@ public class AddZhengshuActivity extends BaseActivity {
 
             }
         });
+
+
     }
+
+
 
     /**
      * 选择时间pop

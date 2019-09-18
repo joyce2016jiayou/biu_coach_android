@@ -119,6 +119,15 @@
     <string name="tv80">约课信息</string>
     <string name="tv81">更多</string>
     <string name="tv82">请向场馆出示二维码，扫描签到后即可上课。</string>
+    <string name="tv83">授课时间</string>
+    <string name="tv84">授课</string>
+    <string name="tv85">设置授课时间</string>
+    <string name="tv86">每天可授课时间</string>
+    <string name="tv87">保存提交</string>
+    <string name="tv88">设置休息时间</string>
+    <string name="tv89">临时有事？来这里设置休息时间吧～</string>
+    <string name="tv90">确认关闭授课？</string>
+    <string name="tv91">关闭授课按钮后，除已约课程，后续您将不接受约课和场馆邀课</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

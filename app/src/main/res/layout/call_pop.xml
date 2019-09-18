@@ -5,68 +5,84 @@
               android:gravity="center"
               android:layout_height="match_parent">
 
-    <LinearLayout
-            android:layout_width="@dimen/m321"
+    <RelativeLayout
+            android:layout_width="@dimen/m311"
             android:orientation="vertical"
             android:background="@drawable/rizhi_pop_bg"
-            android:layout_height="@dimen/m118">
-
+            android:layout_height="@dimen/m180">
         <TextView
+                android:id="@+id/tv1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/top_heiziti"
                 android:textSize="18sp"
-                android:layout_marginTop="@dimen/m24"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/m15"
                 android:layout_gravity="center_horizontal"
-                android:text="确认拨打（021）67254325？"
-                android:textStyle="bold"
+                android:text="@string/tv90"
+                />
+
+        <TextView
+                android:layout_below="@+id/tv1"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="@dimen/m20"
+                android:layout_marginRight="@dimen/m20"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_4A4A4A"
+                android:layout_centerHorizontal="true"
+                android:textSize="15sp"
+                android:layout_marginTop="@dimen/m15"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/tv91"
                 />
 
         <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_marginTop="@dimen/m22"
-                android:layout_marginLeft="@dimen/m44"
-                android:layout_marginRight="@dimen/m44"
+                android:layout_marginLeft="@dimen/m10"
+                android:layout_marginRight="@dimen/m10"
+                android:layout_marginBottom="@dimen/m15"
+                android:layout_alignParentBottom="true"
                 android:layout_height="wrap_content">
 
-            <LinearLayout
-                    android:id="@+id/cancel_layout"
-                    android:layout_width="@dimen/m86"
-                    android:orientation="vertical"
-                    android:layout_alignParentLeft="true"
-                    android:gravity="center"
-                    android:background="@drawable/cancel_bg"
-                    android:layout_height="@dimen/m30">
 
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textStyle="normal"
-                        android:text="@string/cancel"
-                        android:textSize="15sp"
-                        android:textColor="@color/color_75CEE1"
-                        />
-            </LinearLayout>
 
             <LinearLayout
                     android:id="@+id/sure_layout"
-                    android:layout_width="@dimen/m86"
+                    android:layout_width="@dimen/m130"
                     android:orientation="vertical"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentLeft="true"
                     android:gravity="center"
                     android:background="@drawable/sure_bg"
-                    android:layout_height="@dimen/m30">
+                    android:layout_height="@dimen/m39">
 
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textStyle="normal"
                         android:text="@string/tv18"
-                        android:textSize="15sp"
+                        android:textSize="18sp"
+                        android:textColor="@color/top_heiziti"
+                        />
+            </LinearLayout>
+            <LinearLayout
+                    android:id="@+id/cancel_layout"
+                    android:layout_width="@dimen/m130"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/cancel_bg"
+                    android:layout_height="@dimen/m39">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="normal"
+                        android:text="@string/cancel"
+                        android:textSize="18sp"
                         android:textColor="@color/white"
                         />
             </LinearLayout>
         </RelativeLayout>
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

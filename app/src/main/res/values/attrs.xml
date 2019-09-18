@@ -31,4 +31,5 @@
         <attr name="quickClickLimit" format="integer"/>
         <attr name="bg" format="reference"/>
     </declare-styleable>
+
 </resources>
