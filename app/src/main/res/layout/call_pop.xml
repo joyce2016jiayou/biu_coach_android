@@ -6,12 +6,14 @@
               android:layout_height="match_parent">
 
     <RelativeLayout
-            android:layout_width="@dimen/m311"
+            android:layout_width="match_parent"
             android:orientation="vertical"
+            android:layout_marginLeft="@dimen/m32"
+            android:layout_marginRight="@dimen/m32"
             android:background="@drawable/rizhi_pop_bg"
             android:layout_height="@dimen/m180">
         <TextView
-                android:id="@+id/tv1"
+                android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/top_heiziti"
@@ -19,11 +21,12 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/m15"
                 android:layout_gravity="center_horizontal"
-                android:text="@string/tv90"
+                android:text=""
                 />
 
         <TextView
-                android:layout_below="@+id/tv1"
+                android:id="@+id/tv_content"
+                android:layout_below="@+id/tv_title"
                 android:layout_width="match_parent"
                 android:layout_marginLeft="@dimen/m20"
                 android:layout_marginRight="@dimen/m20"
@@ -33,7 +36,7 @@
                 android:textSize="15sp"
                 android:layout_marginTop="@dimen/m15"
                 android:layout_gravity="center_horizontal"
-                android:text="@string/tv91"
+                android:text=""
                 />
 
         <RelativeLayout

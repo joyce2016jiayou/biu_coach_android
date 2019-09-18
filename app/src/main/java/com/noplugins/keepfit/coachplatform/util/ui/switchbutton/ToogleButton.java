@@ -304,31 +304,31 @@ public class ToogleButton extends View {
     }
 
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        if (!isEnabled()) {
-            return false;
-        }
-
-        int eventAsked = event.getActionMasked();
-        switch (eventAsked) {
-            case MotionEvent.ACTION_DOWN:
-                if (isAnimation) {
-                    return false;
-                }
-                if (checkState == UNCHECKED) {
-                    toogleOn();
-                } else if (checkState == CHECKED) {
-                    toogleOff();
-                }
-                break;
-            case MotionEvent.ACTION_MOVE:
-                break;
-            case MotionEvent.ACTION_UP:
-                break;
-        }
-        return true;
-    }
+//    @Override
+//    public boolean onTouchEvent(MotionEvent event) {
+//        if (!isEnabled()) {
+//            return false;
+//        }
+//
+//        int eventAsked = event.getActionMasked();
+//        switch (eventAsked) {
+//            case MotionEvent.ACTION_DOWN:
+//                if (isAnimation) {
+//                    return false;
+//                }
+//                if (checkState == UNCHECKED) {
+//                    toogleOn();
+//                } else if (checkState == CHECKED) {
+//                    toogleOff();
+//                }
+//                break;
+//            case MotionEvent.ACTION_MOVE:
+//                break;
+//            case MotionEvent.ACTION_UP:
+//                break;
+//        }
+//        return true;
+//    }
 
     /**
      * 打开

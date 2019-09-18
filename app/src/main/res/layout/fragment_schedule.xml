@@ -46,6 +46,7 @@
             android:layout_height="@dimen/m76">
 
         <LinearLayout
+                android:id="@+id/teacher_time_btn"
                 android:layout_width="wrap_content"
                 android:orientation="vertical"
                 android:layout_weight="1"

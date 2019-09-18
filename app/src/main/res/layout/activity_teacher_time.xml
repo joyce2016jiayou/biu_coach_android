@@ -136,6 +136,7 @@
                         android:layout_height="@dimen/m32">
 
                     <TextView
+                            android:id="@+id/start_time_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="时间"
@@ -151,6 +152,7 @@
                             android:layout_height="@dimen/m1"/>
 
                     <TextView
+                            android:id="@+id/end_time_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="时间"
@@ -160,6 +162,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                        android:id="@+id/select_time_btn"
                         android:layout_width="@dimen/m74"
                         android:background="@drawable/select_shijian_bg"
                         android:orientation="horizontal"

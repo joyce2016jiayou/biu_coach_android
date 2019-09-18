@@ -1,6 +1,8 @@
 package com.noplugins.keepfit.coachplatform.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.LinearLayout;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.huantansheng.easyphotos.models.puzzle.Line;
 import com.noplugins.keepfit.coachplatform.R;
+import com.noplugins.keepfit.coachplatform.activity.TeacherTimeActivity;
 import com.noplugins.keepfit.coachplatform.adapter.ClassAdapter;
 import com.noplugins.keepfit.coachplatform.adapter.DateSelectAdapter;
 import com.noplugins.keepfit.coachplatform.bean.ClassDateBean;
@@ -30,7 +34,8 @@ public class ScheduleFragment extends Fragment {
 //    SmartRefreshLayout refreshLayout;
     @BindView(R.id.touxiang_image)
     CircleImageView touxiang_image;
-
+    @BindView(R.id.teacher_time_btn)
+    LinearLayout teacher_time_btn;
     public static ScheduleFragment getInstance(String title) {
         ScheduleFragment fragment = new ScheduleFragment();
         Bundle args = new Bundle();
@@ -61,6 +66,13 @@ public class ScheduleFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+            }
+        });
+        teacher_time_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), TeacherTimeActivity.class);
+                startActivity(intent);
             }
         });
 
