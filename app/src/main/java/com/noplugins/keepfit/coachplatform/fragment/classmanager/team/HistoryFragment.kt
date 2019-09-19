@@ -1,5 +1,6 @@
 package com.noplugins.keepfit.coachplatform.fragment.classmanager.team
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.noplugins.keepfit.coachplatform.R
+import com.noplugins.keepfit.coachplatform.activity.manager.TeamInfoActivity
 import com.noplugins.keepfit.coachplatform.adapter.ManagerTeacherAdapter
 import com.noplugins.keepfit.coachplatform.adapter.ManagerTeamClassAdapter
 import com.noplugins.keepfit.coachplatform.base.BaseFragment
@@ -42,7 +44,6 @@ class HistoryFragment : BaseFragment()  {
         requestData()
     }
 
-
     private fun initAdapter(){
         rv_list.layoutManager = LinearLayoutManager(context)
         adapterManager = ManagerTeamClassAdapter(datas)
@@ -51,6 +52,11 @@ class HistoryFragment : BaseFragment()  {
             when(view.id){
                 R.id.rl_jump -> {
                     //todo 跳转到详情页 需要携带状态
+                    val toInfo = Intent(activity, TeamInfoActivity::class.java)
+                    val bundle = Bundle()
+                    bundle.putInt("type",3)
+                    toInfo.putExtras(bundle)
+                    startActivity(toInfo)
                 }
                 R.id.tv_agin -> {
                     //todo 重新申请

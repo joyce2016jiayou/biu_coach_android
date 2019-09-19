@@ -65,7 +65,7 @@ class SJUpFragment : BaseFragment()  {
                 }
                 R.id.tv_up_down->{
                     //todo 下架
-                    dismiss_pop_window(view as TextView)
+                    toDown(view as TextView)
                 }
             }
         }
@@ -91,7 +91,7 @@ class SJUpFragment : BaseFragment()  {
         adapterManager.notifyDataSetChanged()
     }
 
-    private fun dismiss_pop_window(view: TextView) {
+    private fun toDown(view: TextView) {
         val popupWindow = CommonPopupWindow.Builder(activity)
             .setView(R.layout.dialog_to_down)
             .setBackGroundLevel(0.5f)//0.5f

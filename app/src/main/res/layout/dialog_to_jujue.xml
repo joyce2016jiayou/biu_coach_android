@@ -7,11 +7,11 @@
 
     <RelativeLayout
             android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/rizhi_pop_bg"
             android:layout_marginLeft="@dimen/m32"
             android:layout_marginRight="@dimen/m32"
-            android:orientation="vertical"
-            android:background="@drawable/shouquan_bg"
-            android:layout_height="@dimen/m360">
+            android:layout_height="@dimen/m280">
         <TextView
                 android:id="@+id/tv1"
                 android:layout_width="wrap_content"
@@ -21,50 +21,52 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/m15"
                 android:layout_gravity="center_horizontal"
-                android:text="授权申请"
+                android:text="拒绝邀请"
                 />
-        <TextView
-                android:id="@+id/tv2"
-                android:layout_below="@+id/tv1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/color_4A4A4A"
-                android:textSize="14sp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/m15"
-                android:layout_marginLeft="@dimen/m18"
-                android:layout_marginRight="@dimen/m18"
-                android:layout_gravity="center_horizontal"
-                android:text="您还未绑定授课场馆，去申请后再来上传私教课程吧！？"
-                />
-        <TextView
+
+        <FrameLayout
                 android:id="@+id/tv_content"
-                android:layout_below="@+id/tv2"
                 android:layout_width="match_parent"
-                android:layout_marginLeft="@dimen/m18"
-                android:layout_marginRight="@dimen/m18"
-                android:layout_height="wrap_content"
-                android:textColor="@color/color_4A4A4A"
                 android:layout_centerHorizontal="true"
-                android:textSize="12sp"
-                android:lineSpacingExtra="@dimen/m10"
-                android:layout_marginTop="@dimen/m20"
-                android:layout_gravity="center_horizontal"
-                android:text="@string/tv_shouquan_tips"
-                />
+                android:layout_below="@+id/tv1"
+                android:layout_marginLeft="@dimen/m20"
+                android:layout_marginRight="@dimen/m20"
+                android:layout_height="wrap_content">
+            <EditText
+                    android:id="@+id/et_content"
+
+                    android:layout_width="match_parent"
+
+                    android:layout_height="@dimen/m165"
+                    android:textColor="@color/color_4A4A4A"
+                    android:textSize="15sp"
+                    android:layout_marginTop="@dimen/m10"
+                    android:background="@drawable/button_shape"
+                    android:gravity="left|top"
+                    android:hint="请填写拒绝原因"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/color_929292"
+                    android:textSize="12sp"
+                    android:text="50字"
+                    android:layout_gravity="right|bottom"
+                    android:layout_margin="@dimen/m10"
+                    android:layout_height="wrap_content"/>
+        </FrameLayout>
+
 
         <LinearLayout
                 android:layout_below="@+id/tv_content"
                 android:layout_width="match_parent"
                 android:layout_marginLeft="@dimen/m10"
                 android:layout_marginRight="@dimen/m10"
-                android:layout_marginTop="@dimen/m30"
+                android:layout_marginTop="@dimen/m20"
                 android:orientation="horizontal"
                 android:layout_height="wrap_content">
 
 
             <LinearLayout
-                    android:id="@+id/cancel_layout"
+                    android:id="@+id/sure_layout"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:orientation="vertical"
@@ -79,13 +81,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textStyle="normal"
-                        android:text="@string/cancel"
+                        android:text="@string/tv18"
                         android:textSize="18sp"
                         android:textColor="@color/top_heiziti"
                         />
             </LinearLayout>
             <LinearLayout
-                    android:id="@+id/shenqin_layout"
+                    android:id="@+id/cancel_layout"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:orientation="vertical"
@@ -98,7 +100,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textStyle="normal"
-                        android:text="@string/tv_shenqin"
+                        android:text="@string/cancel"
                         android:textSize="18sp"
                         android:textColor="@color/white"
                         />

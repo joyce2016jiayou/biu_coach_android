@@ -15,6 +15,7 @@
     <color name="color_lan">#00BABB</color>
     <color name="color_4A4A4A">#4A4A4A</color>
     <color name="color_929292">#929292</color>
+    <color name="color_EC0101">#EC0101</color>
 
 
     <color name="color_181818">#181818</color>
@@ -30,5 +31,6 @@
     <color name="btn_text_color">#76CEE1</color>
     <color name="edit_bg_color">#F4F4F4</color>
     <color name="btn_text_gray">#cfcfcf</color>
+    <color name="color_f1f1f1">#f1f1f1</color>
 
 </resources>
