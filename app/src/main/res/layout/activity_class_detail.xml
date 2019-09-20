@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".activity.YueKeInformationActivity">
+        tools:context=".activity.ClassDetailActivity">
 
     <RelativeLayout
             android:layout_width="match_parent"
@@ -28,7 +28,7 @@
                 android:id="@+id/xiangqing_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tv95"
+                android:text="@string/tv98"
                 android:layout_centerHorizontal="true"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -47,7 +47,8 @@
                 android:layout_width="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="@dimen/m20"
+                android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_height="wrap_content">
 
@@ -55,69 +56,58 @@
                     android:id="@+id/time_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2019年7月"
+                    android:text="X-park健身馆"
                     android:textColor="@color/top_heiziti"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     />
 
             <ImageView
                     android:layout_width="14dp"
-                    android:src="@drawable/xiala"
+                    android:src="@drawable/youjiantou"
                     android:layout_marginLeft="@dimen/m10"
-                    android:layout_height="8dp"/>
+                    android:layout_height="15dp"/>
         </LinearLayout>
 
-        <LinearLayout
+        <TextView
+                android:id="@+id/status_tv"
                 android:layout_width="wrap_content"
-                android:orientation="vertical"
+                android:layout_height="wrap_content"
+                android:text="已签到"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/m20"
-                android:layout_height="wrap_content">
-
-            <LinearLayout
-                    android:id="@+id/yiyuyue_btn"
-                    android:layout_width="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_height="wrap_content">
-
-                <ImageView
-                        android:layout_width="@dimen/m5"
-                        android:src="@drawable/lv_gang"
-                        android:layout_height="@dimen/m14"/>
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/m9"
-                        android:text="@string/tv96"
-                        android:textColor="@color/color_4A4A4A"
-                        android:textSize="13sp"
-                        />
-            </LinearLayout>
-
-            <LinearLayout
-                    android:id="@+id/yijieshu_btn"
-                    android:layout_width="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginTop="@dimen/m12"
-                    android:layout_height="wrap_content">
-
-                <ImageView
-                        android:layout_width="@dimen/m5"
-                        android:src="@drawable/zi_gang"
-                        android:layout_height="@dimen/m14"/>
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/m9"
-                        android:text="@string/tv97"
-                        android:textColor="@color/color_4A4A4A"
-                        android:textSize="13sp"
-                        />
-            </LinearLayout>
-        </LinearLayout>
+                android:layout_centerVertical="true"
+                android:textColor="@color/color_4A4A4A"
+                android:textSize="15sp"
+                />
     </RelativeLayout>
+    <RelativeLayout
+            android:id="@+id/top_view"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/m15"
+            android:layout_height="wrap_content">
+            <TextView
+                    android:id="@+id/button"
+                    android:layout_width="@dimen/m72"
+                    android:background="@drawable/qiandao_btn_bg"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/m20"
+                    android:text="签到"
+                    android:textColor="@color/color_lan"
+                    android:textSize="13sp"
+                    android:gravity="center"
+                    android:layout_height="@dimen/m24"
+                    />
+    </RelativeLayout>
+    <!--已签到-->
+    <include
+            android:id="@+id/yiqiandao_layout"
+            android:visibility="gone"
+            layout="@layout/yiqiandao_class_detail"/>
+    <!--已预约-->
+    <include
+            android:visibility="gone"
+            android:id="@+id/yiyueyue_layout"
+            layout="@layout/yiyuyue_class_detail"/>
+
+
 </LinearLayout>

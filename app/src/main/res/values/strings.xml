@@ -133,7 +133,17 @@
     <string name="tv95">约课信息</string>
     <string name="tv96">私教</string>
     <string name="tv97">团课</string>
-
+    <string name="tv98">课程详情</string>
+    <string name="tv99">团课名称</string>
+    <string name="tv100">团课类型</string>
+    <string name="tv101">团课房间</string>
+    <string name="tv102">课程价格</string>
+    <string name="tv103">课程时间</string>
+    <string name="tv104">课程时长</string>
+    <string name="tv105">课程人数</string>
+    <string name="tv106">课程名称</string>
+    <string name="tv107">用户昵称</string>
+    <string name="tv108">填写日志</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -11,32 +11,17 @@
             android:layout_marginLeft="@dimen/m32"
             android:layout_marginRight="@dimen/m32"
             android:background="@drawable/rizhi_pop_bg"
-            android:layout_height="@dimen/m180">
+            android:layout_height="@dimen/m118">
         <TextView
-                android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/top_heiziti"
                 android:textSize="18sp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/m15"
+                android:layout_marginTop="@dimen/m24"
                 android:layout_gravity="center_horizontal"
-                android:text=""
-                />
-
-        <TextView
-                android:id="@+id/tv_content"
-                android:layout_below="@+id/tv_title"
-                android:layout_width="match_parent"
-                android:layout_marginLeft="@dimen/m20"
-                android:layout_marginRight="@dimen/m20"
-                android:layout_height="wrap_content"
-                android:textColor="@color/color_4A4A4A"
-                android:layout_centerHorizontal="true"
-                android:textSize="15sp"
-                android:layout_marginTop="@dimen/m15"
-                android:layout_gravity="center_horizontal"
-                android:text=""
+                android:text="确认拨打（021）67254325？"
+                android:textStyle="bold"
                 />
 
         <RelativeLayout
