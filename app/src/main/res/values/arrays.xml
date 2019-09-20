@@ -11,5 +11,10 @@
         <item>产后恢复</item>
         <item>体态矫正</item>
     </string-array>
-
+    <string-array name="team_img_url">
+        <item>https://goss.veer.com/creative/vcg/veer/612/veer-132444248.jpg</item>
+        <item>https://goss1.veer.com/creative/vcg/veer/612/veer-163813886.jpg</item>
+        <item>https://goss3.veer.com/creative/vcg/veer/612/veer-301068394.jpg</item>
+        <item>https://goss4.veer.com/creative/vcg/veer/612/veer-146092500.jpg</item>
+    </string-array>
 </resources>

@@ -1,5 +1,6 @@
 package com.noplugins.keepfit.coachplatform.fragment.classmanager
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,15 +10,11 @@ import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.noplugins.keepfit.coachplatform.R
-import com.noplugins.keepfit.coachplatform.adapter.ManagerTeacherAdapter
-import com.noplugins.keepfit.coachplatform.adapter.ManagerTeamClassAdapter
 import com.noplugins.keepfit.coachplatform.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_manager_teacher.*
-import androidx.recyclerview.widget.PagerSnapHelper
-import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.viewpager.widget.ViewPager
+import com.noplugins.keepfit.coachplatform.activity.manager.ClassShouquanActivity
 import com.noplugins.keepfit.coachplatform.adapter.TabItemAdapter
 import com.noplugins.keepfit.coachplatform.fragment.classmanager.teacher.SJDownFragment
 import com.noplugins.keepfit.coachplatform.fragment.classmanager.teacher.SJUpFragment
@@ -38,7 +35,7 @@ class TeacherFragment : BaseFragment() {
     }
     private val mFragments = ArrayList<Fragment>()
 
-    var newView: View? = null
+    private var newView: View? = null
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -52,15 +49,18 @@ class TeacherFragment : BaseFragment() {
         super.onFragmentFirstVisible()
         initFragment()
         rbOnClick()
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        toShouquan(rb_1)
 
     }
 
     //私教判断有无场馆
     override fun onFragmentVisibleChange(isVisible: Boolean) {
         super.onFragmentVisibleChange(isVisible)
-        if (isVisible){
-            toShouquan(rb_1)
-        }
+//        toShouquan(rb_1)
     }
 
     private fun rbOnClick(){
@@ -111,8 +111,11 @@ class TeacherFragment : BaseFragment() {
     }
 
 
-    private fun toShouquan(view: TextView) {
-        val popupWindow = CommonPopupWindow.Builder(activity)
+    private fun toShouquan(view1: TextView) {
+        if (context == null){
+            return
+        }
+        val popupWindow = CommonPopupWindow.Builder(context)
             .setView(R.layout.dialog_to_shouquan)
             .setBackGroundLevel(0.5f)//0.5f
             .setAnimationStyle(R.style.main_menu_animstyle)
@@ -121,23 +124,30 @@ class TeacherFragment : BaseFragment() {
                 WindowManager.LayoutParams.MATCH_PARENT
             )
             .setOutSideTouchable(true).create()
-        popupWindow.showAsDropDown(view)
+        popupWindow.showAsDropDown(view1)
 
         /**设置逻辑 */
         val view = popupWindow.contentView
         val cancel = view.findViewById<LinearLayout>(R.id.cancel_layout)
-        val sure = view.findViewById<LinearLayout>(R.id.sure_layout)
+        val sure = view.findViewById<LinearLayout>(R.id.shenqin_layout)
 
         cancel.setOnClickListener {
             popupWindow.dismiss()
         }
         sure.setOnClickListener {
             popupWindow.dismiss()
+            //去申请
+            val toInfo = Intent(activity, ClassShouquanActivity::class.java)
+            startActivity(toInfo)
+
         }
     }
 
-    private fun toLoading(view: TextView) {
-        val popupWindow = CommonPopupWindow.Builder(activity)
+    private fun toLoading(view1: TextView) {
+        if (context == null){
+            return
+        }
+        val popupWindow = CommonPopupWindow.Builder(context)
             .setView(R.layout.dialog_to_loading)
             .setBackGroundLevel(0.5f)//0.5f
             .setAnimationStyle(R.style.main_menu_animstyle)
@@ -146,7 +156,7 @@ class TeacherFragment : BaseFragment() {
                 WindowManager.LayoutParams.MATCH_PARENT
             )
             .setOutSideTouchable(true).create()
-        popupWindow.showAsDropDown(view)
+        popupWindow.showAsDropDown(view1)
 
         /**设置逻辑 */
         val view = popupWindow.contentView

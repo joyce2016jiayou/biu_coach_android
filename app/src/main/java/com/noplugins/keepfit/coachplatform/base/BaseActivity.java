@@ -61,12 +61,6 @@ public abstract class BaseActivity extends AppCompatActivity implements EasyPerm
         //设置沉浸栏
         set_status_bar();
 
-
-        //初始化Bundle对象
-        Bundle bundle = getIntent().getExtras();
-        initBundle(bundle);
-
-
         //初始化布局
         mContextView = LayoutInflater.from(this).inflate(R.layout.ll_basetitle, null);
         ly_content = mContextView.findViewById(R.id.layout_base);
@@ -84,6 +78,12 @@ public abstract class BaseActivity extends AppCompatActivity implements EasyPerm
 
         //初始化控件
         initView();
+
+
+        //初始化Bundle对象
+        Bundle bundle = getIntent().getExtras();
+        initBundle(bundle);
+
 
         if (isShowTitle) {
             //初始化title

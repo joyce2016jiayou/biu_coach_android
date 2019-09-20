@@ -1,17 +1,23 @@
 package com.noplugins.keepfit.coachplatform.fragment.classmanager.team
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.noplugins.keepfit.coachplatform.R
+import com.noplugins.keepfit.coachplatform.activity.manager.TeamInfoActivity
 import com.noplugins.keepfit.coachplatform.adapter.ManagerTeacherAdapter
 import com.noplugins.keepfit.coachplatform.adapter.ManagerTeamClassAdapter
 import com.noplugins.keepfit.coachplatform.base.BaseFragment
 import com.noplugins.keepfit.coachplatform.bean.manager.ManagerTeamBean
+import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow
 import kotlinx.android.synthetic.main.fragment_manager_teacher_1.*
 
 class YaoqinFragment : BaseFragment()  {
@@ -51,9 +57,14 @@ class YaoqinFragment : BaseFragment()  {
             when(view.id){
                 R.id.rl_jump -> {
                     //todo 跳转到详情 需要携带状态
+                    val toInfo = Intent(activity, TeamInfoActivity::class.java)
+                    val bundle = Bundle()
+                    bundle.putInt("type",2)
+                    toInfo.putExtras(bundle)
+                    startActivity(toInfo)
                 }
                 R.id.tv_jujue -> {
-                    //todo 拒绝
+                    toJujue(view as TextView)
                 }
                 R.id.tv_jieshou -> {
                     //todo 接受
@@ -80,5 +91,32 @@ class YaoqinFragment : BaseFragment()  {
             datas.add(team)
         }
         adapterManager.notifyDataSetChanged()
+    }
+
+    private fun toJujue(view1: TextView) {
+        val popupWindow = CommonPopupWindow.Builder(activity)
+            .setView(R.layout.dialog_to_jujue)
+            .setBackGroundLevel(0.5f)//0.5f
+            .setAnimationStyle(R.style.main_menu_animstyle)
+            .setWidthAndHeight(
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.MATCH_PARENT
+            )
+            .setOutSideTouchable(true).create()
+        popupWindow.showAsDropDown(view1)
+
+        /**设置逻辑 */
+        val view = popupWindow.contentView
+        val cancel = view.findViewById<LinearLayout>(R.id.cancel_layout)
+        val sure = view.findViewById<LinearLayout>(R.id.sure_layout)
+
+        cancel.setOnClickListener {
+            popupWindow.dismiss()
+        }
+        sure.setOnClickListener {
+            popupWindow.dismiss()
+            //去申请
+
+        }
     }
 }

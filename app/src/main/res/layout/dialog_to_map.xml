@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <LinearLayout
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:background="@drawable/sex_pop_bg"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:layout_height="191dp">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="跳转到地图"
+                android:layout_marginTop="30dp"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/top_heiziti"
+                android:textSize="15sp"
+                />
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:paddingLeft="43dp"
+                android:layout_marginTop="17dp"
+                android:paddingRight="43dp"
+                android:layout_height="wrap_content">
+
+            <LinearLayout
+                    android:id="@+id/iv_baidu"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_height="wrap_content">
+
+                <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@mipmap/ic_launcher"
+                        />
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/iv_gaode"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_height="wrap_content">
+
+                <ImageView
+
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@mipmap/ic_launcher"
+                        />
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/iv_qq"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_height="wrap_content">
+
+                <ImageView
+
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@mipmap/ic_launcher"
+                        />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:background="@color/color_f1f1f1"
+                android:layout_marginTop="29dp"
+                android:layout_height="2dp">
+
+        </LinearLayout>
+
+
+        <TextView
+                android:id="@+id/cancel_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/btn_text_gray"
+                android:text="@string/cancel"
+                />
+    </LinearLayout>
+</RelativeLayout>

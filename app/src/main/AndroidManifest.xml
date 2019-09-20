@@ -74,19 +74,23 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:usesCleartextTraffic="true"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.YueKeInformationActivity">
-        </activity>
         <activity android:name=".activity.TeacherTimeActivity">
+
         </activity>
-        <activity android:name=".activity.manager.TeacherInfoActivity">
+        <activity android:name=".activity.manager.TeacherInfoActivity" >
         </activity>
-        <activity android:name=".activity.manager.TeacherAddOrEditActivity">
+        <activity android:name=".activity.manager.TeacherAddOrEditActivity" >
         </activity>
         <activity android:name=".activity.AddZhengshuActivity">
         </activity>
         <activity android:name=".activity.CheckStatusActivity">
         </activity>
         <activity android:name=".activity.ClassManagerActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity android:name=".activity.SetPasswordActivity">
         </activity>
@@ -95,11 +99,6 @@
         <activity android:name=".activity.SelectRoleActivity">
         </activity>
         <activity android:name=".activity.SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity android:name=".activity.WelcomeGuideActivity">
         </activity>
