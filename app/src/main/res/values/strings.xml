@@ -35,8 +35,14 @@
     <string name="edit_hint1">请输入手机号</string>
     <string name="edit_hint2">请输入密码</string>
     <string name="edit_hint3">请再次输入密码</string>
-
     <string name="edit_hint5">请输入验证码</string>
+    <string name="edit_hint6">请输入新密码</string>
+
+    <string name="edit_hint7">请再次确认密码</string>
+    <string name="edit_hint28">手机号</string>
+    <string name="edit_hint31">请输入旧密码</string>
+    <string name="edit_hint32">请输入新密码</string>
+    <string name="edit_hint33">请再次确认密码</string>
     <string name="tv1">登 录</string>
     <string name="tv2">biu一下，遇见自己</string>
     <string name="tv3">密码登录</string>
@@ -145,6 +151,13 @@
     <string name="tv107">用户昵称</string>
     <string name="tv108">填写日志</string>
 
+    <string name="tv109">选择问题类型(必填)</string>
+    <string name="tv110">产品建议 (功能建议/新的想法)</string>
+    <string name="tv111">故障反馈 (功能不可用)</string>
+    <string name="tv112">其他问题</string>
+    <string name="tv113">请输入问题描述 (必填，10个字以上)</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="class_manager">课程管理</string>
@@ -169,4 +182,23 @@
     <string name="chongxin">重新申请</string>
     <string name="tv_shenqin">申请授权</string>
     <string name="tv_shouquan_tips">申请授权场馆说明：\n1. 私教课程需场馆授权，方可上架课程并在场馆授课，前端用户可选择已授权场馆进行上课。\n\n2. 授权后，可在我的-授课场馆中解除授权。\n\n3. 教练或场馆单方解除授权，则需重新申请。</string>
+
+    <string name="tv_service">服务时长</string>
+    <string name="tv_tk">团课</string>
+    <string name="tv_sj">私教</string>
+    <string name="qianbao">钱包</string>
+    <string name="class_cg">授课场馆</string>
+    <string name="class_date">授课时间</string>
+    <string name="issue_feed">问题反馈</string>
+
+    <string name="setting_pwd">设置密码</string>
+    <string name="setting_sjh">修改手机号</string>
+    <string name="tv_risk">电子合同</string>
+    <string name="tv_xy">用户服务协议与免责声明</string>
+    <string name="tv_quit">登出账户</string>
+    <string name="tv_teacher_manager">教练类型管理</string>
+    <string name="zhanghao_aq">安全管理</string>
+    <string name="about">关于</string>
+    <string name="tv116">修改密码</string>
+    <string name="tv118">修改密码</string>
 </resources>

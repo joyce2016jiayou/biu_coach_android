@@ -32,5 +32,7 @@
     <color name="edit_bg_color">#F4F4F4</color>
     <color name="btn_text_gray">#cfcfcf</color>
     <color name="color_f1f1f1">#f1f1f1</color>
+    <color name="color_ACACAC">#ACACAC</color>
+    <color name="color_7E7E7E">#7e7e7e</color>
 
 </resources>

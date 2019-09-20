@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:scrollbars="none"
+            android:layout_height="match_parent">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/m30">
+
+            <www.linwg.org.lib.LCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cornerRadius="@dimen/m8"
+                    android:layout_marginTop="@dimen/m50"
+                    android:layout_marginLeft="@dimen/m10"
+                    android:layout_marginRight="@dimen/m10">
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                    <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_marginRight="@dimen/m102"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:layout_marginTop="@dimen/m25">
+
+                        <TextView
+                                android:id="@+id/tv_user_Name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                tools:text="PONY"
+                                android:textSize="18sp"
+                                android:layout_marginRight="@dimen/m10"
+                                android:textColor="@color/color_181818"/>
+
+                        <TextView
+                                android:id="@+id/tv_score"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_toRightOf="@+id/tv_user_Name"
+                                tools:text="9.0分"/>
+                    </RelativeLayout>
+
+                    <TextView
+                            android:id="@+id/tv_teacher_tips"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/m20"
+                            android:layout_marginLeft="@dimen/m20"
+                            android:layout_marginTop="@dimen/m15"
+                            tools:text="@string/tips_1"
+                            android:textColor="@color/color_4A4A4A"
+                            android:textSize="12sp"/>
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="@dimen/m20"
+                            android:layout_marginBottom="@dimen/m10">
+
+                        <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:gravity="center_horizontal">
+
+                            <TextView
+                                    android:id="@+id/tv_service_time"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    tools:text="220h"
+                                    android:textSize="15sp"
+                                    android:textColor="@color/color_181818"/>
+
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/tv_service"
+                                    android:textSize="12sp"
+                                    android:layout_marginTop="@dimen/m5"
+                                    android:textColor="@color/color_4A4A4A"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:gravity="center_horizontal">
+
+                            <TextView
+                                    android:id="@+id/tv_team_num"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    tools:text="220h"
+                                    android:textSize="15sp"
+                                    android:textColor="@color/color_181818"/>
+
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/tv_tk"
+                                    android:textSize="12sp"
+                                    android:layout_marginTop="@dimen/m5"
+                                    android:textColor="@color/color_4A4A4A"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:gravity="center_horizontal">
+
+                            <TextView
+                                    android:id="@+id/tv_teacher_num"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    tools:text="220h"
+                                    android:textSize="15sp"
+                                    android:textColor="@color/color_181818"/>
+
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/tv_sj"
+                                    android:textSize="12sp"
+                                    android:layout_marginTop="@dimen/m5"
+                                    android:textColor="@color/color_4A4A4A"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </www.linwg.org.lib.LCardView>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_181818"
+                    android:text="我的"
+                    android:layout_marginTop="@dimen/m5"
+                    android:layout_marginLeft="@dimen/m10"
+                    android:textSize="26sp"/>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_logo"
+                    android:layout_width="@dimen/m100"
+                    android:layout_height="@dimen/m100"
+                    android:layout_gravity="right|top"
+                    android:layout_marginRight="@dimen/m14"
+                    android:src="@mipmap/ic_launcher"/>
+        </FrameLayout>
+
+        <www.linwg.org.lib.LCardView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/m74"
+                app:cornerRadius="@dimen/m8"
+                android:layout_marginLeft="@dimen/m10"
+                android:layout_marginRight="@dimen/m10">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                <LinearLayout
+                        android:layout_width="@dimen/m60"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                    <ImageView
+                            android:layout_width="@dimen/m24"
+                            android:layout_height="@dimen/m24"
+                            android:src="@drawable/mine_biaoqian"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="我的标签"
+                            android:textSize="10sp"
+                            android:layout_marginTop="@dimen/m5"
+                            android:textColor="@color/color_4A4A4A"/>
+                </LinearLayout>
+
+                <GridView
+                        android:id="@+id/grid_view"
+                        android:layout_width="wrap_content"
+                        android:layout_gravity="clip_horizontal"
+                        android:layout_marginRight="@dimen/m30"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/m20"
+                        android:gravity="center"
+                        android:numColumns="3"
+                        android:stretchMode="columnWidth"
+                        android:verticalSpacing="@dimen/m11"/>
+            </LinearLayout>
+        </www.linwg.org.lib.LCardView>
+
+        <www.linwg.org.lib.LCardView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/m76"
+                app:cornerRadius="@dimen/m8"
+                android:layout_marginLeft="@dimen/m10"
+                android:layout_marginRight="@dimen/m10">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                <LinearLayout
+                        android:layout_width="@dimen/m60"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                    <ImageView
+                            android:layout_width="@dimen/m24"
+                            android:layout_height="@dimen/m24"
+                            android:src="@drawable/mine_sr"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="本月收入"
+                            android:textSize="10sp"
+                            android:layout_marginTop="@dimen/m5"
+                            android:textColor="@color/color_4A4A4A"/>
+                </LinearLayout>
+                <TextView
+                        android:id="@+id/tv_month_money"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/m20"
+                        tools:text="¥10000.00"
+                        android:textColor="@color/color_181818"
+                        android:textStyle="bold"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="15sp"/>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+                    <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_margin="@dimen/m8">
+                        <TextView
+                                android:layout_width="@dimen/m16"
+                                android:layout_height="@dimen/m16"
+                                android:text="团"
+                                android:gravity="center"
+                                android:textSize="10sp"
+                                android:background="@drawable/mine_tuan"
+                                android:textColor="@color/white"/>
+                        <TextView
+                                android:id="@+id/tv_team_money"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/color_181818"
+                                android:textSize="13sp"
+                                android:layout_marginLeft="@dimen/m5"
+                                tools:text="¥1000"/>
+                    </LinearLayout>
+                    <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_margin="@dimen/m8">
+                        <TextView
+                                android:layout_width="@dimen/m16"
+                                android:layout_height="@dimen/m16"
+                                android:text="私"
+                                android:gravity="center"
+                                android:textSize="10sp"
+                                android:background="@drawable/mine_si"
+                                android:textColor="@color/white"/>
+                        <TextView
+                                android:id="@+id/tv_price_money"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/color_181818"
+                                android:textSize="13sp"
+                                android:layout_marginLeft="@dimen/m5"
+                                tools:text="¥1000"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </www.linwg.org.lib.LCardView>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="@dimen/m70">
+
+            <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:id="@+id/ll_qianbao"
+                    android:layout_height="match_parent">
+
+                <ImageView
+                        android:layout_width="@dimen/m20"
+                        android:layout_height="@dimen/m20"
+                        android:src="@drawable/mine_qb"/>
+
+                <TextView
+                        android:layout_marginTop="@dimen/m5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/qianbao"
+                        android:textSize="13sp"
+                        android:textColor="@color/color_4A4A4A"
+                        />
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/ll_class_manager"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_height="match_parent">
+
+                <ImageView
+                        android:src="@drawable/mine_kc"
+                        android:layout_width="@dimen/m20"
+                        android:layout_height="@dimen/m20"/>
+
+                <TextView
+                        android:layout_marginTop="@dimen/m5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/class_manager"
+                        android:textSize="13sp"
+                        android:textColor="@color/color_4A4A4A"
+                        />
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/ll_class_cg"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_height="match_parent">
+
+                <ImageView
+                        android:layout_width="@dimen/m20"
+                        android:layout_height="@dimen/m20"
+                        android:src="@drawable/mine_cgyy"/>
+
+                <TextView
+                        android:layout_marginTop="@dimen/m5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/class_cg"
+                        android:textSize="13sp"
+                        android:textColor="@color/color_4A4A4A"
+                        />
+
+            </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="@dimen/m70">
+
+            <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:id="@+id/ll_calss_time"
+                    android:layout_height="match_parent">
+
+                <ImageView
+                        android:layout_width="@dimen/m20"
+                        android:layout_height="@dimen/m20"
+                        android:src="@drawable/mine_sksj"/>
+
+                <TextView
+                        android:layout_marginTop="@dimen/m5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/class_date"
+                        android:textSize="13sp"
+                        android:textColor="@color/color_4A4A4A"
+                        />
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/ll_issue_feed"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_height="match_parent">
+
+                <ImageView
+                        android:layout_width="@dimen/m20"
+                        android:layout_height="@dimen/m20"
+                        android:src="@drawable/mine_wtfc"/>
+
+                <TextView
+                        android:layout_marginTop="@dimen/m5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/issue_feed"
+                        android:textSize="13sp"
+                        android:textColor="@color/color_4A4A4A"
+                        />
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/ll_setting"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_height="match_parent">
+
+                <ImageView
+                        android:layout_width="@dimen/m20"
+                        android:layout_height="@dimen/m20"
+                        android:src="@drawable/setting"/>
+
+                <TextView
+                        android:layout_marginTop="@dimen/m5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/setting"
+                        android:textSize="13sp"
+                        android:textColor="@color/color_4A4A4A"
+                        />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

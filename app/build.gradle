@@ -239,4 +239,7 @@ dependencies {
     //
     implementation 'me.relex:recyclerpager:1.0.4'
 
+    //luban
+    implementation 'top.zibin:Luban:1.1.8'
+
 }

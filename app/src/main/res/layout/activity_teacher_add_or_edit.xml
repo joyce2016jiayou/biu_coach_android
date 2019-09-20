@@ -210,6 +210,7 @@
                                 android:gravity="left|top"
                                 android:textColor="@color/color_929292"
                                 android:textSize="15sp"
+                                android:padding="@dimen/m11"
                                 android:background="@drawable/shape_btn_bg_gray"/>
 
                         <TextView
@@ -242,6 +243,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/m100"
                                 android:gravity="left|top"
+                                android:padding="@dimen/m11"
                                 android:textColor="@color/color_929292"
                                 android:textSize="15sp"
                                 android:background="@drawable/shape_btn_bg_gray"/>
@@ -277,6 +279,7 @@
                                 android:layout_height="@dimen/m200"
                                 android:gravity="left|top"
                                 android:textColor="@color/color_929292"
+                                android:padding="@dimen/m11"
                                 android:textSize="15sp"
                                 android:background="@drawable/shape_btn_bg_gray"/>
 

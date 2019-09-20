@@ -1,11 +1,11 @@
 <component name="libraryTable">
   <library name="Gradle: com.vivian.widgets:TimeLineItemDecoration:1.5@aar">
     <ANNOTATIONS>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7895286fb766e48e9b05928de6677a4f/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/94b9fe8b89a32639da9e40e7644eade7/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7895286fb766e48e9b05928de6677a4f/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7895286fb766e48e9b05928de6677a4f/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/94b9fe8b89a32639da9e40e7644eade7/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/94b9fe8b89a32639da9e40e7644eade7/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

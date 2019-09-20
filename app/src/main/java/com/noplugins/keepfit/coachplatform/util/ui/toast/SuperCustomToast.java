@@ -358,7 +358,7 @@ public class SuperCustomToast {
         defaultTextColor = Color.WHITE;
         defaultBackgroundColor = new ColorDrawable(Color.BLACK);
         defaultBackgroundColor.setAlpha(200);
-        defaultBackgroundResid = null;
+        defaultBackgroundResid = R.drawable.shape_btn_bg_black;
     }
 
     /**
@@ -400,6 +400,7 @@ public class SuperCustomToast {
         TextView tv = new TextView(mContext);
         tv.setLayoutParams(lp_WW);
         tv.setText(msg);
+
         tv.setTextColor(defaultTextColor);
         Drawable background = null;
         if (defaultBackgroundResid != null) {
@@ -409,7 +410,7 @@ public class SuperCustomToast {
         }
         if (currentapiVersion > 10) tv.setBackground(background);
         else tv.setBackgroundDrawable(background);
-        tv.setPadding(5, 5, 5, 5);
+        tv.setPadding(30,10,30,10);
         tv.setGravity(Gravity.CENTER);
         return tv;
     }

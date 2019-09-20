@@ -74,6 +74,24 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:usesCleartextTraffic="true"
             tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".activity.info.SettingActivity">
+        </activity>
+        <activity android:name=".activity.info.VerificationPhoneActivity">
+        </activity>
+        <activity android:name=".activity.info.UpdatePhoneActivity">
+        </activity>
+        <activity android:name=".activity.info.SettingPwdActivity">
+        </activity>
+        <activity android:name=".activity.info.AccountSecurityActivity">
+
+        </activity>
+        <activity android:name=".activity.info.InformationActivity">
+        </activity>
+
+        <activity android:name=".activity.manager.ChaungguanDetailActivity">
+        </activity>
+        <activity android:name=".activity.manager.ClassShouquanActivity">
+        </activity>
         <activity android:name=".activity.WriteDailryActivity">
         </activity>
         <activity android:name=".activity.ClassDetailActivity">
@@ -91,6 +109,11 @@
         <activity android:name=".activity.CheckStatusActivity">
         </activity>
         <activity android:name=".activity.ClassManagerActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity android:name=".activity.SetPasswordActivity">
         </activity>
@@ -105,11 +128,6 @@
         <activity
                 android:name=".MainActivity"
                 android:launchMode="singleTask">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity android:name=".activity.LoginActivity">
         </activity>

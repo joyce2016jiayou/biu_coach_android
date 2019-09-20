@@ -11,6 +11,7 @@ import com.google.gson.Gson
 import com.noplugins.keepfit.coachplatform.adapter.ContentPagerAdapterMy
 import com.noplugins.keepfit.coachplatform.base.BaseActivity
 import com.noplugins.keepfit.coachplatform.base.MyApplication
+import com.noplugins.keepfit.coachplatform.fragment.MineFragment
 import com.noplugins.keepfit.coachplatform.fragment.ScheduleFragment
 import com.noplugins.keepfit.coachplatform.global.AppConstants
 import com.noplugins.keepfit.coachplatform.jpush.TagAliasOperatorHelper
@@ -67,7 +68,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         //初始化页面
         tabFragments.add(ScheduleFragment.getInstance("第一页"))
         tabFragments.add(ScheduleFragment.getInstance("第二页"))
-        tabFragments.add(ScheduleFragment.getInstance("第三页"))
+        tabFragments.add(MineFragment.Companion.newInstance("第三页"))
         //初始化viewpager
         val contentAdapter = ContentPagerAdapterMy(supportFragmentManager, tabFragments)
         viewpager_content.setAdapter(contentAdapter)

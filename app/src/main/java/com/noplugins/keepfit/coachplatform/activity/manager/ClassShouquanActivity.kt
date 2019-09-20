@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.CheckBox
@@ -48,14 +49,35 @@ class ClassShouquanActivity : BaseActivity() {
                 }
             }
         }
-//        ll_content.setOnTouchListener { v, event ->
-////            if (null != currentFocus) {
-////                val mInputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-////                return mInputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0)
-////            }
-////            return false
-//
-//        }
+        ll_content.setOnTouchListener(object : View.OnTouchListener {
+            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+
+                currentFocus?.let {
+
+                    val mInputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    mInputMethodManager.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
+                    edit_search.clearFocus()
+                    return false
+
+                }
+                return false
+            }
+
+        })
+        rv_list.setOnTouchListener(object : View.OnTouchListener {
+            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                currentFocus?.let {
+
+                    val mInputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    mInputMethodManager.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
+                    edit_search.clearFocus()
+                    return false
+
+                }
+                return false
+            }
+
+        })
     }
 
     private lateinit var layoutManager: LinearLayoutManager
