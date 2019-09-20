@@ -130,6 +130,9 @@
     <string name="tv92">关闭授课按钮后，除已约课程，后续您将不接受约课和场馆邀课</string>
     <string name="tv93">确认开启授课？</string>
     <string name="tv94">开启授课按钮后，根据您的可授课时间，将即时接受约课和场馆邀课。</string>
+    <string name="tv95">约课信息</string>
+    <string name="tv96">私教</string>
+    <string name="tv97">团课</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

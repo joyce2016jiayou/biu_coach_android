@@ -14,6 +14,7 @@ import butterknife.ButterKnife;
 import com.huantansheng.easyphotos.models.puzzle.Line;
 import com.noplugins.keepfit.coachplatform.R;
 import com.noplugins.keepfit.coachplatform.activity.TeacherTimeActivity;
+import com.noplugins.keepfit.coachplatform.activity.YueKeInformationActivity;
 import com.noplugins.keepfit.coachplatform.adapter.ClassAdapter;
 import com.noplugins.keepfit.coachplatform.adapter.DateSelectAdapter;
 import com.noplugins.keepfit.coachplatform.bean.ClassDateBean;
@@ -36,6 +37,8 @@ public class ScheduleFragment extends Fragment {
     CircleImageView touxiang_image;
     @BindView(R.id.teacher_time_btn)
     LinearLayout teacher_time_btn;
+    @BindView(R.id.more_btn)
+    LinearLayout more_btn;
     public static ScheduleFragment getInstance(String title) {
         ScheduleFragment fragment = new ScheduleFragment();
         Bundle args = new Bundle();
@@ -72,6 +75,13 @@ public class ScheduleFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), TeacherTimeActivity.class);
+                startActivity(intent);
+            }
+        });
+        more_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), YueKeInformationActivity.class);
                 startActivity(intent);
             }
         });
