@@ -109,11 +109,7 @@
         <activity android:name=".activity.CheckStatusActivity">
         </activity>
         <activity android:name=".activity.ClassManagerActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity android:name=".activity.SetPasswordActivity">
         </activity>
@@ -122,12 +118,18 @@
         <activity android:name=".activity.SelectRoleActivity">
         </activity>
         <activity android:name=".activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity android:name=".activity.WelcomeGuideActivity">
         </activity>
         <activity
                 android:name=".MainActivity"
                 android:launchMode="singleTask">
+
         </activity>
         <activity android:name=".activity.LoginActivity">
         </activity>

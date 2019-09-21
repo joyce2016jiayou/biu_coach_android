@@ -11,10 +11,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.noplugins.keepfit.coachplatform.MainActivity;
 import com.noplugins.keepfit.coachplatform.R;
 import com.noplugins.keepfit.coachplatform.base.BaseActivity;
+import com.noplugins.keepfit.coachplatform.bean.LoginBean;
+import com.noplugins.keepfit.coachplatform.global.AppConstants;
+import com.noplugins.keepfit.coachplatform.util.SpUtils;
+import com.noplugins.keepfit.coachplatform.util.net.Network;
+import com.noplugins.keepfit.coachplatform.util.net.entity.Bean;
+import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber;
+import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener;
 import com.noplugins.keepfit.coachplatform.util.ui.LoadingButton;
+import rx.Subscription;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -62,8 +73,7 @@ public class SetPasswordActivity extends BaseActivity {
                 } else if (!edit_password_number.getText().toString().equals(edit_password_again.getText().toString())) {
                     Toast.makeText(SetPasswordActivity.this, "两次密码输入不一致！", Toast.LENGTH_SHORT).show();
                     return;
-                }
-                {
+                } else {
                     String passRegex = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,18}$";
                     Pattern p = Pattern.compile(passRegex);
                     Matcher m = p.matcher(edit_password_number.getText().toString());
@@ -72,14 +82,10 @@ public class SetPasswordActivity extends BaseActivity {
                         Toast.makeText(SetPasswordActivity.this, "请输入正确的格式！", Toast.LENGTH_SHORT).show();
                         return;
                     } else {
-                        sure_btn.startLoading();
-                        sure_btn.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                sure_btn.loadingComplete();
-                            }
-                        }, 1000);
 
+
+
+                        set_password();
                         Intent intent = new Intent(SetPasswordActivity.this, SelectRoleActivity.class);
                         startActivity(intent);
                         finish();
@@ -90,5 +96,40 @@ public class SetPasswordActivity extends BaseActivity {
             }
         });
 
+    }
+
+    private void set_password() {
+        Map<String, Object> params = new HashMap<>();
+        if (null != SpUtils.getString(getApplicationContext(), AppConstants.USER_NAME)) {
+            params.put("userNum", SpUtils.getString(getApplicationContext(), AppConstants.USER_NAME));
+
+        }
+        params.put("password", edit_password_again.getText().toString());
+        Subscription subscription = Network.getInstance("设置密码", this)
+                .set_password(params,
+                        new ProgressSubscriber<>("设置密码", new SubscriberOnNextListener<Bean<String>>() {
+                            @Override
+                            public void onNext(Bean<String> result) {
+                                sure_btn.loadingComplete();
+
+                                if(null!=SpUtils.getString(getApplicationContext(),AppConstants.TEACHER_TYPE)){
+                                    if(SpUtils.getString(getApplicationContext(),AppConstants.TEACHER_TYPE).length()>0){//已经审核过了
+                                        Intent intent = new Intent(SetPasswordActivity.this, MainActivity.class);
+                                        startActivity(intent);
+                                    }else{//未审核
+                                        Intent intent = new Intent(SetPasswordActivity.this, SelectRoleActivity.class);
+                                        startActivity(intent);
+                                    }
+                                }
+
+                            }
+
+                            @Override
+                            public void onError(String error) {
+                                sure_btn.loadingComplete();
+
+
+                            }
+                        }, this, false));
     }
 }

@@ -18,13 +18,23 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.gson.Gson;
 
+import com.noplugins.keepfit.coachplatform.MainActivity;
 import com.noplugins.keepfit.coachplatform.R;
 import com.noplugins.keepfit.coachplatform.base.BaseActivity;
+import com.noplugins.keepfit.coachplatform.bean.LoginBean;
+import com.noplugins.keepfit.coachplatform.bean.YanZhengMaBean;
+import com.noplugins.keepfit.coachplatform.global.AppConstants;
+import com.noplugins.keepfit.coachplatform.util.SpUtils;
+import com.noplugins.keepfit.coachplatform.util.data.SharedPreferencesHelper;
 import com.noplugins.keepfit.coachplatform.util.data.StringsHelper;
 import com.noplugins.keepfit.coachplatform.util.net.Network;
+import com.noplugins.keepfit.coachplatform.util.net.entity.Bean;
+import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber;
+import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener;
 import com.noplugins.keepfit.coachplatform.util.ui.LoadingButton;
 import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow;
 import okhttp3.RequestBody;
+import rx.Subscription;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -53,11 +63,14 @@ public class LoginActivity extends BaseActivity {
     ImageView iv_delete_edit;
     @BindView(R.id.login_btn)
     LoadingButton login_btn;
+    @BindView(R.id.xieyi_check_btn)
+    CheckBox xieyi_check_btn;
 
 
-    private boolean is_yanzhengma_logon = true;
+    private static boolean is_yanzhengma_logon = true;
     protected final String TAG = this.getClass().getSimpleName();//是否输出日志信息
-
+    private String message_id = "";
+    private boolean is_check_fuwu = false;
 
     @Override
     public void initBundle(Bundle parms) {
@@ -81,6 +94,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 if (yanzhengma_tv.getText().toString().equals("密码登录")) {
+                    Log.e("登录方式","密码登录");
                     is_yanzhengma_logon = false;
                     yanzhengma_tv.setText("验证码登录");
 
@@ -93,6 +107,8 @@ public class LoginActivity extends BaseActivity {
 
 
                 } else {
+                    Log.e("登录方式","验证码登录");
+
                     is_yanzhengma_logon = true;
                     yanzhengma_tv.setText("密码登录");
 
@@ -121,7 +137,7 @@ public class LoginActivity extends BaseActivity {
                     tv_send.setEnabled(false);//设置不可点击，等待60秒过后可以点击
                     timer.start();
                     //获取验证码接口
-                    //Get_YanZhengMa();
+                    Get_YanZhengMa();
                 }
             }
         });
@@ -142,24 +158,100 @@ public class LoginActivity extends BaseActivity {
         login_btn.setBtnOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                login_btn.startLoading();
-                login_btn.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        login_btn.loadingComplete();
+                if (is_check_fuwu) {
+                    login_btn.startLoading();
+                    if (is_yanzhengma_logon) {//如果是验证码登录，则让它设置密码
+                        yanzheng_yanzhengma();
+                    } else {
+                        password_login();
                     }
-                }, 1000);
-
-
-                if (is_yanzhengma_logon) {//如果是验证码登录，则让它设置密码
-                    Intent intent = new Intent(LoginActivity.this, SetPasswordActivity.class);
-                    startActivity(intent);
                 } else {
-                    Intent intent = new Intent(LoginActivity.this, SelectRoleActivity.class);
-                    startActivity(intent);
+                    Toast.makeText(LoginActivity.this, "请先勾选用户协议！", Toast.LENGTH_SHORT).show();
                 }
+
+
             }
         });
+        xieyi_check_btn.setOnCheckedChangeListener(onCheckedChangeListener);
+    }
+
+    private void yanzheng_yanzhengma() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("messageId", message_id);
+        params.put("code", edit_password.getText().toString());
+        params.put("phone", edit_phone_number.getText().toString());
+        Subscription subscription = Network.getInstance("验证验证码和登录", this)
+                .yanzheng_yanzhengma(params,
+                        new ProgressSubscriber<>("验证验证码和登录", new SubscriberOnNextListener<Bean<YanZhengMaBean>>() {
+                            @Override
+                            public void onNext(Bean<YanZhengMaBean> result) {
+                                login_btn.loadingComplete();
+                                if (result.getData().getHavePassword() == 0) {//没有设置过密码
+                                    Intent intent = new Intent(LoginActivity.this, SetPasswordActivity.class);
+                                    startActivity(intent);
+                                } else {//设置过密码
+                                    Intent intent = new Intent(LoginActivity.this, SelectRoleActivity.class);
+                                    startActivity(intent);
+                                }
+                                save_resource(result.getData().getToken(), result.getData().getUserNum(), result.getData().getTeacherType());
+                            }
+
+                            @Override
+                            public void onError(String error) {
+                                login_btn.loadingComplete();
+
+                            }
+                        }, this, false));
+    }
+
+    private void password_login() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("phone", edit_phone_number.getText().toString());
+        params.put("password", edit_password.getText().toString());
+
+        Subscription subscription = Network.getInstance("密码登录", this)
+                .password_login(params,
+                        new ProgressSubscriber<>("密码登录", new SubscriberOnNextListener<Bean<LoginBean>>() {
+                            @Override
+                            public void onNext(Bean<LoginBean> result) {
+                                login_btn.loadingComplete();
+
+                                save_resource(result.getData().getToken(), result.getData().getUserNum(), result.getData().getTeacherType());
+                                if (null != SpUtils.getString(getApplicationContext(), AppConstants.TEACHER_TYPE)) {
+                                    if (SpUtils.getString(getApplicationContext(), AppConstants.TEACHER_TYPE).length() > 0) {//已经审核过了
+                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        startActivity(intent);
+                                    } else {//未审核
+                                        Intent intent = new Intent(LoginActivity.this, SelectRoleActivity.class);
+                                        startActivity(intent);
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onError(String error) {
+                                login_btn.loadingComplete();
+
+                            }
+                        }, this, false));
+    }
+
+    private void Get_YanZhengMa() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("phone", edit_phone_number.getText().toString());
+        Subscription subscription = Network.getInstance("获取验证码", this)
+                .get_yanzhengma(params,
+                        new ProgressSubscriber<>("获取验证码", new SubscriberOnNextListener<Bean<String>>() {
+                            @Override
+                            public void onNext(Bean<String> result) {
+                                message_id = result.getData();
+                            }
+
+                            @Override
+                            public void onError(String error) {
+
+                            }
+                        }, this, false));
     }
 
     private void xieyi_pop() {
@@ -179,6 +271,8 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 popupWindow.dismiss();
+                is_check_fuwu = true;
+                xieyi_check_btn.setChecked(true);
             }
         });
         TextView no_agree_btn = view.findViewById(R.id.no_agree_btn);
@@ -188,6 +282,13 @@ public class LoginActivity extends BaseActivity {
                 popupWindow.dismiss();
             }
         });
+    }
+
+    private void save_resource(String token, String user_number, String teacher_type) {
+        SpUtils.putString(getApplicationContext(), AppConstants.TOKEN, token);
+        SpUtils.putString(getApplicationContext(), AppConstants.USER_NAME, user_number);
+        SpUtils.putString(getApplicationContext(), AppConstants.TEACHER_TYPE, teacher_type);
+
     }
 
     TextWatcher textWatcher = new TextWatcher() {
@@ -228,80 +329,16 @@ public class LoginActivity extends BaseActivity {
         }
     };
 
-    private void Login() {
-      /*  Map<String, String> params = new HashMap<>();
-        params.put("password", edit_password.getText().toString());
-        params.put("phone", edit_phone_number.getText().toString());
-        Gson gson = new Gson();
-        String json_params = gson.toJson(params);
-        Log.e(TAG, "登录参数：" + json_params);
-        String json = new Gson().toJson(params);//要传递的json
-        RequestBody requestBody = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json);
-
-        subscription = Network.getInstance("登录", getApplicationContext())
-                .login(requestBody, new ProgressSubscriberNew<>(LoginEntity.class, new GsonSubscriberOnNextListener<LoginEntity>() {
-                    @Override
-                    public void on_post_entity(LoginEntity loginEntity, String s) {
-                        Log.e(TAG, "登录成功：" + s);
-                        if (is_save_number) {//保存密码
-
-                        } else {
-//                            Intent intent = new Intent(LoginActivity.this, UserPermissionSelectActivity.class);
-//                            startActivity(intent);
-//                            finish();
-                        }
-
-                        //保存密码
-                        if ("".equals(SharedPreferencesHelper.get(getApplicationContext(), Network.login_token, ""))) {
-                            SharedPreferencesHelper.put(getApplicationContext(),  Network.login_token, loginEntity.getToken());
-                            SharedPreferencesHelper.put(getApplicationContext(), Network.phone_number, edit_phone_number.getText().toString());
-                            SharedPreferencesHelper.put(getApplicationContext(), Network.changguan_number, loginEntity.getGymAreaNum());
-
-                        } else {
-                            SharedPreferencesHelper.remove(getApplicationContext(),  Network.login_token);
-                            SharedPreferencesHelper.put(getApplicationContext(),  Network.login_token, loginEntity.getToken());
-                            SharedPreferencesHelper.put(getApplicationContext(), Network.phone_number, edit_phone_number.getText().toString());
-                            SharedPreferencesHelper.put(getApplicationContext(), Network.changguan_number, loginEntity.getGymAreaNum());
-                        }
-
-                        //type 0  type 1场馆主 2经理  3前台
-                        if (loginEntity.getType() == 0) {//没有提交过审核资料
-                            SharedPreferencesHelper.put(getApplicationContext(), Network.no_submit_information, "true");
-
-                            Intent intent = new Intent(LoginActivity.this, UserPermissionSelectActivity.class);
-                            startActivity(intent);
-                            finish();
-                        } else {//已经提交过资料
-                            Intent intent = new Intent(LoginActivity.this, KeepFitActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
-
-
-                    }
-                }, new SubscriberOnNextListener<Bean<Object>>() {
-                    @Override
-                    public void onNext(Bean<Object> result) {
-                    }
-
-                    @Override
-                    public void onError(String error) {
-                        Log.e(TAG, "登录失败：" + error);
-                        Toast.makeText(getApplicationContext(), error, Toast.LENGTH_SHORT).show();
-                    }
-                }, this, true));*/
-
-    }
-
 
     CompoundButton.OnCheckedChangeListener onCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton compoundButton, boolean is_check) {
             if (is_check) {
                 Log.e(TAG, "选中了");
+                is_check_fuwu = true;
             } else {
                 Log.e(TAG, "没选中");
-
+                is_check_fuwu = false;
             }
         }
     };

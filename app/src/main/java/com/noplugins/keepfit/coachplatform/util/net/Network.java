@@ -4,6 +4,8 @@ package com.noplugins.keepfit.coachplatform.util.net;
 import android.content.Context;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.noplugins.keepfit.coachplatform.bean.LoginBean;
+import com.noplugins.keepfit.coachplatform.bean.YanZhengMaBean;
 import com.noplugins.keepfit.coachplatform.global.AppConstants;
 import com.noplugins.keepfit.coachplatform.util.SpUtils;
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean;
@@ -39,15 +41,16 @@ public class Network {
     public MyService service;
     public static String token = "";
     //测试服
-    private String test_main_url = "http://192.168.1.45:8888/api/cust-service";
-    private String main_url = "http://kft.ahcomg.com/api/cust-service";
+    private String test_main_url = "http://192.168.1.45:8888/api/coach-service";
+    private String main_url = "http://kft.ahcomg.com/api/coach-service";
     private static String MRTHOD_NAME = "";
+    Retrofit retrofit;
 
     public String get_main_url(String str) {
         if (str.equals("test")) {
-            return test_main_url + "/custuser/";
+            return test_main_url + "/coachuser/";
         } else {
-            return main_url + "/custuser/";
+            return main_url + "/coachuser/";
         }
     }
 
@@ -71,7 +74,6 @@ public class Network {
         return mInstance;
     }
 
-    Retrofit retrofit;
 
     private Network(String method, Context context) {
         final TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
@@ -131,7 +133,7 @@ public class Network {
 
         retrofit = new Retrofit.Builder()
                 .client(client)
-                .baseUrl(get_main_url("main"))//设置请求网址根部
+                .baseUrl(get_main_url("test"))//设置请求网址根部
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
@@ -139,23 +141,47 @@ public class Network {
         service = retrofit.create(MyService.class);
 
     }
-
-
-    private static class TrustAllManager
-            implements X509TrustManager {
-        public X509Certificate[] getAcceptedIssuers() {
-            return null;
-        }
-
-        public void checkServerTrusted(X509Certificate[] certs,
-                                       String authType)
-                throws CertificateException {
-        }
-
-        public void checkClientTrusted(X509Certificate[] certs,
-                                       String authType)
-                throws CertificateException {
-        }
+    private RequestBody retuen_json_params(Map<String, Object> params) {
+        Gson gson = new Gson();
+        String json_params = gson.toJson(params);
+        String json = new Gson().toJson(params);//要传递的json
+        Logger.e(MRTHOD_NAME + "->请求参数打印：->" + json_params);
+        RequestBody requestBody = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json);
+        return requestBody;
     }
+
+
+
+    public Subscription get_yanzhengma(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
+        return service.get_yanzhengma(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public Subscription password_login(Map<String, Object> params, Subscriber<Bean<LoginBean>> subscriber) {
+        return service.password_login(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+    public Subscription yanzheng_yanzhengma(Map<String, Object> params, Subscriber<Bean<YanZhengMaBean>> subscriber) {
+        return service.yanzheng_yanzhengma(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+    public Subscription set_password(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
+        return service.set_password(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+
 
 }

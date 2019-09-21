@@ -12,6 +12,8 @@ public class AppConstants {
     public static final String TOKEN = "token";
     public static final String PHONE = "phone";
     public static final String USER_NAME = "userNum";
+    public static final String TEACHER_TYPE = "teacher_type";//判断是否审核过
+
     public static final String RIGHT = "right";
     public static final String LOGO = "logo";
     public static final String LOCATION = "location";
@@ -23,5 +25,6 @@ public class AppConstants {
     public static int SELECT_ZHENGSHU_IMAGE_SIZE_TWO = 0;//上证书图片的数量
     public static List<AddPhotoBean> SELECT_PHOTO_NUM = new ArrayList<>();
     public static String UPDATE_SELECT_PHOTO="update_select_photo";
+
 
 }

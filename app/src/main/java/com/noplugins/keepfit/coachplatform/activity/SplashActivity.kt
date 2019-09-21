@@ -39,34 +39,34 @@ class SplashActivity : BaseActivity() {
 
     }
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        if (!isTaskRoot) {
-//            val intent = intent
-//            val intentAction = intent.action
-//            if (intent.hasCategory(Intent.CATEGORY_LAUNCHER) && intentAction != null && intentAction == Intent
-//                    .ACTION_MAIN
-//            ) {
-//                finish()
-//                return
-//            }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (!isTaskRoot) {
+            val intent = intent
+            val intentAction = intent.action
+            if (intent.hasCategory(Intent.CATEGORY_LAUNCHER) && intentAction != null && intentAction == Intent
+                    .ACTION_MAIN
+            ) {
+                finish()
+                return
+            }
+        }
+        // 判断是否是第一次开启应用
+//        val isFirstOpen = SpUtils.getBoolean(this, AppConstants.FIRST_OPEN)
+//        // 如果不是第一次启动app，则正常显示启动屏
+        setContentView(R.layout.activity_splash)
+//        Handler().postDelayed(Runnable {  }, 2000)
+//        // 如果是第一次启动，则先进入功能引导页
+//        if (!isFirstOpen) {
+//            val intent = Intent(this, WelcomeGuideActivity::class.java)
+//            startActivity(intent)
+//            finish()
+//            return
 //        }
-//        // 判断是否是第一次开启应用
-////        val isFirstOpen = SpUtils.getBoolean(this, AppConstants.FIRST_OPEN)
-////        // 如果不是第一次启动app，则正常显示启动屏
-//        setContentView(R.layout.activity_splash)
-////        Handler().postDelayed(Runnable {  }, 2000)
-////        // 如果是第一次启动，则先进入功能引导页
-////        if (!isFirstOpen) {
-////            val intent = Intent(this, WelcomeGuideActivity::class.java)
-////            startActivity(intent)
-////            finish()
-////            return
-////        }
-//
-//
-//        Handler().postDelayed(Runnable { enterHomeActivity() }, 2000)
-//    }
+
+
+        Handler().postDelayed(Runnable { enterHomeActivity() }, 2000)
+    }
 
     private fun enterHomeActivity() {
 
