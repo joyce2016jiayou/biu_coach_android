@@ -33,6 +33,15 @@ public class CheckStatusActivity extends BaseActivity {
     @BindView(R.id.viewpager_content)
     NoScrollViewPager viewpager_content;
 
+    public String select_card_zheng_path = "";
+    public String select_card_fan_path = "";
+    public String user_name="";
+    public String card_id="";
+    public String sex="";
+    public String phone="";
+    public String city="";
+    public String school="";
+    public String ruhang_time="";
 
     private List<Fragment> tabFragments = new ArrayList<>();
 

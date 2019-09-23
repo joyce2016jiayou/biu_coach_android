@@ -11,14 +11,11 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.*;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.widget.TextView;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -87,6 +84,15 @@ public class StepOneFragment extends ViewPagerFragment {
     ImageView card_fan_img;
     @BindView(R.id.card_fan_view)
     ImageView card_fan_view;
+    @BindView(R.id.user_name_tv)
+    EditText user_name_tv;
+    @BindView(R.id.card_id_tv)
+    EditText card_id_tv;
+    @BindView(R.id.phone_tv)
+    EditText phone_tv;
+    @BindView(R.id.school_tv)
+    EditText school_tv;
+
     OptionsPickerView sex_select_pop, select_city_pop;
     TimePickerView pvCustomTime;
     private ArrayList<String> sexs = new ArrayList<>();
@@ -141,6 +147,41 @@ public class StepOneFragment extends ViewPagerFragment {
         }
     }
 
+    private boolean check_value() {
+        if (TextUtils.isEmpty(select_card_zheng_path)) {
+            Toast.makeText(getActivity(), R.string.tv130, Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (TextUtils.isEmpty(select_card_fan_path)) {
+            Toast.makeText(getActivity(), R.string.tv131, Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (TextUtils.isEmpty(user_name_tv.getText())) {
+            Toast.makeText(getActivity(), R.string.tv132, Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (TextUtils.isEmpty(card_id_tv.getText())) {
+            Toast.makeText(getActivity(), R.string.tv133, Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (TextUtils.isEmpty(sex_tv.getText())) {
+            Toast.makeText(getActivity(), R.string.tv134, Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (TextUtils.isEmpty(phone_tv.getText())) {
+            Toast.makeText(getActivity(), R.string.tv135, Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (TextUtils.isEmpty(address_tv.getText())) {
+            Toast.makeText(getActivity(), R.string.tv136, Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (TextUtils.isEmpty(school_tv.getText())) {
+            Toast.makeText(getActivity(), R.string.tv138, Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (TextUtils.isEmpty(time_tv.getText())) {
+            Toast.makeText(getActivity(), R.string.tv139, Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
+
     private void initView() {
         //解析城市数据
         initDate();
@@ -148,19 +189,32 @@ public class StepOneFragment extends ViewPagerFragment {
         xiayibu_btn.setBtnOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                xiayibu_btn.startLoading();
-                xiayibu_btn.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        xiayibu_btn.loadingComplete();
-                    }
-                }, 1000);
 
-                //跳转下一个页面
-                viewpager_content.setCurrentItem(1);
-                int step = stepView.getCurrentStep();//设置进度条
-                stepView.setCurrentStep((step + 1) % stepView.getStepNum());
+                if (check_value()) {
+                    //传递参数
+                    checkStatusActivity.select_card_zheng_path=select_card_zheng_path;
+                    checkStatusActivity.select_card_fan_path=select_card_fan_path;
+                    checkStatusActivity.user_name = user_name_tv.getText().toString();
+                    checkStatusActivity.card_id = card_id_tv.getText().toString();
+                    checkStatusActivity.sex = sex_tv.getText().toString();
+                    checkStatusActivity.phone = phone_tv.getText().toString();
+                    checkStatusActivity.city = address_tv.getText().toString();
+                    checkStatusActivity.school = school_tv.getText().toString();
+                    checkStatusActivity.ruhang_time = time_tv.getText().toString();
 
+                    xiayibu_btn.startLoading();
+                    xiayibu_btn.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            xiayibu_btn.loadingComplete();
+                        }
+                    }, 1000);
+
+                    //跳转下一个页面
+                    viewpager_content.setCurrentItem(1);
+                    int step = stepView.getCurrentStep();//设置进度条
+                    stepView.setCurrentStep((step + 1) % stepView.getStepNum());
+                }
             }
         });
 

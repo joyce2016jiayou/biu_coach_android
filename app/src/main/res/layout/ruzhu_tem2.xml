@@ -45,6 +45,7 @@
                         android:layout_height="@dimen/m31">
 
                     <EditText
+                            android:id="@+id/user_name_tv"
                             android:layout_width="match_parent"
                             android:hint="@string/tv34"
                             android:background="@null"
@@ -80,6 +81,7 @@
                         android:layout_height="@dimen/m31">
 
                     <EditText
+                            android:id="@+id/card_id_tv"
                             android:layout_width="match_parent"
                             android:hint="@string/tv36"
                             android:background="@null"
@@ -186,6 +188,7 @@
                         android:layout_height="@dimen/m31">
 
                     <EditText
+                            android:id="@+id/phone_tv"
                             android:layout_width="match_parent"
                             android:hint="@string/tv40"
                             android:background="@null"
@@ -271,6 +274,7 @@
                         android:layout_height="@dimen/m31">
 
                     <EditText
+                            android:id="@+id/school_tv"
                             android:layout_width="match_parent"
                             android:hint="@string/tv45"
                             android:background="@null"

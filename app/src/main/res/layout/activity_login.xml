@@ -94,6 +94,8 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="5dp"
                         android:background="@null"
+                        android:maxLength="6"
+                        android:inputType="number"
                         android:hint="@string/edit_hint5"
                         android:layout_marginRight="5dp"
                         android:singleLine="true"

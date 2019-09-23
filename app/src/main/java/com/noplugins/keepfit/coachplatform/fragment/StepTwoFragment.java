@@ -22,10 +22,15 @@ import com.noplugins.keepfit.coachplatform.activity.AddZhengshuActivity;
 import com.noplugins.keepfit.coachplatform.activity.CheckStatusActivity;
 import com.noplugins.keepfit.coachplatform.adapter.MineTagAdapter;
 import com.noplugins.keepfit.coachplatform.bean.AddPhotoBean;
+import com.noplugins.keepfit.coachplatform.bean.CheckInformationBean;
 import com.noplugins.keepfit.coachplatform.bean.TagEntity;
 import com.noplugins.keepfit.coachplatform.global.AppConstants;
 import com.noplugins.keepfit.coachplatform.util.GlideEngine;
 import com.noplugins.keepfit.coachplatform.util.MessageEvent;
+import com.noplugins.keepfit.coachplatform.util.net.Network;
+import com.noplugins.keepfit.coachplatform.util.net.entity.Bean;
+import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber;
+import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener;
 import com.noplugins.keepfit.coachplatform.util.ui.LoadingButton;
 import com.noplugins.keepfit.coachplatform.util.ui.NoScrollViewPager;
 import com.noplugins.keepfit.coachplatform.util.ui.StepView;
@@ -36,10 +41,13 @@ import com.orhanobut.logger.Logger;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import rx.Subscription;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
@@ -66,8 +74,8 @@ public class StepTwoFragment extends ViewPagerFragment {
     private int select_zhengshu_max_num = 0;
     private int select_shouke_max_num = 0;
 
-    private List<String> shouke_images_select = new ArrayList<>();
-    private List<AddPhotoBean> zhengshu_images_select = new ArrayList<>();
+    private List<CheckInformationBean.CoachPicTeachingsBean> shouke_images_select = new ArrayList<>();
+    private List<CheckInformationBean.CoachPicCertificatesBean> zhengshu_images_select = new ArrayList<>();
     private NoScrollViewPager viewpager_content;
 
 
@@ -100,24 +108,75 @@ public class StepTwoFragment extends ViewPagerFragment {
         submit_btn.setBtnOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                submit_btn.startLoading();
-                submit_btn.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        submit_btn.loadingComplete();
-                        viewpager_content.setCurrentItem(2);
-                        int step = stepView.getCurrentStep();//设置进度条
-                        stepView.setCurrentStep((step + 1) % stepView.getStepNum());
+                if (zhengshu_images_select.size() == 0) {
+                    Toast.makeText(getActivity(), R.string.tv140, Toast.LENGTH_SHORT).show();
+                    return;
+                } else if (shouke_images_select.size() == 0) {
+                    Toast.makeText(getActivity(), R.string.tv141, Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    submit_btn.startLoading();
+                    submit_btn.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            submit_information();
+
+                            submit_btn.loadingComplete();
+                            viewpager_content.setCurrentItem(2);
+                            int step = stepView.getCurrentStep();//设置进度条
+                            stepView.setCurrentStep((step + 1) % stepView.getStepNum());
 
 
+                        }
+                    }, 2000);
+                }
 
 
-                    }
-                }, 2000);
             }
         });
 
 
+    }
+
+    private void submit_information() {
+        CheckInformationBean checkInformationBean = new CheckInformationBean();
+        CheckInformationBean.CoachPicCardBean coachPicCardBean = new CheckInformationBean.CoachPicCardBean();
+        coachPicCardBean.setCardBackKey(checkStatusActivity.select_card_fan_path);
+        coachPicCardBean.setCardFrontKey(checkStatusActivity.select_card_zheng_path);
+        checkInformationBean.setCoachPicCard(coachPicCardBean);
+
+        CheckInformationBean.CoachUserBean coachUserBean = new CheckInformationBean.CoachUserBean();
+        coachUserBean.setTeacherType(1);//教练类型
+        coachUserBean.setRealname(checkStatusActivity.user_name);
+        coachUserBean.setCard(checkStatusActivity.card_id);
+        coachUserBean.setSex(1);//性别
+        coachUserBean.setPhone(checkStatusActivity.phone);
+        coachUserBean.setProvince(checkStatusActivity.city);//省份
+        coachUserBean.setCity(checkStatusActivity.city);//城市
+        coachUserBean.setUniversity(checkStatusActivity.school);
+        coachUserBean.setProfessiondate(checkStatusActivity.ruhang_time);
+        coachUserBean.setGoodAtSkill("1,2,3");//擅长课程
+        coachUserBean.setGoodAtSkill("1,2,3");//技能标签
+        coachUserBean.setUserNum("123");//教练编号
+        checkInformationBean.setCoachUser(coachUserBean);
+
+        checkInformationBean.setCoachPicTeachings(shouke_images_select);
+
+        checkInformationBean.setCoachPicCertificates(zhengshu_images_select);
+
+        Subscription subscription = Network.getInstance("提交审核资料", getActivity())
+                .submit_information(checkInformationBean,
+                        new ProgressSubscriber<>("提交审核资料", new SubscriberOnNextListener<Bean<String>>() {
+                            @Override
+                            public void onNext(Bean<String> result) {
+
+                            }
+
+                            @Override
+                            public void onError(String error) {
+
+                            }
+                        }, getActivity(), false));
     }
 
     @Override
@@ -134,8 +193,8 @@ public class StepTwoFragment extends ViewPagerFragment {
             zhengshu_images_select.clear();
             zhengshu_images_select.addAll(AppConstants.SELECT_PHOTO_NUM);
             List<String> iamge_paths = new ArrayList<>();
-            for (AddPhotoBean addPhotoBean : zhengshu_images_select) {
-                iamge_paths.add(addPhotoBean.getImage_path());
+            for (CheckInformationBean.CoachPicCertificatesBean coachPicCertificatesBean : zhengshu_images_select) {
+                iamge_paths.add(coachPicCertificatesBean.getCertFrontKey());
             }
             select_zhengshu_view.setData(iamge_paths);
             AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE = zhengshu_images_select.size();
@@ -324,8 +383,12 @@ public class StepTwoFragment extends ViewPagerFragment {
                 return;
             } else if (requestCode == 102) {
                 ArrayList<String> resultPaths = data.getStringArrayListExtra(EasyPhotos.RESULT_PATHS);
-                shouke_images_select.addAll(resultPaths);
-                select_shouke_view.setData(shouke_images_select);//设置九宫格
+                for (int i = 0; i < resultPaths.size(); i++) {
+                    CheckInformationBean.CoachPicTeachingsBean coachPicTeachingsBean = new CheckInformationBean.CoachPicTeachingsBean();
+                    coachPicTeachingsBean.setQiniuKey(resultPaths.get(i));
+                    shouke_images_select.add(coachPicTeachingsBean);
+                }
+                select_shouke_view.setData(resultPaths);//设置九宫格
                 AppConstants.SELECT_SHOUKE_IMAGE_SIZE = shouke_images_select.size();
             }
 

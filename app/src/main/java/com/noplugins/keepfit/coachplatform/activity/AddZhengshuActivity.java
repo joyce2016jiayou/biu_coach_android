@@ -21,6 +21,7 @@ import com.noplugins.keepfit.coachplatform.R;
 import com.noplugins.keepfit.coachplatform.adapter.TypeAdapter;
 import com.noplugins.keepfit.coachplatform.base.BaseActivity;
 import com.noplugins.keepfit.coachplatform.bean.AddPhotoBean;
+import com.noplugins.keepfit.coachplatform.bean.CheckInformationBean;
 import com.noplugins.keepfit.coachplatform.global.AppConstants;
 import com.noplugins.keepfit.coachplatform.util.GlideEngine;
 import com.noplugins.keepfit.coachplatform.util.MessageEvent;
@@ -60,7 +61,7 @@ public class AddZhengshuActivity extends BaseActivity {
 
 
     private int select_zhengshu_max_num = 0;
-    private List<AddPhotoBean> zhengshu_images_select = new ArrayList<>();
+    private List<CheckInformationBean.CoachPicCertificatesBean> zhengshu_images_select = new ArrayList<>();
     TimePickerView pvCustomTime;
 
     @Override
@@ -304,19 +305,20 @@ public class AddZhengshuActivity extends BaseActivity {
                 boolean selectedOriginal = data.getBooleanExtra(EasyPhotos.RESULT_SELECTED_ORIGINAL, false);
                 */
                 ArrayList<String> resultPaths = data.getStringArrayListExtra(EasyPhotos.RESULT_PATHS);
-                List<AddPhotoBean> return_selet = new ArrayList<>();
+                List<CheckInformationBean.CoachPicCertificatesBean> return_selet = new ArrayList<>();
                 for (int i = 0; i < resultPaths.size(); i++) {
                     if (i == 0) {
-                        AddPhotoBean addPhotoBean = new AddPhotoBean();
-                        addPhotoBean.setZhengshu_type(zhengshu_type_tv.getText().toString());
-                        addPhotoBean.setZhengshu_name(zhengshu_tv.getText().toString());
-                        addPhotoBean.setGet_zhengshu_time(time_tv.getText().toString());
-                        addPhotoBean.setImage_path(resultPaths.get(i));
-                        return_selet.add(addPhotoBean);
+                        CheckInformationBean.CoachPicCertificatesBean coachPicCertificatesBean = new CheckInformationBean.CoachPicCertificatesBean();
+                        coachPicCertificatesBean.setCertType("1");//证书类型
+                        coachPicCertificatesBean.setCertDate(time_tv.getText().toString());//证书日期
+                        coachPicCertificatesBean.setCertFrontKey(resultPaths.get(i));
+                        coachPicCertificatesBean.setCertName(zhengshu_tv.getText().toString());
+
+                        return_selet.add(coachPicCertificatesBean);
                     } else {
-                        AddPhotoBean addPhotoBean = new AddPhotoBean();
-                        addPhotoBean.setImage_path(resultPaths.get(i));
-                        return_selet.add(addPhotoBean);
+                        CheckInformationBean.CoachPicCertificatesBean coachPicCertificatesBean = new CheckInformationBean.CoachPicCertificatesBean();
+                        coachPicCertificatesBean.setCertFrontKey(resultPaths.get(i));
+                        return_selet.add(coachPicCertificatesBean);
                     }
                 }
                 zhengshu_images_select.addAll(return_selet);
@@ -332,8 +334,8 @@ public class AddZhengshuActivity extends BaseActivity {
 
     private void set_zhengshu_view() {
         List<String> iamges = new ArrayList<>();
-        for (AddPhotoBean addPhotoBean : zhengshu_images_select) {
-            iamges.add(addPhotoBean.getImage_path());
+        for (CheckInformationBean.CoachPicCertificatesBean coachPicCertificatesBean : zhengshu_images_select) {
+            iamges.add(coachPicCertificatesBean.getCertFrontKey());
         }
         add_zhengshu_photos_view.setData(iamges);//设置九宫格
         AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE_TWO = zhengshu_images_select.size();

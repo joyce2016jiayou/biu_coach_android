@@ -86,6 +86,7 @@
 
         </activity>
         <activity android:name=".activity.info.InformationActivity">
+
         </activity>
 
         <activity android:name=".activity.manager.ChaungguanDetailActivity">
@@ -109,6 +110,11 @@
         <activity android:name=".activity.AddZhengshuActivity">
         </activity>
         <activity android:name=".activity.CheckStatusActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity android:name=".activity.ClassManagerActivity">
 
@@ -127,11 +133,7 @@
         <activity
                 android:name=".MainActivity"
                 android:launchMode="singleTask">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity android:name=".activity.LoginActivity">
         </activity>

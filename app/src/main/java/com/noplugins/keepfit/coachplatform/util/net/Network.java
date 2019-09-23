@@ -4,6 +4,7 @@ package com.noplugins.keepfit.coachplatform.util.net;
 import android.content.Context;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.noplugins.keepfit.coachplatform.bean.CheckInformationBean;
 import com.noplugins.keepfit.coachplatform.bean.LoginBean;
 import com.noplugins.keepfit.coachplatform.bean.YanZhengMaBean;
 import com.noplugins.keepfit.coachplatform.global.AppConstants;
@@ -150,6 +151,15 @@ public class Network {
         return requestBody;
     }
 
+    private RequestBody retuen_json_object(Object params) {
+        Gson gson = new Gson();
+        String json_params = gson.toJson(params);
+        String json = new Gson().toJson(params);//要传递的json
+        Logger.e(MRTHOD_NAME + "->请求参数打印：->" + json_params);
+        RequestBody requestBody = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json);
+        return requestBody;
+    }
+
 
 
     public Subscription get_yanzhengma(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
@@ -182,6 +192,13 @@ public class Network {
                 .subscribe(subscriber);
     }
 
+    public Subscription submit_information(CheckInformationBean checkInformationBean, Subscriber<Bean<String>> subscriber) {
+        return service.submit_information(retuen_json_object(checkInformationBean))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
 
 
 }

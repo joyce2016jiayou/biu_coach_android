@@ -1,6 +1,7 @@
 package com.noplugins.keepfit.coachplatform.global;
 
 import com.noplugins.keepfit.coachplatform.bean.AddPhotoBean;
+import com.noplugins.keepfit.coachplatform.bean.CheckInformationBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ public class AppConstants {
     public static int SELECT_ZHENGSHU_IMAGE_SIZE = 0;//上证书图片的数量
     public static int SELECT_SHOUKE_IMAGE_SIZE = 0;//上传授课图片的数量
     public static int SELECT_ZHENGSHU_IMAGE_SIZE_TWO = 0;//上证书图片的数量
-    public static List<AddPhotoBean> SELECT_PHOTO_NUM = new ArrayList<>();
+    public static List<CheckInformationBean.CoachPicCertificatesBean> SELECT_PHOTO_NUM = new ArrayList<>();
     public static String UPDATE_SELECT_PHOTO="update_select_photo";
 
 

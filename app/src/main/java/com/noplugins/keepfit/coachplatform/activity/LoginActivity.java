@@ -5,10 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.text.Editable;
-import android.text.SpannableString;
-import android.text.TextUtils;
-import android.text.TextWatcher;
+import android.text.*;
 import android.text.method.DigitsKeyListener;
 import android.util.Log;
 import android.view.View;
@@ -82,10 +79,6 @@ public class LoginActivity extends BaseActivity {
         setContentLayout(R.layout.activity_login);
         ButterKnife.bind(this);
         isShowTitle(false);
-//        StringsHelper.setEditTextHintSize(edit_phone_number, "请输入手机号", 15);
-//        StringsHelper.setEditTextHintSize(edit_password, "请输入密码", 15);
-//        edit_phone_number.addTextChangedListener(phone_number_jiaoyan);
-//        edit_phone_number.setKeyListener(DigitsKeyListener.getInstance("0123456789"));//设置输入数字
     }
 
     @Override
@@ -94,9 +87,11 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 if (yanzhengma_tv.getText().toString().equals("密码登录")) {
-                    Log.e("登录方式","密码登录");
+                    Log.e("登录方式", "密码登录");
                     is_yanzhengma_logon = false;
                     yanzhengma_tv.setText("验证码登录");
+                    edit_password.setInputType(InputType.TYPE_CLASS_TEXT);
+                    edit_password.setFilters(new InputFilter[]{new InputFilter.LengthFilter(18)}); //最大输入长度
 
                     SpannableString s = new SpannableString("请输入密码");//这里输入自己想要的提示文字
                     edit_password.setHint(s);
@@ -107,10 +102,12 @@ public class LoginActivity extends BaseActivity {
 
 
                 } else {
-                    Log.e("登录方式","验证码登录");
+                    Log.e("登录方式", "验证码登录");
 
                     is_yanzhengma_logon = true;
                     yanzhengma_tv.setText("密码登录");
+                    edit_password.setInputType(InputType.TYPE_CLASS_NUMBER);
+                    edit_password.setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)}); //最大输入长度
 
                     SpannableString s = new SpannableString("请输入验证码");//这里输入自己想要的提示文字
                     edit_password.setHint(s);
@@ -158,21 +155,42 @@ public class LoginActivity extends BaseActivity {
         login_btn.setBtnOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (is_check_fuwu) {
+                if (!is_check_fuwu) {
+                    Toast.makeText(LoginActivity.this, "请先勾选用户协议！", Toast.LENGTH_SHORT).show();
+                } else if (TextUtils.isEmpty(edit_phone_number.getText())) {
+                    Toast.makeText(getApplicationContext(), "电话号码不能为空！", Toast.LENGTH_SHORT).show();
+                    return;
+                } else if (!StringsHelper.isMobileOne(edit_phone_number.getText().toString())) {
+                    Toast.makeText(getApplicationContext(), "电话号码格式不正确！", Toast.LENGTH_SHORT).show();
+                    return;
+                } else if(TextUtils.isEmpty(edit_password.getText())){
+                    if(is_yanzhengma_logon){
+                        Toast.makeText(getApplicationContext(), "验证码不能为空！", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "密码不能为空！", Toast.LENGTH_SHORT).show();
+                    }
+                    return;
+                } {
                     login_btn.startLoading();
                     if (is_yanzhengma_logon) {//如果是验证码登录，则让它设置密码
                         yanzheng_yanzhengma();
                     } else {
                         password_login();
                     }
-                } else {
-                    Toast.makeText(LoginActivity.this, "请先勾选用户协议！", Toast.LENGTH_SHORT).show();
                 }
 
 
             }
         });
         xieyi_check_btn.setOnCheckedChangeListener(onCheckedChangeListener);
+
+        //忘记密码
+        forget_password_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     private void yanzheng_yanzhengma() {

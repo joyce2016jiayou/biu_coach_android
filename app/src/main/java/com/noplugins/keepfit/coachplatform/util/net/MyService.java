@@ -48,6 +48,14 @@ public interface MyService {
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("setPassword")
     Observable<Bean<String>> set_password(@Body RequestBody json);
+    /**
+     * 提交信息
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("checkData")
+    Observable<Bean<String>> submit_information(@Body RequestBody json);
 
 
 
