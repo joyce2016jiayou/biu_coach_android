@@ -16,6 +16,9 @@
     <color name="color_4A4A4A">#4A4A4A</color>
     <color name="color_929292">#929292</color>
     <color name="color_EC0101">#EC0101</color>
+    <color name="gray_dark">#E8E8E8</color>
+    <color name="gray_half">#C9C9C9</color>
+    <color name="gray_light">#F6F6F6</color>
 
 
     <color name="color_181818">#181818</color>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="63dp"
+        android:background="@drawable/bg_course_table_blue_selector"
+        android:gravity="center"
+        android:id="@+id/cource_layout"
+        android:orientation="vertical"
+        android:layout_height="79dp">
+
+    <TextView
+            android:id="@+id/time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="7:00-8:00"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            />
+
+    <TextView
+            android:id="@+id/status_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已结束"
+            android:layout_marginTop="2dp"
+            android:textColor="#DBDBDB"
+            android:textSize="9sp"
+            />
+
+    <TextView
+            android:id="@+id/cource_teacher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="古天乐"
+            android:layout_marginTop="2dp"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            />
+
+    <TextView
+            android:id="@+id/class_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="燃脂塑形"
+            android:layout_marginTop="2dp"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            />
+</LinearLayout>

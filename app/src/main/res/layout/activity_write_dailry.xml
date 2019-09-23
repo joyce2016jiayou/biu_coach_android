@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,32 +7,380 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".activity.WriteDailryActivity">
-    <RelativeLayout
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/m53"
-            android:layout_height="wrap_content">
 
-        <ImageView
-                android:id="@+id/back_img"
-                android:layout_width="@dimen/m22"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="@dimen/m20"
-                android:layout_height="@dimen/m19"
-                android:layout_centerVertical="true"
-                android:src="@drawable/back_img"
-                />
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/m53"
+                android:layout_height="wrap_content">
+
+            <ImageView
+                    android:id="@+id/back_img"
+                    android:layout_width="@dimen/m22"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="@dimen/m20"
+                    android:layout_height="@dimen/m19"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/back_img"
+                    />
+
+            <TextView
+                    android:id="@+id/xiangqing_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv108"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/top_heiziti"
+                    />
+        </RelativeLayout>
 
         <TextView
-                android:id="@+id/xiangqing_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tv108"
-                android:layout_centerHorizontal="true"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_centerVertical="true"
-                android:textColor="@color/top_heiziti"
+                android:text="小马快死的运动日志"
+                android:layout_marginTop="@dimen/m24"
+                android:layout_marginLeft="@dimen/m20"
+                android:textColor="@color/color_181818"
+                android:textSize="12sp"
                 />
-    </RelativeLayout>
-</LinearLayout>
+
+        <www.linwg.org.lib.LCardView
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                app:shadowStartAlpha="10"
+                app:cornerRadius="@dimen/m8"
+                app:shadowSize="@dimen/m2"
+                android:layout_marginTop="@dimen/m6"
+                android:layout_marginLeft="@dimen/m20"
+                android:layout_marginRight="@dimen/m20"
+                android:gravity="center"
+                android:layout_height="wrap_content">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginTop="@dimen/m10"
+                    android:layout_height="wrap_content">
+
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="15sp"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentLeft="true"
+                            android:textColor="@color/color_181818"
+                            android:layout_marginLeft="@dimen/m10"
+                            android:text="@string/class_name"
+                            />
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/color_181818"
+                            android:textSize="15sp"
+                            android:layout_marginLeft="@dimen/m94"
+                            android:layout_centerVertical="true"
+                            android:text="塑形-瑜伽"
+                            />
+                </RelativeLayout>
+
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="@dimen/m20"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="15sp"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentLeft="true"
+                            android:textColor="@color/color_181818"
+                            android:layout_marginLeft="@dimen/m10"
+                            android:text="@string/tv114"
+                            />
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/color_181818"
+                            android:textSize="15sp"
+                            android:layout_marginLeft="@dimen/m94"
+                            android:layout_centerVertical="true"
+                            android:text="13:00-14:00"
+                            />
+                </RelativeLayout>
+
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="@dimen/m20"
+                        android:layout_marginBottom="@dimen/m10"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="15sp"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentLeft="true"
+                            android:textColor="@color/color_181818"
+                            android:layout_marginLeft="@dimen/m10"
+                            android:text="@string/tv115"
+                            />
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/color_181818"
+                            android:textSize="15sp"
+                            android:layout_marginLeft="@dimen/m94"
+                            android:layout_centerVertical="true"
+                            android:text="一二三健身馆"
+                            />
+                </RelativeLayout>
+
+            </LinearLayout>
+        </www.linwg.org.lib.LCardView>
+
+        <www.linwg.org.lib.LCardView
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                app:shadowStartAlpha="10"
+                app:cornerRadius="@dimen/m8"
+                app:shadowSize="@dimen/m2"
+                android:layout_marginTop="@dimen/m7"
+                android:layout_marginLeft="@dimen/m20"
+                android:layout_marginRight="@dimen/m20"
+                android:gravity="center"
+                android:layout_height="wrap_content">
+
+            <RelativeLayout
+                    android:layout_width="@dimen/m335"
+                    android:layout_height="@dimen/m85">
+
+                <LinearLayout
+                        android:id="@+id/lin1"
+                        android:layout_width="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="@dimen/m10"
+                        android:gravity="center_horizontal"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="15sp"
+                            android:textColor="@color/color_181818"
+                            android:text="@string/tv120"
+                            />
+
+
+                    <TextView
+                            android:layout_width="@dimen/m53"
+                            android:layout_height="@dimen/m16"
+                            android:text="12:50入场"
+                            android:background="@drawable/time_bg"
+                            android:textSize="10sp"
+                            android:layout_marginTop="@dimen/m5"
+                            android:gravity="center"
+                            android:textColor="@color/color_929292"
+                            />
+                </LinearLayout>
+
+                <ImageView
+                        android:layout_toRightOf="@+id/lin1"
+                        android:layout_width="@dimen/m20"
+                        android:layout_marginLeft="@dimen/m19"
+                        android:src="@drawable/xiaolian1"
+                        android:layout_marginTop="@dimen/m24"
+                        android:layout_height="@dimen/m20"/>
+
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/m88"
+                        android:gravity="center_horizontal"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="15sp"
+                            android:textColor="@color/color_181818"
+                            android:text="@string/tv121"
+                            />
+
+
+                    <TextView
+                            android:layout_width="@dimen/m53"
+                            android:layout_height="@dimen/m16"
+                            android:text="12:50离场"
+                            android:background="@drawable/time_bg"
+                            android:textSize="10sp"
+                            android:layout_marginTop="@dimen/m5"
+                            android:gravity="center"
+                            android:textColor="@color/color_929292"
+                            />
+
+
+                </LinearLayout>
+
+                <ImageView
+                        android:layout_width="@dimen/m20"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/m50"
+                        android:src="@drawable/xiaolian1"
+                        android:layout_marginTop="@dimen/m24"
+                        android:layout_height="@dimen/m20"/>
+
+            </RelativeLayout>
+        </www.linwg.org.lib.LCardView>
+
+        <!--体测数据-->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv122"
+                android:layout_marginTop="@dimen/m10"
+                android:layout_marginLeft="@dimen/m20"
+                android:textColor="@color/color_181818"
+                android:textSize="12sp"
+                />
+
+        <include
+                layout="@layout/tice_layout"
+                />
+        <!--课程内容-->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv125"
+                android:layout_marginTop="@dimen/m10"
+                android:layout_marginLeft="@dimen/m20"
+                android:textColor="@color/color_181818"
+                android:textSize="12sp"
+                />
+
+        <www.linwg.org.lib.LCardView
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                app:shadowStartAlpha="10"
+                app:cornerRadius="@dimen/m8"
+                app:shadowSize="@dimen/m2"
+                android:layout_marginTop="@dimen/m5"
+                android:layout_marginLeft="@dimen/m20"
+                android:layout_marginRight="@dimen/m20"
+                android:gravity="center"
+                android:layout_height="@dimen/m144">
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <EditText
+                        android:layout_width="match_parent"
+                        android:background="@null"
+                        android:hint="@string/tv126"
+                        android:textSize="12sp"
+                        android:paddingLeft="@dimen/m10"
+                        android:gravity="left|top"
+                        android:layout_alignParentLeft="true"
+                        android:paddingTop="@dimen/m10"
+                        android:textColor="@color/color_6D7278"
+                        android:layout_height="match_parent"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:maxLength="300"
+                        android:gravity="center"
+                        android:layout_marginBottom="@dimen/m10"
+                        android:layout_marginRight="@dimen/m10"
+                        android:textColor="@color/color_929292"
+                        android:text="300字"/>
+            </RelativeLayout>
+
+        </www.linwg.org.lib.LCardView>
+
+        <!--用户标签-->
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/m10"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv127"
+                    android:layout_marginLeft="@dimen/m20"
+                    android:textColor="@color/color_181818"
+                    android:textSize="12sp"
+                    />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv128"
+                    android:layout_marginLeft="@dimen/m15"
+                    android:textColor="@color/color_929292"
+                    android:textSize="12sp"
+                    />
+        </LinearLayout>
+
+        <www.linwg.org.lib.LCardView
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                app:shadowStartAlpha="10"
+                app:cornerRadius="@dimen/m8"
+                app:shadowSize="@dimen/m2"
+                android:layout_marginTop="@dimen/m5"
+                android:layout_marginLeft="@dimen/m20"
+                android:layout_marginRight="@dimen/m20"
+                android:layout_height="@dimen/m144">
+
+            <GridView
+                    android:id="@+id/grid_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/m10"
+                    android:layout_marginLeft="@dimen/m5"
+                    android:gravity="center"
+                    android:numColumns="4"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="@dimen/m15"/>
+        </www.linwg.org.lib.LCardView>
+
+
+        <com.noplugins.keepfit.coachplatform.util.ui.LoadingButton
+                android:id="@+id/login_btn"
+                android:layout_width="@dimen/m209"
+                android:layout_marginTop="@dimen/m37"
+                android:layout_marginBottom="@dimen/m12"
+                app:btnText="@string/tv129"
+                app:quickClickLimit="2000"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="@dimen/m50"/>
+
+    </LinearLayout>
+
+</ScrollView>

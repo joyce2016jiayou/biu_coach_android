@@ -150,13 +150,23 @@
     <string name="tv106">课程名称</string>
     <string name="tv107">用户昵称</string>
     <string name="tv108">填写日志</string>
-
     <string name="tv109">选择问题类型(必填)</string>
     <string name="tv110">产品建议 (功能建议/新的想法)</string>
     <string name="tv111">故障反馈 (功能不可用)</string>
     <string name="tv112">其他问题</string>
     <string name="tv113">请输入问题描述 (必填，10个字以上)</string>
-
+    <string name="tv114">biu time</string>
+    <string name="tv115">锻炼地点</string>
+    <string name="tv120">运动前</string>
+    <string name="tv121">运动后</string>
+    <string name="tv122">体测数据</string>
+    <string name="tv123">身高cm</string>
+    <string name="tv124">体重 kg</string>
+    <string name="tv125">课程内容</string>
+    <string name="tv126">请记录课程内容</string>
+    <string name="tv127">用户标签</string>
+    <string name="tv128">给今天的用户贴个标签吧～</string>
+    <string name="tv129">提交</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

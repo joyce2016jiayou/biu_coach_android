@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <TextView
+            android:id="@+id/tag_value"
+            android:layout_width="@dimen/m60"
+            android:layout_height="@dimen/m20"
+            android:textSize="14sp"
+            android:text="#准时"
+            android:gravity="center"
+            android:background="@drawable/biaoqian_bg"
+            android:textColor="@color/color_4A4A4A"
+            />
+</LinearLayout>

@@ -120,4 +120,10 @@
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
+
+    <com.noplugins.keepfit.coachplatform.util.ui.courcetable.CourseTableLayoutView
+            android:id="@+id/layout_course"
+            android:layout_marginTop="@dimen/m5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 </LinearLayout>

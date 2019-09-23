@@ -20,9 +20,14 @@ import com.huantansheng.easyphotos.models.puzzle.Line;
 import com.noplugins.keepfit.coachplatform.R;
 import com.noplugins.keepfit.coachplatform.base.BaseActivity;
 import com.noplugins.keepfit.coachplatform.util.screen.KeyboardUtils;
+import com.noplugins.keepfit.coachplatform.util.ui.courcetable.CourseModel;
+import com.noplugins.keepfit.coachplatform.util.ui.courcetable.CourseTableLayoutView;
+import com.noplugins.keepfit.coachplatform.util.ui.courcetable.TopDateEntity;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class YueKeInformationActivity extends BaseActivity {
     @BindView(R.id.back_img)
@@ -37,8 +42,11 @@ public class YueKeInformationActivity extends BaseActivity {
     LinearLayout yiyuyue_btn;
     @BindView(R.id.yijieshu_btn)
     LinearLayout yijieshu_btn;
+    @BindView(R.id.layout_course)
+    CourseTableLayoutView mCourseTableTestLayout;
 
     TimePickerView pvCustomTime;
+    List<CourseModel> mList;
 
 
     @Override
@@ -71,42 +79,92 @@ public class YueKeInformationActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 select_time_pop();
-
             }
         });
-        xiangqing_btn.setOnClickListener(new View.OnClickListener() {
+
+        initCourceTable();
+
+    }
+
+    private void initCourceTable() {
+        mList = getData();
+        mCourseTableTestLayout.set_click_item_listen(new CourseTableLayoutView.Click_item() {
             @Override
-            public void onClick(View view) {
+            public void onClickCourse(View view, CourseModel course, int dataPosition, int dayPosition, int timePosition) {
+                Log.e("选择了", dataPosition + "");
+                if (dataPosition == 0) {
+                    Intent intent = new Intent(YueKeInformationActivity.this, ClassDetailActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("is_qiandao", "1");
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                } else if (dataPosition == 1) {
+                    Intent intent = new Intent(YueKeInformationActivity.this, ClassDetailActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("is_qiandao", "2");
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(YueKeInformationActivity.this, ClassDetailActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("is_qiandao", "3");
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
 
-                Intent intent = new Intent(YueKeInformationActivity.this,ClassDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("is_qiandao","1");
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
-        yiyuyue_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(YueKeInformationActivity.this,ClassDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("is_qiandao","2");
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
-        yijieshu_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(YueKeInformationActivity.this,ClassDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("is_qiandao","3");
-                intent.putExtras(bundle);
-                startActivity(intent);
             }
         });
 
+        mCourseTableTestLayout.setData(mList);//设置课程布局
 
+        mCourseTableTestLayout.setCourseTimeLabels(getTimeLabels());//设置左边的时间刻度
+
+        mCourseTableTestLayout.setTopDateWeeks(getDateWeeks());//设置上面的日期刻度
+    }
+
+    private List<String> getTimeLabels() {
+        List<String> strings = new ArrayList<>();
+        for (int i = 6; i < 23; i++) {
+            strings.add((i + 1) + ":00");
+        }
+        return strings;
+    }
+
+    private List<TopDateEntity> getDateWeeks() {
+        List<TopDateEntity> topDateEntities = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            TopDateEntity topDateEntity = new TopDateEntity();
+            topDateEntity.setDate_str("07/" + i);
+            topDateEntity.setWeek_str("星期" + i);
+            topDateEntities.add(topDateEntity);
+        }
+        return topDateEntities;
+    }
+
+    private CourseModel getCourseModel(int week, String name, int start, int step, int status) {
+        CourseModel model = new CourseModel();
+        model.setWeek(week);//日期的position对应
+        model.setName(name);
+        model.setStart(start);//开始绘制的高度
+        model.setStep(step);
+        model.setClass_status(status);
+        return model;
+    }
+
+    private List<CourseModel> getData() {
+        mList = new ArrayList<>();
+        mList.add(getCourseModel(1, "数学", 1, 5, 1));
+        mList.add(getCourseModel(1, "语文", 4, 2, 1));
+
+        mList.add(getCourseModel(2, "生物", 2, 2, 2));
+        mList.add(getCourseModel(2, "地理", 5, 3, 2));
+
+        mList.add(getCourseModel(3, "化学", 3, 1, 1));
+        mList.add(getCourseModel(3, "物理", 5, 1, 2));
+
+        mList.add(getCourseModel(4, "数学", 4, 1, 2));
+        mList.add(getCourseModel(4, "数学", 6, 2, 1));
+        return mList;
     }
 
     /**
