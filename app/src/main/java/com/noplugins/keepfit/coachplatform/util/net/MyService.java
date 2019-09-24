@@ -3,6 +3,8 @@ package com.noplugins.keepfit.coachplatform.util.net;
 
 import com.noplugins.keepfit.coachplatform.bean.LoginBean;
 import com.noplugins.keepfit.coachplatform.bean.YanZhengMaBean;
+import com.noplugins.keepfit.coachplatform.bean.manager.ManagerBean;
+import com.noplugins.keepfit.coachplatform.bean.manager.ManagerTeamBean;
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean;
 import okhttp3.RequestBody;
 import retrofit2.http.*;
@@ -57,6 +59,31 @@ public interface MyService {
     @POST("checkData")
     Observable<Bean<String>> submit_information(@Body RequestBody json);
 
+    /**
+     * 课程管理
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("courseManager")
+    Observable<Bean<ManagerBean>> courseManager(@Body RequestBody json);
 
+    /**
+     * 课程管理
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("courseDetail")
+    Observable<Bean<ManagerTeamBean>> courseDetail(@Body RequestBody json);
+
+    /**
+     * 上下架
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("putaway")
+    Observable<Bean<String>> putaway(@Body RequestBody json);
 
 }

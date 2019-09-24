@@ -1,5 +1,6 @@
 package com.noplugins.keepfit.coachplatform.activity.manager
 
+import android.annotation.SuppressLint
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,37 +9,39 @@ import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.noplugins.keepfit.coachplatform.R
 import com.noplugins.keepfit.coachplatform.adapter.TeamDetail9ImgAdapter
 import com.noplugins.keepfit.coachplatform.base.BaseActivity
+import com.noplugins.keepfit.coachplatform.bean.manager.ManagerTeamBean
 import com.noplugins.keepfit.coachplatform.global.clickWithTrigger
+import com.noplugins.keepfit.coachplatform.util.GlideRoundTransform
+import com.noplugins.keepfit.coachplatform.util.data.DateHelper
+import com.noplugins.keepfit.coachplatform.util.net.Network
+import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
+import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
+import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
 import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow
 import kotlinx.android.synthetic.main.activity_team_info.*
+import java.util.HashMap
 
 class TeamInfoActivity : BaseActivity() {
 
     override fun initBundle(parms: Bundle?) {
         if (parms != null) {
-            when (parms.getInt("type")) {
-                1 -> {
-                    tv_class_type.text = "已上架"
-                }
-                2 -> {
-                    tv_class_type.text = "邀请中"
-                    ll_caozuo.visibility = View.VISIBLE
-                }
-                3 -> {
-                    tv_class_type.text = "邀请失败/已下架"
-                    fl_chongxin.visibility = View.VISIBLE
-                    tv_jujue.visibility = View.VISIBLE
-                }
+
+            val courseNum = parms.getString("courseNum")
+            if (courseNum != null) {
+                requestData(courseNum)
             }
         }
+
+
     }
 
     override fun initView() {
         setContentView(R.layout.activity_team_info)
-        setting()
     }
 
     override fun doBusiness(mContext: Context?) {
@@ -55,14 +58,77 @@ class TeamInfoActivity : BaseActivity() {
 
     }
 
-    private fun setting() {
-        val list = resources.getStringArray(R.array.team_img_url).toMutableList()
-        initAdapter(list)
-        title_tv.text = "标题"
-        tv_cg_name.text = "场馆名称"
-        edit_class_room.text = "房间名"
-        edit_class_name.text = "名称"
+    private fun requestData(courseNum:String){
+        val params = HashMap<String, Any>()
+        params["courseNum"] = courseNum
+        subscription = Network.getInstance("课程管理", this)
+            .courseDetail(params,
+                ProgressSubscriber("课程管理", object : SubscriberOnNextListener<Bean<ManagerTeamBean>> {
+                    override fun onNext(result: Bean<ManagerTeamBean>) {
+                        setting(result.data)
+                    }
+
+                    override fun onError(error: String) {
+
+
+                    }
+                }, this, false)
+            )
     }
+
+    @SuppressLint("SetTextI18n")
+    private fun setting(managerTeamBean: ManagerTeamBean) {
+        if (managerTeamBean.pic!=null){
+            initAdapter(managerTeamBean.pic)
+        }
+        tv_class_type.text = statusType(managerTeamBean.courseList.status)
+        if (managerTeamBean.courseList.status == 3){
+            ll_caozuo.visibility = View.VISIBLE
+        }
+        if (managerTeamBean.courseList.status == 2){
+            tv_jujue.visibility = View.VISIBLE
+            tv_jujue.text = "拒绝理由："
+        }
+
+        title_tv.text = managerTeamBean.courseList.courseName
+        tv_cg_name.text = managerTeamBean.courseList.areaName
+        edit_class_room.text = roomType(managerTeamBean.courseList.type.toInt())+
+                "|"+managerTeamBean.courseList.applyNum
+        edit_class_name.text = managerTeamBean.courseList.courseName
+        tv_select_type.text =classType(managerTeamBean.courseList.classType)
+        tv_team_length.text = "${managerTeamBean.courseList.min}min"
+        edit_price.text = "¥"+managerTeamBean.courseList.price
+        edit_cycle.text = ""+managerTeamBean.courseList.loopCycle+"周"
+
+        val startHour = DateHelper.getDateByLong(managerTeamBean.courseList.startTime)
+        val startDay  = DateHelper.getDateDayByLong(managerTeamBean.courseList.startTime)
+        val endHour = DateHelper.getDateByLong(managerTeamBean.courseList.endTime)
+        edit_date.text = "$startDay $startHour-$endHour"
+        edit_jieshao.text = ""+managerTeamBean.courseList.courseDes
+        edit_shihe.text = ""+managerTeamBean.courseList.suitPerson
+        edit_zhuyi.text = ""+managerTeamBean.courseList.tips
+
+        Glide.with(this)
+            .load(managerTeamBean.courseList.imgUrl)
+            .transform(CenterCrop(this), GlideRoundTransform(this,8))
+            .into(iv_team_logo)
+    }
+
+    private fun roomType(roomType: Int): String {
+        val listClass = resources.getStringArray(R.array.team_class_room)
+        return listClass[roomType - 1]
+    }
+
+    private fun classType(classType: Int): String {
+        val listClass = resources.getStringArray(R.array.team_class_types)
+        return listClass[classType - 1]
+    }
+
+    private fun statusType(type: Int): String {
+        val listClass = arrayOf("邀请成功", "邀请失败", "邀请中", "已过期")
+        return listClass[type - 1]
+    }
+
 
     private fun initAdapter(data: List<String>) {
         //,GridLayoutManager.HORIZONTAL,false

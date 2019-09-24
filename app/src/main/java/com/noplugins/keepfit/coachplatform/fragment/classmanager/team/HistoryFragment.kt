@@ -13,8 +13,15 @@ import com.noplugins.keepfit.coachplatform.activity.manager.TeamInfoActivity
 import com.noplugins.keepfit.coachplatform.adapter.ManagerTeacherAdapter
 import com.noplugins.keepfit.coachplatform.adapter.ManagerTeamClassAdapter
 import com.noplugins.keepfit.coachplatform.base.BaseFragment
-import com.noplugins.keepfit.coachplatform.bean.manager.ManagerTeamBean
+import com.noplugins.keepfit.coachplatform.bean.manager.ManagerBean
+import com.noplugins.keepfit.coachplatform.global.AppConstants
+import com.noplugins.keepfit.coachplatform.util.SpUtils
+import com.noplugins.keepfit.coachplatform.util.net.Network
+import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
+import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
+import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
 import kotlinx.android.synthetic.main.fragment_manager_teacher_1.*
+import java.util.HashMap
 
 class HistoryFragment : BaseFragment()  {
     companion object {
@@ -26,7 +33,7 @@ class HistoryFragment : BaseFragment()  {
             return fragment
         }
     }
-    var  datas:MutableList<ManagerTeamBean> = ArrayList()
+    var  datas:MutableList<ManagerBean.CourseListBean> = ArrayList()
     lateinit var adapterManager : ManagerTeamClassAdapter
     var newView: View? = null
 
@@ -47,6 +54,8 @@ class HistoryFragment : BaseFragment()  {
     private fun initAdapter(){
         rv_list.layoutManager = LinearLayoutManager(context)
         adapterManager = ManagerTeamClassAdapter(datas)
+        val view = LayoutInflater.from(context).inflate(R.layout.enpty_view, rv_list, false)
+        adapterManager.emptyView = view
         rv_list.adapter = adapterManager
         adapterManager.setOnItemChildClickListener { adapter, view, position ->
             when(view.id){
@@ -55,12 +64,12 @@ class HistoryFragment : BaseFragment()  {
                     val toInfo = Intent(activity, TeamInfoActivity::class.java)
                     val bundle = Bundle()
                     bundle.putInt("type",3)
+                    bundle.putString("courseNum",datas[position].courseNum)
                     toInfo.putExtras(bundle)
                     startActivity(toInfo)
                 }
-                R.id.tv_agin -> {
-                    //todo 重新申请
-                }
+//                R.id.tv_agin -> {
+//                }
             }
         }
 
@@ -76,12 +85,25 @@ class HistoryFragment : BaseFragment()  {
     }
 
     private fun requestData(){
-        datas.clear()
-        for (i in 0..5){
-            val team  = ManagerTeamBean()
-            team.type = 3
-            datas.add(team)
-        }
-        adapterManager.notifyDataSetChanged()
+        val params = HashMap<String, Any>()
+//        params["teacherNum"] = SpUtils.getString(activity, AppConstants.USER_NAME)
+        params["teacherNum"] = "GEN23456"
+        params["courseType"] = 1
+        params["type"] = 3
+        val subscription = Network.getInstance("课程管理", activity)
+            .courseManager(params,
+                ProgressSubscriber("课程管理", object : SubscriberOnNextListener<Bean<ManagerBean>> {
+                    override fun onNext(result: Bean<ManagerBean>) {
+                        datas.clear()
+                        datas.addAll(result.data.courseList)
+                        adapterManager.notifyDataSetChanged()
+                    }
+
+                    override fun onError(error: String) {
+
+
+                    }
+                }, activity, false)
+            )
     }
 }

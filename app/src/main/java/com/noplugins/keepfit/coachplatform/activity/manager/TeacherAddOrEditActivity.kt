@@ -9,17 +9,31 @@ import android.widget.TextView
 import com.noplugins.keepfit.coachplatform.R
 import com.noplugins.keepfit.coachplatform.adapter.PopUpAdapter
 import com.noplugins.keepfit.coachplatform.base.BaseActivity
+import com.noplugins.keepfit.coachplatform.bean.manager.ManagerTeamBean
 import com.noplugins.keepfit.coachplatform.global.clickWithTrigger
+import com.noplugins.keepfit.coachplatform.util.net.Network
+import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
+import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
+import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
 import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow
 import com.noplugins.keepfit.coachplatform.util.ui.pop.SpinnerPopWindow
 import com.noplugins.keepfit.coachplatform.util.ui.toast.SuperCustomToast
 import kotlinx.android.synthetic.main.activity_teacher_add_or_edit.*
+import java.util.HashMap
 
 class TeacherAddOrEditActivity : BaseActivity() {
 
     private var skillType = -1
     override fun initBundle(parms: Bundle?) {
-
+        if (parms!=  null){
+            val type = parms.getString("type")
+            if (type!=null && type == "edit"){
+                val courseNum = parms.getString("courseNum")
+                if (courseNum != null) {
+                    requestData(courseNum)
+                }
+            }
+        }
     }
 
     override fun initView() {
@@ -123,5 +137,41 @@ class TeacherAddOrEditActivity : BaseActivity() {
             submit()
         }
     }
+
+    private fun requestData(courseNum:String){
+        val params = HashMap<String, Any>()
+        params["courseNum"] = courseNum
+        subscription = Network.getInstance("课程管理", this)
+            .courseDetail(params,
+                ProgressSubscriber("课程管理", object : SubscriberOnNextListener<Bean<ManagerTeamBean>> {
+                    override fun onNext(result: Bean<ManagerTeamBean>) {
+                        setting(result.data)
+                    }
+
+                    override fun onError(error: String) {
+
+
+                    }
+                }, this, false)
+            )
+    }
+    private fun setting(managerTeamBean: ManagerTeamBean){
+        title_tv.text =  managerTeamBean.courseList.courseName
+
+        edit_class_name.setText(managerTeamBean.courseList.courseName)
+        tv_select_type.text =classType(managerTeamBean.courseList.classType)
+        skillType = managerTeamBean.courseList.classType
+        edit_price.setText(""+managerTeamBean.courseList.price)
+        edit_jieshao.setText(""+managerTeamBean.courseList.courseDes)
+        edit_shihe.setText(""+managerTeamBean.courseList.suitPerson)
+        edit_zhuyi.setText(""+managerTeamBean.courseList.tips)
+    }
+
+
+    private fun classType(classType: Int): String {
+        val listClass = resources.getStringArray(R.array.private_class_types)
+        return listClass[classType - 1]
+    }
+
 
 }

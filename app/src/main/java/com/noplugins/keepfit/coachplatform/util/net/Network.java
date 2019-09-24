@@ -7,6 +7,9 @@ import com.google.gson.GsonBuilder;
 import com.noplugins.keepfit.coachplatform.bean.CheckInformationBean;
 import com.noplugins.keepfit.coachplatform.bean.LoginBean;
 import com.noplugins.keepfit.coachplatform.bean.YanZhengMaBean;
+import com.noplugins.keepfit.coachplatform.bean.manager.ManagerBean;
+import com.noplugins.keepfit.coachplatform.bean.manager.ManagerTeamBean;
+import com.noplugins.keepfit.coachplatform.bean.manager.ManagerTeamBean;
 import com.noplugins.keepfit.coachplatform.global.AppConstants;
 import com.noplugins.keepfit.coachplatform.util.SpUtils;
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean;
@@ -194,6 +197,30 @@ public class Network {
 
     public Subscription submit_information(CheckInformationBean checkInformationBean, Subscriber<Bean<String>> subscriber) {
         return service.submit_information(retuen_json_object(checkInformationBean))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public Subscription courseManager(Map<String, Object> params, Subscriber<Bean<ManagerBean>> subscriber) {
+        return service.courseManager(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+    public Subscription courseDetail(Map<String, Object> params, Subscriber<Bean<ManagerTeamBean>> subscriber) {
+        return service.courseDetail(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+
+    public Subscription putaway(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
+        return service.putaway(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

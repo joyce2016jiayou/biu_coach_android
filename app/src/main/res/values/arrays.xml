@@ -11,10 +11,63 @@
         <item>产后恢复</item>
         <item>体态矫正</item>
     </string-array>
+
+    <string-array name="team_class_types">
+        <item>单车</item>
+        <item>瑜伽</item>
+        <item>普拉提</item>
+        <item>拳击/搏击</item>
+        <item>舞蹈</item>
+        <item>功能性课程</item>
+        <item>儿童体适能</item>
+    </string-array>
+
     <string-array name="team_img_url">
         <item>https://goss.veer.com/creative/vcg/veer/612/veer-132444248.jpg</item>
         <item>https://goss1.veer.com/creative/vcg/veer/612/veer-163813886.jpg</item>
         <item>https://goss3.veer.com/creative/vcg/veer/612/veer-301068394.jpg</item>
         <item>https://goss4.veer.com/creative/vcg/veer/612/veer-146092500.jpg</item>
+    </string-array>
+
+
+    <string-array name="team_class_room">
+        <item>单车操房</item>
+        <item>有氧操房</item>
+        <item>瑜伽操房</item>
+    </string-array>
+
+    <string-array name="user_bq_type">
+        <item>准时</item>
+        <item>配合</item>
+        <item>认真</item>
+        <item>自律</item>
+        <item>身材好</item>
+        <item>毅力强</item>
+    </string-array>
+
+    <string-array name="teacher_bq_type">
+        <item>专业</item>
+        <item>阳光</item>
+        <item>细致</item>
+        <item>耐心</item>
+        <item>亲和</item>
+        <item>经验丰富</item>
+        <item>身材好</item>
+        <item>高颜值</item>
+        <item>准时</item>
+        <item>善于沟通</item>
+        <item>有感染力</item>
+        <item>音乐酷</item>
+        <item>人气旺</item>
+        <item>课程编排棒</item>
+        <item>互动性强</item>
+    </string-array>
+
+    <string-array name="teacher_jineng">
+        <item>瘦身塑形</item>
+        <item>增重增肌</item>
+        <item>体能训练</item>
+        <item>康复训练</item>
+        <item>体态调整</item>
     </string-array>
 </resources>

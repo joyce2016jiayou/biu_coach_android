@@ -47,6 +47,15 @@ public class DateHelper {
         return str.split(" ")[1];
     }
 
+    /**
+     * 根据long毫秒数，获得时分秒
+     **/
+    public static String getDateDayByLong(long time) {
+        SimpleDateFormat sdf = new SimpleDateFormat(YYYY_MM_DD_HH_MM);
+        String str = sdf.format(new Date(time));
+        return str.split(" ")[0];
+    }
+
     public static String Ruzhutime(String timeStamp) {
         SimpleDateFormat sdf = new SimpleDateFormat("MM月dd日");
         String dateStr = sdf.format(new Date(Long.parseLong(timeStamp)));
@@ -394,12 +403,12 @@ public class DateHelper {
         int day = 0;
         if (y1 - y2 > 0) {
             maxDays = calendar2.getActualMaximum(Calendar.DAY_OF_YEAR);
-            day = d1 - d2 + maxDays;
+            day = d2 - d1 + maxDays;
         } else if (y1 - y2 < 0) {
             maxDays = calendar1.getActualMaximum(Calendar.DAY_OF_YEAR);
-            day = d1 - d2 - maxDays;
+            day = d2 - d1 - maxDays;
         } else {
-            day = d1 - d2;
+            day = d2 - d1;
         }
         return day;
     }
@@ -420,7 +429,7 @@ public class DateHelper {
         int h2 = calendar2.get(Calendar.HOUR_OF_DAY);
         int h = 0;
         int day = getOffectDay(date1, date2);
-        h = h1 - h2 + day * 24;
+        h = h2 - h1 + day * 24;
         return h;
     }
 
@@ -565,5 +574,17 @@ public class DateHelper {
     public static String getWeek(int week) {
         String[] arr = {"周日", "周一", "周二", "周三", "周四", "周五", "周六"};
         return arr[week - 1];
+    }
+
+    public static String getDayFromWeek(String date){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar c = Calendar.getInstance();
+        try {
+            c.setTime(format.parse(date));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return getWeek(c.get(Calendar.DAY_OF_WEEK));
     }
 }

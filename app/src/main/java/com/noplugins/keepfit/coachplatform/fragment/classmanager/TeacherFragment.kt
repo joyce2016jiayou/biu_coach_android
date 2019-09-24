@@ -53,7 +53,7 @@ class TeacherFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        toShouquan(rb_1)
+//        toShouquan(rb_1)
 
     }
 

@@ -117,6 +117,7 @@
                             android:orientation="horizontal"
                             android:layout_marginTop="@dimen/m10"
                             android:layout_marginLeft="@dimen/m20"
+                            android:gravity="center_vertical"
                             android:layout_marginRight="@dimen/m20">
 
                         <TextView
@@ -126,20 +127,33 @@
                                 android:textSize="15sp"
                                 android:layout_height="wrap_content"/>
 
-                        <EditText
-                                android:id="@+id/edit_price"
+                        <FrameLayout
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:layout_height="@dimen/m31"
-                                android:layout_marginLeft="@dimen/m10"
-                                android:paddingLeft="@dimen/m10"
-                                android:hint="请输入价格"
-                                android:digits="0123456789."
-                                android:inputType="numberDecimal"
-                                android:gravity="center_vertical"
-                                android:textColor="@color/color_929292"
-                                android:textSize="15sp"
-                                android:background="@drawable/shape_btn_bg_gray"/>
+                                android:layout_marginLeft="@dimen/m10">
+
+                            <EditText
+                                    android:id="@+id/edit_price"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/m31"
+                                    android:hint="请输入价格"
+                                    android:digits="0123456789."
+                                    android:inputType="numberDecimal"
+                                    android:gravity="center_vertical"
+                                    android:textColor="@color/color_929292"
+                                    android:paddingLeft="@dimen/m30"
+                                    android:background="@drawable/shape_btn_bg_gray"
+                                    android:textSize="15sp"/>
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="@dimen/m31"
+                                    android:gravity="center"
+                                    android:layout_marginLeft="@dimen/m20"
+                                    android:textSize="16sp"
+                                    android:text="¥"
+                                    android:textColor="@color/color_181818"/>
+                        </FrameLayout>
 
                         <TextView
                                 android:layout_width="wrap_content"
