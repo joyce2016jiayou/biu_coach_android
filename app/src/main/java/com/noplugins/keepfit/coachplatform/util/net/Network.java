@@ -4,9 +4,7 @@ package com.noplugins.keepfit.coachplatform.util.net;
 import android.content.Context;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.noplugins.keepfit.coachplatform.bean.CheckInformationBean;
-import com.noplugins.keepfit.coachplatform.bean.LoginBean;
-import com.noplugins.keepfit.coachplatform.bean.YanZhengMaBean;
+import com.noplugins.keepfit.coachplatform.bean.*;
 import com.noplugins.keepfit.coachplatform.bean.manager.ManagerBean;
 import com.noplugins.keepfit.coachplatform.bean.manager.ManagerTeamBean;
 import com.noplugins.keepfit.coachplatform.bean.manager.ManagerTeamBean;
@@ -43,18 +41,33 @@ public class Network {
     public static final int DEFAULT_TIMEOUT = 7;
     private static Network mInstance;
     public MyService service;
+    public ChangGuanService changGuanService;
+
     public static String token = "";
     //测试服
     private String test_main_url = "http://192.168.1.45:8888/api/coach-service";
     private String main_url = "http://kft.ahcomg.com/api/coach-service";
     private static String MRTHOD_NAME = "";
+    private String test_get_tag_url = "http://192.168.1.45:8888/api/gym-service/";//获取字典
+    private String main_tag_url = "http://kft.ahcomg.com/api/gym-service/";//获取字典
+    Gson gson;
     Retrofit retrofit;
+    Retrofit get_tag_retrofit;
+    OkHttpClient client;
 
     public String get_main_url(String str) {
         if (str.equals("test")) {
             return test_main_url + "/coachuser/";
         } else {
             return main_url + "/coachuser/";
+        }
+    }
+
+    public String get_changguang_url(String str) {
+        if (str.equals("test")) {
+            return test_get_tag_url;
+        } else {
+            return main_tag_url;
         }
     }
 
@@ -111,7 +124,7 @@ public class Network {
             e.printStackTrace();
         }
 
-        OkHttpClient client = new OkHttpClient.Builder()
+        client = new OkHttpClient.Builder()
                 .sslSocketFactory(sslContext.getSocketFactory())//去掉okhttp https证书验证
                 .addInterceptor(new LogInterceptor(method))//添加日志拦截器
                 .addInterceptor(new Interceptor() {//添加token
@@ -130,7 +143,7 @@ public class Network {
                 .readTimeout(DEFAULT_TIMEOUT, TimeUnit.MINUTES)
                 .build();
 
-        Gson gson = new GsonBuilder()
+        gson = new GsonBuilder()
                 .setLenient()
                 .create();
 
@@ -142,9 +155,19 @@ public class Network {
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
 
+        get_tag_retrofit = new Retrofit.Builder()
+                .client(client)
+                .baseUrl(get_changguang_url("test"))//设置请求网址根部
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build();
+
         service = retrofit.create(MyService.class);
 
+        changGuanService = get_tag_retrofit.create(ChangGuanService.class);
+
     }
+
     private RequestBody retuen_json_params(Map<String, Object> params) {
         Gson gson = new Gson();
         String json_params = gson.toJson(params);
@@ -164,7 +187,6 @@ public class Network {
     }
 
 
-
     public Subscription get_yanzhengma(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
         return service.get_yanzhengma(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
@@ -180,6 +202,7 @@ public class Network {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
+
     public Subscription yanzheng_yanzhengma(Map<String, Object> params, Subscriber<Bean<YanZhengMaBean>> subscriber) {
         return service.yanzheng_yanzhengma(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
@@ -187,6 +210,7 @@ public class Network {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
+
     public Subscription set_password(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
         return service.set_password(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
@@ -210,6 +234,7 @@ public class Network {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
+
     public Subscription courseDetail(Map<String, Object> params, Subscriber<Bean<ManagerTeamBean>> subscriber) {
         return service.courseDetail(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
@@ -221,6 +246,22 @@ public class Network {
 
     public Subscription putaway(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
         return service.putaway(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public Subscription get_biaoqians(Map<String, Object> params, Subscriber<Bean<List<TagBean>>> subscriber) {
+        return changGuanService.get_biaoqians(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public Subscription get_qiniu_token(Map<String, Object> params, Subscriber<Bean<QiNiuToken>> subscriber) {
+        return changGuanService.get_qiniu_token(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

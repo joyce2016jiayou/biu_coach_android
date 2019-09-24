@@ -233,6 +233,16 @@ public class CheckInformationBean {
         private String certFrontKey;
         private String certName;
 
+        public String getLocal_img_path() {
+            return local_img_path;
+        }
+
+        public void setLocal_img_path(String local_img_path) {
+            this.local_img_path = local_img_path;
+        }
+
+        private String local_img_path;
+
         public String getCertType() {
             return certType;
         }

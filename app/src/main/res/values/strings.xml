@@ -179,6 +179,8 @@
     <string name="tv139">入行时间不能为空</string>
     <string name="tv140">证书不能为空</string>
     <string name="tv141">授课不能为空</string>
+    <string name="tv142">擅长课程不能为空</string>
+    <string name="tv143">技能标签不能为空</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

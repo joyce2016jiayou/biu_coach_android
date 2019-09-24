@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:id="@+id/tag_layout_view"
-              android:layout_height="wrap_content">
-
+       xmlns:app="http://schemas.android.com/apk/res-auto"
+       android:orientation="vertical"
+       android:layout_width="match_parent"
+              android:id="@+id/teacher_shanchang_class_layout"
+       android:layout_height="wrap_content">
     <www.linwg.org.lib.LCardView
             android:layout_width="match_parent"
             android:orientation="vertical"
@@ -39,7 +38,7 @@
                         android:layout_height="wrap_content"/>
 
                 <TextView
-                        android:id="@+id/tag_num"
+                        android:id="@+id/shanchang_tag_num"
                         android:text="(0/7)"
                         android:textColor="@color/color_4A4A4A"
                         android:layout_marginTop="@dimen/m5"
@@ -49,7 +48,7 @@
             </LinearLayout>
 
             <com.noplugins.keepfit.coachplatform.util.ui.GridViewForScrollView
-                    android:id="@+id/grid_view"
+                    android:id="@+id/shanchang_class_tag_view"
                     android:layout_toRightOf="@+id/lin_left"
                     android:layout_width="wrap_content"
                     android:layout_marginRight="@dimen/m6"

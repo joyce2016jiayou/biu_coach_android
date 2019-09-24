@@ -43,6 +43,7 @@
 
 
     <LinearLayout
+            android:id="@+id/fail_layout"
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:layout_marginLeft="@dimen/m20"

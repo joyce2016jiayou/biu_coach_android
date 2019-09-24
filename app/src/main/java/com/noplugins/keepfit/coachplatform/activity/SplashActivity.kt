@@ -74,14 +74,29 @@ class SplashActivity : BaseActivity() {
 
         val intent = if (SpUtils.getString(applicationContext, AppConstants.TOKEN) == "") {
             Intent(this@SplashActivity, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
         } else {
-            Intent(
-                this@SplashActivity,
-                MainActivity::class.java
-            )
+//            Intent(
+//                this@SplashActivity,
+//                MainActivity::class.java
+//            )
+
+            if (null == SpUtils.getString(getApplicationContext(), AppConstants.TEACHER_TYPE)) {
+                val intent = Intent(this@SplashActivity, SelectRoleActivity::class.java)
+                startActivity(intent)
+            } else {
+                if (SpUtils.getString(applicationContext, AppConstants.TEACHER_TYPE).length > 0) {//已经审核过了
+                    val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                    startActivity(intent)
+                } else {//未审核
+                    val intent = Intent(this@SplashActivity, SelectRoleActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+
         }
 
-        startActivity(intent)
-        finish()
+
     }
 }

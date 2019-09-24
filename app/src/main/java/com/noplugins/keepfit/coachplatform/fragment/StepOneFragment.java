@@ -111,6 +111,7 @@ public class StepOneFragment extends ViewPagerFragment {
     private boolean is_set_card_zheng;
     private CheckStatusActivity checkStatusActivity;
     private NoScrollViewPager viewpager_content;
+    private String select_time_tv = "";
 
     public static StepOneFragment homeInstance(String title) {
         StepOneFragment fragment = new StepOneFragment();
@@ -194,15 +195,15 @@ public class StepOneFragment extends ViewPagerFragment {
 
                 if (check_value()) {
                     //传递参数
-                    checkStatusActivity.select_card_zheng_path=select_card_zheng_path;
-                    checkStatusActivity.select_card_fan_path=select_card_fan_path;
+                    checkStatusActivity.select_card_zheng_path = select_card_zheng_path;
+                    checkStatusActivity.select_card_fan_path = select_card_fan_path;
                     checkStatusActivity.user_name = user_name_tv.getText().toString();
                     checkStatusActivity.card_id = card_id_tv.getText().toString();
                     checkStatusActivity.sex = sex_tv.getText().toString();
                     checkStatusActivity.phone = phone_tv.getText().toString();
                     checkStatusActivity.city = address_tv.getText().toString();
                     checkStatusActivity.school = school_tv.getText().toString();
-                    checkStatusActivity.ruhang_time = time_tv.getText().toString();
+                    checkStatusActivity.ruhang_time = select_time_tv;
 
                     xiayibu_btn.startLoading();
                     xiayibu_btn.postDelayed(new Runnable() {
@@ -498,6 +499,7 @@ public class StepOneFragment extends ViewPagerFragment {
                 } else {
                     select_month = "" + (date.getMonth() + 1);
                 }
+                select_time_tv = select_year + "-" + select_month;
                 time_tv.setText(select_year + "年" + select_month + "月");
             }
         })

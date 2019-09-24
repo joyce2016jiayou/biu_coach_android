@@ -17,26 +17,40 @@ import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.huantansheng.easyphotos.EasyPhotos;
 import com.huantansheng.easyphotos.constant.Type;
+import com.noplugins.keepfit.coachplatform.MainActivity;
 import com.noplugins.keepfit.coachplatform.R;
 import com.noplugins.keepfit.coachplatform.adapter.TypeAdapter;
 import com.noplugins.keepfit.coachplatform.base.BaseActivity;
+import com.noplugins.keepfit.coachplatform.base.MyApplication;
 import com.noplugins.keepfit.coachplatform.bean.AddPhotoBean;
 import com.noplugins.keepfit.coachplatform.bean.CheckInformationBean;
+import com.noplugins.keepfit.coachplatform.bean.LoginBean;
+import com.noplugins.keepfit.coachplatform.bean.QiNiuToken;
 import com.noplugins.keepfit.coachplatform.global.AppConstants;
 import com.noplugins.keepfit.coachplatform.util.GlideEngine;
 import com.noplugins.keepfit.coachplatform.util.MessageEvent;
+import com.noplugins.keepfit.coachplatform.util.SpUtils;
+import com.noplugins.keepfit.coachplatform.util.net.Network;
+import com.noplugins.keepfit.coachplatform.util.net.entity.Bean;
+import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber;
+import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener;
 import com.noplugins.keepfit.coachplatform.util.screen.KeyboardUtils;
 import com.noplugins.keepfit.coachplatform.util.ui.MyListView;
+import com.noplugins.keepfit.coachplatform.util.ui.ProgressUtil;
 import com.noplugins.keepfit.coachplatform.util.ui.jiugongge.CCRSortableNinePhotoLayout;
 import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow;
 import com.noplugins.keepfit.coachplatform.util.ui.switchbutton.ToogleButton;
 import com.orhanobut.logger.Logger;
+import com.qiniu.android.http.ResponseInfo;
+import com.qiniu.android.storage.UpCompletionHandler;
+import com.qiniu.android.storage.UploadManager;
+import com.qiniu.android.storage.UploadOptions;
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONObject;
+import rx.Subscription;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class AddZhengshuActivity extends BaseActivity {
 
@@ -59,10 +73,15 @@ public class AddZhengshuActivity extends BaseActivity {
     @BindView(R.id.zhengshu_tv)
     TextView zhengshu_tv;
 
-
+    private String select_time = "";
+    private ProgressUtil progress_upload;
+    private SimpleDateFormat sdf;
+    private String qiniu_key;
     private int select_zhengshu_max_num = 0;
+    private String uptoken = "xxxxxxxxx:xxxxxxx:xxxxxxxxxx";
     private List<CheckInformationBean.CoachPicCertificatesBean> zhengshu_images_select = new ArrayList<>();
     TimePickerView pvCustomTime;
+    private UploadManager uploadManager;
 
     @Override
     public void initBundle(Bundle parms) {
@@ -74,10 +93,35 @@ public class AddZhengshuActivity extends BaseActivity {
         setContentLayout(R.layout.activity_add_zhengshu);
         ButterKnife.bind(this);
         isShowTitle(false);
+        /**七牛云**/
+        uploadManager = MyApplication.uploadManager;
+        sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        qiniu_key = "icon_" + sdf.format(new Date());
+        /**七牛云**/
+    }
+
+    private void getToken() {
+        Map<String, Object> params = new HashMap<>();
+        Subscription subscription = Network.getInstance("获取七牛token", this)
+                .get_qiniu_token(params,
+                        new ProgressSubscriber<>("获取七牛token", new SubscriberOnNextListener<Bean<QiNiuToken>>() {
+                            @Override
+                            public void onNext(Bean<QiNiuToken> result) {
+                                uptoken = result.getData().getToken();
+                            }
+
+                            @Override
+                            public void onError(String error) {
+
+                            }
+                        }, this, false));
+
     }
 
     @Override
     public void doBusiness(Context mContext) {
+        getToken();//获取七牛云token
+
         add_zhengshu_photos_view.setDelegate(select_zhengshu);
 
         back_img.setOnClickListener(new View.OnClickListener() {
@@ -98,13 +142,13 @@ public class AddZhengshuActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 select_time_pop();
-
             }
         });
         //完成添加
         done_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //对重复图片做校验 AppConstants.SELECT_PHOTO_NUM
                 MessageEvent messageEvent = new MessageEvent(AppConstants.UPDATE_SELECT_PHOTO);
                 EventBus.getDefault().postSticky(messageEvent);
                 finish();
@@ -117,20 +161,18 @@ public class AddZhengshuActivity extends BaseActivity {
                 //保存已经选中的图片
                 MessageEvent messageEvent = new MessageEvent(AppConstants.UPDATE_SELECT_PHOTO);
                 EventBus.getDefault().postSticky(messageEvent);
-
                 //清空页面数据
                 zhengshu_type_tv.setText("");
                 zhengshu_tv.setText("");
                 time_tv.setText("");
                 zhengshu_images_select.clear();
+
                 set_zhengshu_view();
 
             }
         });
 
-
     }
-
 
 
     /**
@@ -161,6 +203,7 @@ public class AddZhengshuActivity extends BaseActivity {
                 } else {
                     select_month = "" + (date.getMonth() + 1);
                 }
+                select_time = select_year + "-" + select_month;
                 time_tv.setText(select_year + "年" + select_month + "月");
             }
         })
@@ -304,26 +347,27 @@ public class AddZhengshuActivity extends BaseActivity {
                 }
                 boolean selectedOriginal = data.getBooleanExtra(EasyPhotos.RESULT_SELECTED_ORIGINAL, false);
                 */
+
                 ArrayList<String> resultPaths = data.getStringArrayListExtra(EasyPhotos.RESULT_PATHS);
+                Log.e("返回的path:",resultPaths.size()+"");
                 List<CheckInformationBean.CoachPicCertificatesBean> return_selet = new ArrayList<>();
                 for (int i = 0; i < resultPaths.size(); i++) {
+                    CheckInformationBean.CoachPicCertificatesBean coachPicCertificatesBean = new CheckInformationBean.CoachPicCertificatesBean();
                     if (i == 0) {
-                        CheckInformationBean.CoachPicCertificatesBean coachPicCertificatesBean = new CheckInformationBean.CoachPicCertificatesBean();
-                        coachPicCertificatesBean.setCertType("1");//证书类型
-                        coachPicCertificatesBean.setCertDate(time_tv.getText().toString());//证书日期
-                        coachPicCertificatesBean.setCertFrontKey(resultPaths.get(i));
+                        coachPicCertificatesBean.setCertType("1");//证书类型,有字典
+                        coachPicCertificatesBean.setCertDate(select_time);//证书日期
+                        coachPicCertificatesBean.setLocal_img_path(resultPaths.get(i));
                         coachPicCertificatesBean.setCertName(zhengshu_tv.getText().toString());
-
                         return_selet.add(coachPicCertificatesBean);
                     } else {
-                        CheckInformationBean.CoachPicCertificatesBean coachPicCertificatesBean = new CheckInformationBean.CoachPicCertificatesBean();
-                        coachPicCertificatesBean.setCertFrontKey(resultPaths.get(i));
+                        coachPicCertificatesBean.setLocal_img_path(resultPaths.get(i));
                         return_selet.add(coachPicCertificatesBean);
                     }
                 }
                 zhengshu_images_select.addAll(return_selet);
-                set_zhengshu_view();
+                //todo 重复添加第二张的问题
 
+                set_zhengshu_view();
                 return;
             }
 
@@ -333,15 +377,65 @@ public class AddZhengshuActivity extends BaseActivity {
     }
 
     private void set_zhengshu_view() {
+        set_jiugongge();
+        if (zhengshu_images_select.size() > 0) {
+            //上传七牛,只上传第一张
+            if(zhengshu_images_select.get(0).getCertFrontKey()!=null){//只上传前面一张
+                return;
+            }else{
+                Log.e("进来了添加","进来了添加");
+                upload_image_work(zhengshu_images_select.get(0));
+            }
+        }
+    }
+
+    /**
+     * 设置证书的九宫格
+     */
+    private void set_jiugongge(){
         List<String> iamges = new ArrayList<>();
         for (CheckInformationBean.CoachPicCertificatesBean coachPicCertificatesBean : zhengshu_images_select) {
-            iamges.add(coachPicCertificatesBean.getCertFrontKey());
+            iamges.add(coachPicCertificatesBean.getLocal_img_path());
         }
         add_zhengshu_photos_view.setData(iamges);//设置九宫格
         AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE_TWO = zhengshu_images_select.size();
-        if (zhengshu_images_select.size() > 0) {
-            AppConstants.SELECT_PHOTO_NUM.add(zhengshu_images_select.get(0));
-        }
+    }
+
+    private void upload_image_work(CheckInformationBean.CoachPicCertificatesBean coachPicCertificatesBean) {
+        progress_upload = new ProgressUtil();
+        progress_upload.showProgressDialog(this, "载入中...");
+        //上传icon
+        uploadManager.put(coachPicCertificatesBean.getLocal_img_path(), qiniu_key, uptoken,
+                new UpCompletionHandler() {
+                    @Override
+                    public void complete(String key, ResponseInfo info, JSONObject response) {
+                        //res包含hash、key等信息，具体字段取决于上传策略的设置
+                        if (info.isOK()) {
+                            String icon_net_path = key;
+                            String headpicPath = "http://upload.qiniup.com/" + key;
+
+                            coachPicCertificatesBean.setCertFrontKey(icon_net_path);
+                            AppConstants.SELECT_PHOTO_NUM.add(coachPicCertificatesBean);
+                            set_jiugongge();
+
+
+                            for (int i = 0; i < AppConstants.SELECT_PHOTO_NUM.size(); i++) {
+                                CheckInformationBean.CoachPicCertificatesBean obg = AppConstants.SELECT_PHOTO_NUM.get(i);
+                                Log.e("上传的key", obg.getCertFrontKey());
+                            }
+
+                            Log.e("qiniu", "Upload Success");
+                            Log.e("打印key：", icon_net_path);
+                            Log.e("返回的地址", headpicPath);
+                        } else {
+                            Log.e("qiniu", "Upload Fail");
+                            //如果失败，这里可以把info信息上报自己的服务器，便于后面分析上传错误原因
+                        }
+                        //Log.e("qiniu", key + ",\r\n " + info.path + ",\r\n " + response);
+                        progress_upload.dismissProgressDialog();
+
+                    }
+                }, new UploadOptions(null, "test-type", true, null, null));
     }
 
     @Override

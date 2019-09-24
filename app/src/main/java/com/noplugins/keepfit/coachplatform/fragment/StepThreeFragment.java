@@ -3,6 +3,7 @@ package com.noplugins.keepfit.coachplatform.fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.widget.LinearLayout;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,11 @@ public class StepThreeFragment extends ViewPagerFragment {
     private View view;
     @BindView(R.id.return_submit)
     LoadingButton return_submit;
+    @BindView(R.id.success_layout)
+    LinearLayout success_layout;
+    @BindView(R.id.fail_layout)
+    LinearLayout fail_layout;
+
 
     private CheckStatusActivity checkStatusActivity;
     private StepView stepView;
@@ -49,6 +55,8 @@ public class StepThreeFragment extends ViewPagerFragment {
     }
 
     private void initView() {
+        success_layout.setVisibility(View.VISIBLE);
+        fail_layout.setVisibility(View.GONE);
         return_submit.setBtnOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,6 +73,7 @@ public class StepThreeFragment extends ViewPagerFragment {
                         viewpager_content.setCurrentItem(3);
                         int step = stepView.getCurrentStep();//设置进度条
                         stepView.setCurrentStep(Math.max((step + 1) % stepView.getStepNum(), 0));
+
                     }
                 }, 2000);
             }

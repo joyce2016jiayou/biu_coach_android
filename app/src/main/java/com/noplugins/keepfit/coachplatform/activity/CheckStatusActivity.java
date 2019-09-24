@@ -42,9 +42,7 @@ public class CheckStatusActivity extends BaseActivity {
     public String city="";
     public String school="";
     public String ruhang_time="";
-
-    private List<Fragment> tabFragments = new ArrayList<>();
-
+    public List<Fragment> tabFragments = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

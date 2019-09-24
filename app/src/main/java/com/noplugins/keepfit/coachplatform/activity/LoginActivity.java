@@ -163,14 +163,15 @@ public class LoginActivity extends BaseActivity {
                 } else if (!StringsHelper.isMobileOne(edit_phone_number.getText().toString())) {
                     Toast.makeText(getApplicationContext(), "电话号码格式不正确！", Toast.LENGTH_SHORT).show();
                     return;
-                } else if(TextUtils.isEmpty(edit_password.getText())){
-                    if(is_yanzhengma_logon){
+                } else if (TextUtils.isEmpty(edit_password.getText())) {
+                    if (is_yanzhengma_logon) {
                         Toast.makeText(getApplicationContext(), "验证码不能为空！", Toast.LENGTH_SHORT).show();
-                    }else{
+                    } else {
                         Toast.makeText(getApplicationContext(), "密码不能为空！", Toast.LENGTH_SHORT).show();
                     }
                     return;
-                } {
+                }
+                {
                     login_btn.startLoading();
                     if (is_yanzhengma_logon) {//如果是验证码登录，则让它设置密码
                         yanzheng_yanzhengma();
@@ -211,7 +212,10 @@ public class LoginActivity extends BaseActivity {
                                     Intent intent = new Intent(LoginActivity.this, SelectRoleActivity.class);
                                     startActivity(intent);
                                 }
-                                save_resource(result.getData().getToken(), result.getData().getUserNum(), result.getData().getTeacherType());
+                                save_resource(result.getData().getToken(),
+                                        result.getData().getUserNum(),
+                                        result.getData().getTeacherType(),
+                                        result.getData().getUserNum());
                             }
 
                             @Override
@@ -234,7 +238,10 @@ public class LoginActivity extends BaseActivity {
                             public void onNext(Bean<LoginBean> result) {
                                 login_btn.loadingComplete();
 
-                                save_resource(result.getData().getToken(), result.getData().getUserNum(), result.getData().getTeacherType());
+                                save_resource(result.getData().getToken(),
+                                        result.getData().getUserNum(),
+                                        result.getData().getTeacherType(),
+                                        result.getData().getUserNum());
                                 if (null != SpUtils.getString(getApplicationContext(), AppConstants.TEACHER_TYPE)) {
                                     if (SpUtils.getString(getApplicationContext(), AppConstants.TEACHER_TYPE).length() > 0) {//已经审核过了
                                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -302,11 +309,11 @@ public class LoginActivity extends BaseActivity {
         });
     }
 
-    private void save_resource(String token, String user_number, String teacher_type) {
+    private void save_resource(String token, String user_number, String teacher_type, String teacher_number) {
         SpUtils.putString(getApplicationContext(), AppConstants.TOKEN, token);
         SpUtils.putString(getApplicationContext(), AppConstants.USER_NAME, user_number);
         SpUtils.putString(getApplicationContext(), AppConstants.TEACHER_TYPE, teacher_type);
-
+        SpUtils.putString(getApplicationContext(), AppConstants.SELECT_TEACHER_NUMBER, teacher_number);
     }
 
     TextWatcher textWatcher = new TextWatcher() {

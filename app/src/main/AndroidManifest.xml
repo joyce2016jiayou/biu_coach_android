@@ -110,27 +110,22 @@
         <activity android:name=".activity.AddZhengshuActivity">
         </activity>
         <activity android:name=".activity.CheckStatusActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity android:name=".activity.ClassManagerActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity android:name=".activity.SetPasswordActivity">
         </activity>
         <activity android:name=".activity.TuankeRoleActivity">
         </activity>
         <activity android:name=".activity.SelectRoleActivity">
+
         </activity>
         <activity android:name=".activity.SplashActivity">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity android:name=".activity.WelcomeGuideActivity">
         </activity>
@@ -140,6 +135,7 @@
 
         </activity>
         <activity android:name=".activity.LoginActivity">
+
         </activity>
 
         <meta-data

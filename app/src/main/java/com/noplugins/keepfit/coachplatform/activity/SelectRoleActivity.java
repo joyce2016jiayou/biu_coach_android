@@ -13,6 +13,8 @@ import butterknife.ButterKnife;
 import com.huantansheng.easyphotos.models.puzzle.Line;
 import com.noplugins.keepfit.coachplatform.R;
 import com.noplugins.keepfit.coachplatform.base.BaseActivity;
+import com.noplugins.keepfit.coachplatform.global.AppConstants;
+import com.noplugins.keepfit.coachplatform.util.SpUtils;
 
 public class SelectRoleActivity extends BaseActivity {
 
@@ -89,6 +91,7 @@ public class SelectRoleActivity extends BaseActivity {
                 Intent intent = new Intent(SelectRoleActivity.this, CheckStatusActivity.class);
                 startActivity(intent);
                 finish();
+                SpUtils.putString(getApplicationContext(), AppConstants.SELECT_TEACHER_TYPE,"1");//团课
             }
         });
         //选择了团课
@@ -98,6 +101,7 @@ public class SelectRoleActivity extends BaseActivity {
                 Intent intent = new Intent(SelectRoleActivity.this, CheckStatusActivity.class);
                 startActivity(intent);
                 finish();
+                SpUtils.putString(getApplicationContext(), AppConstants.SELECT_TEACHER_TYPE,"2");//私教
             }
         });
     }

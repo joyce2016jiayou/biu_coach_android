@@ -9,17 +9,18 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.noplugins.keepfit.coachplatform.R;
+import com.noplugins.keepfit.coachplatform.bean.TagBean;
 import com.noplugins.keepfit.coachplatform.bean.TagEntity;
 
 import java.util.List;
 
 
 public class MineTagAdapter extends BaseAdapter {
-    private List<TagEntity> strings;
+    private List<TagBean> strings;
     private LayoutInflater layoutInflater;
     private Context context;
 
-    public MineTagAdapter(Context mcontext, List<TagEntity> mstrings) {
+    public MineTagAdapter(Context mcontext, List<TagBean> mstrings) {
         this.strings = mstrings;
         context = mcontext;
         layoutInflater = LayoutInflater.from(mcontext);
@@ -52,7 +53,7 @@ public class MineTagAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.tag_value.setText(strings.get(position).getTag());
+        holder.tag_value.setText(strings.get(position).getName());
         if(strings.get(position).isCheck()){
             holder.tag_value.setTextColor(Color.parseColor("#00BABB"));
         }else{

@@ -2,6 +2,8 @@ package com.noplugins.keepfit.coachplatform.util.net;
 
 
 import com.noplugins.keepfit.coachplatform.bean.LoginBean;
+import com.noplugins.keepfit.coachplatform.bean.QiNiuToken;
+import com.noplugins.keepfit.coachplatform.bean.TagBean;
 import com.noplugins.keepfit.coachplatform.bean.YanZhengMaBean;
 import com.noplugins.keepfit.coachplatform.bean.manager.ManagerBean;
 import com.noplugins.keepfit.coachplatform.bean.manager.ManagerTeamBean;
@@ -85,5 +87,6 @@ public interface MyService {
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("putaway")
     Observable<Bean<String>> putaway(@Body RequestBody json);
+
 
 }

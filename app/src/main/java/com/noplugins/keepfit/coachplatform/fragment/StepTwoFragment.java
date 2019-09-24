@@ -4,46 +4,37 @@ package com.noplugins.keepfit.coachplatform.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import android.view.WindowManager;
 import android.widget.*;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.bumptech.glide.Glide;
 import com.huantansheng.easyphotos.EasyPhotos;
-import com.huantansheng.easyphotos.models.album.entity.Photo;
 import com.noplugins.keepfit.coachplatform.R;
 import com.noplugins.keepfit.coachplatform.activity.AddZhengshuActivity;
 import com.noplugins.keepfit.coachplatform.activity.CheckStatusActivity;
 import com.noplugins.keepfit.coachplatform.adapter.MineTagAdapter;
-import com.noplugins.keepfit.coachplatform.bean.AddPhotoBean;
 import com.noplugins.keepfit.coachplatform.bean.CheckInformationBean;
-import com.noplugins.keepfit.coachplatform.bean.TagEntity;
+import com.noplugins.keepfit.coachplatform.bean.TagBean;
 import com.noplugins.keepfit.coachplatform.global.AppConstants;
 import com.noplugins.keepfit.coachplatform.util.GlideEngine;
 import com.noplugins.keepfit.coachplatform.util.MessageEvent;
+import com.noplugins.keepfit.coachplatform.util.SpUtils;
 import com.noplugins.keepfit.coachplatform.util.net.Network;
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean;
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber;
 import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener;
-import com.noplugins.keepfit.coachplatform.util.ui.LoadingButton;
-import com.noplugins.keepfit.coachplatform.util.ui.NoScrollViewPager;
-import com.noplugins.keepfit.coachplatform.util.ui.StepView;
-import com.noplugins.keepfit.coachplatform.util.ui.ViewPagerFragment;
+import com.noplugins.keepfit.coachplatform.util.ui.*;
 import com.noplugins.keepfit.coachplatform.util.ui.jiugongge.CCRSortableNinePhotoLayout;
 import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow;
-import com.orhanobut.logger.Logger;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import rx.Subscription;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -66,16 +57,32 @@ public class StepTwoFragment extends ViewPagerFragment {
     CCRSortableNinePhotoLayout select_zhengshu_view;
     @BindView(R.id.submit_btn)
     LoadingButton submit_btn;
+    @BindView(R.id.shanchang_class_tag_view)
+    GridViewForScrollView shanchang_class_tag_view;
+    @BindView(R.id.shanchang_tag_num)
+    TextView shanchang_tag_num;
+
+    @BindView(R.id.tag_layout_view)
+    LinearLayout tag_layout_view;
+    @BindView(R.id.teacher_shanchang_class_layout)
+    LinearLayout teacher_shanchang_class_layout;
+    @BindView(R.id.zhengshu_layout)
+    LinearLayout zhengshu_layout;
+    @BindView(R.id.shouke_layout)
+    LinearLayout shouke_layout;
+
+
     private CheckStatusActivity checkStatusActivity;
     private StepView stepView;
 
-    int select_sum = 0;
 
     private int select_zhengshu_max_num = 0;
     private int select_shouke_max_num = 0;
 
     private List<CheckInformationBean.CoachPicTeachingsBean> shouke_images_select = new ArrayList<>();
     private List<CheckInformationBean.CoachPicCertificatesBean> zhengshu_images_select = new ArrayList<>();
+    List<TagBean> shanchang_tagBeans = new ArrayList<>();
+    List<TagBean> jineng_tagBeans = new ArrayList<>();
     private NoScrollViewPager viewpager_content;
 
 
@@ -94,42 +101,66 @@ public class StepTwoFragment extends ViewPagerFragment {
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_step_two, container, false);
             ButterKnife.bind(this, view);//绑定黄牛刀
-            initView();
             EventBus.getDefault().register(StepTwoFragment.this);
         }
         return view;
     }
 
     private void initView() {
-        //设置标签
-        set_tag();
+        if (SpUtils.getString(getActivity(), AppConstants.SELECT_TEACHER_TYPE).equals("1")) {//团课
+            teacher_shanchang_class_layout.setVisibility(View.VISIBLE);
+            tag_layout_view.setVisibility(View.GONE);
+            zhengshu_layout.setVisibility(View.VISIBLE);
+            shouke_layout.setVisibility(View.VISIBLE);
+            init_tag_resource(6);
+
+        } else if (SpUtils.getString(getActivity(), AppConstants.SELECT_TEACHER_TYPE).equals("2")) {//私教
+            teacher_shanchang_class_layout.setVisibility(View.VISIBLE);
+            tag_layout_view.setVisibility(View.VISIBLE);
+            zhengshu_layout.setVisibility(View.VISIBLE);
+            shouke_layout.setVisibility(View.GONE);
+            init_tag_resource(7);
+            init_jineng_tag_resource(3);
+        }
+
         //设置九宫格图片
         set_zhengshu_view();
         submit_btn.setBtnOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (zhengshu_images_select.size() == 0) {
-                    Toast.makeText(getActivity(), R.string.tv140, Toast.LENGTH_SHORT).show();
-                    return;
-                } else if (shouke_images_select.size() == 0) {
-                    Toast.makeText(getActivity(), R.string.tv141, Toast.LENGTH_SHORT).show();
-                    return;
-                } else {
-                    submit_btn.startLoading();
-                    submit_btn.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            submit_information();
-
-                            submit_btn.loadingComplete();
-                            viewpager_content.setCurrentItem(2);
-                            int step = stepView.getCurrentStep();//设置进度条
-                            stepView.setCurrentStep((step + 1) % stepView.getStepNum());
 
 
-                        }
-                    }, 2000);
-                }
+                /*if (SpUtils.getString(getActivity(), AppConstants.SELECT_TEACHER_TYPE).equals("1")) {//团课
+                    if (shanchang_tagBeans.size() == 0) {
+                        Toast.makeText(getActivity(), R.string.tv142, Toast.LENGTH_SHORT).show();
+                        return;
+                    } else if (shouke_images_select.size() == 0) {
+                        Toast.makeText(getActivity(), R.string.tv141, Toast.LENGTH_SHORT).show();
+                        return;
+                    } else {
+                        submit_btn.startLoading();
+                        submit_information();
+                    }
+                } else {//私教
+                    if (zhengshu_images_select.size() == 0) {
+                        Toast.makeText(getActivity(), R.string.tv140, Toast.LENGTH_SHORT).show();
+                        return;
+                    } else if (jineng_tagBeans.size() == 0) {
+                        Toast.makeText(getActivity(), R.string.tv143, Toast.LENGTH_SHORT).show();
+                        return;
+                    } else if (shanchang_tagBeans.size() == 0) {
+                        Toast.makeText(getActivity(), R.string.tv142, Toast.LENGTH_SHORT).show();
+                        return;
+                    } else if (shouke_images_select.size() == 0) {
+                        Toast.makeText(getActivity(), R.string.tv141, Toast.LENGTH_SHORT).show();
+                        return;
+                    } else {
+                        submit_btn.startLoading();
+                        submit_information();
+                    }
+                }*/
+
+
 
 
             }
@@ -138,43 +169,160 @@ public class StepTwoFragment extends ViewPagerFragment {
 
     }
 
-    private void submit_information() {
-        CheckInformationBean checkInformationBean = new CheckInformationBean();
-        CheckInformationBean.CoachPicCardBean coachPicCardBean = new CheckInformationBean.CoachPicCardBean();
-        coachPicCardBean.setCardBackKey(checkStatusActivity.select_card_fan_path);
-        coachPicCardBean.setCardFrontKey(checkStatusActivity.select_card_zheng_path);
-        checkInformationBean.setCoachPicCard(coachPicCardBean);
-
-        CheckInformationBean.CoachUserBean coachUserBean = new CheckInformationBean.CoachUserBean();
-        coachUserBean.setTeacherType(1);//教练类型
-        coachUserBean.setRealname(checkStatusActivity.user_name);
-        coachUserBean.setCard(checkStatusActivity.card_id);
-        coachUserBean.setSex(1);//性别
-        coachUserBean.setPhone(checkStatusActivity.phone);
-        coachUserBean.setProvince(checkStatusActivity.city);//省份
-        coachUserBean.setCity(checkStatusActivity.city);//城市
-        coachUserBean.setUniversity(checkStatusActivity.school);
-        coachUserBean.setProfessiondate(checkStatusActivity.ruhang_time);
-        coachUserBean.setGoodAtSkill("1,2,3");//擅长课程
-        coachUserBean.setGoodAtSkill("1,2,3");//技能标签
-        coachUserBean.setUserNum("123");//教练编号
-        checkInformationBean.setCoachUser(coachUserBean);
-
-        checkInformationBean.setCoachPicTeachings(shouke_images_select);
-
-        checkInformationBean.setCoachPicCertificates(zhengshu_images_select);
-
-        Subscription subscription = Network.getInstance("提交审核资料", getActivity())
-                .submit_information(checkInformationBean,
-                        new ProgressSubscriber<>("提交审核资料", new SubscriberOnNextListener<Bean<String>>() {
+    /**
+     * 擅长课程
+     *
+     * @param get_type
+     */
+    private void init_tag_resource(int get_type) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("object", get_type);
+        Subscription subscription = Network.getInstance("擅长课程", getActivity())
+                .get_biaoqians(params,
+                        new ProgressSubscriber<>("擅长课程", new SubscriberOnNextListener<Bean<List<TagBean>>>() {
                             @Override
-                            public void onNext(Bean<String> result) {
+                            public void onNext(Bean<List<TagBean>> result) {
+                                shanchang_tagBeans.addAll(result.getData());
+                                set__shanchang_tag(shanchang_tagBeans);
 
                             }
 
                             @Override
                             public void onError(String error) {
 
+                            }
+                        }, getActivity(), false));
+    }
+
+    private void set__shanchang_tag(List<TagBean> shanchang_tagBeans) {
+        MineTagAdapter tagAdapter = new MineTagAdapter(getActivity(), shanchang_tagBeans);
+        shanchang_class_tag_view.setAdapter(tagAdapter);
+        set_shanchang_select_sum(shanchang_tagBeans);
+        shanchang_class_tag_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (shanchang_tagBeans.get(i).isCheck()) {
+                    shanchang_tagBeans.get(i).setCheck(false);
+                } else {
+                    shanchang_tagBeans.get(i).setCheck(true);
+                }
+                tagAdapter.notifyDataSetChanged();
+                set_shanchang_select_sum(shanchang_tagBeans);
+            }
+        });
+    }
+
+    private void set_tag(List<TagBean> jineng_tagBeans) {
+        MineTagAdapter tagAdapter = new MineTagAdapter(getActivity(), jineng_tagBeans);
+        grid_view.setAdapter(tagAdapter);
+        set_select_sum(jineng_tagBeans);
+        grid_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (jineng_tagBeans.get(i).isCheck()) {
+                    jineng_tagBeans.get(i).setCheck(false);
+                } else {
+                    jineng_tagBeans.get(i).setCheck(true);
+                }
+                tagAdapter.notifyDataSetChanged();
+                set_select_sum(jineng_tagBeans);
+            }
+        });
+    }
+
+    /**
+     * 教练技能标签
+     *
+     * @param get_type
+     */
+    private void init_jineng_tag_resource(int get_type) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("object", get_type);
+        Subscription subscription = Network.getInstance("教练技能", getActivity())
+                .get_biaoqians(params,
+                        new ProgressSubscriber<>("教练技能", new SubscriberOnNextListener<Bean<List<TagBean>>>() {
+                            @Override
+                            public void onNext(Bean<List<TagBean>> result) {
+                                jineng_tagBeans.addAll(result.getData());
+                                //设置标签
+                                set_tag(jineng_tagBeans);
+                            }
+
+                            @Override
+                            public void onError(String error) {
+
+                            }
+                        }, getActivity(), false));
+    }
+
+    private String get_selete_biaoqian(List<TagBean> tagBeans) {
+        StringBuffer type_buffer = new StringBuffer();
+        for (int i = 0; i < tagBeans.size(); i++) {
+            if (i == tagBeans.size() - 1) {
+                type_buffer.append(tagBeans.get(i).getValue());
+            } else {
+                type_buffer.append(tagBeans.get(i).getValue()).append(",");
+            }
+        }
+        //Log.e("选择的标签编号", image_buffer.toString() + "");
+        return type_buffer.toString();
+    }
+
+    private void submit_information() {
+        CheckInformationBean checkInformationBean = new CheckInformationBean();
+        CheckInformationBean.CoachPicCardBean coachPicCardBean = new CheckInformationBean.CoachPicCardBean();
+        coachPicCardBean.setCardBackKey(checkStatusActivity.select_card_fan_path);
+        coachPicCardBean.setCardFrontKey(checkStatusActivity.select_card_zheng_path);
+        checkInformationBean.setCoachPicCard(coachPicCardBean);
+        CheckInformationBean.CoachUserBean coachUserBean = new CheckInformationBean.CoachUserBean();
+        if (SpUtils.getString(getActivity(), AppConstants.SELECT_TEACHER_TYPE).equals("1")) {//团课
+            coachUserBean.setTeacherType(1);
+        } else if (SpUtils.getString(getActivity(), AppConstants.SELECT_TEACHER_TYPE).equals("2")) {//私教
+            coachUserBean.setTeacherType(2);
+        }
+        coachUserBean.setRealname(checkStatusActivity.user_name);
+        coachUserBean.setCard(checkStatusActivity.card_id);
+        if (checkStatusActivity.sex.equals("男")) {
+            coachUserBean.setSex(1);//性别
+        } else {
+            coachUserBean.setSex(0);//性别
+        }
+        coachUserBean.setPhone(checkStatusActivity.phone);
+        coachUserBean.setProvince(checkStatusActivity.city);//省份
+        coachUserBean.setCity(checkStatusActivity.city);//城市
+        coachUserBean.setUniversity(checkStatusActivity.school);
+        coachUserBean.setProfessiondate(checkStatusActivity.ruhang_time);
+        if (null != SpUtils.getString(getActivity(), AppConstants.SELECT_TEACHER_NUMBER)) {
+            coachUserBean.setUserNum(SpUtils.getString(getActivity(), AppConstants.SELECT_TEACHER_NUMBER));//教练编号,登录的时候会返回
+        }
+        checkInformationBean.setCoachUser(coachUserBean);
+        if (shanchang_tagBeans.size() > 0) {
+            coachUserBean.setGoodAtSkill(get_selete_biaoqian(shanchang_tagBeans));//擅长课程
+        }
+        if (jineng_tagBeans.size() > 0) {
+            coachUserBean.setSkill(get_selete_biaoqian(jineng_tagBeans));//技能标签
+        }
+        if (shouke_images_select.size() > 0) {
+            checkInformationBean.setCoachPicTeachings(shouke_images_select);
+        }
+        if (zhengshu_images_select.size() > 0) {
+            checkInformationBean.setCoachPicCertificates(zhengshu_images_select);
+        }
+
+        Subscription subscription = Network.getInstance("提交审核资料", getActivity())
+                .submit_information(checkInformationBean,
+                        new ProgressSubscriber<>("提交审核资料", new SubscriberOnNextListener<Bean<String>>() {
+                            @Override
+                            public void onNext(Bean<String> result) {
+                                submit_btn.loadingComplete();
+                                viewpager_content.setCurrentItem(2);
+                                int step = stepView.getCurrentStep();//设置进度条
+                                stepView.setCurrentStep((step + 1) % stepView.getStepNum());
+                            }
+
+                            @Override
+                            public void onError(String error) {
+                                submit_btn.loadingComplete();
                             }
                         }, getActivity(), false));
     }
@@ -194,7 +342,7 @@ public class StepTwoFragment extends ViewPagerFragment {
             zhengshu_images_select.addAll(AppConstants.SELECT_PHOTO_NUM);
             List<String> iamge_paths = new ArrayList<>();
             for (CheckInformationBean.CoachPicCertificatesBean coachPicCertificatesBean : zhengshu_images_select) {
-                iamge_paths.add(coachPicCertificatesBean.getCertFrontKey());
+                iamge_paths.add(coachPicCertificatesBean.getLocal_img_path());
             }
             select_zhengshu_view.setData(iamge_paths);
             AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE = zhengshu_images_select.size();
@@ -208,32 +356,9 @@ public class StepTwoFragment extends ViewPagerFragment {
         select_zhengshu_view.setDelegate(select_zhengshu);
     }
 
-    private void set_tag() {
-        List<TagEntity> strings = new ArrayList<>();
-        for (int i = 0; i < 7; i++) {
-            TagEntity tagEntity = new TagEntity();
-            tagEntity.setTag("标签" + (i + 1));
-            strings.add(tagEntity);
-        }
-        MineTagAdapter tagAdapter = new MineTagAdapter(getActivity(), strings);
-        grid_view.setAdapter(tagAdapter);
-        set_select_sum(strings);
-        grid_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (strings.get(i).isCheck()) {
-                    strings.get(i).setCheck(false);
-                } else {
-                    strings.get(i).setCheck(true);
-                }
-                tagAdapter.notifyDataSetChanged();
-                set_select_sum(strings);
-            }
-        });
-    }
 
-    private void set_select_sum(List<TagEntity> strings) {
-        select_sum = 0;
+    private void set_select_sum(List<TagBean> strings) {
+        int select_sum = 0;
         for (int j = 0; j < strings.size(); j++) {
             if (strings.get(j).isCheck()) {
                 select_sum++;
@@ -242,9 +367,19 @@ public class StepTwoFragment extends ViewPagerFragment {
         tag_num.setText("(" + select_sum + "/" + strings.size() + ")");
     }
 
+    private void set_shanchang_select_sum(List<TagBean> strings) {
+        int select_sum = 0;
+        for (int j = 0; j < strings.size(); j++) {
+            if (strings.get(j).isCheck()) {
+                select_sum++;
+            }
+        }
+        shanchang_tag_num.setText("(" + select_sum + "/" + strings.size() + ")");
+    }
 
     @Override
     public void fetchData() {
+        initView();
 
     }
 
