@@ -144,6 +144,8 @@ public class StepOneFragment extends ViewPagerFragment {
             checkStatusActivity = (CheckStatusActivity) activity;
             stepView = (StepView) checkStatusActivity.findViewById(R.id.step_view);
             viewpager_content = checkStatusActivity.findViewById(R.id.viewpager_content);
+
+
         }
     }
 
