@@ -111,7 +111,11 @@
         <activity android:name=".activity.CheckStatusActivity">
         </activity>
         <activity android:name=".activity.ClassManagerActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
 
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity android:name=".activity.SetPasswordActivity">
         </activity>
@@ -263,6 +267,7 @@
                 android:name="cn.jpush.android.ui.PopWinActivity"
                 android:exported="false"
                 android:theme="@style/MyDialogStyle"/>
+        <activity android:name=".activity.manager.TeamInfoActivity"/>
 
         <meta-data
                 android:name="JPUSH_CHANNEL"

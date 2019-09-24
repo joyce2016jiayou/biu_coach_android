@@ -21,32 +21,9 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/color_4A4A4A"
                 android:textSize="13sp"
-                tool:text="2019-09-11"
+                tool:text="创建时间：2019-09-11"
                 android:layout_marginLeft="@dimen/m10"
                 android:layout_marginTop="@dimen/m10"/>
-
-        <TextView
-                android:id="@+id/tv_time_week"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/color_4A4A4A"
-                android:layout_toRightOf="@+id/tv_time_day"
-                android:textSize="13sp"
-                android:layout_marginTop="@dimen/m10"
-                android:layout_marginLeft="@dimen/m20"
-                tool:text="周三"/>
-
-        <TextView
-                android:id="@+id/tv_time_hour"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/color_4A4A4A"
-                android:layout_toRightOf="@+id/tv_time_week"
-                android:textSize="13sp"
-                android:layout_marginTop="@dimen/m10"
-                android:layout_marginLeft="@dimen/m20"
-                tool:text="11:30-12:10"
-                android:layout_toLeftOf="@+id/tv_item"/>
 
         <TextView
                 android:id="@+id/tv_item"
