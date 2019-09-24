@@ -5,10 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.noplugins.keepfit.coachplatform.R
+import com.noplugins.keepfit.coachplatform.activity.manager.ClassShouquanActivity
 import com.noplugins.keepfit.coachplatform.activity.manager.TeacherAddOrEditActivity
 import com.noplugins.keepfit.coachplatform.activity.manager.TeacherInfoActivity
 import com.noplugins.keepfit.coachplatform.adapter.ManagerTeacherAdapter
@@ -19,6 +23,7 @@ import com.noplugins.keepfit.coachplatform.util.net.Network
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
 import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
+import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow
 import kotlinx.android.synthetic.main.fragment_manager_teacher_1.*
 import java.util.HashMap
 
@@ -84,7 +89,8 @@ class SJDownFragment : BaseFragment()  {
                     startActivity(toInfo)
                 }
                 R.id.tv_up_down->{
-                    //todo 上架
+                    //上架
+                    upAway(position)
                 }
             }
         }
@@ -116,25 +122,30 @@ class SJDownFragment : BaseFragment()  {
                     }
 
                     override fun onError(error: String) {
-
-
+                        if (error == "-1"){
+                            toShouquan(rv_list)
+                        } else if(error == "-2"){
+                            toLoading(rv_list)
+                        }
                     }
                 }, activity, false)
             )
     }
 
 
-    private fun upAway(){
+    private fun upAway(position:Int){
         val params = HashMap<String, Any>()
 //        params["teacherNum"] = SpUtils.getString(activity, AppConstants.USER_NAME)
-        params["teacherNum"] = "GEN23456"
-        params["courseType"] = 2
-        params["type"] = 2
+        params["courseNum"] = datas[position].courseNum
+        params["putaway"] = 1
         val subscription = Network.getInstance("上架操作", activity)
             .putaway(params,
-                ProgressSubscriber("下架操作", object : SubscriberOnNextListener<Bean<String>> {
+                ProgressSubscriber("上架操作", object : SubscriberOnNextListener<Bean<String>> {
                     override fun onNext(result: Bean<String>) {
-
+                        //上架成功！
+                        datas.removeAt(position)//删除数据源,移除集合中当前下标的数据
+                        adapterManager.notifyItemRemoved(position);//刷新被删除的地方
+                        adapterManager.notifyItemRangeChanged(position,adapterManager.itemCount) //刷新被删除数据，以及其后面的数据
                     }
 
                     override fun onError(error: String) {
@@ -143,5 +154,62 @@ class SJDownFragment : BaseFragment()  {
                     }
                 }, activity, false)
             )
+    }
+
+
+    private fun toShouquan(view1: View) {
+        if (context == null){
+            return
+        }
+        val popupWindow = CommonPopupWindow.Builder(context)
+            .setView(R.layout.dialog_to_shouquan)
+            .setBackGroundLevel(0.5f)//0.5f
+            .setAnimationStyle(R.style.main_menu_animstyle)
+            .setWidthAndHeight(
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.MATCH_PARENT
+            )
+            .setOutSideTouchable(true).create()
+        popupWindow.showAsDropDown(view1)
+
+        /**设置逻辑 */
+        val view = popupWindow.contentView
+        val cancel = view.findViewById<LinearLayout>(R.id.cancel_layout)
+        val sure = view.findViewById<LinearLayout>(R.id.shenqin_layout)
+
+        cancel.setOnClickListener {
+            popupWindow.dismiss()
+        }
+        sure.setOnClickListener {
+            popupWindow.dismiss()
+            //去申请
+            val toInfo = Intent(activity, ClassShouquanActivity::class.java)
+            startActivity(toInfo)
+
+        }
+    }
+
+    private fun toLoading(view1: View) {
+        if (context == null){
+            return
+        }
+        val popupWindow = CommonPopupWindow.Builder(context)
+            .setView(R.layout.dialog_to_loading)
+            .setBackGroundLevel(0.5f)//0.5f
+            .setAnimationStyle(R.style.main_menu_animstyle)
+            .setWidthAndHeight(
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.MATCH_PARENT
+            )
+            .setOutSideTouchable(true).create()
+        popupWindow.showAsDropDown(view1)
+
+        /**设置逻辑 */
+        val view = popupWindow.contentView
+        val sure = view.findViewById<LinearLayout>(R.id.sure_layout)
+
+        sure.setOnClickListener {
+            popupWindow.dismiss()
+        }
     }
 }

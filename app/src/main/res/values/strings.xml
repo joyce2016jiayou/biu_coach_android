@@ -225,4 +225,20 @@
     <string name="about">关于</string>
     <string name="tv116">修改密码</string>
     <string name="tv118">修改密码</string>
+
+
+    <string name="tv_sum_sr">总收入</string>
+    <string name="tv_day_sr">今日收入</string>
+    <string name="tv_month_sr">本月收入</string>
+
+    <string name="tv_zclb">支出类别</string>
+    <string name="tv_zcje">支出金额</string>
+    <string name="tv_sqsj">申请时间</string>
+    <string name="tv_txyh">提现银行</string>
+    <string name="tv_dqzt">当前状态</string>
+    <string name="tv_srlb">收入类别</string>
+    <string name="tv_srje">收入金额</string>
+    <string name="tv_kcmc">课程名称</string>
+    <string name="tv_cgmc">场馆名称</string>
+    <string name="tv_sksj">收款时间</string>
 </resources>

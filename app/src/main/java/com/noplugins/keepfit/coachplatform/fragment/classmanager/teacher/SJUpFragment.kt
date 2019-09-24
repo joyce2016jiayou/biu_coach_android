@@ -90,8 +90,8 @@ class SJUpFragment : BaseFragment()  {
                     startActivity(toInfo)
                 }
                 R.id.tv_up_down->{
-                    //todo 下架
-                    toDown(view as TextView)
+                    //下架
+                    toDown(view as TextView,position)
                 }
             }
         }
@@ -130,7 +130,7 @@ class SJUpFragment : BaseFragment()  {
             )
     }
 
-    private fun toDown(view: TextView) {
+    private fun toDown(view: TextView,position: Int) {
         val popupWindow = CommonPopupWindow.Builder(activity)
             .setView(R.layout.dialog_to_down)
             .setBackGroundLevel(0.5f)//0.5f
@@ -152,11 +152,32 @@ class SJUpFragment : BaseFragment()  {
         }
         sure.setOnClickListener {
             popupWindow.dismiss()
+            downAway(position)
         }
     }
 
     //下架操作
-    private fun requestDown(){
+    private fun downAway(position:Int){
+        val params = HashMap<String, Any>()
+//        params["teacherNum"] = SpUtils.getString(activity, AppConstants.USER_NAME)
+        params["courseNum"] = datas[position].courseNum
+        params["putaway"] = 0
+        val subscription = Network.getInstance("下架操作", activity)
+            .putaway(params,
+                ProgressSubscriber("下架操作", object : SubscriberOnNextListener<Bean<String>> {
+                    override fun onNext(result: Bean<String>) {
+                        //上架成功！
+                        datas.removeAt(position)//删除数据源,移除集合中当前下标的数据
+                        adapterManager.notifyItemRemoved(position)//刷新被删除的地方
+                        adapterManager.notifyItemRangeChanged(position,adapterManager.itemCount) //刷新被删除数据，以及其后面的数据
+                    }
 
+                    override fun onError(error: String) {
+
+
+                    }
+                }, activity, false)
+            )
     }
+
 }

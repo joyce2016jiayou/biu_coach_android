@@ -12,6 +12,4 @@ public interface SubscriberOnNextListener<T> {
 
 
     void onError(String error);
-
-
 }

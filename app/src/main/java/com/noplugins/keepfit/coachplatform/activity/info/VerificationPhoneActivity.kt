@@ -46,7 +46,14 @@ class VerificationPhoneActivity : BaseActivity() {
             send()
         }
         btn_ToLogin.clickWithTrigger {
-            updatePhone()
+            val intent = Intent(this,UpdatePasswordActivity::class.java)
+            startActivity(intent)
+            finish()
+//            if(tv_btn_text.text == ""){
+//                //去验证
+//
+//            }
+//            updatePhone()
         }
     }
 

@@ -26,8 +26,6 @@ public class UpdatePasswordActivity extends BaseActivity {
     @BindView(R.id.back_btn)
     ImageView back_btn;
 
-    @BindView(R.id.edit_old_password)
-    EditText edit_old_password;
     @BindView(R.id.edit_new_password1)
     EditText edit_new_password1;
     @BindView(R.id.edit_password2)
@@ -53,12 +51,8 @@ public class UpdatePasswordActivity extends BaseActivity {
             Toast.makeText(this, "密码不符合规则！", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (TextUtils.isEmpty(edit_old_password.getText().toString())){
-            Toast.makeText(this, "旧密码不能为空！", Toast.LENGTH_SHORT).show();
-            return;
-        }
         if (TextUtils.isEmpty(edit_new_password1.getText().toString())){
-            Toast.makeText(this, "新密码不能为空！", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "密码不能为空！", Toast.LENGTH_SHORT).show();
             return;
         }
         if (TextUtils.isEmpty(edit_password2.getText().toString())){
@@ -66,7 +60,6 @@ public class UpdatePasswordActivity extends BaseActivity {
             return;
         }
         Map<String, String> params = new HashMap<>();
-        params.put("oldPassword", edit_old_password.getText().toString());
         params.put("userNum", SpUtils.getString(getApplicationContext(),AppConstants.USER_NAME));
         params.put("password", edit_new_password1.getText().toString());
         Gson gson = new Gson();

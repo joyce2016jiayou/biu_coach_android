@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:background="@color/color_F8F8F8">
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/m90">
+
+        <ImageView
+                android:id="@+id/back_btn"
+                android:layout_width="@dimen/m22"
+                android:layout_height="@dimen/m19"
+                android:layout_gravity="left|center_vertical"
+                android:layout_marginLeft="@dimen/m20"
+                android:src="@drawable/back_img"
+                android:layout_marginTop="@dimen/m20"/>
+
+        <TextView
+                android:id="@+id/title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="提现"
+                android:textColor="@color/color_181818"
+                android:textSize="20sp"
+                android:layout_marginTop="@dimen/m20"
+                android:textStyle="bold"/>
+    </FrameLayout>
+
+    <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="持卡人   李文"
+            android:textColor="@color/color_929292"
+            android:layout_marginLeft="@dimen/m20"
+            android:textSize="13sp"/>
+
+    <www.linwg.org.lib.LCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:leftTopCornerRadius="@dimen/m10"
+            app:rightBottomCornerRadius="@dimen/dp_10"
+            app:leftBottomCornerRadius="@dimen/m10"
+            app:rightTopCornerRadius="@dimen/m10"
+            app:leftShadowWidth="0dp"
+            app:rightShadowWidth="0dp">
+        <LinearLayout
+                android:id="@+id/rl_money_details"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="@dimen/m80"
+                android:gravity="center_vertical">
+            <ImageView
+                    android:layout_width="@dimen/m16"
+                    android:layout_height="@dimen/m16"
+                    android:layout_marginLeft="@dimen/m20"
+                    android:src="@drawable/icon_user_off"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="添加银行卡"
+                    android:layout_marginLeft="@dimen/m10"
+                    android:textSize="15sp"
+                    android:textColor="@color/color_929292"/>
+        </LinearLayout>
+    </www.linwg.org.lib.LCardView>
+
+
+    <www.linwg.org.lib.LCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:leftTopCornerRadius="@dimen/m10"
+            app:rightBottomCornerRadius="@dimen/dp_10"
+            app:leftBottomCornerRadius="@dimen/m10"
+            app:rightTopCornerRadius="@dimen/m10"
+            app:leftShadowWidth="0dp"
+            app:rightShadowWidth="0dp">
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/m162">
+            <TextView
+                    android:id="@+id/tv_money_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="提现金额"
+                    android:textColor="@color/top_heiziti"
+                    android:layout_margin="@dimen/m20"
+                    android:textSize="15sp"/>
+
+            <EditText
+                    android:id="@+id/et_withdraw_money"
+                    android:layout_below="@+id/tv_money_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/m45"
+                    android:layout_marginLeft="@dimen/m60"
+                    android:layout_marginRight="@dimen/m60"
+                    android:textColor="@color/top_heiziti"
+                    android:textSize="20sp"
+                    android:paddingLeft="@dimen/m20"
+                    android:paddingRight="@dimen/m20" />
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/m45"
+                    android:text="¥"
+                    android:gravity="center"
+                    android:textColor="@color/top_heiziti"
+                    android:textSize="28sp"
+                    android:layout_marginLeft="@dimen/m60"
+                    android:layout_below="@+id/tv_money_title"
+                    />
+            <TextView
+                    android:id="@+id/tv_now_money"
+                    android:layout_below="@+id/et_withdraw_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/m60"
+                    android:layout_marginTop="@dimen/m10"
+                    android:textColor="@color/color_6D7278"
+                    android:textSize="10sp"
+                    android:layout_toLeftOf="@+id/tv_all"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="left"
+                    android:text="当前可提现余额 0.00"/>
+            <TextView
+                    android:id="@+id/tv_all"
+                    android:layout_below="@+id/et_withdraw_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/m10"
+                    android:textColor="@color/color_lan"
+                    android:textSize="10sp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/m60"
+                    android:text="全部提现" />
+
+        </RelativeLayout>
+    </www.linwg.org.lib.LCardView>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        <TextView
+                android:id="@+id/tv_prompt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="提现金额不得低于 ¥500"
+                android:layout_marginTop="@dimen/m8"
+                android:layout_marginLeft="@dimen/m10"
+                />
+    </LinearLayout>
+
+
+    <TextView
+            android:layout_below="@+id/tv_all"
+            android:id="@+id/tv_withdraw_ok"
+            android:layout_width="@dimen/m209"
+            android:textColor="@color/white"
+            android:layout_height="@dimen/m50"
+            android:layout_marginTop="@dimen/m60"
+            android:layout_gravity="center_horizontal"
+            android:text="确认提现"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/m10"
+            android:background="@drawable/btn_click"/>
+</LinearLayout>

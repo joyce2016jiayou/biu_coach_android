@@ -111,38 +111,6 @@ class TeacherFragment : BaseFragment() {
     }
 
 
-    private fun toShouquan(view1: TextView) {
-        if (context == null){
-            return
-        }
-        val popupWindow = CommonPopupWindow.Builder(context)
-            .setView(R.layout.dialog_to_shouquan)
-            .setBackGroundLevel(0.5f)//0.5f
-            .setAnimationStyle(R.style.main_menu_animstyle)
-            .setWidthAndHeight(
-                WindowManager.LayoutParams.MATCH_PARENT,
-                WindowManager.LayoutParams.MATCH_PARENT
-            )
-            .setOutSideTouchable(true).create()
-        popupWindow.showAsDropDown(view1)
-
-        /**设置逻辑 */
-        val view = popupWindow.contentView
-        val cancel = view.findViewById<LinearLayout>(R.id.cancel_layout)
-        val sure = view.findViewById<LinearLayout>(R.id.shenqin_layout)
-
-        cancel.setOnClickListener {
-            popupWindow.dismiss()
-        }
-        sure.setOnClickListener {
-            popupWindow.dismiss()
-            //去申请
-            val toInfo = Intent(activity, ClassShouquanActivity::class.java)
-            startActivity(toInfo)
-
-        }
-    }
-
     private fun toLoading(view1: TextView) {
         if (context == null){
             return

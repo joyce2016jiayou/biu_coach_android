@@ -13,11 +13,13 @@ import com.noplugins.keepfit.coachplatform.util.net.Network
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
 import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
+import com.noplugins.keepfit.coachplatform.util.ui.toast.SuperCustomToast
 import kotlinx.android.synthetic.main.activity_teacher_info.*
 import java.util.HashMap
 
 class TeacherInfoActivity : BaseActivity() {
     var courseNum = ""
+    var type = -1
     override fun initBundle(parms: Bundle?) {
         if (parms != null) {
             courseNum = parms.getString("courseNum").toString()
@@ -34,11 +36,23 @@ class TeacherInfoActivity : BaseActivity() {
             finish()
         }
         tv_info_upOrDown.clickWithTrigger {
-            //todo 上架 or 下架
+            //上架 or 下架
+            if (type == -1){
+                SuperCustomToast.getInstance(this)
+                    .show("数据有误！")
+                return@clickWithTrigger
+            }
+            if (type == 0){
+                //已下架
+                upAway(1)
+            } else{
+                upAway(0)
+            }
+
         }
 
         tv_info_edit.clickWithTrigger {
-            //todo 编辑界面
+            //编辑界面
             val toEdit = Intent(this, TeacherAddOrEditActivity::class.java)
             val bundle = Bundle()
             bundle.putString("type","edit")
@@ -48,6 +62,27 @@ class TeacherInfoActivity : BaseActivity() {
 
         }
 
+    }
+
+    private fun upAway(type:Int){
+        val params = HashMap<String, Any>()
+//        params["teacherNum"] = SpUtils.getString(activity, AppConstants.USER_NAME)
+        params["courseNum"] = courseNum
+        params["putaway"] = type
+        val subscription = Network.getInstance("上架/下架 操作", this)
+            .putaway(params,
+                ProgressSubscriber("上架/下架 操作", object : SubscriberOnNextListener<Bean<String>> {
+                    override fun onNext(result: Bean<String>) {
+                        //上架成功！
+                        requestData(courseNum)
+                    }
+
+                    override fun onError(error: String) {
+
+
+                    }
+                }, this, false)
+            )
     }
 
     private fun requestData(courseNum:String){
@@ -70,6 +105,7 @@ class TeacherInfoActivity : BaseActivity() {
     private fun setting(managerTeamBean: ManagerTeamBean){
         title_tv.text =  managerTeamBean.courseList.courseName
 
+        type = managerTeamBean.courseList.putaway
         if (managerTeamBean.courseList.putaway == 0){
             //下架
             tv_info_upOrDown.text = "上架"
