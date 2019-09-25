@@ -74,15 +74,13 @@ class SplashActivity : BaseActivity() {
 
         val intent = if (SpUtils.getString(applicationContext, AppConstants.TOKEN) == "") {
             Intent(this@SplashActivity, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
-        } else {
-//            Intent(
-//                this@SplashActivity,
-//                MainActivity::class.java
-//            )
 
-            if (null == SpUtils.getString(getApplicationContext(), AppConstants.TEACHER_TYPE)) {
+        } else {
+            Intent(
+                this@SplashActivity, MainActivity::class.java
+            )
+
+            /*if (null == SpUtils.getString(getApplicationContext(), AppConstants.TEACHER_TYPE)) {
                 val intent = Intent(this@SplashActivity, SelectRoleActivity::class.java)
                 startActivity(intent)
             } else {
@@ -95,7 +93,10 @@ class SplashActivity : BaseActivity() {
                 }
             }
 
+*/
         }
+        startActivity(intent)
+        finish()
 
 
     }

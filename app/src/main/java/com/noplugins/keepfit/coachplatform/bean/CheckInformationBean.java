@@ -203,9 +203,18 @@ public class CheckInformationBean {
     public static class CoachPicTeachingsBean {
 
 
+        public String getLocal_iamge_path() {
+            return local_iamge_path;
+        }
+
+        public void setLocal_iamge_path(String local_iamge_path) {
+            this.local_iamge_path = local_iamge_path;
+        }
+
         /**
          * qiniuKey : key1
          */
+        private String local_iamge_path;
 
         private String qiniuKey;
 
@@ -233,15 +242,28 @@ public class CheckInformationBean {
         private String certFrontKey;
         private String certName;
 
-        public String getLocal_img_path() {
-            return local_img_path;
+
+
+        private String zheng_local_img_path;
+
+        public String getZheng_local_img_path() {
+            return zheng_local_img_path;
         }
 
-        public void setLocal_img_path(String local_img_path) {
-            this.local_img_path = local_img_path;
+        public void setZheng_local_img_path(String zheng_local_img_path) {
+            this.zheng_local_img_path = zheng_local_img_path;
         }
 
-        private String local_img_path;
+        public String getFan_local_img_path() {
+            return fan_local_img_path;
+        }
+
+        public void setFan_local_img_path(String fan_local_img_path) {
+            this.fan_local_img_path = fan_local_img_path;
+        }
+
+        private String fan_local_img_path;
+
 
         public String getCertType() {
             return certType;

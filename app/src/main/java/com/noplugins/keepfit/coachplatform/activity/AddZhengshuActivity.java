@@ -3,11 +3,12 @@ package com.noplugins.keepfit.coachplatform.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Environment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.*;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -16,31 +17,25 @@ import com.bigkoo.pickerview.listener.CustomListener;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.huantansheng.easyphotos.EasyPhotos;
-import com.huantansheng.easyphotos.constant.Type;
-import com.noplugins.keepfit.coachplatform.MainActivity;
 import com.noplugins.keepfit.coachplatform.R;
 import com.noplugins.keepfit.coachplatform.adapter.TypeAdapter;
 import com.noplugins.keepfit.coachplatform.base.BaseActivity;
 import com.noplugins.keepfit.coachplatform.base.MyApplication;
-import com.noplugins.keepfit.coachplatform.bean.AddPhotoBean;
 import com.noplugins.keepfit.coachplatform.bean.CheckInformationBean;
-import com.noplugins.keepfit.coachplatform.bean.LoginBean;
 import com.noplugins.keepfit.coachplatform.bean.QiNiuToken;
+import com.noplugins.keepfit.coachplatform.callback.ImageCompressCallBack;
 import com.noplugins.keepfit.coachplatform.global.AppConstants;
 import com.noplugins.keepfit.coachplatform.util.GlideEngine;
 import com.noplugins.keepfit.coachplatform.util.MessageEvent;
-import com.noplugins.keepfit.coachplatform.util.SpUtils;
+import com.noplugins.keepfit.coachplatform.util.data.FileSizeUtil;
 import com.noplugins.keepfit.coachplatform.util.net.Network;
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean;
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber;
 import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener;
 import com.noplugins.keepfit.coachplatform.util.screen.KeyboardUtils;
-import com.noplugins.keepfit.coachplatform.util.ui.MyListView;
 import com.noplugins.keepfit.coachplatform.util.ui.ProgressUtil;
 import com.noplugins.keepfit.coachplatform.util.ui.jiugongge.CCRSortableNinePhotoLayout;
 import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow;
-import com.noplugins.keepfit.coachplatform.util.ui.switchbutton.ToogleButton;
-import com.orhanobut.logger.Logger;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCompletionHandler;
 import com.qiniu.android.storage.UploadManager;
@@ -48,7 +43,11 @@ import com.qiniu.android.storage.UploadOptions;
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
 import rx.Subscription;
+import top.zibin.luban.CompressionPredicate;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -79,9 +78,11 @@ public class AddZhengshuActivity extends BaseActivity {
     private String qiniu_key;
     private int select_zhengshu_max_num = 0;
     private String uptoken = "xxxxxxxxx:xxxxxxx:xxxxxxxxxx";
-    private List<CheckInformationBean.CoachPicCertificatesBean> zhengshu_images_select = new ArrayList<>();
+    //private List<CheckInformationBean.CoachPicCertificatesBean> zhengshu_images_select = new ArrayList<>();
     TimePickerView pvCustomTime;
     private UploadManager uploadManager;
+    CheckInformationBean.CoachPicCertificatesBean upload_coachPicCertificatesBean = null;
+    private boolean is_click_add_btn = false;
 
     @Override
     public void initBundle(Bundle parms) {
@@ -149,6 +150,13 @@ public class AddZhengshuActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 //对重复图片做校验 AppConstants.SELECT_PHOTO_NUM
+
+                /**判断页面有没有数据，有的话，添加并上传，
+                 没有说明可能已经点击"添加"过了，但并没有添加数据,此时返回上一页刷新*/
+                if (zhengshu_type_tv.getText().length() > 0) {
+                    set_zhengshu_view();
+                    AppConstants.SELECT_PHOTO_NUM.add(upload_coachPicCertificatesBean);
+                }
                 MessageEvent messageEvent = new MessageEvent(AppConstants.UPDATE_SELECT_PHOTO);
                 EventBus.getDefault().postSticky(messageEvent);
                 finish();
@@ -158,17 +166,19 @@ public class AddZhengshuActivity extends BaseActivity {
         continue_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //保存已经选中的图片
-                MessageEvent messageEvent = new MessageEvent(AppConstants.UPDATE_SELECT_PHOTO);
-                EventBus.getDefault().postSticky(messageEvent);
-                //清空页面数据
-                zhengshu_type_tv.setText("");
-                zhengshu_tv.setText("");
-                time_tv.setText("");
-                zhengshu_images_select.clear();
-
-                set_zhengshu_view();
-
+                //先添加上次添加的进缓存
+                if (null != upload_coachPicCertificatesBean) {
+                    set_zhengshu_view();
+                    AppConstants.SELECT_PHOTO_NUM.add(upload_coachPicCertificatesBean);
+                    //清空页面数据
+                    AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE_TWO = 0;
+                    zhengshu_type_tv.setText("");
+                    zhengshu_tv.setText("");
+                    time_tv.setText("");
+                    upload_coachPicCertificatesBean = new CheckInformationBean.CoachPicCertificatesBean();//清空对象
+                    List<String> iamges = new ArrayList<>();
+                    add_zhengshu_photos_view.setData(iamges);//清空九宫格
+                }
             }
         });
 
@@ -306,7 +316,6 @@ public class AddZhengshuActivity extends BaseActivity {
 
 
     CCRSortableNinePhotoLayout.Delegate select_zhengshu = new CCRSortableNinePhotoLayout.Delegate() {
-
         @Override
         public void onClickAddNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view, int position, ArrayList<String> models) {
             if (AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE_TWO >= 2) {
@@ -334,6 +343,7 @@ public class AddZhengshuActivity extends BaseActivity {
         }
     };
 
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -349,25 +359,48 @@ public class AddZhengshuActivity extends BaseActivity {
                 */
 
                 ArrayList<String> resultPaths = data.getStringArrayListExtra(EasyPhotos.RESULT_PATHS);
-                Log.e("返回的path:",resultPaths.size()+"");
+                Log.e("返回的path:", resultPaths.size() + "");
+
                 List<CheckInformationBean.CoachPicCertificatesBean> return_selet = new ArrayList<>();
-                for (int i = 0; i < resultPaths.size(); i++) {
-                    CheckInformationBean.CoachPicCertificatesBean coachPicCertificatesBean = new CheckInformationBean.CoachPicCertificatesBean();
-                    if (i == 0) {
-                        coachPicCertificatesBean.setCertType("1");//证书类型,有字典
-                        coachPicCertificatesBean.setCertDate(select_time);//证书日期
-                        coachPicCertificatesBean.setLocal_img_path(resultPaths.get(i));
-                        coachPicCertificatesBean.setCertName(zhengshu_tv.getText().toString());
-                        return_selet.add(coachPicCertificatesBean);
-                    } else {
-                        coachPicCertificatesBean.setLocal_img_path(resultPaths.get(i));
-                        return_selet.add(coachPicCertificatesBean);
-                    }
+                if (null == upload_coachPicCertificatesBean) {
+                    upload_coachPicCertificatesBean = new CheckInformationBean.CoachPicCertificatesBean();
                 }
-                zhengshu_images_select.addAll(return_selet);
+                upload_coachPicCertificatesBean.setCertType("1");//证书类型,有字典
+                upload_coachPicCertificatesBean.setCertDate(select_time);//证书日期
+                upload_coachPicCertificatesBean.setCertName(zhengshu_tv.getText().toString());
+                if (resultPaths.size() == 1) {
+                    if (null == upload_coachPicCertificatesBean.getZheng_local_img_path()) {
+                        upload_coachPicCertificatesBean.setZheng_local_img_path(resultPaths.get(0));//设置正面的本地路径
+                    } else {
+                        upload_coachPicCertificatesBean.setFan_local_img_path(resultPaths.get(0));
+                    }
+//                    if (null == upload_coachPicCertificatesBean.getFan_local_img_path()) {
+//                        upload_coachPicCertificatesBean.setFan_local_img_path(resultPaths.get(0));
+//                    }
+
+                } else if (resultPaths.size() == 2) {
+                    upload_coachPicCertificatesBean.setZheng_local_img_path(resultPaths.get(0));//设置正面的本地路径
+                    upload_coachPicCertificatesBean.setFan_local_img_path(resultPaths.get(1));//设置反面的本地路径
+                }
+
+                set_jiugongge();//先设置九宫格
+
+
+//                for (int i = 0; i < resultPaths.size(); i++) {
+//                    if (i == 0) {
+//                        upload_coachPicCertificatesBean.setCertType("1");//证书类型,有字典
+//                        upload_coachPicCertificatesBean.setCertDate(select_time);//证书日期
+//                        upload_coachPicCertificatesBean.setZheng_local_img_path(resultPaths.get(i));//设置正面的本地路径
+//                        upload_coachPicCertificatesBean.setCertName(zhengshu_tv.getText().toString());
+//                    } else {
+//                        upload_coachPicCertificatesBean.setFan_local_img_path(resultPaths.get(i));//设置反面的本地路径
+//                    }
+//
+//                    //return_selet.add(upload_coachPicCertificatesBean);
+//                }
+                //zhengshu_images_select.addAll(return_selet);
                 //todo 重复添加第二张的问题
 
-                set_zhengshu_view();
                 return;
             }
 
@@ -376,36 +409,113 @@ public class AddZhengshuActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 获取保存压缩图片文件的位置
+     *
+     * @return
+     */
+    private final static String PHOTO_COMPRESS_JPG_BASEPATH = "/" + "TakePhoto" + "/CompressImgs/";
+
+    public static String getCompressJpgFileAbsolutePath() {
+        String fileBasePath = Environment.getExternalStorageDirectory().getAbsolutePath() + PHOTO_COMPRESS_JPG_BASEPATH;
+        File file = new File(fileBasePath);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+
+        return fileBasePath;
+    }
+
     private void set_zhengshu_view() {
-        set_jiugongge();
-        if (zhengshu_images_select.size() > 0) {
-            //上传七牛,只上传第一张
-            if(zhengshu_images_select.get(0).getCertFrontKey()!=null){//只上传前面一张
-                return;
-            }else{
-                Log.e("进来了添加","进来了添加");
-                upload_image_work(zhengshu_images_select.get(0));
-            }
+
+        progress_upload = new ProgressUtil();
+        progress_upload.showProgressDialog(this, "图片上传中...");
+
+        //上传正面
+        if (null != upload_coachPicCertificatesBean.getZheng_local_img_path()) {
+            upload_images(upload_coachPicCertificatesBean.getZheng_local_img_path(),true);
+        }
+        //上传反面
+        if (null != upload_coachPicCertificatesBean.getFan_local_img_path()) {
+            upload_images(upload_coachPicCertificatesBean.getFan_local_img_path(),false);
         }
     }
+
+    private void upload_images(String image_path,boolean is_zheng){
+        Luban.with(this)
+                .load(image_path)
+                .ignoreBy(100)
+                .setTargetDir(getCompressJpgFileAbsolutePath())
+                .filter(new CompressionPredicate() {
+                    @Override
+                    public boolean apply(String path) {
+                        return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+                    }
+                }).setCompressListener(new OnCompressListener() {
+            @Override
+            public void onStart() {
+                // TODO 压缩开始前调用，可以在方法内启动 loading UI
+            }
+
+            @Override
+            public void onSuccess(File file) {
+                // TODO 压缩成功后调用，返回压缩后的图片文件
+                compressCallBack.onSucceed(file.getAbsolutePath(),is_zheng);//正面
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                compressCallBack.onFailure(e.getMessage());
+                // TODO 当压缩过程出现问题时调用
+            }
+        }).launch();
+    }
+
+    ImageCompressCallBack compressCallBack = new ImageCompressCallBack() {
+        @Override
+        public void onSucceed(String data, boolean b) {
+//            Log.e("压缩过的",data);
+//            File file = new File(data);
+//            Log.e("压缩后的大小", FileSizeUtil.getFileOrFilesSize(file.getAbsolutePath(), 2) + "");
+            if(b){//上传正面
+                upload_image_work(data, true);
+            }else{
+                upload_image_work(data, false);
+
+            }
+        }
+
+        @Override
+        public void onSucceed2(String data,CheckInformationBean.CoachPicTeachingsBean teachingsBean, String expectKey, int position) {
+
+        }
+
+        @Override
+        public void onFailure(String msg) {
+            Log.e("压缩失败的",msg);
+        }
+    };
 
     /**
      * 设置证书的九宫格
      */
-    private void set_jiugongge(){
+    private void set_jiugongge() {
         List<String> iamges = new ArrayList<>();
-        for (CheckInformationBean.CoachPicCertificatesBean coachPicCertificatesBean : zhengshu_images_select) {
-            iamges.add(coachPicCertificatesBean.getLocal_img_path());
+        if (null != upload_coachPicCertificatesBean.getZheng_local_img_path()) {
+            iamges.add(upload_coachPicCertificatesBean.getZheng_local_img_path());
+        }
+        if (null != upload_coachPicCertificatesBean.getFan_local_img_path()) {
+            iamges.add(upload_coachPicCertificatesBean.getFan_local_img_path());
         }
         add_zhengshu_photos_view.setData(iamges);//设置九宫格
-        AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE_TWO = zhengshu_images_select.size();
+
+        AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE_TWO = iamges.size();
     }
 
-    private void upload_image_work(CheckInformationBean.CoachPicCertificatesBean coachPicCertificatesBean) {
-        progress_upload = new ProgressUtil();
-        progress_upload.showProgressDialog(this, "载入中...");
+    private void upload_image_work(String image_path, boolean is_zheng) {
+        Log.e("进来了添加", "进来了添加");
         //上传icon
-        uploadManager.put(coachPicCertificatesBean.getLocal_img_path(), qiniu_key, uptoken,
+        uploadManager.put(image_path, qiniu_key, uptoken,
                 new UpCompletionHandler() {
                     @Override
                     public void complete(String key, ResponseInfo info, JSONObject response) {
@@ -414,15 +524,12 @@ public class AddZhengshuActivity extends BaseActivity {
                             String icon_net_path = key;
                             String headpicPath = "http://upload.qiniup.com/" + key;
 
-                            coachPicCertificatesBean.setCertFrontKey(icon_net_path);
-                            AppConstants.SELECT_PHOTO_NUM.add(coachPicCertificatesBean);
-                            set_jiugongge();
-
-
-                            for (int i = 0; i < AppConstants.SELECT_PHOTO_NUM.size(); i++) {
-                                CheckInformationBean.CoachPicCertificatesBean obg = AppConstants.SELECT_PHOTO_NUM.get(i);
-                                Log.e("上传的key", obg.getCertFrontKey());
+                            if (is_zheng) {//设置正面
+                                upload_coachPicCertificatesBean.setCertFrontKey(icon_net_path);
+                            } else {
+                                upload_coachPicCertificatesBean.setCertBackKey(icon_net_path);
                             }
+
 
                             Log.e("qiniu", "Upload Success");
                             Log.e("打印key：", icon_net_path);
@@ -443,6 +550,6 @@ public class AddZhengshuActivity extends BaseActivity {
         super.onDestroy();
         Log.e("进来了吗", "进来了");
         AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE_TWO = 0;
-        zhengshu_images_select.clear();
+        //zhengshu_images_select.clear();
     }
 }
