@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".activity.mine.AddCardActivity">
+
+    <FrameLayout
+            android:id="@+id/back_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/m10">
+        <ImageView
+                android:layout_width="@dimen/m22"
+                android:layout_height="@dimen/m19"
+                android:layout_marginLeft="@dimen/m10"
+                android:layout_marginTop="@dimen/m20"
+                android:src="@drawable/back_img"/>
+    </FrameLayout>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/write_info"
+            android:textColor="@color/color_181818"
+            android:layout_marginTop="@dimen/m25"
+            android:layout_marginLeft="@dimen/m30"
+            android:textSize="20sp"/>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/m56"
+            android:gravity="center_vertical"
+            android:background="@drawable/card"
+            android:paddingLeft="@dimen/m20"
+            android:paddingRight="@dimen/m20"
+            android:layout_marginTop="@dimen/m16"
+            android:orientation="horizontal">
+
+        <TextView
+                android:layout_width="@dimen/m75"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:textSize="15sp"
+                android:textColor="@color/color_181818"
+                android:text="@string/tv_card_type"/>
+
+        <TextView
+                android:id="@+id/tv_bank_name"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_marginRight="25dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/contents_text"
+                android:textSize="18sp"/>
+        <TextView
+                android:id="@+id/tv_card_type"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:textSize="12sp"
+                android:textColor="@color/color_4A4A4A"
+                tools:text="储蓄卡"/>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/m56"
+            android:gravity="center_vertical"
+            android:background="@drawable/card"
+            android:paddingLeft="@dimen/m20"
+            android:paddingRight="@dimen/m20"
+            android:layout_marginTop="@dimen/m10"
+            android:orientation="horizontal">
+
+        <TextView
+                android:layout_width="@dimen/m75"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:textSize="15sp"
+                android:textColor="@color/color_181818"
+                android:text="@string/tv39"/>
+
+        <EditText
+                android:id="@+id/et_phone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="25dp"
+                android:gravity="center_vertical"
+                android:background="@null"
+                android:text="18380583083"
+                android:inputType="phone"
+                android:maxLength="11"
+                android:hint="@string/edit_hint1"
+                android:textColor="@color/contents_text"
+                android:textSize="18sp"/>
+    </LinearLayout>
+
+    <TextView
+            android:id="@+id/tv_binding"
+            android:layout_width="@dimen/m209"
+            android:textColor="@color/white"
+            android:layout_height="@dimen/m50"
+            android:layout_marginTop="@dimen/m60"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/tv_binding"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/m10"
+            android:background="@drawable/btn_click"/>
+</LinearLayout>

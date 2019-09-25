@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".activity.mine.AddCardActivity">
+
+   <FrameLayout
+           android:id="@+id/back_btn"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:padding="@dimen/m10">
+       <ImageView
+               android:layout_width="@dimen/m14"
+               android:layout_height="@dimen/m14"
+               android:layout_marginLeft="@dimen/m10"
+               android:layout_marginTop="@dimen/m20"
+               android:src="@drawable/back_error"/>
+   </FrameLayout>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_card"
+            android:textColor="@color/color_181818"
+            android:layout_marginTop="@dimen/m25"
+            android:layout_marginLeft="@dimen/m30"
+            android:textSize="20sp"/>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/m56"
+            android:gravity="center_vertical"
+            android:background="@drawable/card"
+            android:paddingLeft="@dimen/m20"
+            android:paddingRight="@dimen/m20"
+            android:layout_marginTop="@dimen/m16"
+            android:orientation="horizontal">
+
+        <TextView
+                android:layout_width="@dimen/m75"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:textSize="15sp"
+                android:textColor="@color/color_181818"
+                android:text="@string/tv_card_man"/>
+
+        <TextView
+                android:id="@+id/tv_phone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="25dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/contents_text"
+                android:textSize="18sp"/>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/m56"
+            android:gravity="center_vertical"
+            android:background="@drawable/card"
+            android:paddingLeft="@dimen/m20"
+            android:paddingRight="@dimen/m20"
+            android:layout_marginTop="@dimen/m10"
+            android:orientation="horizontal">
+
+        <TextView
+                android:layout_width="@dimen/m75"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:textSize="15sp"
+                android:textColor="@color/color_181818"
+                android:text="@string/tv_card_num"/>
+
+        <EditText
+                android:id="@+id/et_card"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="25dp"
+                android:gravity="center_vertical"
+                android:background="@null"
+                android:text="123131231231"
+                android:inputType="number"
+                android:maxLength="18"
+                android:digits="1234567890Xx"
+                android:hint="@string/tv_input_card"
+                android:textColor="@color/contents_text"
+                android:textSize="18sp"/>
+    </LinearLayout>
+
+    <TextView
+            android:id="@+id/tv_next"
+            android:layout_width="@dimen/m209"
+            android:textColor="@color/white"
+            android:layout_height="@dimen/m50"
+            android:layout_marginTop="@dimen/m60"
+            android:layout_gravity="center_horizontal"
+            android:text="下一步"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/m10"
+            android:background="@drawable/btn_click"/>
+</LinearLayout>

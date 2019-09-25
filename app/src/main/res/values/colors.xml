@@ -28,6 +28,7 @@
     <color name="line_color">#1A000000</color>
     <color name="color_F5502F">#F5502F</color>
     <color name="color_6DD400">#6DD400</color>
+    <color name="color_FF3700">#FF3700</color>
 
     <!--zxing-->
     <color name="contents_text">#000000</color>

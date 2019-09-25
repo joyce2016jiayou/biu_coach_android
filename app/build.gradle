@@ -242,4 +242,7 @@ dependencies {
     //luban
     implementation 'top.zibin:Luban:1.1.8'
 
+    //shuru
+    implementation 'com.github.lwjfork:CodeEditText:1.0.4'
+
 }

@@ -39,11 +39,15 @@ class ChaungguanDetailActivity : BaseActivity(), EasyPermissions.PermissionCallb
 
     private var listItem = -1
     private var cgNum = ""
+    private var type = -1
     override fun initBundle(parms: Bundle?) {
         if (parms != null) {
             listItem = parms.getInt("listItem")
             cgNum = parms.getString("cgNum").toString()
-
+            type = parms.getInt("type",-1)
+            if(type != -1){
+                btn_submit.text = "解 绑"
+            }
             agreeCourse()
         }
     }
@@ -63,10 +67,18 @@ class ChaungguanDetailActivity : BaseActivity(), EasyPermissions.PermissionCallb
             toPhone(tv_toPhone)
         }
         btn_submit.clickWithTrigger {
-            val mIntent = Intent()//没有任何参数（意图），只是用来传递数据
-            mIntent.putExtra("item", listItem)
-            setResult(RESULT_OK, mIntent)
-            finish()
+            if (type == -1){
+                val mIntent = Intent()//没有任何参数（意图），只是用来传递数据
+                mIntent.putExtra("item", listItem)
+                setResult(RESULT_OK, mIntent)
+                finish()
+                return@clickWithTrigger
+            }
+
+            //解绑操作
+            toUnBinding(btn_submit)
+
+
         }
 
         back_btn.clickWithTrigger {
@@ -191,9 +203,9 @@ private fun toMap(view1: TextView) {
     }
 }
 
-private fun toPhone(view1: TextView) {
+private fun toUnBinding(view1: TextView) {
     val popupWindow = CommonPopupWindow.Builder(this)
-        .setView(R.layout.dialog_to_phone)
+        .setView(R.layout.dialog_to_unbinding)
         .setBackGroundLevel(0.5f)//0.5f
         .setAnimationStyle(R.style.main_menu_animstyle)
         .setWidthAndHeight(
@@ -217,6 +229,33 @@ private fun toPhone(view1: TextView) {
 
     }
 }
+
+    private fun toPhone(view1: TextView) {
+        val popupWindow = CommonPopupWindow.Builder(this)
+            .setView(R.layout.dialog_to_phone)
+            .setBackGroundLevel(0.5f)//0.5f
+            .setAnimationStyle(R.style.main_menu_animstyle)
+            .setWidthAndHeight(
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.MATCH_PARENT
+            )
+            .setOutSideTouchable(true).create()
+        popupWindow.showAsDropDown(view1)
+
+        /**设置逻辑 */
+        val view = popupWindow.contentView
+        val cancel = view.findViewById<LinearLayout>(R.id.cancel_layout)
+        val sure = view.findViewById<LinearLayout>(R.id.sure_layout)
+
+        cancel.setOnClickListener {
+            popupWindow.dismiss()
+        }
+        sure.setOnClickListener {
+            popupWindow.dismiss()
+            initSimple()
+
+        }
+    }
 
 fun hasPermissions(context: Context?, vararg permissions: String): Boolean {
     return EasyPermissions.hasPermissions(context!!, *permissions)

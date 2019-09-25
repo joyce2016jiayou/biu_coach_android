@@ -55,6 +55,9 @@ class VerificationPhoneActivity : BaseActivity() {
 //            }
 //            updatePhone()
         }
+        back_btn.clickWithTrigger {
+            finish()
+        }
     }
 
     private fun send() {

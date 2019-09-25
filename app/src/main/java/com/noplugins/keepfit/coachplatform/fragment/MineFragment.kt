@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.noplugins.keepfit.coachplatform.R
+import com.noplugins.keepfit.coachplatform.activity.ShoukeCgActivity
 import com.noplugins.keepfit.coachplatform.activity.info.InformationActivity
 import com.noplugins.keepfit.coachplatform.activity.info.ProductAdviceActivity
 import com.noplugins.keepfit.coachplatform.activity.info.SettingActivity
@@ -17,6 +18,7 @@ import com.noplugins.keepfit.coachplatform.bean.MineFunctionBean
 import com.noplugins.keepfit.coachplatform.bean.TagEntity
 import com.noplugins.keepfit.coachplatform.global.clickWithTrigger
 import com.noplugins.keepfit.coachplatform.global.withTrigger
+import com.noplugins.keepfit.coachplatform.util.BaseUtils
 import kotlinx.android.synthetic.main.fragment_mine.*
 
 class MineFragment : BaseFragment() {
@@ -68,24 +70,29 @@ class MineFragment : BaseFragment() {
         gv_function.adapter = functionAdapter
 
         gv_function.setOnItemClickListener { parent, view, position, id ->
-            when (fuctionBean[position].name) {
-                "钱包" -> {
-                    val intent = Intent(activity, WalletActivity::class.java)
-                    startActivity(intent)
-                }
-                "课程管理" -> {
-                }
-                "授课场馆" -> {
-                }
-                "授课时间" -> {
-                }
-                "问题反馈" -> {
-                    val intent = Intent(activity, ProductAdviceActivity::class.java)
-                    startActivity(intent)
-                }
-                "设置" -> {
-                    val intent = Intent(activity, SettingActivity::class.java)
-                    startActivity(intent)
+            if(BaseUtils.isFastClick()){
+                when (fuctionBean[position].name) {
+                    "钱包" -> {
+                        val intent = Intent(activity, WalletActivity::class.java)
+                        startActivity(intent)
+                    }
+                    "课程管理" -> {
+                    }
+                    "授课场馆" -> {
+                        val intent = Intent(activity, ShoukeCgActivity::class.java)
+                        startActivity(intent)
+                    }
+                    "授课时间" -> {
+                    }
+                    "问题反馈" -> {
+                        val intent = Intent(activity, ProductAdviceActivity::class.java)
+                        startActivity(intent)
+                    }
+                    "设置" -> {
+
+                        val intent = Intent(activity, SettingActivity::class.java)
+                        startActivity(intent)
+                    }
                 }
             }
         }

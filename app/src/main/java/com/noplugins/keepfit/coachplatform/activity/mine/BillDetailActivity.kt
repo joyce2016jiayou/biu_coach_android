@@ -45,6 +45,8 @@ class BillDetailActivity : BaseActivity() {
     }
     private lateinit var layoutManager: LinearLayoutManager
     private fun initAdapter(){
+        val billDetailBean = BillDetailBean()
+        data.add(billDetailBean)
         adapter = BillDetailAdapter(data)
         layoutManager = LinearLayoutManager(this)
         rv_list.layoutManager = layoutManager
