@@ -48,7 +48,13 @@ class HistoryFragment : BaseFragment()  {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initAdapter()
-        requestData()
+//        requestData()
+    }
+    override fun onFragmentVisibleChange(isVisible: Boolean) {
+        super.onFragmentVisibleChange(isVisible)
+        if (isVisible){
+            requestData()
+        }
     }
 
     private fun initAdapter(){
@@ -60,7 +66,7 @@ class HistoryFragment : BaseFragment()  {
         adapterManager.setOnItemChildClickListener { adapter, view, position ->
             when(view.id){
                 R.id.rl_jump -> {
-                    //todo 跳转到详情页 需要携带状态
+                    // 跳转到详情页 需要携带状态
                     val toInfo = Intent(activity, TeamInfoActivity::class.java)
                     val bundle = Bundle()
                     bundle.putInt("type",3)

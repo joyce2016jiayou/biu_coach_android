@@ -13,12 +13,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.huantansheng.easyphotos.models.puzzle.Line;
 import com.noplugins.keepfit.coachplatform.R;
+import com.noplugins.keepfit.coachplatform.activity.ClassManagerActivity;
 import com.noplugins.keepfit.coachplatform.activity.TeacherTimeActivity;
 import com.noplugins.keepfit.coachplatform.activity.YueKeInformationActivity;
 import com.noplugins.keepfit.coachplatform.adapter.ClassAdapter;
 import com.noplugins.keepfit.coachplatform.adapter.DateSelectAdapter;
 import com.noplugins.keepfit.coachplatform.bean.ClassDateBean;
 import com.noplugins.keepfit.coachplatform.bean.SelectDateBean;
+import com.noplugins.keepfit.coachplatform.util.BaseUtils;
 import com.noplugins.keepfit.coachplatform.util.data.DateUtils;
 import de.hdodenhof.circleimageview.CircleImageView;
 import java.util.ArrayList;
@@ -39,6 +41,8 @@ public class ScheduleFragment extends Fragment {
     LinearLayout teacher_time_btn;
     @BindView(R.id.more_btn)
     LinearLayout more_btn;
+    @BindView(R.id.ll_class_manager)
+    LinearLayout ll_class_manager;
     public static ScheduleFragment getInstance(String title) {
         ScheduleFragment fragment = new ScheduleFragment();
         Bundle args = new Bundle();
@@ -83,6 +87,15 @@ public class ScheduleFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), YueKeInformationActivity.class);
                 startActivity(intent);
+            }
+        });
+        ll_class_manager.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (BaseUtils.isFastClick()){
+                    Intent intent = new Intent(getActivity(), ClassManagerActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="wrap_content"
+              android:layout_height="@dimen/m24"
+              >
+
+            <TextView
+                    android:id="@+id/tv_tag"
+                    android:layout_width="@dimen/m50"
+                    android:layout_height="@dimen/m21"
+                    android:layout_marginLeft="@dimen/m8"
+                    android:background="@drawable/shape_btn_bg_gray"
+                    android:text="这是标签"
+                    android:gravity="center"
+                    android:layout_marginBottom="@dimen/m10"
+                    android:textColor="@color/top_heiziti"
+                    android:textSize="12sp"/>
+
+</LinearLayout>

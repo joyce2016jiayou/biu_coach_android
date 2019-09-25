@@ -70,4 +70,10 @@
         <item>康复训练</item>
         <item>体态调整</item>
     </string-array>
+    <string-array name="identify_types">
+        <item>综合场馆</item>
+        <item>工作室</item>
+        <item>主题馆</item>
+        <item>全部</item>
+    </string-array>
 </resources>

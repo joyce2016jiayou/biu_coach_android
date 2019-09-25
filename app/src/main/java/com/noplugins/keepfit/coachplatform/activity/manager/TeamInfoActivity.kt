@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
@@ -27,14 +28,12 @@ import kotlinx.android.synthetic.main.activity_team_info.*
 import java.util.HashMap
 
 class TeamInfoActivity : BaseActivity() {
-
+    var courseNum = ""
     override fun initBundle(parms: Bundle?) {
         if (parms != null) {
 
-            val courseNum = parms.getString("courseNum")
-            if (courseNum != null) {
-                requestData(courseNum)
-            }
+            courseNum = parms.getString("courseNum").toString()
+            requestData(courseNum)
         }
 
 
@@ -53,7 +52,7 @@ class TeamInfoActivity : BaseActivity() {
         }
 
         jieshou.clickWithTrigger {
-
+            agreeCourse(1,"")
         }
 
     }
@@ -156,14 +155,39 @@ class TeamInfoActivity : BaseActivity() {
         val view = popupWindow.contentView
         val cancel = view.findViewById<LinearLayout>(R.id.cancel_layout)
         val sure = view.findViewById<LinearLayout>(R.id.sure_layout)
-
+        val edit = view.findViewById<EditText>(R.id.et_content)
         cancel.setOnClickListener {
             popupWindow.dismiss()
         }
         sure.setOnClickListener {
             popupWindow.dismiss()
             //去申请
+            agreeCourse(0,edit.text.toString())
 
         }
+    }
+
+    private fun agreeCourse(type:Int,str:String){
+        val params = HashMap<String, Any>()
+//        params["teacherNum"] = SpUtils.getString(activity, AppConstants.USER_NAME)
+        params["teacherNum"] = "GEN23456"
+        params["courseNum"] = courseNum
+        params["agree"] = type
+        if (type == 0){
+            params["refuse"] = str
+        }
+        val subscription = Network.getInstance("团课同意/拒绝", this)
+            .agreeCourse(params,
+                ProgressSubscriber("团课同意/拒绝", object : SubscriberOnNextListener<Bean<String>> {
+                    override fun onNext(result: Bean<String>) {
+                        requestData(courseNum)
+                    }
+
+                    override fun onError(error: String) {
+
+
+                    }
+                }, this, false)
+            )
     }
 }

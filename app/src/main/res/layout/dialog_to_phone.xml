@@ -11,7 +11,7 @@
             android:background="@drawable/rizhi_pop_bg"
             android:layout_marginLeft="@dimen/m32"
             android:layout_marginRight="@dimen/m32"
-            android:layout_height="@dimen/m207">
+            android:layout_height="@dimen/m150">
         <TextView
                 android:id="@+id/tv1"
                 android:layout_width="wrap_content"

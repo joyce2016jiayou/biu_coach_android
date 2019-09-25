@@ -5,8 +5,7 @@ import android.content.Context;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.noplugins.keepfit.coachplatform.bean.*;
-import com.noplugins.keepfit.coachplatform.bean.manager.ManagerBean;
-import com.noplugins.keepfit.coachplatform.bean.manager.ManagerTeamBean;
+import com.noplugins.keepfit.coachplatform.bean.manager.*;
 import com.noplugins.keepfit.coachplatform.bean.manager.ManagerTeamBean;
 import com.noplugins.keepfit.coachplatform.global.AppConstants;
 import com.noplugins.keepfit.coachplatform.util.SpUtils;
@@ -124,7 +123,7 @@ public class Network {
             e.printStackTrace();
         }
 
-        client = new OkHttpClient.Builder()
+        OkHttpClient client = new OkHttpClient.Builder()
                 .sslSocketFactory(sslContext.getSocketFactory())//去掉okhttp https证书验证
                 .addInterceptor(new LogInterceptor(method))//添加日志拦截器
                 .addInterceptor(new Interceptor() {//添加token
@@ -143,7 +142,7 @@ public class Network {
                 .readTimeout(DEFAULT_TIMEOUT, TimeUnit.MINUTES)
                 .build();
 
-        gson = new GsonBuilder()
+        Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
 
@@ -187,6 +186,7 @@ public class Network {
     }
 
 
+
     public Subscription get_yanzhengma(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
         return service.get_yanzhengma(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
@@ -202,7 +202,6 @@ public class Network {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
-
     public Subscription yanzheng_yanzhengma(Map<String, Object> params, Subscriber<Bean<YanZhengMaBean>> subscriber) {
         return service.yanzheng_yanzhengma(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
@@ -210,7 +209,6 @@ public class Network {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
-
     public Subscription set_password(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
         return service.set_password(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
@@ -234,7 +232,6 @@ public class Network {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
-
     public Subscription courseDetail(Map<String, Object> params, Subscriber<Bean<ManagerTeamBean>> subscriber) {
         return service.courseDetail(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
@@ -268,5 +265,28 @@ public class Network {
                 .subscribe(subscriber);
     }
 
+    public Subscription agreeCourse(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
+        return service.agreeCourse(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public Subscription bindingAreaListDetail(Map<String, Object> params, Subscriber<Bean<CgDetailBean>> subscriber) {
+        return service.bindingAreaListDetail(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public Subscription bindingAreaList(Map<String, Object> params, Subscriber<Bean<CgListBean>> subscriber) {
+        return service.bindingAreaList(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
 
 }

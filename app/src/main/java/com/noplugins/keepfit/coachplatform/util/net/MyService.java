@@ -2,9 +2,9 @@ package com.noplugins.keepfit.coachplatform.util.net;
 
 
 import com.noplugins.keepfit.coachplatform.bean.LoginBean;
-import com.noplugins.keepfit.coachplatform.bean.QiNiuToken;
-import com.noplugins.keepfit.coachplatform.bean.TagBean;
 import com.noplugins.keepfit.coachplatform.bean.YanZhengMaBean;
+import com.noplugins.keepfit.coachplatform.bean.manager.CgDetailBean;
+import com.noplugins.keepfit.coachplatform.bean.manager.CgListBean;
 import com.noplugins.keepfit.coachplatform.bean.manager.ManagerBean;
 import com.noplugins.keepfit.coachplatform.bean.manager.ManagerTeamBean;
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean;
@@ -88,5 +88,31 @@ public interface MyService {
     @POST("putaway")
     Observable<Bean<String>> putaway(@Body RequestBody json);
 
+    /**
+     * 团课同意/拒绝
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("agreeCourse")
+    Observable<Bean<String>> agreeCourse(@Body RequestBody json);
+
+    /**
+     * 场馆详情
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("bindingAreaListDetail")
+    Observable<Bean<CgDetailBean>> bindingAreaListDetail(@Body RequestBody json);
+
+    /**
+     * 场馆列表
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("bindingAreaList")
+    Observable<Bean<CgListBean>> bindingAreaList(@Body RequestBody json);
 
 }

@@ -12,6 +12,7 @@ public class TypeUtil {
                 name = "工作室";
                 break;
             case 3:
+                name = "主题馆";
                 break;
         }
         return name;

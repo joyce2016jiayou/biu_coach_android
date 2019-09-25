@@ -12,34 +12,30 @@
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:orientation="vertical">
-       <RelativeLayout
-               android:id="@+id/rel1"
+       <FrameLayout
                android:layout_width="match_parent"
-               android:layout_height="100dp">
+               android:layout_height="@dimen/m70">
 
            <ImageView
                    android:id="@+id/back_btn"
-                   android:layout_width="28dp"
-                   android:layout_height="18dp"
-                   android:layout_alignParentLeft="true"
-                   android:layout_alignParentBottom="true"
-                   android:layout_marginLeft="20dp"
-                   android:layout_marginBottom="30dp"
-                   android:src="@drawable/back_img" />
+                   android:layout_width="@dimen/m22"
+                   android:layout_height="@dimen/m19"
+                   android:layout_gravity="left|center_vertical"
+                   android:layout_marginLeft="@dimen/m20"
+                   android:src="@drawable/back_img"
+                   android:layout_marginTop="@dimen/m20"/>
 
            <TextView
                    android:id="@+id/title_tv"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:layout_alignParentBottom="true"
-                   android:layout_centerHorizontal="true"
-                   android:layout_marginBottom="19dp"
+                   android:layout_gravity="center"
                    android:text="@string/issue_feed"
-                   android:textColor="@color/top_heiziti"
-                   android:textSize="25sp"
-                   android:textStyle="bold" />
-       </RelativeLayout>
-
+                   android:textColor="@color/color_181818"
+                   android:textSize="20sp"
+                   android:layout_marginTop="@dimen/m20"
+                   android:textStyle="bold"/>
+       </FrameLayout>
        <TextView
                android:id="@+id/tv1"
                android:layout_width="wrap_content"

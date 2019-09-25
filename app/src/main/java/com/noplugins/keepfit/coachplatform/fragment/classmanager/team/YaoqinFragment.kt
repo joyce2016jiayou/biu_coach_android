@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -53,7 +54,14 @@ class YaoqinFragment : BaseFragment()  {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initAdapter()
-        requestData()
+//        requestData()
+    }
+
+    override fun onFragmentVisibleChange(isVisible: Boolean) {
+        super.onFragmentVisibleChange(isVisible)
+        if (isVisible){
+            requestData()
+        }
     }
 
     private fun initAdapter(){
@@ -66,7 +74,7 @@ class YaoqinFragment : BaseFragment()  {
         adapterManager.setOnItemChildClickListener { adapter, view, position ->
             when(view.id){
                 R.id.rl_jump -> {
-                    //todo 跳转到详情 需要携带状态
+                    //跳转到详情 需要携带状态
                     val toInfo = Intent(activity, TeamInfoActivity::class.java)
                     val bundle = Bundle()
                     bundle.putInt("type",2)
@@ -75,10 +83,11 @@ class YaoqinFragment : BaseFragment()  {
                     startActivity(toInfo)
                 }
                 R.id.tv_jujue -> {
-                    toJujue(view as TextView)
+                    toJujue(view as TextView,position)
                 }
                 R.id.tv_jieshou -> {
-                    //todo 接受
+                    //接受
+                    agreeCourse(position,1,"")
                 }
             }
         }
@@ -118,7 +127,7 @@ class YaoqinFragment : BaseFragment()  {
 
     }
 
-    private fun toJujue(view1: TextView) {
+    private fun toJujue(view1: TextView,position: Int) {
         val popupWindow = CommonPopupWindow.Builder(activity)
             .setView(R.layout.dialog_to_jujue)
             .setBackGroundLevel(0.5f)//0.5f
@@ -134,14 +143,43 @@ class YaoqinFragment : BaseFragment()  {
         val view = popupWindow.contentView
         val cancel = view.findViewById<LinearLayout>(R.id.cancel_layout)
         val sure = view.findViewById<LinearLayout>(R.id.sure_layout)
-
+        val edit = view.findViewById<EditText>(R.id.et_content)
         cancel.setOnClickListener {
             popupWindow.dismiss()
         }
         sure.setOnClickListener {
             popupWindow.dismiss()
             //去申请
+            agreeCourse(position,0,edit.text.toString())
 
         }
+    }
+
+    private fun agreeCourse(position:Int,type:Int,str:String){
+        val params = HashMap<String, Any>()
+//        params["teacherNum"] = SpUtils.getString(activity, AppConstants.USER_NAME)
+        params["teacherNum"] = "GEN23456"
+        params["courseNum"] = datas[position].courseNum
+        params["agree"] = type
+        if (type == 0){
+            params["refuse"] = str
+        }
+        val subscription = Network.getInstance("团课同意/拒绝", activity)
+            .agreeCourse(params,
+                ProgressSubscriber("团课同意/拒绝", object : SubscriberOnNextListener<Bean<String>> {
+                    override fun onNext(result: Bean<String>) {
+                        //上架成功！
+                        datas.removeAt(position)//删除数据源,移除集合中当前下标的数据
+                        adapterManager.notifyItemRemoved(position)//刷新被删除的地方
+                        adapterManager.notifyItemRangeChanged(position,adapterManager.itemCount) //刷新被删除数据，以及其后面的数据
+
+                    }
+
+                    override fun onError(error: String) {
+
+
+                    }
+                }, activity, false)
+            )
     }
 }

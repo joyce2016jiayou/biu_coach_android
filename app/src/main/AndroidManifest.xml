@@ -74,6 +74,24 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:usesCleartextTraffic="true"
             tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".activity.ShoukeCgActivity">
+        </activity>
+        <activity android:name=".activity.mine.AuthenticationActivity">
+        </activity>
+        <activity android:name=".activity.mine.WriteCardActivity">
+        </activity>
+        <activity android:name=".activity.mine.WithdrawCompleteActivity">
+        </activity>
+        <activity android:name=".activity.mine.AddCardActivity">
+        </activity>
+        <activity android:name=".activity.mine.WithdrawActivity">
+        </activity>
+        <activity android:name=".activity.mine.BillDetailInfoActivity">
+        </activity>
+        <activity android:name=".activity.mine.BillDetailActivity">
+        </activity>
+        <activity android:name=".activity.mine.WalletActivity">
+        </activity>
         <activity android:name=".activity.info.SettingActivity">
         </activity>
         <activity android:name=".activity.info.VerificationPhoneActivity">
@@ -83,25 +101,20 @@
         <activity android:name=".activity.info.SettingPwdActivity">
         </activity>
         <activity android:name=".activity.info.AccountSecurityActivity">
-
         </activity>
         <activity android:name=".activity.info.InformationActivity">
-
         </activity>
-
         <activity android:name=".activity.manager.ChaungguanDetailActivity">
         </activity>
         <activity android:name=".activity.manager.ClassShouquanActivity">
         </activity>
         <activity android:name=".activity.WriteDailryActivity">
-
         </activity>
         <activity android:name=".activity.ClassDetailActivity">
         </activity>
         <activity android:name=".activity.TeacherTimeActivity">
         </activity>
         <activity android:name=".activity.YueKeInformationActivity">
-
         </activity>
         <activity android:name=".activity.manager.TeacherInfoActivity">
         </activity>
@@ -110,7 +123,6 @@
         <activity android:name=".activity.AddZhengshuActivity">
         </activity>
         <activity android:name=".activity.CheckStatusActivity">
-
         </activity>
         <activity android:name=".activity.ClassManagerActivity">
         </activity>
@@ -119,23 +131,21 @@
         <activity android:name=".activity.TuankeRoleActivity">
         </activity>
         <activity android:name=".activity.SelectRoleActivity">
-
         </activity>
         <activity android:name=".activity.SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity android:name=".activity.WelcomeGuideActivity">
         </activity>
         <activity
                 android:name=".MainActivity"
                 android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
 
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity android:name=".activity.LoginActivity">
-
         </activity>
 
         <meta-data
@@ -266,6 +276,8 @@
                 android:exported="false"
                 android:theme="@style/MyDialogStyle"/>
         <activity android:name=".activity.manager.TeamInfoActivity"/>
+        <activity android:name=".activity.info.ProductAdviceActivity"/>
+        <activity android:name=".activity.info.UpdatePasswordActivity"/>
 
         <meta-data
                 android:name="JPUSH_CHANNEL"

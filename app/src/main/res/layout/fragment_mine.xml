@@ -22,8 +22,8 @@
                     android:layout_height="wrap_content"
                     app:cornerRadius="@dimen/m8"
                     android:layout_marginTop="@dimen/m50"
-                    android:layout_marginLeft="@dimen/m10"
-                    android:layout_marginRight="@dimen/m10">
+                    android:layout_marginLeft="@dimen/m15"
+                    android:layout_marginRight="@dimen/m15">
 
                 <LinearLayout
                         android:layout_width="match_parent"
@@ -154,7 +154,8 @@
                     android:textColor="@color/color_181818"
                     android:text="我的"
                     android:layout_marginTop="@dimen/m5"
-                    android:layout_marginLeft="@dimen/m10"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="@dimen/m20"
                     android:textSize="26sp"/>
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -170,8 +171,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/m74"
                 app:cornerRadius="@dimen/m8"
-                android:layout_marginLeft="@dimen/m10"
-                android:layout_marginRight="@dimen/m10">
+                android:layout_marginLeft="@dimen/m15"
+                android:layout_marginRight="@dimen/m15">
 
             <LinearLayout
                     android:layout_width="match_parent"
@@ -216,8 +217,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/m76"
                 app:cornerRadius="@dimen/m8"
-                android:layout_marginLeft="@dimen/m10"
-                android:layout_marginRight="@dimen/m10">
+                android:layout_marginLeft="@dimen/m15"
+                android:layout_marginRight="@dimen/m15">
 
             <LinearLayout
                     android:layout_width="match_parent"
@@ -307,10 +308,21 @@
             </LinearLayout>
         </www.linwg.org.lib.LCardView>
 
+
+        <GridView
+                android:id="@+id/gv_function"
+                android:layout_width="match_parent"
+                android:layout_gravity="clip_horizontal"
+                android:layout_height="@dimen/m140"
+                android:gravity="center"
+                android:numColumns="3"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="@dimen/m11"/>
         <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
-                android:layout_height="@dimen/m70">
+                android:layout_height="@dimen/m70"
+                android:visibility="gone">
 
             <LinearLayout
                     android:layout_width="0dp"
@@ -387,6 +399,7 @@
         <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
+                android:visibility="gone"
                 android:layout_height="@dimen/m70">
 
             <LinearLayout
