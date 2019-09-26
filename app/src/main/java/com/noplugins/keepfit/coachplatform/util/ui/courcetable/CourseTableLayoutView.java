@@ -3,6 +3,7 @@ package com.noplugins.keepfit.coachplatform.util.ui.courcetable;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -88,9 +89,11 @@ public class CourseTableLayoutView extends LinearLayout {
         horizontalScrollView.setScrollViewListener(scrollViewListener);
         horizontalScrollView_top = view.findViewById(R.id.horizontalScrollView_top);
         horizontalScrollView_top.setScrollViewListener(scrollViewListener);
-
+        //设置右上角的日期
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+
+        //设置左边的时间
         time_reclerview = view.findViewById(R.id.time_reclerview);
         time_reclerview.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
 
@@ -194,7 +197,9 @@ public class CourseTableLayoutView extends LinearLayout {
      * 设置课程布局
      */
     private void initCourseLayout() {
-        for (int day = 0; day < mCourseList.size(); day++) {
+
+        for (int day = 0; day < top_dates.size(); day++) {
+
             LinearLayout oneDayLinearLayout = new LinearLayout(mContext);
             oneDayLinearLayout.setOrientation(LinearLayout.VERTICAL);
             oneDayLinearLayout.setLayoutParams(new ViewGroup.LayoutParams(mCourseTableWidth,
@@ -220,21 +225,22 @@ public class CourseTableLayoutView extends LinearLayout {
                         cource_teacher.setVisibility(VISIBLE);
                         class_name.setVisibility(VISIBLE);
                         //设置高度
-                        LayoutParams layoutParams = new LayoutParams(mDayTableWidth, (mDayTableHeight * courseFlag.course.getStep()));
+                        //LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(mDayTableWidth, (mDayTableHeight * courseFlag.course.getStep()));
+                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(mDayTableWidth, mDayTableHeight);
                         cource_view.setLayoutParams(layoutParams);
                         //设置数据
                         class_name.setText(courseFlag.course.getName());
-                        if(courseFlag.course.getClass_status()==1){//已签到
+                        if (courseFlag.course.getClass_status() == 1) {//已签到
                             cource_layout.setBackgroundResource(BG_COURSE[0]);
-                        }else if(courseFlag.course.getClass_status()==2){//已结束
+                        } else if (courseFlag.course.getClass_status() == 2) {//已结束
                             cource_layout.setBackgroundResource(BG_COURSE[1]);
                         }
                         //cource_layout.setBackgroundResource(BG_COURSE[mDataTempPosition % BG_COURSE.length]);
+                        //设置点击事件的监听
                         cource_layout.setOnClickListener(new OnClickCourseListener(courseFlag.course, mDataTempPosition, day, time));
                     }
                     oneDayLinearLayout.addView(cource_view);
                 }
-
             }
 
             cource_item_lin.addView(oneDayLinearLayout);
@@ -243,6 +249,7 @@ public class CourseTableLayoutView extends LinearLayout {
 
     TextView time_tv, status_tv, cource_teacher, class_name;
     LinearLayout cource_layout;
+
     private View get_cource_view() {
         View cource_view = View.inflate(mContext, R.layout.cource_item_view, null);
         time_tv = cource_view.findViewById(R.id.time_tv);
@@ -266,6 +273,7 @@ public class CourseTableLayoutView extends LinearLayout {
         int courseSize = getListSize(mCourseList);
 
         CourseFlag courseFlag = new CourseFlag();
+
         for (int i = 0; i < courseSize; i++) {
             CourseModel course = mCourseList.get(i);
             boolean[] find = compareToCourse(course, day, time);
@@ -318,17 +326,16 @@ public class CourseTableLayoutView extends LinearLayout {
 
     /**
      * 判断该课程是否是当前时间的课程
-     *
      * @param course
-     * @param dayPosition
-     * @param timePosition
+     * @param dayPosition  日期
+     * @param timePosition  时间
      * @return 返回boolean 数组长度为2，
      * boolean[0]：true 代表该课程是当前时间点的课程，boolean[1]：true 代表当前时间点是上面的连续课程
      */
     protected boolean[] compareToCourse(CourseModel course, int dayPosition, int timePosition) {
         boolean[] result = new boolean[2];
-        if (course.getWeek() == dayPosition + 1) {
-            if (course.getStart() == timePosition + 1) {
+        if (course.getWeek() == dayPosition + 1) {//定位横坐标
+            if (course.getStart() == timePosition + 1) {//定位纵坐标
                 result[0] = true;
                 result[1] = false;
             } else if (course.getStart() < timePosition + 1 && course.getStart() + course.getStep() > timePosition + 1) {

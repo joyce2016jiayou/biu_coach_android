@@ -46,7 +46,8 @@ public class YueKeInformationActivity extends BaseActivity {
     CourseTableLayoutView mCourseTableTestLayout;
 
     TimePickerView pvCustomTime;
-    List<CourseModel> mList;
+    List<CourseModel> mList = new ArrayList<>();
+    List<TopDateEntity> topDateEntities = new ArrayList<>();
 
 
     @Override
@@ -87,7 +88,6 @@ public class YueKeInformationActivity extends BaseActivity {
     }
 
     private void initCourceTable() {
-        mList = getData();
         mCourseTableTestLayout.set_click_item_listen(new CourseTableLayoutView.Click_item() {
             @Override
             public void onClickCourse(View view, CourseModel course, int dataPosition, int dayPosition, int timePosition) {
@@ -115,56 +115,38 @@ public class YueKeInformationActivity extends BaseActivity {
             }
         });
 
-        mCourseTableTestLayout.setData(mList);//设置课程布局
-
-        mCourseTableTestLayout.setCourseTimeLabels(getTimeLabels());//设置左边的时间刻度
-
-        mCourseTableTestLayout.setTopDateWeeks(getDateWeeks());//设置上面的日期刻度
-    }
-
-    private List<String> getTimeLabels() {
-        List<String> strings = new ArrayList<>();
-        for (int i = 6; i < 23; i++) {
-            strings.add((i + 1) + ":00");
-        }
-        return strings;
-    }
-
-    private List<TopDateEntity> getDateWeeks() {
-        List<TopDateEntity> topDateEntities = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             TopDateEntity topDateEntity = new TopDateEntity();
             topDateEntity.setDate_str("07/" + i);
             topDateEntity.setWeek_str("星期" + i);
             topDateEntities.add(topDateEntity);
         }
-        return topDateEntities;
-    }
 
-    private CourseModel getCourseModel(int week, String name, int start, int step, int status) {
-        CourseModel model = new CourseModel();
-        model.setWeek(week);//日期的position对应
-        model.setName(name);
-        model.setStart(start);//开始绘制的高度
-        model.setStep(step);
-        model.setClass_status(status);
-        return model;
-    }
+        for (int i = 0; i < 2; i++) {//根据上方的日期排序
+            CourseModel model = new CourseModel();
+            model.setWeek((i + 1));
+            model.setName("课程名字" + (i + 1));
+            model.setStart((i + 1));
+            model.setStep((i + 4));
+            model.setClass_status(2);
+            if(i==0){
+                model.setDate_top(topDateEntities.get(0).getDate_str());
+            }else{
+                model.setDate_top(topDateEntities.get(1).getDate_str());
+            }
+            mList.add(model);
+        }
 
-    private List<CourseModel> getData() {
-        mList = new ArrayList<>();
-        mList.add(getCourseModel(1, "数学", 1, 5, 1));
-        mList.add(getCourseModel(1, "语文", 4, 2, 1));
+        mCourseTableTestLayout.setData(mList);//设置课程布局
 
-        mList.add(getCourseModel(2, "生物", 2, 2, 2));
-        mList.add(getCourseModel(2, "地理", 5, 3, 2));
+        List<String> strings = new ArrayList<>();
+        for (int i = 6; i < 23; i++) {
+            strings.add((i + 1) + ":00");
+        }
+        mCourseTableTestLayout.setCourseTimeLabels(strings);//设置左边的时间刻度
 
-        mList.add(getCourseModel(3, "化学", 3, 1, 1));
-        mList.add(getCourseModel(3, "物理", 5, 1, 2));
 
-        mList.add(getCourseModel(4, "数学", 4, 1, 2));
-        mList.add(getCourseModel(4, "数学", 6, 2, 1));
-        return mList;
+        mCourseTableTestLayout.setTopDateWeeks(topDateEntities);//设置上面的日期刻度
     }
 
     /**
