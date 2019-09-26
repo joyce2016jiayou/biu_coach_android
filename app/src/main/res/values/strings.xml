@@ -252,4 +252,5 @@
     <string name="shenfen_yz">身份验证</string>
     <string name="yzm">验证码</string>
     <string name="unbinding_tips">您确认要解绑场馆吗？解绑后需要重新绑定才会在该场馆显示哦～</string>
+    <string name="instructor_tips">可单选/全选/全不选 来决定是否接受相应课程类型的约课 如未选择某类型，则不会收到该课程类型的约课</string>
 </resources>

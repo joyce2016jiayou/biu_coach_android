@@ -21,6 +21,6 @@
         android:id="@+id/layout_base"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_F8F8F8"
+
         android:layout_alignParentTop="true" />
 </RelativeLayout>
