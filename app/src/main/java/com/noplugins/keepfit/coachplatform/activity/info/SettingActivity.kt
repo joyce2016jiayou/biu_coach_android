@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.noplugins.keepfit.coachplatform.R
+import com.noplugins.keepfit.coachplatform.activity.mine.InstructorTypeActivity
 import com.noplugins.keepfit.coachplatform.base.BaseActivity
 import com.noplugins.keepfit.coachplatform.global.clickWithTrigger
 import kotlinx.android.synthetic.main.activity_setting.*
@@ -45,6 +46,10 @@ class SettingActivity : BaseActivity() {
         rl_quit.clickWithTrigger(1000) {
 
 //            toPhone()
+        }
+        rl_teacher_manager.clickWithTrigger {
+            val intent = Intent(this, InstructorTypeActivity::class.java)
+            startActivity(intent)
         }
 
     }
