@@ -5,10 +5,7 @@ import com.noplugins.keepfit.coachplatform.bean.SelectDateBean;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.TimeZone;
+import java.util.*;
 
 public class DateUtils {
 
@@ -194,4 +191,99 @@ public class DateUtils {
         int day = time.getActualMaximum(Calendar.DAY_OF_MONTH);//本月份的天数
         return day;
     }
+
+
+    /**
+     * 获取当月的 天数
+     */
+    public static int getCurrentMonthDay() {
+
+        Calendar a = Calendar.getInstance();
+        a.set(Calendar.DATE, 1);
+        a.roll(Calendar.DATE, -1);
+        int maxDate = a.get(Calendar.DATE);
+        return maxDate;
+    }
+
+    /**
+     * 根据年 月 获取对应的月份 天数
+     */
+    public static int getDaysByYearMonth(int year, int month) {
+
+        Calendar a = Calendar.getInstance();
+        a.set(Calendar.YEAR, year);
+        a.set(Calendar.MONTH, month - 1);
+        a.set(Calendar.DATE, 1);
+        a.roll(Calendar.DATE, -1);
+        int maxDate = a.get(Calendar.DATE);
+        return maxDate;
+    }
+
+    /**
+     * 根据日期 找到对应日期的 星期
+     */
+    public static String getDayOfWeekByDate(String date) {
+        String dayOfweek = "-1";
+        try {
+            SimpleDateFormat myFormatter = new SimpleDateFormat("yyyy-MM-dd");
+            Date myDate = myFormatter.parse(date);
+            SimpleDateFormat formatter = new SimpleDateFormat("E");
+            String str = formatter.format(myDate);
+            dayOfweek = str;
+
+        } catch (Exception e) {
+            System.out.println("错误!");
+        }
+        return dayOfweek;
+    }
+
+    //java获取当前月的天数
+    public int getDayOfMonth() {
+        Calendar aCalendar = Calendar.getInstance(Locale.CHINA);
+        int day = aCalendar.getActualMaximum(Calendar.DATE);
+        return day;
+    }
+
+    //java获取当前月每天的日期
+    public List getDayListOfMonth() {
+        List list = new ArrayList();
+        Calendar aCalendar = Calendar.getInstance(Locale.CHINA);
+        int year = aCalendar.get(Calendar.YEAR);//年份
+        int month = aCalendar.get(Calendar.MONTH) + 1;//月份
+        int day = aCalendar.getActualMaximum(Calendar.DATE);
+        for (int i = 1; i <= day; i++) {
+            String aDate = String.valueOf(year) + "/" + month + "/" + i;
+            list.add(aDate);
+        }
+        return list;
+    }
+
+    public static List<String> getDayByMonth(int yearParam, int monthParam) {
+        List list = new ArrayList();
+        Calendar aCalendar = Calendar.getInstance(Locale.CHINA);
+        aCalendar.set(yearParam, monthParam, 1);
+        int year = aCalendar.get(Calendar.YEAR);//年份
+        int month = aCalendar.get(Calendar.MONTH) + 1;//月份
+        int day = aCalendar.getActualMaximum(Calendar.DATE);
+        for (int i = 1; i <= day; i++) {
+            String aDate = null;
+            if (month < 10 && i < 10) {
+                aDate = month + "/0" + i;
+            }
+            if (month < 10 && i >= 10) {
+                aDate = month + "/" + i;
+            }
+            if (month >= 10 && i < 10) {
+                aDate = month + "/0" + i;
+            }
+            if (month >= 10 && i >= 10) {
+                aDate = month + "/" + i;
+            }
+            Log.e("每个月的日期", aDate);
+            list.add(aDate);
+        }
+        return list;
+    }
+
+
 }

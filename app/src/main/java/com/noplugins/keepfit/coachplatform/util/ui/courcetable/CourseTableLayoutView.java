@@ -3,6 +3,7 @@ package com.noplugins.keepfit.coachplatform.util.ui.courcetable;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.noplugins.keepfit.coachplatform.R;
+import com.noplugins.keepfit.coachplatform.bean.SelectDateBean;
 import com.noplugins.keepfit.coachplatform.util.screen.ScreenUtilsHelper;
 
 
@@ -22,7 +24,7 @@ public class CourseTableLayoutView extends LinearLayout {
     private LinearLayout mRootLinearLayout;
 
     protected List<String> mTimeLabels = new ArrayList<>();
-    protected List<TopDateEntity> top_dates = new ArrayList<>();
+    protected List<SelectDateBean> top_dates = new ArrayList<>();
     /**
      * 列
      */
@@ -158,7 +160,7 @@ public class CourseTableLayoutView extends LinearLayout {
      *
      * @param courseTimeLabels
      */
-    public void setTopDateWeeks(List<TopDateEntity> courseTimeLabels) {
+    public void setTopDateWeeks(List<SelectDateBean> courseTimeLabels) {
         top_dates = courseTimeLabels;
 
     }
@@ -197,28 +199,29 @@ public class CourseTableLayoutView extends LinearLayout {
      * 设置课程布局
      */
     private void initCourseLayout() {
-
         for (int day = 0; day < top_dates.size(); day++) {
-
             LinearLayout oneDayLinearLayout = new LinearLayout(mContext);
             oneDayLinearLayout.setOrientation(LinearLayout.VERTICAL);
             oneDayLinearLayout.setLayoutParams(new ViewGroup.LayoutParams(mCourseTableWidth,
                     mCourseTableHeight * (mTimeCount - 6)));//从7点开始
-
             for (int time = 0; time < mTimeCount; time++) {
+                Log.e("打印出来的时间", mTimeCount + "");
+                Log.e("打印出来的日期", top_dates.get(day).getMonth() + "/" + top_dates.get(day).getDate() + "");
+
                 CourseFlag courseFlag = getCourse(day, time);
+
                 if (!courseFlag.isContinuousCourse) {
                     View cource_view = get_cource_view();
                     if (courseFlag.course == null) {
-                        cource_layout.setBackgroundResource(mEmptyTableBgRes);
+                        //cource_layout.setBackgroundResource(mEmptyTableBgRes);//消除了格子
                         //显示空白布局
                         time_tv.setVisibility(INVISIBLE);
                         status_tv.setVisibility(INVISIBLE);
                         cource_teacher.setVisibility(INVISIBLE);
                         class_name.setVisibility(INVISIBLE);
-                        cource_view.setLayoutParams(new ViewGroup.LayoutParams(mCourseTableWidth, mCourseTableHeight));
+                        cource_view.setLayoutParams(new ViewGroup.LayoutParams(mDayTableWidth, mDayTableHeight));
                     } else {
-                        cource_layout.setBackgroundResource(mTimeTableBgRes);
+                        //cource_layout.setBackgroundResource(mTimeTableBgRes);//消除了格子
                         //显示数据
                         time_tv.setVisibility(VISIBLE);
                         status_tv.setVisibility(VISIBLE);
@@ -226,8 +229,12 @@ public class CourseTableLayoutView extends LinearLayout {
                         class_name.setVisibility(VISIBLE);
                         //设置高度
                         //LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(mDayTableWidth, (mDayTableHeight * courseFlag.course.getStep()));
+
                         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(mDayTableWidth, mDayTableHeight);
-                        cource_view.setLayoutParams(layoutParams);
+                        layoutParams.setMargins(0, 100, 0, 0);//设置格子距离上部的位置
+                        cource_layout.setLayoutParams(layoutParams);
+
+
                         //设置数据
                         class_name.setText(courseFlag.course.getName());
                         if (courseFlag.course.getClass_status() == 1) {//已签到
@@ -248,7 +255,7 @@ public class CourseTableLayoutView extends LinearLayout {
     }
 
     TextView time_tv, status_tv, cource_teacher, class_name;
-    LinearLayout cource_layout;
+    LinearLayout cource_layout, class_bg;
 
     private View get_cource_view() {
         View cource_view = View.inflate(mContext, R.layout.cource_item_view, null);
@@ -257,6 +264,7 @@ public class CourseTableLayoutView extends LinearLayout {
         cource_teacher = cource_view.findViewById(R.id.cource_teacher);
         class_name = cource_view.findViewById(R.id.class_name);
         cource_layout = cource_view.findViewById(R.id.cource_layout);
+        class_bg = cource_view.findViewById(R.id.class_bg);
         return cource_view;
     }
 
@@ -271,9 +279,7 @@ public class CourseTableLayoutView extends LinearLayout {
 
     private CourseFlag getCourse(int day, int time) {
         int courseSize = getListSize(mCourseList);
-
         CourseFlag courseFlag = new CourseFlag();
-
         for (int i = 0; i < courseSize; i++) {
             CourseModel course = mCourseList.get(i);
             boolean[] find = compareToCourse(course, day, time);
@@ -326,23 +332,53 @@ public class CourseTableLayoutView extends LinearLayout {
 
     /**
      * 判断该课程是否是当前时间的课程
+     *
      * @param course
      * @param dayPosition  日期
-     * @param timePosition  时间
+     * @param timePosition 时间
      * @return 返回boolean 数组长度为2，
      * boolean[0]：true 代表该课程是当前时间点的课程，boolean[1]：true 代表当前时间点是上面的连续课程
      */
     protected boolean[] compareToCourse(CourseModel course, int dayPosition, int timePosition) {
+        Log.e("富士康的减肥", dayPosition+"");
+
         boolean[] result = new boolean[2];
-        if (course.getWeek() == dayPosition + 1) {//定位横坐标
-            if (course.getStart() == timePosition + 1) {//定位纵坐标
+        String date_str=top_dates.get(dayPosition).getMonth() + "/" + top_dates.get(dayPosition).getDate();
+        if (course.getDate_top().equals(date_str)) {//如果日期相同
+            Log.e("上方的时间", course.getDate_top()+"");
+            Log.e("左边的时间", course.getTime_left() + "");
+            if (course.getTime_left() - 6 == (timePosition + 1)) {//定位纵坐标
                 result[0] = true;
                 result[1] = false;
-            } else if (course.getStart() < timePosition + 1 && course.getStart() + course.getStep() > timePosition + 1) {
+            } else if (course.getTime_left() < (timePosition + 1) && (course.getTime_left() + 1) > (timePosition + 1)) {
                 result[0] = true;
                 result[1] = true;
             }
         }
+
+
+        /*if (course.getDate_top().equals(dayPosition.getDate_str())) {//定位横坐标
+            Log.e("上方的时间",dayPosition.getDate_str());
+            Log.e("左边的时间", course.getTime_left() + "");
+
+            if (course.getTime_left() - 6 == (timePosition+1) ) {//定位纵坐标
+                result[0] = true;
+                result[1] = false;
+            } else if (course.getTime_left() < (timePosition+1)  && (course.getTime_left()+1)  > (timePosition+1) ) {
+                result[0] = true;
+                result[1] = true;
+            }
+        }*/
+
+//        if (course.getWeek() == dayPosition + 1) {//定位横坐标
+//            if (course.getStart() == timePosition + 1) {//定位纵坐标
+//                result[0] = true;
+//                result[1] = false;
+//            } else if (course.getStart() < timePosition + 1 && course.getStart() + course.getStep() > timePosition + 1) {
+//                result[0] = true;
+//                result[1] = true;
+//            }
+//        }
         return result;
     }
 
