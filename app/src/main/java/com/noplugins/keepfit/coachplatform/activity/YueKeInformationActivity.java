@@ -19,6 +19,8 @@ import com.bigkoo.pickerview.view.TimePickerView;
 import com.huantansheng.easyphotos.models.puzzle.Line;
 import com.noplugins.keepfit.coachplatform.R;
 import com.noplugins.keepfit.coachplatform.base.BaseActivity;
+import com.noplugins.keepfit.coachplatform.bean.SelectDateBean;
+import com.noplugins.keepfit.coachplatform.util.data.DateUtils;
 import com.noplugins.keepfit.coachplatform.util.screen.KeyboardUtils;
 import com.noplugins.keepfit.coachplatform.util.ui.courcetable.CourseModel;
 import com.noplugins.keepfit.coachplatform.util.ui.courcetable.CourseTableLayoutView;
@@ -47,7 +49,7 @@ public class YueKeInformationActivity extends BaseActivity {
 
     TimePickerView pvCustomTime;
     List<CourseModel> mList = new ArrayList<>();
-    List<TopDateEntity> topDateEntities = new ArrayList<>();
+    //List<TopDateEntity> topDateEntities = new ArrayList<>();
 
 
     @Override
@@ -115,24 +117,28 @@ public class YueKeInformationActivity extends BaseActivity {
             }
         });
 
-        for (int i = 0; i < 10; i++) {
-            TopDateEntity topDateEntity = new TopDateEntity();
-            topDateEntity.setDate_str("07/" + i);
-            topDateEntity.setWeek_str("星期" + i);
-            topDateEntities.add(topDateEntity);
-        }
+
+//        for (int i = 0; i < 10; i++) {
+//            TopDateEntity topDateEntity = new TopDateEntity();
+//            topDateEntity.setDate_str("07/" + i);
+//            topDateEntity.setWeek_str("星期" + i);
+//            topDateEntities.add(topDateEntity);
+//        }
+
 
         for (int i = 0; i < 2; i++) {//根据上方的日期排序
             CourseModel model = new CourseModel();
             model.setWeek((i + 1));
             model.setName("课程名字" + (i + 1));
             model.setStart((i + 1));
-            model.setStep((i + 4));
+            model.setStep((i + 2));
             model.setClass_status(2);
-            if(i==0){
-                model.setDate_top(topDateEntities.get(0).getDate_str());
-            }else{
-                model.setDate_top(topDateEntities.get(1).getDate_str());
+            if (i == 0) {
+                model.setTime_left(10);
+                model.setDate_top("9/28");
+            } else {
+                model.setTime_left(8);
+                model.setDate_top("9/30");
             }
             mList.add(model);
         }
@@ -146,7 +152,10 @@ public class YueKeInformationActivity extends BaseActivity {
         mCourseTableTestLayout.setCourseTimeLabels(strings);//设置左边的时间刻度
 
 
-        mCourseTableTestLayout.setTopDateWeeks(topDateEntities);//设置上面的日期刻度
+        List<SelectDateBean> selectDateBeans = new ArrayList<>(DateUtils.getmoredate());
+        mCourseTableTestLayout.setTopDateWeeks(selectDateBeans);//设置上面的日期刻度
+
+        DateUtils.getDayByMonth(2019,8);
     }
 
     /**

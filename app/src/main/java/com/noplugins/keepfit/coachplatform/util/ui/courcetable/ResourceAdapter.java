@@ -2,6 +2,7 @@ package com.noplugins.keepfit.coachplatform.util.ui.courcetable;
 
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -9,16 +10,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.noplugins.keepfit.coachplatform.R;
+import com.noplugins.keepfit.coachplatform.bean.SelectDateBean;
 import com.noplugins.keepfit.coachplatform.util.screen.ScreenUtilsHelper;
 
 import java.util.List;
 
 public class ResourceAdapter extends RecyclerView.Adapter<ResourceAdapter.ViewHolder> {
     private Context context;
-    private List<TopDateEntity> data;
+    private List<SelectDateBean> data;
     private int item_width;
 
-    public ResourceAdapter(Context context, List<TopDateEntity> data, int mitem_width) {
+    public ResourceAdapter(Context context, List<SelectDateBean> data, int mitem_width) {
         this.context = context;
         this.item_width = mitem_width;
         this.data = data;
@@ -34,8 +36,8 @@ public class ResourceAdapter extends RecyclerView.Adapter<ResourceAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ResourceAdapter.ViewHolder holder, final int position) {
-
-        holder.date_tv.setText(data.get(position).getDate_str());
+        Log.e("上方日期打印",data.get(position).getMonth() + "/" + data.get(position).getDate());
+        holder.date_tv.setText(data.get(position).getMonth() + "/" + data.get(position).getDate());
         holder.week_tv.setText(data.get(position).getWeek_str());
 
         LinearLayout.LayoutParams lLayoutlayoutParams = new LinearLayout.LayoutParams(item_width, ScreenUtilsHelper.dip2px(context, 74));

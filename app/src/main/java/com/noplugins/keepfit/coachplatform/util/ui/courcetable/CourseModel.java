@@ -23,6 +23,7 @@ public class CourseModel implements Serializable {
     private int class_status;//课程状态,已签到，已结束
 
     private String date_top;
+    private int time_left;
 
     public String getDate_top() {
         return date_top;
@@ -32,15 +33,14 @@ public class CourseModel implements Serializable {
         this.date_top = date_top;
     }
 
-    public String getTime_left() {
+    public int getTime_left() {
         return time_left;
     }
 
-    public void setTime_left(String time_left) {
+    public void setTime_left(int time_left) {
         this.time_left = time_left;
     }
 
-    private String time_left;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
