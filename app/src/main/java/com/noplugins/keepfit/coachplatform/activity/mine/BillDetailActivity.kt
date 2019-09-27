@@ -16,23 +16,36 @@ import com.bigkoo.pickerview.view.TimePickerView
 import com.noplugins.keepfit.coachplatform.R
 import com.noplugins.keepfit.coachplatform.adapter.BillDetailAdapter
 import com.noplugins.keepfit.coachplatform.base.BaseActivity
+import com.noplugins.keepfit.coachplatform.bean.BalanceListBean
 import com.noplugins.keepfit.coachplatform.bean.BillDetailBean
 import com.noplugins.keepfit.coachplatform.global.clickWithTrigger
+import com.noplugins.keepfit.coachplatform.util.net.Network
+import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
+import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
+import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
 import com.noplugins.keepfit.coachplatform.util.screen.KeyboardUtils
 import kotlinx.android.synthetic.main.activity_bill_detail.*
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.max
 
 class BillDetailActivity : BaseActivity() {
-    val data:MutableList<BillDetailBean> = ArrayList()
+    val data:MutableList<BalanceListBean.ListBean> = ArrayList()
     var adapter: BillDetailAdapter ?= null
+    var walletNum = ""
+    var page = 1
+    var maxPage = 1
     override fun initBundle(parms: Bundle?) {
-
+        if (intent.getStringExtra("walletNum")!=""){
+            walletNum = intent.getStringExtra("walletNum")
+            requestData()
+        }
     }
 
     override fun initView() {
         setContentView(R.layout.activity_bill_detail)
         initAdapter()
+
     }
 
     override fun doBusiness(mContext: Context?) {
@@ -45,8 +58,6 @@ class BillDetailActivity : BaseActivity() {
     }
     private lateinit var layoutManager: LinearLayoutManager
     private fun initAdapter(){
-        val billDetailBean = BillDetailBean()
-        data.add(billDetailBean)
         adapter = BillDetailAdapter(data)
         layoutManager = LinearLayoutManager(this)
         rv_list.layoutManager = layoutManager
@@ -55,23 +66,27 @@ class BillDetailActivity : BaseActivity() {
         adapter!!.setOnItemChildClickListener { adapter, view, position ->
             when(view.id){
                 R.id.ll_item -> {
-                    //todo 跳转到账单详情
+                    // 跳转到账单详情
                     val intent = Intent(this,BillDetailInfoActivity::class.java)
                     val bundle = Bundle()
-                    bundle.putString("billNum","")
+                    bundle.putString("walletDetailNum",data[position].walletDetailNum)
                     intent.putExtras(bundle)
                     startActivity(intent)
                 }
             }
         }
 
-        refresh_layout.setEnableRefresh(false)
-//        refresh_layout.setOnRefreshListener {
-//            //下拉刷新
-//            refresh_layout.finishRefresh(2000/*,false*/)
-//        }
+        refresh_layout.setOnRefreshListener {
+            //下拉刷新
+            page = 1
+            refresh_layout.setEnableLoadMore(true)
+            requestData()
+            refresh_layout.finishRefresh(2000/*,false*/)
+        }
         refresh_layout.setOnLoadMoreListener {
             //上拉加载
+            page++
+            requestData()
             refresh_layout.finishLoadMore(2000/*,false*/)
         }
     }
@@ -119,6 +134,40 @@ class BillDetailActivity : BaseActivity() {
 
         //影藏键盘
         KeyboardUtils.hideSoftKeyboard(this)
+    }
+
+    private fun requestData() {
+        val params = HashMap<String, Any>()
+//        params["teacherNum"] = SpUtils.getString(activity, AppConstants.USER_NAME)
+        params["walletNum"] = walletNum
+        params["date"] = "2019-09"
+        params["page"] = page
+        val subscription = Network.getInstance("我的钱包", this)
+            .myBalanceList(
+                params,
+                ProgressSubscriber("我的钱包", object : SubscriberOnNextListener<Bean<BalanceListBean>> {
+                    override fun onNext(result: Bean<BalanceListBean>) {
+                        maxPage = result.data.maxPage
+                        if (page == 1){
+                            data.clear()
+                            data.addAll(result.data.list)
+                            adapter!!.notifyDataSetChanged()
+                        } else {
+                            data.addAll(result.data.list)
+                            adapter!!.notifyDataSetChanged()
+                        }
+
+                        if (maxPage == page){
+                            refresh_layout.setEnableLoadMore(false)
+                        }
+                    }
+
+                    override fun onError(error: String) {
+
+
+                    }
+                }, this, false)
+            )
     }
 
 }

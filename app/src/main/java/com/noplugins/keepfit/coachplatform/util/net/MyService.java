@@ -1,7 +1,9 @@
 package com.noplugins.keepfit.coachplatform.util.net;
 
 
+import com.noplugins.keepfit.coachplatform.bean.BalanceListBean;
 import com.noplugins.keepfit.coachplatform.bean.LoginBean;
+import com.noplugins.keepfit.coachplatform.bean.WalletBean;
 import com.noplugins.keepfit.coachplatform.bean.YanZhengMaBean;
 import com.noplugins.keepfit.coachplatform.bean.manager.CgDetailBean;
 import com.noplugins.keepfit.coachplatform.bean.manager.CgListBean;
@@ -114,5 +116,41 @@ public interface MyService {
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("bindingAreaList")
     Observable<Bean<CgListBean>> bindingAreaList(@Body RequestBody json);
+
+    /**
+     * 我的钱包
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("myBalance")
+    Observable<Bean<WalletBean>> myBalance(@Body RequestBody json);
+
+    /**
+     * 钱包明细
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("myBalanceList")
+    Observable<Bean<BalanceListBean>> myBalanceList(@Body RequestBody json);
+
+    /**
+     * 钱包明细详情
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("myBalanceListDetail")
+    Observable<Bean<BalanceListBean.ListBean>> myBalanceListDetail(@Body RequestBody json);
+
+    /**
+     * 新增私教课程
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("addTeacherCourse")
+    Observable<Bean<String>> addTeacherCourse(@Body RequestBody json);
 
 }

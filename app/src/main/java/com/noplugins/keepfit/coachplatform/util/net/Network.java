@@ -289,4 +289,34 @@ public class Network {
                 .subscribe(subscriber);
     }
 
+    public Subscription myBalance(Map<String, Object> params, Subscriber<Bean<WalletBean>> subscriber) {
+        return service.myBalance(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+    public Subscription myBalanceList(Map<String, Object> params, Subscriber<Bean<BalanceListBean>> subscriber) {
+        return service.myBalanceList(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public Subscription myBalanceListDetail(Map<String, Object> params, Subscriber<Bean<BalanceListBean.ListBean>> subscriber) {
+        return service.myBalanceListDetail(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public Subscription addTeacherCourse(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
+        return service.addTeacherCourse(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
 }

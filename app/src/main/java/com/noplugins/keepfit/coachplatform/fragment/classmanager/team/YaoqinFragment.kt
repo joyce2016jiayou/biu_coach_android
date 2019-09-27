@@ -27,6 +27,7 @@ import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
 import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
 import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow
 import kotlinx.android.synthetic.main.fragment_manager_teacher_1.*
+import org.greenrobot.eventbus.EventBus
 import java.util.HashMap
 
 class YaoqinFragment : BaseFragment()  {
@@ -54,20 +55,20 @@ class YaoqinFragment : BaseFragment()  {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initAdapter()
-//        requestData()
+        requestData()
     }
 
     override fun onFragmentVisibleChange(isVisible: Boolean) {
         super.onFragmentVisibleChange(isVisible)
         if (isVisible){
-            requestData()
+
         }
     }
 
     private fun initAdapter(){
         rv_list.layoutManager = LinearLayoutManager(context)
         adapterManager = ManagerTeamClassAdapter(datas)
-        val view = LayoutInflater.from(context).inflate(R.layout.enpty_view, rv_list, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.enpty_view, null, false)
         adapterManager.emptyView = view
         rv_list.adapter = adapterManager
 
@@ -173,6 +174,15 @@ class YaoqinFragment : BaseFragment()  {
                         adapterManager.notifyItemRemoved(position)//刷新被删除的地方
                         adapterManager.notifyItemRangeChanged(position,adapterManager.itemCount) //刷新被删除数据，以及其后面的数据
 
+                        when(type){
+                            1 -> {
+                                EventBus.getDefault().post(AppConstants.TEAM_YQ_AGREE)
+                            }
+
+                            0-> {
+                                EventBus.getDefault().post(AppConstants.TEAM_YQ_REFUSE)
+                            }
+                        }
                     }
 
                     override fun onError(error: String) {

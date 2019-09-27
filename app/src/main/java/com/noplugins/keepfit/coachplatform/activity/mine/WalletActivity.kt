@@ -10,23 +10,32 @@ import android.widget.TextView
 import com.noplugins.keepfit.coachplatform.R
 import com.noplugins.keepfit.coachplatform.activity.info.VerificationPhoneActivity
 import com.noplugins.keepfit.coachplatform.base.BaseActivity
+import com.noplugins.keepfit.coachplatform.bean.WalletBean
 import com.noplugins.keepfit.coachplatform.global.clickWithTrigger
 import com.noplugins.keepfit.coachplatform.global.withTrigger
+import com.noplugins.keepfit.coachplatform.util.net.Network
+import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
+import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
+import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
 import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow
 import kotlinx.android.synthetic.main.activity_wallet.*
+import java.util.HashMap
 
 class WalletActivity : BaseActivity() {
+    private var walletNum = ""
     override fun initBundle(parms: Bundle?) {
     }
 
     override fun initView() {
         setContentView(R.layout.activity_wallet)
+        requestData()
     }
 
     override fun doBusiness(mContext: Context?) {
         tv_pay_mx.clickWithTrigger(1000) {
             //跳转到明细
             val intent = Intent(this, BillDetailActivity::class.java)
+            intent.putExtra("walletNum",walletNum)
             startActivity(intent)
         }
         back_btn.clickWithTrigger {
@@ -39,8 +48,6 @@ class WalletActivity : BaseActivity() {
             startActivity(intent)
         }
      }
-
-
 
     private fun toQueren(view1: TextView) {
         val popupWindow = CommonPopupWindow.Builder(this)
@@ -71,5 +78,37 @@ class WalletActivity : BaseActivity() {
     private fun toSetting(){
         val intent = Intent(this,VerificationPhoneActivity::class.java)
         startActivity(intent)
+    }
+
+    private fun setting(bean:WalletBean){
+        tv_balance.text = "¥ ${bean.finalBalance}"
+        tv_sum_sr.text = "¥ ${bean.finalIncome}"
+        tv_day_sr.text = "¥ ${bean.finaltodayIncome}"
+        tv_month_sr.text = "¥ ${bean.finalmonthIncome}"
+        tv_sum_withdraw.text = "¥ ${bean.finalWithdraw}"
+        tv_now_withdraw.text = "¥ ${bean.finalCanWithdraw}"
+        walletNum = bean.walletNum
+    }
+
+    //myBalance
+    private fun requestData() {
+        val params = HashMap<String, Any>()
+//        params["teacherNum"] = SpUtils.getString(activity, AppConstants.USER_NAME)
+        params["userNum"] = "GEN23456"
+        val subscription = Network.getInstance("我的钱包", this)
+            .myBalance(
+                params,
+                ProgressSubscriber("我的钱包", object : SubscriberOnNextListener<Bean<WalletBean>> {
+                    override fun onNext(result: Bean<WalletBean>) {
+                        setting(result.data)
+
+                    }
+
+                    override fun onError(error: String) {
+
+
+                    }
+                }, this, false)
+            )
     }
 }

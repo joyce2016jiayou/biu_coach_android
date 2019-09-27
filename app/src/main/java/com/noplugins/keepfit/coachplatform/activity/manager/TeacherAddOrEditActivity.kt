@@ -138,6 +138,30 @@ class TeacherAddOrEditActivity : BaseActivity() {
         }
     }
 
+
+    private fun requestAddInfo(){
+        val params = HashMap<String, Any>()
+        params["gen_teacher_num"] = "GEN23456"
+        params["price"] = edit_price.text.toString()
+        params["course_name"] = edit_class_name.text.toString()
+        params["class_type"] = skillType
+        params["course_des"] = edit_jieshao.text.toString()
+        params["tips"] = edit_shihe.text.toString()
+        params["edit_zhuyi"] = edit_jieshao.text.toString()
+        subscription = Network.getInstance("课程管理", this)
+            .addTeacherCourse(params,
+                ProgressSubscriber("课程管理", object : SubscriberOnNextListener<Bean<String>> {
+                    override fun onNext(result: Bean<String>) {
+                        finish()
+                    }
+
+                    override fun onError(error: String) {
+
+
+                    }
+                }, this, false)
+            )
+    }
     private fun requestData(courseNum:String){
         val params = HashMap<String, Any>()
         params["courseNum"] = courseNum
