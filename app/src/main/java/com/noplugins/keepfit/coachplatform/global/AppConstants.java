@@ -30,4 +30,11 @@ public class AppConstants {
     public static String UPDATE_SELECT_PHOTO="update_select_photo";
 
 
+
+    //团课同意
+    public static String TEAM_YQ_AGREE = "team_yq_agree";
+    //团课拒绝
+    public static String TEAM_YQ_REFUSE = "team_yq_refuse";
+
+
 }

@@ -296,4 +296,100 @@ public class Network {
                 .subscribe(subscriber);
     }
 
+    public Subscription myBalance(Map<String, Object> params, Subscriber<Bean<WalletBean>> subscriber) {
+        return service.myBalance(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+    public Subscription myBalanceList(Map<String, Object> params, Subscriber<Bean<BalanceListBean>> subscriber) {
+        return service.myBalanceList(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public Subscription myBalanceListDetail(Map<String, Object> params, Subscriber<Bean<BalanceListBean.ListBean>> subscriber) {
+        return service.myBalanceListDetail(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public Subscription addTeacherCourse(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
+        return service.addTeacherCourse(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public Subscription bindingArea(BindingListBean params, Subscriber<Bean<String>> subscriber) {
+        return service.bindingArea(retuen_json_object(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public Subscription updateCourse(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
+        return service.updateCourse(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public Subscription findCourseDetail(Map<String, Object> params, Subscriber<Bean<ManagerBean.CourseListBean>> subscriber) {
+        return service.findCourseDetail(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public Subscription bindingCoachBank(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
+        return service.bindingCoachBank(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public Subscription feedBackData(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
+        return service.feedBackData(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public Subscription coachUserHome(Map<String, Object> params, Subscriber<Bean<MineBean>> subscriber) {
+        return service.coachUserHome(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public Subscription personalData(Map<String, Object> params, Subscriber<Bean<InformationBean>> subscriber) {
+        return service.personalData(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public Subscription updateCoachHome(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
+        return service.updateCoachHome(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+
 }

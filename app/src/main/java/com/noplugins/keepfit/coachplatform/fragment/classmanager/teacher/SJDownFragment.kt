@@ -122,9 +122,9 @@ class SJDownFragment : BaseFragment()  {
                     }
 
                     override fun onError(error: String) {
-                        if (error == "-1"){
+                        if (error == "-2"){
                             toShouquan(rv_list)
-                        } else if(error == "-2"){
+                        } else if(error == "-3"){
                             toLoading(rv_list)
                         }
                     }

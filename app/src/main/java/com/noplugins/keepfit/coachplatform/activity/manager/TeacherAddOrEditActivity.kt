@@ -1,6 +1,7 @@
 package com.noplugins.keepfit.coachplatform.activity.manager
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
@@ -9,6 +10,7 @@ import android.widget.TextView
 import com.noplugins.keepfit.coachplatform.R
 import com.noplugins.keepfit.coachplatform.adapter.PopUpAdapter
 import com.noplugins.keepfit.coachplatform.base.BaseActivity
+import com.noplugins.keepfit.coachplatform.bean.manager.ManagerBean
 import com.noplugins.keepfit.coachplatform.bean.manager.ManagerTeamBean
 import com.noplugins.keepfit.coachplatform.global.clickWithTrigger
 import com.noplugins.keepfit.coachplatform.util.net.Network
@@ -24,11 +26,14 @@ import java.util.HashMap
 class TeacherAddOrEditActivity : BaseActivity() {
 
     private var skillType = -1
+    private var courseNum = ""
+    private var intentType = -1
     override fun initBundle(parms: Bundle?) {
         if (parms!=  null){
             val type = parms.getString("type")
             if (type!=null && type == "edit"){
                 val courseNum = parms.getString("courseNum")
+                intentType = 1
                 if (courseNum != null) {
                     requestData(courseNum)
                 }
@@ -103,7 +108,13 @@ class TeacherAddOrEditActivity : BaseActivity() {
                 .show("注意事项不能为空！")
             return
         }
-        toQueren(btn_submit)
+
+        if (intentType == 1){
+            updateCourse()
+        } else {
+            toQueren(btn_submit)
+        }
+
     }
 
     private fun toQueren(view1: TextView) {
@@ -134,17 +145,69 @@ class TeacherAddOrEditActivity : BaseActivity() {
         sure.setOnClickListener {
             popupWindow.dismiss()
             //去申请
-            submit()
+            requestAddInfo()
         }
+    }
+
+
+    private fun requestAddInfo(){
+        val params = HashMap<String, Any>()
+        params["gen_teacher_num"] = "GEN23456"
+        params["price"] = edit_price.text.toString()
+        params["course_name"] = edit_class_name.text.toString()
+        params["class_type"] = skillType
+        params["course_des"] = edit_jieshao.text.toString()
+        params["tips"] = edit_shihe.text.toString()
+        params["edit_zhuyi"] = edit_jieshao.text.toString()
+        subscription = Network.getInstance("添加课程", this)
+            .addTeacherCourse(params,
+                ProgressSubscriber("添加课程", object : SubscriberOnNextListener<Bean<String>> {
+                    override fun onNext(result: Bean<String>) {
+                        finish()
+                    }
+
+                    override fun onError(error: String) {
+
+
+                    }
+                }, this, false)
+            )
+    }
+
+    private fun updateCourse(){
+        val params = HashMap<String, Any>()
+        params["course_num"] = courseNum
+        params["price"] = edit_price.text.toString()
+        params["course_name"] = edit_class_name.text.toString()
+        params["class_type"] = skillType
+        params["course_des"] = edit_jieshao.text.toString()
+        params["tips"] = edit_shihe.text.toString()
+        params["edit_zhuyi"] = edit_jieshao.text.toString()
+        subscription = Network.getInstance("修改课程", this)
+            .updateCourse(params,
+                ProgressSubscriber("修改课程", object : SubscriberOnNextListener<Bean<String>> {
+                    override fun onNext(result: Bean<String>) {
+                        val mIntent = Intent()//没有任何参数（意图），只是用来传递数据
+                        mIntent.putExtra("isUpdate", true)
+                        setResult(RESULT_OK, mIntent)
+                        finish()
+                    }
+
+                    override fun onError(error: String) {
+
+
+                    }
+                }, this, false)
+            )
     }
 
     private fun requestData(courseNum:String){
         val params = HashMap<String, Any>()
         params["courseNum"] = courseNum
-        subscription = Network.getInstance("课程管理", this)
-            .courseDetail(params,
-                ProgressSubscriber("课程管理", object : SubscriberOnNextListener<Bean<ManagerTeamBean>> {
-                    override fun onNext(result: Bean<ManagerTeamBean>) {
+        subscription = Network.getInstance("私教课程管理", this)
+            .findCourseDetail(params,
+                ProgressSubscriber("私教课程管理", object : SubscriberOnNextListener<Bean<ManagerBean.CourseListBean>> {
+                    override fun onNext(result: Bean<ManagerBean.CourseListBean>) {
                         setting(result.data)
                     }
 
@@ -155,16 +218,16 @@ class TeacherAddOrEditActivity : BaseActivity() {
                 }, this, false)
             )
     }
-    private fun setting(managerTeamBean: ManagerTeamBean){
-        title_tv.text =  managerTeamBean.courseList.courseName
-
-        edit_class_name.setText(managerTeamBean.courseList.courseName)
-        tv_select_type.text =classType(managerTeamBean.courseList.classType)
-        skillType = managerTeamBean.courseList.classType
-        edit_price.setText(""+managerTeamBean.courseList.price)
-        edit_jieshao.setText(""+managerTeamBean.courseList.courseDes)
-        edit_shihe.setText(""+managerTeamBean.courseList.suitPerson)
-        edit_zhuyi.setText(""+managerTeamBean.courseList.tips)
+    private fun setting(managerTeamBean: ManagerBean.CourseListBean){
+        title_tv.text =  managerTeamBean.courseName
+        courseNum = managerTeamBean.courseNum
+        edit_class_name.setText(managerTeamBean.courseName)
+        tv_select_type.text =classType(managerTeamBean.classType)
+        skillType = managerTeamBean.classType
+        edit_price.setText(""+managerTeamBean.price)
+        edit_jieshao.setText(""+managerTeamBean.courseDes)
+        edit_shihe.setText(""+managerTeamBean.suitPerson)
+        edit_zhuyi.setText(""+managerTeamBean.tips)
     }
 
 

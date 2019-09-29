@@ -190,7 +190,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:leftShadowWidth="0dp"
-            android:visibility="gone"
+            android:visibility="visible"
             app:rightShadowWidth="0dp">
         <LinearLayout
                 android:layout_width="match_parent"

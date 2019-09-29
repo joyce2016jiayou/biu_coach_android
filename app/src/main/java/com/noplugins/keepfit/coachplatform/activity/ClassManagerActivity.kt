@@ -39,6 +39,9 @@ class ClassManagerActivity : BaseActivity() {
     }
 
     override fun doBusiness(mContext: Context?) {
+        back_btn.clickWithTrigger {
+            finish()
+        }
         rl_team.clickWithTrigger {
             changeBtn(1)
             if (teamClass == null) {
