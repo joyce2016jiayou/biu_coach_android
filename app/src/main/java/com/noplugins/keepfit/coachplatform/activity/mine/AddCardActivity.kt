@@ -4,9 +4,12 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.nanchen.bankcardutil.BankInfoUtil
 import com.noplugins.keepfit.coachplatform.R
 import com.noplugins.keepfit.coachplatform.base.BaseActivity
 import com.noplugins.keepfit.coachplatform.global.clickWithTrigger
+import com.noplugins.keepfit.coachplatform.util.BankUtils
+import com.noplugins.keepfit.coachplatform.util.ui.toast.SuperCustomToast
 import kotlinx.android.synthetic.main.activity_add_card.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -33,8 +36,22 @@ class AddCardActivity : BaseActivity() {
 
     override fun doBusiness(mContext: Context?) {
         tv_next.clickWithTrigger {
-            val intent = Intent(this,WriteCardActivity::class.java)
-            startActivity(intent)
+            if(et_card.text.toString() == ""){
+                SuperCustomToast.getInstance(this)
+                    .show("银行卡号不能为空")
+                return@clickWithTrigger
+            }
+            if (BankUtils.checkBankCard(et_card.text.toString())){
+                val intent = Intent(this,WriteCardActivity::class.java)
+                val bundle = Bundle()
+                bundle.putString("backCard",et_card.text.toString())
+                intent.putExtras(bundle)
+                startActivity(intent)
+            } else{
+                SuperCustomToast.getInstance(this)
+                    .show("请输入正确的银行卡")
+            }
+
         }
         back_btn.clickWithTrigger {
             finish()

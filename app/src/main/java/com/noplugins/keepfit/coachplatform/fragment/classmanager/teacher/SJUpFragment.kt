@@ -63,6 +63,13 @@ class SJUpFragment : BaseFragment()  {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (datas.size > 0){
+            requestData()
+        }
+    }
+
     private fun initAdapter(){
         rv_list.layoutManager = LinearLayoutManager(context)
         adapterManager = ManagerTeacherAdapter(datas)

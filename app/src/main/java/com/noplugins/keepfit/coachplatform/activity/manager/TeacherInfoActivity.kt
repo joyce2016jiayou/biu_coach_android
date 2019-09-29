@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.noplugins.keepfit.coachplatform.R
 import com.noplugins.keepfit.coachplatform.base.BaseActivity
+import com.noplugins.keepfit.coachplatform.bean.manager.ManagerBean
 import com.noplugins.keepfit.coachplatform.bean.manager.ManagerTeamBean
 import com.noplugins.keepfit.coachplatform.global.clickWithTrigger
 import com.noplugins.keepfit.coachplatform.global.withTrigger
@@ -88,10 +89,11 @@ class TeacherInfoActivity : BaseActivity() {
     private fun requestData(courseNum:String){
         val params = HashMap<String, Any>()
         params["courseNum"] = courseNum
-        subscription = Network.getInstance("课程管理", this)
-            .courseDetail(params,
-                ProgressSubscriber("课程管理", object : SubscriberOnNextListener<Bean<ManagerTeamBean>> {
-                    override fun onNext(result: Bean<ManagerTeamBean>) {
+        params["custUserNum"] = "GEN23456"
+        subscription = Network.getInstance("私教课程管理", this)
+            .findCourseDetail(params,
+                ProgressSubscriber("私教课程管理", object : SubscriberOnNextListener<Bean<ManagerBean.CourseListBean >> {
+                    override fun onNext(result: Bean<ManagerBean.CourseListBean >) {
                         setting(result.data)
                     }
 
@@ -102,11 +104,11 @@ class TeacherInfoActivity : BaseActivity() {
                 }, this, false)
             )
     }
-    private fun setting(managerTeamBean: ManagerTeamBean){
-        title_tv.text =  managerTeamBean.courseList.courseName
+    private fun setting(managerTeamBean: ManagerBean.CourseListBean){
+        title_tv.text =  managerTeamBean.courseName
 
-        type = managerTeamBean.courseList.putaway
-        if (managerTeamBean.courseList.putaway == 0){
+        type = managerTeamBean.putaway
+        if (managerTeamBean.putaway == 0){
             //下架
             tv_info_upOrDown.text = "上架"
             tv_type.text = "已下架"
@@ -115,19 +117,33 @@ class TeacherInfoActivity : BaseActivity() {
             tv_type.text = "已上架"
         }
 
-        edit_class_name.text = managerTeamBean.courseList.courseName
-        tv_select_type.text =classType(managerTeamBean.courseList.classType)
-        edit_price.text = "¥"+managerTeamBean.courseList.price
-        edit_jieshao.text = ""+managerTeamBean.courseList.courseDes
-        edit_shihe.text = ""+managerTeamBean.courseList.suitPerson
-        edit_zhuyi.text = ""+managerTeamBean.courseList.tips
-        tv_create_date.text = "创建时间："+managerTeamBean.courseList.createDate
+        edit_class_name.text = managerTeamBean.courseName
+        tv_select_type.text =classType(managerTeamBean.classType)
+        edit_price.text = "¥"+managerTeamBean.price
+        edit_jieshao.text = ""+managerTeamBean.courseDes
+        edit_shihe.text = ""+managerTeamBean.suitPerson
+        edit_zhuyi.text = ""+managerTeamBean.tips
+        tv_create_date.text = "创建时间："+managerTeamBean.createDate
     }
 
 
     private fun classType(classType: Int): String {
         val listClass = resources.getStringArray(R.array.private_class_types)
         return listClass[classType - 1]
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data1: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data1)
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                //接受回来对数据的处理
+                val isUpdate = data1!!.getBooleanExtra("isUpdate",false)
+                if(isUpdate){
+                    requestData(courseNum)
+                }
+
+            }
+        }
     }
 
 

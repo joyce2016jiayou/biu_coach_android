@@ -154,7 +154,7 @@
 
         <meta-data
                 android:name="com.amap.api.v2.apikey"
-                android:value="f6c5c161b7e9378879e0d7a901eb868f"/>
+                android:value="fe3f3c8feccc3777b11b5d4a11482832"/>
 
         <service android:name="com.amap.api.location.APSService"/> <!-- 存储权限 authorities="你的包名+fileprovider" -->
         <provider

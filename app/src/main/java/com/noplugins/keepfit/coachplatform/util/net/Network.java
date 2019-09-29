@@ -319,4 +319,70 @@ public class Network {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
+
+    public Subscription bindingArea(BindingListBean params, Subscriber<Bean<String>> subscriber) {
+        return service.bindingArea(retuen_json_object(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public Subscription updateCourse(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
+        return service.updateCourse(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public Subscription findCourseDetail(Map<String, Object> params, Subscriber<Bean<ManagerBean.CourseListBean>> subscriber) {
+        return service.findCourseDetail(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public Subscription bindingCoachBank(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
+        return service.bindingCoachBank(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public Subscription feedBackData(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
+        return service.feedBackData(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public Subscription coachUserHome(Map<String, Object> params, Subscriber<Bean<MineBean>> subscriber) {
+        return service.coachUserHome(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public Subscription personalData(Map<String, Object> params, Subscriber<Bean<InformationBean>> subscriber) {
+        return service.personalData(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public Subscription updateCoachHome(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
+        return service.updateCoachHome(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+
 }

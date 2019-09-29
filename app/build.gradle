@@ -245,4 +245,7 @@ dependencies {
     //shuru
     implementation 'com.github.lwjfork:CodeEditText:1.0.4'
 
+    //银行卡匹配
+    implementation 'com.github.nanchen2251:BankCardUtils:1.0.2'
+
 }

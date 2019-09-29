@@ -96,7 +96,7 @@
             android:layout_width="@dimen/m209"
             android:textColor="@color/white"
             android:layout_height="@dimen/m50"
-            android:layout_marginTop="@dimen/m60"
+            android:layout_marginTop="@dimen/m90"
             android:layout_gravity="center_horizontal"
             android:text="下一步"
             android:textSize="20sp"

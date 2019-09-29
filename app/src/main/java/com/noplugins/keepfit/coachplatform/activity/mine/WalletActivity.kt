@@ -23,6 +23,7 @@ import java.util.HashMap
 
 class WalletActivity : BaseActivity() {
     private var walletNum = ""
+    private var finalCanWithdraw = 0.0
     override fun initBundle(parms: Bundle?) {
     }
 
@@ -45,6 +46,9 @@ class WalletActivity : BaseActivity() {
             //跳转到提现
 //            toQueren(btn_tixian)
             val intent = Intent(this,WithdrawActivity::class.java)
+            val bundle = Bundle()
+            bundle.putDouble("finalCanWithdraw",finalCanWithdraw)
+            intent.putExtras(bundle)
             startActivity(intent)
         }
      }
@@ -88,6 +92,7 @@ class WalletActivity : BaseActivity() {
         tv_sum_withdraw.text = "¥ ${bean.finalWithdraw}"
         tv_now_withdraw.text = "¥ ${bean.finalCanWithdraw}"
         walletNum = bean.walletNum
+        finalCanWithdraw = bean.finalCanWithdraw
     }
 
     //myBalance

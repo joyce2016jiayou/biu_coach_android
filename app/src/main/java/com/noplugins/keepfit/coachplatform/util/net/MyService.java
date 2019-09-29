@@ -1,10 +1,7 @@
 package com.noplugins.keepfit.coachplatform.util.net;
 
 
-import com.noplugins.keepfit.coachplatform.bean.BalanceListBean;
-import com.noplugins.keepfit.coachplatform.bean.LoginBean;
-import com.noplugins.keepfit.coachplatform.bean.WalletBean;
-import com.noplugins.keepfit.coachplatform.bean.YanZhengMaBean;
+import com.noplugins.keepfit.coachplatform.bean.*;
 import com.noplugins.keepfit.coachplatform.bean.manager.CgDetailBean;
 import com.noplugins.keepfit.coachplatform.bean.manager.CgListBean;
 import com.noplugins.keepfit.coachplatform.bean.manager.ManagerBean;
@@ -152,5 +149,78 @@ public interface MyService {
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("addTeacherCourse")
     Observable<Bean<String>> addTeacherCourse(@Body RequestBody json);
+
+    /**
+     * 绑定场馆
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("bindingArea")
+    Observable<Bean<String>> bindingArea(@Body RequestBody json);
+
+    /**
+     * 修改私教课程
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("updateCourse")
+    Observable<Bean<String>> updateCourse(@Body RequestBody json);
+
+    /**
+     * 私教课程管理
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("findCourseDetail")
+    Observable<Bean<ManagerBean.CourseListBean>> findCourseDetail(@Body RequestBody json);
+
+    /**
+     * 绑定银行卡
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("bindingCoachBank")
+    Observable<Bean<String>> bindingCoachBank(@Body RequestBody json);
+
+    /**
+     * 产品反馈
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("feedBackData")
+    Observable<Bean<String>> feedBackData(@Body RequestBody json);
+
+    /**
+     * 我的主页
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("coachUserHome")
+    Observable<Bean<MineBean>> coachUserHome(@Body RequestBody json);
+
+    /**
+     * 个人资料主页
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("personalData")
+    Observable<Bean<InformationBean>> personalData(@Body RequestBody json);
+
+    /**
+     * 更新
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("updateCoachHome")
+    Observable<Bean<String>> updateCoachHome(@Body RequestBody json);
+
 
 }

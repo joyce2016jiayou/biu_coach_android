@@ -29,14 +29,18 @@ import kotlinx.android.synthetic.main.activity_withdraw.*
 class WithdrawActivity : BaseActivity() {
     var cardNumber = ""
     var selectCard = -1
+    var finalCanWithdraw = 0.0
     override fun initBundle(parms: Bundle?) {
-
+        if (parms!=null){
+            finalCanWithdraw = parms.getDouble("finalCanWithdraw")
+            tv_now_money.text = "当前可提现余额$finalCanWithdraw"
+        }
     }
 
     override fun initView() {
         setContentView(R.layout.activity_withdraw)
         //超过1000元可以提现
-        val ss = SpannableString("超过1000元可以提现")//定义hint的值
+        val ss = SpannableString("超过500元可以提现")//定义hint的值
         val ass = AbsoluteSizeSpan(15, true)//设置字体大小 true表示单位是sp
         ss.setSpan(ass, 0, ss.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         et_withdraw_money.hint = SpannedString(ss)
@@ -59,7 +63,7 @@ class WithdrawActivity : BaseActivity() {
             et_withdraw_money.setText("")
         }
         tv_all.clickWithTrigger {
-            et_withdraw_money.setText("1000")
+            et_withdraw_money.setText("$finalCanWithdraw")
         }
 
         tv_withdraw_ok.clickWithTrigger(2000) {
