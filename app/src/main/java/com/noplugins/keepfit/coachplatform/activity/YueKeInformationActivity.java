@@ -3,11 +3,14 @@ package com.noplugins.keepfit.coachplatform.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import butterknife.BindView;
@@ -17,19 +20,26 @@ import com.bigkoo.pickerview.listener.CustomListener;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.huantansheng.easyphotos.models.puzzle.Line;
+import com.noplugins.keepfit.coachplatform.MainActivity;
 import com.noplugins.keepfit.coachplatform.R;
 import com.noplugins.keepfit.coachplatform.base.BaseActivity;
+import com.noplugins.keepfit.coachplatform.bean.LoginBean;
 import com.noplugins.keepfit.coachplatform.bean.SelectDateBean;
+import com.noplugins.keepfit.coachplatform.bean.YueKeBean;
+import com.noplugins.keepfit.coachplatform.global.AppConstants;
+import com.noplugins.keepfit.coachplatform.util.SpUtils;
 import com.noplugins.keepfit.coachplatform.util.data.DateUtils;
+import com.noplugins.keepfit.coachplatform.util.net.Network;
+import com.noplugins.keepfit.coachplatform.util.net.entity.Bean;
+import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber;
+import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener;
 import com.noplugins.keepfit.coachplatform.util.screen.KeyboardUtils;
 import com.noplugins.keepfit.coachplatform.util.ui.courcetable.CourseModel;
 import com.noplugins.keepfit.coachplatform.util.ui.courcetable.CourseTableLayoutView;
 import com.noplugins.keepfit.coachplatform.util.ui.courcetable.TopDateEntity;
+import rx.Subscription;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class YueKeInformationActivity extends BaseActivity {
     @BindView(R.id.back_img)
@@ -47,10 +57,11 @@ public class YueKeInformationActivity extends BaseActivity {
     @BindView(R.id.layout_course)
     CourseTableLayoutView mCourseTableTestLayout;
 
-    TimePickerView pvCustomTime;
-    List<CourseModel> mList = new ArrayList<>();
-    //List<TopDateEntity> topDateEntities = new ArrayList<>();
-
+    private TimePickerView pvCustomTime;
+    private List<CourseModel> mList = new ArrayList<>();
+    private String current_select_year = "";
+    private String current_select_month = "";
+    private List<YueKeBean.CourseListBean> courseListBeans = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,15 +95,75 @@ public class YueKeInformationActivity extends BaseActivity {
                 select_time_pop();
             }
         });
+        //获取当前的年份跟月份
+        Calendar c = Calendar.getInstance();
+        c.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+        current_select_year = String.valueOf(c.get(Calendar.YEAR));
+        current_select_month = String.valueOf(c.get(Calendar.MONTH) + 1);// 获取当前月份
+        if (Integer.valueOf(current_select_month) <= 9) {
+            time_tv.setText(current_select_year + "年0" + current_select_month + "月");
+        } else {
+            time_tv.setText(current_select_year + "年" + current_select_month + "月");
+        }
+        init_class_reource();
 
-        initCourceTable();
 
     }
+
+    private void init_class_reource() {
+        Map<String, Object> params = new HashMap<>();
+//        params.put("teacherNum", SpUtils.getString(getApplicationContext(), AppConstants.SELECT_TEACHER_NUMBER));
+        if (Integer.valueOf(current_select_month) <= 9) {
+            params.put("date", current_select_year + "-0" + Integer.valueOf(current_select_month));
+        } else {
+            params.put("date", current_select_year + "-" + Integer.valueOf(current_select_month));
+        }
+        params.put("teacherNum", "GEN23456");
+
+        Subscription subscription = Network.getInstance("约课信息", this)
+                .yuekeInformation(params,
+                        new ProgressSubscriber<>("约课信息", new SubscriberOnNextListener<Bean<YueKeBean>>() {
+                            @Override
+                            public void onNext(Bean<YueKeBean> result) {
+                                courseListBeans.addAll(result.getData().getCourseList());
+                                init_class_date(current_select_year, current_select_month, true);
+                            }
+
+                            @Override
+                            public void onError(String error) {
+//                                for(int i=0;i<2;i++){
+//                                    YueKeBean.CourseListBean courseListBean = new YueKeBean.CourseListBean();
+//                                    if(i==0){
+//                                        courseListBean.setStartTimeStamp(1568973600000L);
+//                                    }else{
+//                                        courseListBean.setStartTimeStamp(1568912400000L);
+//                                    }
+//                                    courseListBeans.add(courseListBean);
+//                                }
+//                                init_class_date(current_select_year, current_select_month, true);
+
+                            }
+                        }, this, true));
+    }
+
+
+    private void init_class_date(String select_year, String select_month, boolean is_current_month) {
+        //设置左边的时间刻度
+        init_left_time();
+
+        //设置上方的日期
+        select_month = Integer.valueOf(select_month) - 1 + "";
+        init_top_dates(select_year, select_month, is_current_month);
+
+        //设置课程布局
+        initCourceTable();
+    }
+
 
     private void initCourceTable() {
         mCourseTableTestLayout.set_click_item_listen(new CourseTableLayoutView.Click_item() {
             @Override
-            public void onClickCourse(View view, CourseModel course, int dataPosition, int dayPosition, int timePosition) {
+            public void onClickCourse(View view, YueKeBean.CourseListBean course, int dataPosition, int dayPosition, int timePosition) {
                 Log.e("选择了", dataPosition + "");
                 if (dataPosition == 0) {
                     Intent intent = new Intent(YueKeInformationActivity.this, ClassDetailActivity.class);
@@ -118,15 +189,7 @@ public class YueKeInformationActivity extends BaseActivity {
         });
 
 
-//        for (int i = 0; i < 10; i++) {
-//            TopDateEntity topDateEntity = new TopDateEntity();
-//            topDateEntity.setDate_str("07/" + i);
-//            topDateEntity.setWeek_str("星期" + i);
-//            topDateEntities.add(topDateEntity);
-//        }
-
-
-        for (int i = 0; i < 2; i++) {//根据上方的日期排序
+        /*for (int i = 0; i < 2; i++) {//根据上方的日期排序
             CourseModel model = new CourseModel();
             model.setWeek((i + 1));
             model.setName("课程名字" + (i + 1));
@@ -141,22 +204,34 @@ public class YueKeInformationActivity extends BaseActivity {
                 model.setDate_top("9/30");
             }
             mList.add(model);
-        }
+        }*/
 
-        mCourseTableTestLayout.setData(mList);//设置课程布局
+        mCourseTableTestLayout.setData(courseListBeans);//设置课程布局
 
+
+    }
+
+    private void init_left_time() {
         List<String> strings = new ArrayList<>();
         for (int i = 6; i < 23; i++) {
             strings.add((i + 1) + ":00");
         }
         mCourseTableTestLayout.setCourseTimeLabels(strings);//设置左边的时间刻度
-
-
-        List<SelectDateBean> selectDateBeans = new ArrayList<>(DateUtils.getmoredate());
-        mCourseTableTestLayout.setTopDateWeeks(selectDateBeans);//设置上面的日期刻度
-
-        DateUtils.getDayByMonth(2019,8);
     }
+
+    private void init_top_dates(String select_year, String select_month, boolean is_current_month) {
+        List<SelectDateBean> selectDateBeans = new ArrayList<>(DateUtils.getDayByMonth(Integer.valueOf(select_year), Integer.valueOf(select_month)));
+        mCourseTableTestLayout.setTopDateWeeks(selectDateBeans, is_current_month);//设置上面的日期刻度
+    }
+
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            init_class_reource();
+
+        }
+    };
 
     /**
      * 选择时间pop
@@ -178,15 +253,34 @@ public class YueKeInformationActivity extends BaseActivity {
         pvCustomTime = new TimePickerBuilder(YueKeInformationActivity.this, new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {//选中事件回调
+
                 Log.e("选择的时间", date.toString());
                 int select_year = date.getYear() + 1900;
                 String select_month = date.getMonth() + "";
-                if (Integer.valueOf(select_month) <= 9) {
-                    select_month = "0" + (date.getMonth() + 1);
+                if (Integer.valueOf(select_month) < 9) {
+                    select_month = "0" + (Integer.valueOf(select_month) + 1);
                 } else {
-                    select_month = "" + (date.getMonth() + 1);
+                    select_month = "" + (Integer.valueOf(select_month) + 1);
                 }
+                current_select_month = select_month;
+                current_select_year = select_year + "";
+                Log.e("选择的时间参数打印", current_select_year + "-" + current_select_month);
                 time_tv.setText(select_year + "年" + select_month + "月");
+                pvCustomTime.dismiss();
+
+//                Thread thread = new Thread() {
+//                    @Override
+//                    public void run() {
+//                        super.run();
+//
+//                    }
+//                };
+//                thread.start();
+
+                handler.sendEmptyMessage(0);
+
+
+
             }
         })
                 /*.setType(TimePickerView.Type.ALL)//default is all

@@ -3,7 +3,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:background="@color/white"
+        android:background="@color/transparent"
         android:id="@+id/class_bg"
         android:layout_height="match_parent">
 
@@ -11,7 +11,7 @@
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:id="@+id/cource_layout"
-            android:background="@color/white"
+            android:background="@color/transparent"
             android:gravity="center"
             android:layout_height="match_parent">
 

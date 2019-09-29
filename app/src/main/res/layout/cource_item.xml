@@ -76,11 +76,23 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/time_reclerview">
 
-                <LinearLayout
-                        android:id="@+id/cource_item_lin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"/>
+                <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    <LinearLayout
+                            android:id="@+id/cource_item_bg"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"/>
+
+                    <LinearLayout
+                            android:id="@+id/cource_item_lin"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"/>
+                </FrameLayout>
+
 
             </com.noplugins.keepfit.coachplatform.util.ui.courcetable.ObservableScrollView>
 

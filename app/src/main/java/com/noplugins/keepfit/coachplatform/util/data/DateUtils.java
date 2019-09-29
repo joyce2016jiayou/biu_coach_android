@@ -20,16 +20,21 @@ public class DateUtils {
      * 获取当前日期几月几号
      */
     public static String getDateString() {
-
-
         final Calendar c = Calendar.getInstance();
         c.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+        mYear = String.valueOf(c.get(Calendar.YEAR));
         mMonth = String.valueOf(c.get(Calendar.MONTH) + 1);// 获取当前月份
         mDay = String.valueOf(c.get(Calendar.DAY_OF_MONTH));// 获取当前月份的日期号码
         if (Integer.parseInt(mDay) > MaxDayFromDay_OF_MONTH(Integer.parseInt(mYear), (Integer.parseInt(mMonth)))) {
             mDay = String.valueOf(MaxDayFromDay_OF_MONTH(Integer.parseInt(mYear), (Integer.parseInt(mMonth))));
         }
-        return mMonth + "月" + mDay + "日";
+        if(Integer.valueOf(mMonth)<=9){
+            mMonth="0"+mMonth;
+        }
+        if(Integer.valueOf(mDay)<=9){
+            mDay = "0"+mDay;
+        }
+        return mYear + "-" + mMonth + "-" + mDay;
     }
 
 
@@ -219,23 +224,6 @@ public class DateUtils {
         return maxDate;
     }
 
-    /**
-     * 根据日期 找到对应日期的 星期
-     */
-    public static String getDayOfWeekByDate(String date) {
-        String dayOfweek = "-1";
-        try {
-            SimpleDateFormat myFormatter = new SimpleDateFormat("yyyy-MM-dd");
-            Date myDate = myFormatter.parse(date);
-            SimpleDateFormat formatter = new SimpleDateFormat("E");
-            String str = formatter.format(myDate);
-            dayOfweek = str;
-
-        } catch (Exception e) {
-            System.out.println("错误!");
-        }
-        return dayOfweek;
-    }
 
     //java获取当前月的天数
     public int getDayOfMonth() {
@@ -258,31 +246,67 @@ public class DateUtils {
         return list;
     }
 
-    public static List<String> getDayByMonth(int yearParam, int monthParam) {
-        List list = new ArrayList();
+    public static List<SelectDateBean> getDayByMonth(int yearParam, int monthParam) {
+        List<SelectDateBean> list = new ArrayList<>();
         Calendar aCalendar = Calendar.getInstance(Locale.CHINA);
         aCalendar.set(yearParam, monthParam, 1);
         int year = aCalendar.get(Calendar.YEAR);//年份
         int month = aCalendar.get(Calendar.MONTH) + 1;//月份
         int day = aCalendar.getActualMaximum(Calendar.DATE);
         for (int i = 1; i <= day; i++) {
-            String aDate = null;
+            String month_str = null;
+            String date_str = null;
             if (month < 10 && i < 10) {
-                aDate = month + "/0" + i;
+                month_str = "0" + month;
+                date_str = "0" + i;
             }
             if (month < 10 && i >= 10) {
-                aDate = month + "/" + i;
+                month_str = "0" + month;
+                date_str = "" + i;
             }
             if (month >= 10 && i < 10) {
-                aDate = month + "/0" + i;
+                month_str = month + "";
+                date_str = "0" + i;
             }
             if (month >= 10 && i >= 10) {
-                aDate = month + "/" + i;
+                month_str = month + "";
+                date_str = "" + i;
             }
-            Log.e("每个月的日期", aDate);
-            list.add(aDate);
+            String get_week_str = year + "-" + month_str + "-" + date_str;
+            //Log.e("每个月的日期", get_week_str+ "对应的星期：" + getDayOfWeekByDate(get_week_str) + "\n");
+            SelectDateBean selectDateBean = new SelectDateBean();
+            //Log.e("今天的日期",getDateString()+"打印今天的日期"+get_week_str);
+            //判断日期是不是今天
+            if(getDateString().equals(get_week_str)){
+                selectDateBean.setWeek_str("今天");
+            }else{
+                selectDateBean.setWeek_str(getDayOfWeekByDate(get_week_str));
+            }
+            selectDateBean.setMonth(month_str);
+            selectDateBean.setDate(date_str);
+
+            list.add(selectDateBean);
         }
+
         return list;
+    }
+
+    /**
+     * 根据日期 找到对应日期的 星期
+     */
+    public static String getDayOfWeekByDate(String date) {
+        String dayOfweek = "-1";
+        try {
+            SimpleDateFormat myFormatter = new SimpleDateFormat("yyyy-MM-dd");
+            Date myDate = myFormatter.parse(date);
+            SimpleDateFormat formatter = new SimpleDateFormat("E");
+            String str = formatter.format(myDate);
+            dayOfweek = str;
+
+        } catch (Exception e) {
+            System.out.println("错误!");
+        }
+        return dayOfweek;
     }
 
 

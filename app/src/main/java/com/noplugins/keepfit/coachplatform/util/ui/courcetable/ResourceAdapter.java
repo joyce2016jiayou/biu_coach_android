@@ -36,15 +36,18 @@ public class ResourceAdapter extends RecyclerView.Adapter<ResourceAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ResourceAdapter.ViewHolder holder, final int position) {
-        Log.e("上方日期打印",data.get(position).getMonth() + "/" + data.get(position).getDate());
+        Log.e("上方日期打印", data.get(position).getMonth() + "/" + data.get(position).getDate());
         holder.date_tv.setText(data.get(position).getMonth() + "/" + data.get(position).getDate());
         holder.week_tv.setText(data.get(position).getWeek_str());
-
+        if (data.get(position).getWeek_str().equals("今天")) {
+            holder.date_tv.setTextColor(context.getResources().getColor(R.color.color_lan));
+            holder.week_tv.setTextColor(context.getResources().getColor(R.color.color_lan));
+        } else {
+            holder.date_tv.setTextColor(context.getResources().getColor(R.color.color_181818));
+            holder.week_tv.setTextColor(context.getResources().getColor(R.color.color_181818));
+        }
         LinearLayout.LayoutParams lLayoutlayoutParams = new LinearLayout.LayoutParams(item_width, ScreenUtilsHelper.dip2px(context, 74));
-
         holder.item_layout.setLayoutParams(lLayoutlayoutParams);
-
-
     }
 
     @Override

@@ -18,7 +18,7 @@
             android:textSize="13sp"
             android:text="周一"
             android:layout_marginTop="16dp"
-            android:textColor="#181818"
+            android:textColor="@color/color_181818"
             />
         <TextView
             android:id="@+id/date_tv"
@@ -28,7 +28,7 @@
             android:textSize="13sp"
             android:text="7/18"
             android:layout_marginTop="8dp"
-            android:textColor="#181818"
+            android:textColor="@color/color_181818"
             />
     </LinearLayout>
 

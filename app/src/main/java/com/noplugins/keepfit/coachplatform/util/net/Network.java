@@ -288,5 +288,12 @@ public class Network {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
+    public Subscription yuekeInformation(Map<String, Object> params, Subscriber<Bean<YueKeBean>> subscriber) {
+        return service.yuekeInformation(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
 
 }

@@ -3,6 +3,7 @@ package com.noplugins.keepfit.coachplatform.util.net;
 
 import com.noplugins.keepfit.coachplatform.bean.LoginBean;
 import com.noplugins.keepfit.coachplatform.bean.YanZhengMaBean;
+import com.noplugins.keepfit.coachplatform.bean.YueKeBean;
 import com.noplugins.keepfit.coachplatform.bean.manager.CgDetailBean;
 import com.noplugins.keepfit.coachplatform.bean.manager.CgListBean;
 import com.noplugins.keepfit.coachplatform.bean.manager.ManagerBean;
@@ -114,5 +115,15 @@ public interface MyService {
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("bindingAreaList")
     Observable<Bean<CgListBean>> bindingAreaList(@Body RequestBody json);
+
+    /**
+     * 约课信息
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("moreCourseData")
+    Observable<Bean<YueKeBean>> yuekeInformation(@Body RequestBody json);
+
 
 }
