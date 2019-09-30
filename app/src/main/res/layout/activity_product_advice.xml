@@ -182,6 +182,7 @@
                        android:maxLength="140"
                        android:paddingLeft="10dp"
                        android:paddingTop="@dimen/m10"
+                       android:background="@drawable/shape_btn_bg_gray"
                        android:textColor="@color/top_heiziti"
                        android:textSize="13sp" />
            </LinearLayout>
@@ -204,10 +205,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@string/tv39"
+                android:text="@string/tv23"
                 android:textColor="@color/white"
-                android:textSize="25sp"
-                android:textStyle="bold" />
+                android:textSize="20sp" />
 
     </LinearLayout>
 

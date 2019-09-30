@@ -15,12 +15,21 @@ import com.noplugins.keepfit.coachplatform.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_manager_teacher.*
 import androidx.viewpager.widget.ViewPager
 import com.noplugins.keepfit.coachplatform.activity.manager.ClassShouquanActivity
+import com.noplugins.keepfit.coachplatform.activity.manager.TeacherAddOrEditActivity
 import com.noplugins.keepfit.coachplatform.adapter.TabItemAdapter
+import com.noplugins.keepfit.coachplatform.bean.manager.ManagerBean
 import com.noplugins.keepfit.coachplatform.fragment.classmanager.teacher.SJDownFragment
 import com.noplugins.keepfit.coachplatform.fragment.classmanager.teacher.SJUpFragment
+import com.noplugins.keepfit.coachplatform.global.AppConstants
 import com.noplugins.keepfit.coachplatform.global.clickWithTrigger
+import com.noplugins.keepfit.coachplatform.util.SpUtils
+import com.noplugins.keepfit.coachplatform.util.net.Network
+import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
+import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
+import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
 import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow
 import java.util.ArrayList
+import java.util.HashMap
 
 
 class TeacherFragment : BaseFragment() {
@@ -36,6 +45,8 @@ class TeacherFragment : BaseFragment() {
     private val mFragments = ArrayList<Fragment>()
 
     private var newView: View? = null
+
+    private var code = 0
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -53,7 +64,8 @@ class TeacherFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-//        toShouquan(rb_1)
+        code = 1
+        requestData()
 
     }
 
@@ -75,9 +87,8 @@ class TeacherFragment : BaseFragment() {
 
         iv_teacher_add.clickWithTrigger {
             //如果登记没完成 则不能添加
-            if (true){
-                toLoading(rb_1)
-            }
+            code = 10
+            requestData()
         }
 
     }
@@ -112,7 +123,69 @@ class TeacherFragment : BaseFragment() {
     }
 
 
-    private fun toLoading(view1: TextView) {
+
+    private fun requestData(){
+        val params = HashMap<String, Any>()
+//        params["teacherNum"] = SpUtils.getString(activity, AppConstants.USER_NAME)
+        params["teacherNum"] = SpUtils.getString(activity, AppConstants.USER_NAME)
+        params["courseType"] = 2
+        params["type"] = 1
+        val subscription = Network.getInstance("课程管理", activity)
+            .courseManager(params,
+                ProgressSubscriber("课程管理", object : SubscriberOnNextListener<Bean<ManagerBean>> {
+                    override fun onNext(result: Bean<ManagerBean>) {
+                        if (code == 10){
+                            val intent = Intent(activity,TeacherAddOrEditActivity::class.java)
+                            startActivity(intent)
+                        } else{
+                            initFragment()
+                        }
+                    }
+
+                    override fun onError(error: String) {
+                        if (error == "-2"){
+                            toShouquan(iv_teacher_add)
+                        } else if(error == "-3"){
+                            toLoading(iv_teacher_add)
+                        }
+
+                    }
+                }, activity, false)
+            )
+    }
+    private fun toShouquan(view1: View) {
+        if (context == null){
+            return
+        }
+        val popupWindow = CommonPopupWindow.Builder(context)
+            .setView(R.layout.dialog_to_shouquan)
+            .setBackGroundLevel(0.5f)//0.5f
+            .setAnimationStyle(R.style.main_menu_animstyle)
+            .setWidthAndHeight(
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.MATCH_PARENT
+            )
+            .setOutSideTouchable(true).create()
+        popupWindow.showAsDropDown(view1)
+
+        /**设置逻辑 */
+        val view = popupWindow.contentView
+        val cancel = view.findViewById<LinearLayout>(R.id.cancel_layout)
+        val sure = view.findViewById<LinearLayout>(R.id.shenqin_layout)
+
+        cancel.setOnClickListener {
+            popupWindow.dismiss()
+        }
+        sure.setOnClickListener {
+            popupWindow.dismiss()
+            //去申请
+            val toInfo = Intent(activity, ClassShouquanActivity::class.java)
+            startActivity(toInfo)
+
+        }
+    }
+
+    private fun toLoading(view1: View) {
         if (context == null){
             return
         }

@@ -39,7 +39,6 @@ public interface MyService {
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("passWordLogin")
     Observable<Bean<LoginBean>> password_login(@Body RequestBody json);
-
     /**
      * 验证验证码
      *
@@ -265,5 +264,41 @@ public interface MyService {
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("saveCocahTeacherHaveRestTime")
     Observable<Bean<BusyTimeBean>> save_time(@Body RequestBody json);
+    /**
+     * 忘记密码
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("forgetPassword")
+    Observable<Bean<String>>  forgetPassword(@Body RequestBody json);
+
+    /**
+     * 修改手机号
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("updatePhone")
+    Observable<Bean<String>>  updatePhone(@Body RequestBody json);
+
+    /**
+     * 设置提现密码
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("settingPayPassword")
+    Observable<Bean<String>>  settingPayPassword(@Body RequestBody json);
+
+    /**
+     * 教练类型管理
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("getCheckResult")
+    Observable<Bean<String>>  getCheckResult(@Body RequestBody json);
+
 
 }

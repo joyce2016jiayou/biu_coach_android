@@ -20,6 +20,8 @@ import com.noplugins.keepfit.coachplatform.adapter.ManagerTeacherAdapter
 import com.noplugins.keepfit.coachplatform.base.BaseFragment
 import com.noplugins.keepfit.coachplatform.bean.manager.ManagerBean
 import com.noplugins.keepfit.coachplatform.bean.manager.ManagerTeacherBean
+import com.noplugins.keepfit.coachplatform.global.AppConstants
+import com.noplugins.keepfit.coachplatform.util.SpUtils
 import com.noplugins.keepfit.coachplatform.util.net.Network
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
@@ -117,7 +119,7 @@ class SJUpFragment : BaseFragment()  {
     private fun requestData(){
         val params = HashMap<String, Any>()
 //        params["teacherNum"] = SpUtils.getString(activity, AppConstants.USER_NAME)
-        params["teacherNum"] = "GEN23456"
+        params["teacherNum"] = SpUtils.getString(activity, AppConstants.USER_NAME)
         params["courseType"] = 2
         params["type"] = 1
         val subscription = Network.getInstance("课程管理", activity)

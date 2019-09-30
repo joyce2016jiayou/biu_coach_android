@@ -312,6 +312,7 @@ public class LoginActivity extends BaseActivity {
     private void save_resource(String token, String user_number, String teacher_type, String teacher_number) {
         SpUtils.putString(getApplicationContext(), AppConstants.TOKEN, token);
         SpUtils.putString(getApplicationContext(), AppConstants.USER_NAME, user_number);
+        SpUtils.putString(getApplicationContext(), AppConstants.PHONE, edit_phone_number.getText().toString());
         SpUtils.putString(getApplicationContext(), AppConstants.TEACHER_TYPE, teacher_type);
         SpUtils.putString(getApplicationContext(), AppConstants.SELECT_TEACHER_NUMBER, teacher_number);
     }

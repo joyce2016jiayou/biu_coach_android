@@ -13,11 +13,11 @@ import com.noplugins.keepfit.coachplatform.bean.TagEntity;
 import java.util.List;
 
 public class TeacherTagAdapter extends BaseAdapter {
-    private List<TagEntity> strings;
+    private List<String> strings;
     private LayoutInflater layoutInflater;
     private Context context;
 
-    public TeacherTagAdapter(Context mcontext, List<TagEntity> mstrings) {
+    public TeacherTagAdapter(Context mcontext, List<String> mstrings) {
         this.strings = mstrings;
         context = mcontext;
         layoutInflater = LayoutInflater.from(mcontext);
@@ -50,7 +50,7 @@ public class TeacherTagAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.tag_value.setText(strings.get(position).getTag());
+        holder.tag_value.setText(strings.get(position));
 
 
         return convertView;

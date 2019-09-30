@@ -86,59 +86,40 @@ class SettingPwdActivity : BaseActivity() {
 
 
     private fun settingPwd() {
-        val params = HashMap<String, String>()
+        val params = HashMap<String, Any>()
         params["phone"] = edit_phone.text.toString()
         params["messageId"] = messageId
-        params["verifyCode"] = edit_yzm.text.toString()
+        params["code"] = edit_yzm.text.toString()
         params["password"] = edit_new_password.text.toString()
-        val json = Gson().toJson(params)
-        val requestBody = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json)
+        subscription = Network.getInstance("设置密码", this)
+            .forgetPassword(params,
+                ProgressSubscriber("设置密码", object : SubscriberOnNextListener<Bean<String>> {
+                    override fun onNext(result: Bean<String>) {
+                        finish()
+                    }
 
-//        val subscription = Network.getInstance("修改密码", this)
-//            .settingPassword(
-//                null,
-//                ProgressSubscriber<String>(
-//                    "修改密码",
-//                    object : SubscriberOnNextListener<Bean<String>> {
-//                        override fun onNext(result: Bean<String>) {
-//
-//                        }
-//
-//                        override fun onError(error: String) {
-//
-//                        }
-//                    },
-//                    this,
-//                    true
-//                )
-//            )
+                    override fun onError(error: String) {
+
+                    }
+                }, this, false)
+            )
     }
 
     private fun send() {
-        val params = HashMap<String, String>()
+        val params = HashMap<String, Any>()
         params["phone"] = edit_phone.text.toString()
-        val json = Gson().toJson(params)
-        val requestBody = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json)
+        subscription = Network.getInstance("获取验证码", this)
+            .get_yanzhengma(params,
+                ProgressSubscriber("获取验证码", object : SubscriberOnNextListener<Bean<String>> {
+                    override fun onNext(result: Bean<String>) {
+                        messageId = result.data
+                    }
 
-//        subscription = Network.getInstance("接收验证码", applicationContext)
-//            .get_yanzhengma(
-//                requestBody,
-//                ProgressSubscriberNew(String::class.java, object : GsonSubscriberOnNextListener<String> {
-//                    override fun on_post_entity(code: String, get_message_id: String) {
-//                        Toast.makeText(applicationContext, "发送成功", Toast.LENGTH_SHORT).show()
-//                        messageId = code
-//                    }
-//                }, object : SubscriberOnNextListener<Bean<Any>> {
-//                    override fun onNext(result: Bean<Any>) {
-//
-//                    }
-//
-//                    override fun onError(error: String) {
-//                        Logger.e(TAG, "接收验证码报错：$error")
-//                        Toast.makeText(applicationContext, "接收验证码失败！", Toast.LENGTH_SHORT).show()
-//                    }
-//                }, this, true)
-//            )
+                    override fun onError(error: String) {
+
+                    }
+                }, this, false)
+            )
     }
 
     internal var timer: CountDownTimer = object : CountDownTimer(60000, 1000) {

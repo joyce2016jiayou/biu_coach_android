@@ -107,7 +107,7 @@ class YaoqinFragment : BaseFragment()  {
     private fun requestData(){
         val params = HashMap<String, Any>()
 //        params["teacherNum"] = SpUtils.getString(activity, AppConstants.USER_NAME)
-        params["teacherNum"] = "GEN23456"
+        params["teacherNum"] = SpUtils.getString(activity, AppConstants.USER_NAME)
         params["courseType"] = 1
         params["type"] = 2
         val subscription = Network.getInstance("课程管理", activity)

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:orientation="vertical"
+             android:layout_width="match_parent"
+             android:background="@color/transparent"
+             android:layout_height="match_parent">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_gravity="bottom"
+            android:background="@drawable/shape_dialog_white_40"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <TextView
+                android:id="@+id/tv_paizhao"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/m30"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:layout_marginTop="@dimen/m27"
+                android:textColor="@color/btn_text_color"
+                android:text="拍照"/>
+        <TextView
+                android:id="@+id/tv_xiangce"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/m30"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:layout_marginTop="@dimen/m20"
+                android:textColor="@color/btn_text_color"
+                android:layout_marginBottom="@dimen/m20"
+                android:text="相册"/>
+
+    </LinearLayout>
+
+</FrameLayout>

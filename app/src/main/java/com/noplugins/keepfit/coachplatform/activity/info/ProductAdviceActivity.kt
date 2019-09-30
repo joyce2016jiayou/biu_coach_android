@@ -27,14 +27,12 @@ class ProductAdviceActivity : BaseActivity() {
 
     private var type = -1
 
-    override fun initBundle(parms: Bundle) {
+    override fun initBundle(parms: Bundle?) {
 
     }
 
     override fun initView() {
         setContentLayout(R.layout.activity_product_advice)
-        ButterKnife.bind(this)
-        isShowTitle(false)
     }
 
     override fun doBusiness(mContext: Context) {

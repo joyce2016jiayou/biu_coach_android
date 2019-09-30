@@ -36,6 +36,7 @@ class UpdatePhoneActivity : BaseActivity() {
             }
             val intent = Intent(this,VerificationPhoneActivity::class.java)
             intent.putExtra("newPhone",edit_phone.text.toString().trim())
+            intent.putExtra("update",true)
             startActivity(intent)
         }
     }

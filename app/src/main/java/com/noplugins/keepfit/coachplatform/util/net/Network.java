@@ -391,6 +391,29 @@ public class Network {
                 .subscribe(subscriber);
     }
 
+    public Subscription forgetPassword(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
+        return service.forgetPassword(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+    public Subscription updatePhone(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
+        return service.updatePhone(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+    public Subscription settingPayPassword(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
+        return service.settingPayPassword(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+
 
     public Subscription get_all_time(Map<String, Object> params, Subscriber<Bean<ReturnTimeBean>> subscriber) {
         return service.get_all_time(retuen_json_params(params))

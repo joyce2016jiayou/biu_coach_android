@@ -148,10 +148,14 @@ public class ProgressSubscriber<T> extends Subscriber<Bean<T>> implements Dialog
             } else {
                 Logger.e(Method_Tag + "请求Fail:" + t.getMessage());
                 if (t.getCode() == -1){
-                    mListener.onError("-1");
+                    mListener.onError(t.getMessage());
                 } else if(t.getCode() == -2){
                     //没有授权
                     mListener.onError("-2");
+                }
+                else if(t.getCode() == -3){
+                    //没有授权
+                    mListener.onError("-3");
                 }
 
             }

@@ -11,8 +11,10 @@ import com.noplugins.keepfit.coachplatform.R
 import com.noplugins.keepfit.coachplatform.activity.info.VerificationPhoneActivity
 import com.noplugins.keepfit.coachplatform.base.BaseActivity
 import com.noplugins.keepfit.coachplatform.bean.WalletBean
+import com.noplugins.keepfit.coachplatform.global.AppConstants
 import com.noplugins.keepfit.coachplatform.global.clickWithTrigger
 import com.noplugins.keepfit.coachplatform.global.withTrigger
+import com.noplugins.keepfit.coachplatform.util.SpUtils
 import com.noplugins.keepfit.coachplatform.util.net.Network
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
@@ -99,7 +101,7 @@ class WalletActivity : BaseActivity() {
     private fun requestData() {
         val params = HashMap<String, Any>()
 //        params["teacherNum"] = SpUtils.getString(activity, AppConstants.USER_NAME)
-        params["userNum"] = "GEN23456"
+        params["userNum"] = SpUtils.getString(this, AppConstants.USER_NAME)
         val subscription = Network.getInstance("我的钱包", this)
             .myBalance(
                 params,

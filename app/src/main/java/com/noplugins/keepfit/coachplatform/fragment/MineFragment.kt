@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import com.noplugins.keepfit.coachplatform.R
 import com.noplugins.keepfit.coachplatform.activity.ShoukeCgActivity
 import com.noplugins.keepfit.coachplatform.activity.info.InformationActivity
@@ -14,12 +15,20 @@ import com.noplugins.keepfit.coachplatform.activity.mine.WalletActivity
 import com.noplugins.keepfit.coachplatform.adapter.TeacherFunctionAdapter
 import com.noplugins.keepfit.coachplatform.adapter.TeacherTagAdapter
 import com.noplugins.keepfit.coachplatform.base.BaseFragment
+import com.noplugins.keepfit.coachplatform.bean.MineBean
 import com.noplugins.keepfit.coachplatform.bean.MineFunctionBean
 import com.noplugins.keepfit.coachplatform.bean.TagEntity
+import com.noplugins.keepfit.coachplatform.global.AppConstants
 import com.noplugins.keepfit.coachplatform.global.clickWithTrigger
 import com.noplugins.keepfit.coachplatform.global.withTrigger
 import com.noplugins.keepfit.coachplatform.util.BaseUtils
+import com.noplugins.keepfit.coachplatform.util.SpUtils
+import com.noplugins.keepfit.coachplatform.util.net.Network
+import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
+import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
+import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
 import kotlinx.android.synthetic.main.fragment_mine.*
+import java.util.HashMap
 
 class MineFragment : BaseFragment() {
 
@@ -45,24 +54,35 @@ class MineFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setting()
         onClick()
     }
 
-    private fun setting() {
-        val mstrings: List<TagEntity> = ArrayList()
-        val tagAdapter = TeacherTagAdapter(activity, mstrings)
-        grid_view.adapter = tagAdapter
+    override fun onFragmentFirstVisible() {
+        super.onFragmentFirstVisible()
+        requestData()
+    }
+
+    private fun setting(min: MineBean) {
+        if (min.lableList!=null){
+            val tagAdapter = TeacherTagAdapter(activity, min.lableList)
+            grid_view.adapter = tagAdapter
+        }
+
         val fuctionBean: MutableList<MineFunctionBean> = ArrayList()
         val min1 = MineFunctionBean("钱包", R.drawable.mine_qb)
         val min2 = MineFunctionBean("课程管理", R.drawable.mine_kc)
-        val min3 = MineFunctionBean("授课场馆", R.drawable.mine_cgyy)
+
+        if (min.teacherType == 1) {
+            val min3 = MineFunctionBean("授课场馆", R.drawable.mine_cgyy)
+            fuctionBean.add(min3)
+        }
+
         val min4 = MineFunctionBean("授课时间", R.drawable.mine_sksj)
         val min5 = MineFunctionBean("问题反馈", R.drawable.mine_wtfc)
         val min6 = MineFunctionBean("设置", R.drawable.setting)
         fuctionBean.add(min1)
         fuctionBean.add(min2)
-        fuctionBean.add(min3)
+
         fuctionBean.add(min4)
         fuctionBean.add(min5)
         fuctionBean.add(min6)
@@ -70,7 +90,7 @@ class MineFragment : BaseFragment() {
         gv_function.adapter = functionAdapter
 
         gv_function.setOnItemClickListener { parent, view, position, id ->
-            if(BaseUtils.isFastClick()){
+            if (BaseUtils.isFastClick()) {
                 when (fuctionBean[position].name) {
                     "钱包" -> {
                         val intent = Intent(activity, WalletActivity::class.java)
@@ -96,16 +116,41 @@ class MineFragment : BaseFragment() {
                 }
             }
         }
-        tv_user_Name.text = ""
-        tv_score.text = ""
-        tv_teacher_tips.text = ""
+        tv_user_Name.text = min.name
+        tv_score.text = "${min.finalGrade}分"
+        tv_teacher_tips.text = min.tips
 
-        tv_service_time.text = ""
-        tv_team_num.text = ""
-        tv_teacher_num.text = ""
+        tv_service_time.text = "${min.serviceDur}h"
+        tv_team_num.text = "${min.classTotal}"
+        tv_teacher_num.text = "${min.privateTotal}"
+        Glide.with(activity)
+            .load(min.logoUrl)
+            .into(iv_logo)
+
         tv_month_money.text = ""
         tv_team_money.text = ""
         tv_price_money.text = ""
+    }
+
+    private fun requestData() {
+        val params = HashMap<String, Any>()
+//        params["teacherNum"] = SpUtils.getString(activity,AppConstants.USER_NAME)
+        params["userNum"] = SpUtils.getString(activity, AppConstants.USER_NAME)
+
+        val subscription = Network.getInstance("场馆列表", activity)
+            .coachUserHome(
+                params,
+                ProgressSubscriber("场馆列表", object : SubscriberOnNextListener<Bean<MineBean>> {
+                    override fun onNext(result: Bean<MineBean>) {
+                        setting(result.data)
+                    }
+
+                    override fun onError(error: String) {
+
+                    }
+                }, activity, false)
+            )
+
     }
 
     private fun onClick() {
