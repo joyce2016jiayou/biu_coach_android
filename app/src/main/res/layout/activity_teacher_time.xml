@@ -93,117 +93,50 @@
             android:layout_marginLeft="@dimen/m11"
             android:layout_marginRight="@dimen/m11"
             app:shadowSize="@dimen/m2"
-            android:layout_marginTop="@dimen/m26"
+            android:layout_marginTop="@dimen/m6"
             android:gravity="center"
             android:layout_height="wrap_content">
-        <LinearLayout
+
+        <RelativeLayout
                 android:layout_width="match_parent"
                 android:orientation="vertical"
-                android:layout_height="@dimen/m167">
+                android:layout_height="@dimen/m58">
 
             <TextView
+                    android:id="@+id/tv1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/tv85"
-                    android:layout_gravity="center_horizontal"
-                    android:textColor="@color/top_heiziti"
-                    android:layout_marginTop="@dimen/m10"
                     android:textSize="15sp"
+                    android:layout_marginLeft="@dimen/m14"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/top_heiziti"
+                    android:text="@string/tv144"
                     />
 
             <TextView
+                    android:layout_toRightOf="@+id/tv1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/tv86"
-                    android:layout_marginLeft="@dimen/m10"
-                    android:textColor="@color/color_4A4A4A"
-                    android:layout_marginTop="@dimen/m10"
                     android:textSize="13sp"
+                    android:layout_marginLeft="@dimen/m10"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/top_heiziti"
+                    android:text="@string/tv145"
                     />
 
-            <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="@dimen/m9"
-                    android:layout_height="wrap_content">
 
-                <LinearLayout
-                        android:layout_width="@dimen/m166"
-                        android:background="@drawable/lv_bg"
-                        android:orientation="horizontal"
-                        android:gravity="center"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/m9"
-                        android:layout_height="@dimen/m32">
-
-                    <TextView
-                            android:id="@+id/start_time_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="时间"
-                            android:textSize="13sp"
-                            android:textColor="@color/color_929292"
-                            />
-
-                    <LinearLayout
-                            android:layout_marginLeft="@dimen/m1"
-                            android:layout_width="@dimen/m35"
-                            android:background="@color/color_929292"
-                            android:layout_marginRight="@dimen/m1"
-                            android:layout_height="@dimen/m1"/>
-
-                    <TextView
-                            android:id="@+id/end_time_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="时间"
-                            android:textSize="13sp"
-                            android:textColor="@color/color_929292"
-                            />
-                </LinearLayout>
-
-                <LinearLayout
-                        android:id="@+id/select_time_btn"
-                        android:layout_width="@dimen/m74"
-                        android:background="@drawable/select_shijian_bg"
-                        android:orientation="horizontal"
-                        android:gravity="center"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="@dimen/m10"
-                        android:layout_centerVertical="true"
-                        android:layout_height="@dimen/m32">
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="选择时间"
-                            android:textSize="13sp"
-                            android:textColor="@color/color_lan"
-                            />
-
-                </LinearLayout>
-
-            </RelativeLayout>
-
-
-            <LinearLayout
-                    android:layout_width="@dimen/m74"
-                    android:background="@drawable/add_bg"
-                    android:orientation="horizontal"
-                    android:layout_gravity="bottom|center_horizontal"
-                    android:gravity="center"
-                    android:layout_marginTop="@dimen/m29"
-                    android:layout_height="@dimen/m32">
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/tv87"
-                        android:textSize="13sp"
-                        android:textColor="@color/white"
-                        />
-
-            </LinearLayout>
-        </LinearLayout>
+            <TextView
+                    android:id="@+id/shouke_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text=""
+                    android:layout_centerVertical="true"
+                    android:textSize="13sp"
+                    android:layout_marginRight="@dimen/m14"
+                    android:textColor="@color/color_lan"
+                    />
+        </RelativeLayout>
     </www.linwg.org.lib.LCardView>
 
     <www.linwg.org.lib.LCardView
@@ -214,14 +147,14 @@
             android:layout_marginLeft="@dimen/m11"
             android:layout_marginRight="@dimen/m11"
             app:shadowSize="@dimen/m2"
-            android:visibility="gone"
-            android:layout_marginTop="@dimen/m26"
+            android:layout_marginTop="@dimen/m6"
             android:gravity="center"
             android:layout_height="wrap_content">
+
         <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="vertical"
-                android:layout_height="@dimen/m167">
+                android:layout_height="wrap_content">
 
             <TextView
                     android:layout_width="wrap_content"
@@ -247,6 +180,7 @@
                     android:layout_width="match_parent"
                     android:layout_marginTop="@dimen/m9"
                     android:layout_height="wrap_content">
+
                 <LinearLayout
                         android:id="@+id/select_date_bg"
                         android:layout_width="@dimen/m98"
@@ -258,6 +192,7 @@
                         android:layout_height="@dimen/m32">
 
                     <TextView
+                            android:id="@+id/select_date_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Y/M/D"
@@ -269,6 +204,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                        android:id="@+id/select_time_layout"
                         android:layout_toRightOf="@+id/select_date_bg"
                         android:layout_width="@dimen/m126"
                         android:background="@drawable/lv_bg"
@@ -279,6 +215,7 @@
                         android:layout_height="@dimen/m32">
 
                     <TextView
+                            android:id="@+id/select_start_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="时间"
@@ -294,6 +231,7 @@
                             android:layout_height="@dimen/m1"/>
 
                     <TextView
+                            android:id="@+id/select_end_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="时间"
@@ -303,6 +241,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                        android:id="@+id/add_time_btn"
                         android:layout_width="@dimen/m47"
                         android:background="@drawable/select_shijian_bg"
                         android:orientation="horizontal"
@@ -324,14 +263,20 @@
 
             </RelativeLayout>
 
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
             <LinearLayout
+                    android:id="@+id/save_btn"
                     android:layout_width="@dimen/m74"
                     android:background="@drawable/add_bg"
                     android:orientation="horizontal"
                     android:layout_gravity="bottom|center_horizontal"
                     android:gravity="center"
                     android:layout_marginTop="@dimen/m29"
+                    android:layout_marginBottom="@dimen/m16"
                     android:layout_height="@dimen/m32">
 
                 <TextView

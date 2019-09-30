@@ -278,9 +278,6 @@ public class YueKeInformationActivity extends BaseActivity {
 //                thread.start();
 
                 handler.sendEmptyMessage(0);
-
-
-
             }
         })
                 /*.setType(TimePickerView.Type.ALL)//default is all

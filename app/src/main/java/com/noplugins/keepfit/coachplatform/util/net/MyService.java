@@ -30,6 +30,7 @@ public interface MyService {
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("sendCode")
     Observable<Bean<String>> get_yanzhengma(@Body RequestBody json);
+
     /**
      * 密码登陆
      *
@@ -38,6 +39,7 @@ public interface MyService {
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("passWordLogin")
     Observable<Bean<LoginBean>> password_login(@Body RequestBody json);
+
     /**
      * 验证验证码
      *
@@ -46,6 +48,7 @@ public interface MyService {
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("verifyCode")
     Observable<Bean<YanZhengMaBean>> yanzheng_yanzhengma(@Body RequestBody json);
+
     /**
      * 设置密码
      *
@@ -54,6 +57,7 @@ public interface MyService {
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("setPassword")
     Observable<Bean<String>> set_password(@Body RequestBody json);
+
     /**
      * 提交信息
      *
@@ -235,5 +239,31 @@ public interface MyService {
     @POST("updateCoachHome")
     Observable<Bean<String>> updateCoachHome(@Body RequestBody json);
 
+    /**
+     * 设置授课时间
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("saveCocahTeacherWorkTime")
+    Observable<Bean<String>> set_shouke_time(@Body RequestBody json);
+
+
+    /**
+     * 获取全部时间
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("getCocahTeacherSetTime")
+    Observable<Bean<ReturnTimeBean>> get_all_time(@Body RequestBody json);
+    /**
+     * 设置忙碌时间
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("saveCocahTeacherHaveRestTime")
+    Observable<Bean<BusyTimeBean>> save_time(@Body RequestBody json);
 
 }

@@ -392,4 +392,26 @@ public class Network {
     }
 
 
+    public Subscription get_all_time(Map<String, Object> params, Subscriber<Bean<ReturnTimeBean>> subscriber) {
+        return service.get_all_time(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+    public Subscription set_shouke_time(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
+        return service.set_shouke_time(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+    public Subscription save_time(Map<String, Object> params, Subscriber<Bean<BusyTimeBean>> subscriber) {
+        return service.save_time(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
 }
