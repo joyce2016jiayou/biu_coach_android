@@ -13,7 +13,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.noplugins.keepfit.coachplatform.R;
 import com.noplugins.keepfit.coachplatform.adapter.TabItemAdapter;
+import com.noplugins.keepfit.coachplatform.fragment.message.MessageCgFragment;
 import com.noplugins.keepfit.coachplatform.fragment.message.MessageClassFragment;
+import com.noplugins.keepfit.coachplatform.fragment.message.MessageQianbaoFragment;
+import com.noplugins.keepfit.coachplatform.fragment.message.MessageSystemFragment;
 import com.noplugins.keepfit.coachplatform.util.MessageEvent;
 import com.noplugins.keepfit.coachplatform.util.ui.ViewPagerFragment;
 import org.greenrobot.eventbus.Subscribe;
@@ -98,9 +101,9 @@ public class MessageFragment extends ViewPagerFragment {
     private void initView() {
         mFragments = new ArrayList<>();
         mFragments.add(MessageClassFragment.Companion.newInstance("课程"));
-        mFragments.add(MessageClassFragment.Companion.newInstance("场馆"));
-        mFragments.add(MessageClassFragment.Companion.newInstance("钱包"));
-        mFragments.add(MessageClassFragment.Companion.newInstance("系统"));
+        mFragments.add(MessageCgFragment.Companion.newInstance("场馆"));
+        mFragments.add(MessageQianbaoFragment.Companion.newInstance("钱包"));
+        mFragments.add(MessageSystemFragment.Companion.newInstance("系统"));
 
         class_message_layout.setOnClickListener(onClickListener);
         system_message_layout.setOnClickListener(onClickListener);

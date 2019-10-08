@@ -437,4 +437,29 @@ public class Network {
                 .subscribe(subscriber);
     }
 
+    public Subscription coachMessageList(Map<String, Object> params, Subscriber<Bean<MessageListBean>> subscriber) {
+        return service.coachMessageList(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public Subscription readMessage(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
+        return service.readMessage(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public Subscription messageTotalCount(Map<String, Object> params, Subscriber<Bean<MaxMessageEntity>> subscriber) {
+        return service.messageTotalCount(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+
 }

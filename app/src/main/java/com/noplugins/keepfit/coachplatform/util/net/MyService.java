@@ -300,5 +300,31 @@ public interface MyService {
     @POST("getCheckResult")
     Observable<Bean<String>>  getCheckResult(@Body RequestBody json);
 
+    /**
+     * 消息列表
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("coachMessageList")
+    Observable<Bean<MessageListBean>>  coachMessageList(@Body RequestBody json);
+
+    /**
+     * 读消息
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("readMessage")
+    Observable<Bean<String>>  readMessage(@Body RequestBody json);
+
+    /**
+     * 消息总数
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("messageTotalCount")
+    Observable<Bean<MaxMessageEntity>>  messageTotalCount(@Body RequestBody json);
 
 }

@@ -11,6 +11,7 @@ import com.google.gson.Gson
 import com.noplugins.keepfit.coachplatform.adapter.ContentPagerAdapterMy
 import com.noplugins.keepfit.coachplatform.base.BaseActivity
 import com.noplugins.keepfit.coachplatform.base.MyApplication
+import com.noplugins.keepfit.coachplatform.bean.MaxMessageEntity
 import com.noplugins.keepfit.coachplatform.fragment.MessageFragment
 import com.noplugins.keepfit.coachplatform.fragment.MineFragment
 import com.noplugins.keepfit.coachplatform.fragment.ScheduleFragment
@@ -22,6 +23,7 @@ import com.noplugins.keepfit.coachplatform.util.data.SharedPreferencesHelper
 import com.noplugins.keepfit.coachplatform.util.net.Network
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
 import com.noplugins.keepfit.coachplatform.util.net.progress.GsonSubscriberOnNextListener
+import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriberNew
 import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
 import com.orhanobut.logger.Logger
@@ -78,7 +80,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         MyApplication.addDestoryActivity(this, "MainActivity")
 
         //获取消息总数，设置消息总数
-        //get_message_all()
+        get_message_all()
 
         loginSuccess()
     }
@@ -155,14 +157,14 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             }
 
             R.id.btn_movie -> {
-                viewpager_content.currentItem = 2
+                viewpager_content.currentItem = 1
                 xianshi_two()
                 home_name.setTextColor(resources.getColor(R.color.contents_text))
                 movie_name.setTextColor(resources.getColor(R.color.btn_text_color))
                 mine_name.setTextColor(resources.getColor(R.color.contents_text))
             }
             R.id.btn_mine -> {
-                viewpager_content.currentItem = 3
+                viewpager_content.currentItem = 2
                 xianshi_three()
                 home_name.setTextColor(resources.getColor(R.color.contents_text))
                 movie_name.setTextColor(resources.getColor(R.color.contents_text))
@@ -196,7 +198,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun upadate(messageEvent: MessageEvent) {
         if (messageEvent.message == "update_message_num") {//获取消息总数，设置消息总数
-            //get_message_all()
+            get_message_all()
         }
     }
 
@@ -206,56 +208,34 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     }
 
 
-//    private fun get_message_all() {
-//        val params = HashMap<String, String>()
-//        if ("" == SpUtils.getString(this!!, AppConstants.USER_NAME)) {
-//
-//        } else {
-//            val user_id = SpUtils.getString(this!!, AppConstants.USER_NAME)
-//            params["userNum"] = user_id//用户编号
-//        }
-//        val gson = Gson()
-//        val json_params = gson.toJson(params)
-//        val json = Gson().toJson(params)//要传递的json
-//        val requestBody = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json)
-//        Log.e(TAG, "获取消息总数参数：$json_params")
-//        subscription = Network.getInstance("获取消息总数", applicationContext)
-//            .get_message_all(
-//                requestBody,
-//                ProgressSubscriberNew(
-//                    MaxMessageEntity::class.java,
-//                    object : GsonSubscriberOnNextListener<MaxMessageEntity> {
-//                        override fun on_post_entity(maxMessageEntity: MaxMessageEntity, get_message_id: String) {
-//                            Log.e(TAG, "获取消息总数成功：" + maxMessageEntity.getNoRead())
-//                            //设置消息总数
-//                            if (maxMessageEntity.getNoRead() > 0) {
-//                                message_view.visibility = View.VISIBLE
-//                                if (maxMessageEntity.getNoRead() > 99) {
-//                                    message_num_tv.text = "99+"
-//                                } else {
-//                                    message_num_tv.text = maxMessageEntity.getNoRead().toString()
-//                                }
-//                            } else {
-//                                message_view.visibility = View.GONE
-//                            }
-//
-//                        }
-//                    },
-//                    object : SubscriberOnNextListener<Bean<Any>> {
-//                        override fun onNext(result: Bean<Any>) {
-//
-//                        }
-//
-//                        override fun onError(error: String) {
-//                            Logger.e(TAG, "获取获取场馆消息总数报错：$error")
-//                            //Toast.makeText(getApplicationContext(), "获取审核状态失败！", Toast.LENGTH_SHORT).show();
-//                        }
-//                    },
-//                    this,
-//                    true
-//                )
-//            )
-//    }
+    private fun get_message_all() {
+        val params = HashMap<String, Any>()
+        params["userNum"]  = SpUtils.getString(applicationContext, AppConstants.USER_NAME)
+        subscription = Network.getInstance("获取消息总数", applicationContext)
+            .messageTotalCount(params,
+                ProgressSubscriber("读消息", object : SubscriberOnNextListener<Bean<MaxMessageEntity>> {
+                    override fun onNext(result: Bean<MaxMessageEntity>) {
+                        Log.e(TAG, "获取消息总数成功：" + result.data.noRead)
+                        //设置消息总数
+                        if (result.data.noRead > 0) {
+                            message_view.visibility = View.VISIBLE
+                            if (result.data.noRead > 99) {
+                                message_num_tv.text = "99+"
+                            } else {
+                                message_num_tv.text = result.data.noRead.toString()
+                            }
+                        } else {
+                            message_view.visibility = View.GONE
+                        }
+                    }
+
+                    override fun onError(error: String) {
+
+
+                    }
+                }, this, false)
+            )
+    }
 
 
 }
