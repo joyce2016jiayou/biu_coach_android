@@ -50,6 +50,10 @@ class MessageCgFragment : BaseFragment(){
         initAdapter()
     }
 
+    override fun onFragmentFirstVisible() {
+        super.onFragmentFirstVisible()
+        requestData()
+    }
 
     private fun initAdapter(){
         adapter = MessageAdapter(data)

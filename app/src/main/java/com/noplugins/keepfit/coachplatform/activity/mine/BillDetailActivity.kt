@@ -6,6 +6,7 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -62,7 +63,8 @@ class BillDetailActivity : BaseActivity() {
         layoutManager = LinearLayoutManager(this)
         rv_list.layoutManager = layoutManager
         rv_list.adapter = adapter
-
+        val view = LayoutInflater.from(this).inflate(R.layout.enpty_view, rv_list, false)
+        adapter!!.emptyView = view
         adapter!!.setOnItemChildClickListener { adapter, view, position ->
             when(view.id){
                 R.id.ll_item -> {
@@ -104,7 +106,7 @@ class BillDetailActivity : BaseActivity() {
             Log.e("选择的时间", date.toString())
             val select_year = date.year + 1900
             var select_month = date.month.toString() + ""
-            if (Integer.valueOf(select_month) <= 9) {
+            if (Integer.valueOf(select_month) < 9) {
                 select_month = "0" + (date.month + 1)
             } else {
                 select_month = "" + (date.month + 1)
@@ -122,6 +124,7 @@ class BillDetailActivity : BaseActivity() {
                 }
                 quxiao_btn.setOnClickListener { pvCustomTime.dismiss() }
             }
+
             .setContentTextSize(20)
             .setType(booleanArrayOf(true, true, false, false, false, false))
             .setLabel("  年", "  月", "  日", "  时", "  分", "  秒")
