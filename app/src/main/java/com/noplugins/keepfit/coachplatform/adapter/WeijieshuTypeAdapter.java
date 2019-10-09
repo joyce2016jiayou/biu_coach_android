@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.huantansheng.easyphotos.EasyPhotos;
 import com.noplugins.keepfit.coachplatform.R;
 import com.noplugins.keepfit.coachplatform.bean.ClassDateBean;
+import com.noplugins.keepfit.coachplatform.bean.ScheduleBean;
 import com.noplugins.keepfit.coachplatform.fragment.ScheduleFragment;
 import com.noplugins.keepfit.coachplatform.fragment.StepOneFragment;
 import com.noplugins.keepfit.coachplatform.util.GlideEngine;
@@ -35,15 +36,15 @@ public class WeijieshuTypeAdapter extends BaseAdapter implements EasyPermissions
     public static final String PERMISSION_STORAGE_MSG = "需要电话权限才能联系客服哦";
     public static final String[] PERMISSION_STORAGE = new String[]{Manifest.permission.CALL_PHONE};
 
-    private List<String> list;
+    private List<ScheduleBean.NoEndCourseBean> list;
 
-    public WeijieshuTypeAdapter(List<String> mlist, ScheduleFragment m_scheduleFragment) {
+    public WeijieshuTypeAdapter(List<ScheduleBean.NoEndCourseBean> mlist, ScheduleFragment m_scheduleFragment) {
         this.scheduleFragment = m_scheduleFragment;
         this.list = mlist;
         this.inflater = LayoutInflater.from(scheduleFragment.getContext());
     }
 
-    public void setList(List<String> list) {
+    public void setList(List<ScheduleBean.NoEndCourseBean> list) {
         this.list = list;
     }
 
@@ -82,15 +83,21 @@ public class WeijieshuTypeAdapter extends BaseAdapter implements EasyPermissions
         } else {
             holder = (viewHolder) convertView.getTag();
         }
+        ScheduleBean.NoEndCourseBean noEndCourseBean = list.get(position);
 
-        holder.changguan_name.setText(list.get(position));
-        if (position == 0) {
+        holder.changguan_name.setText(noEndCourseBean.getAreaName());
+        holder.time_tv.setText(noEndCourseBean.getCourseTime());
+        holder.class_type.setText(noEndCourseBean.getTeacherCourseType());
+
+        //设置是否签到
+        if (noEndCourseBean.getCheckIn() == 1) {//已签到
+            holder.status_img.setImageResource(R.drawable.weikaishi_icon);
+            holder.button_tv.setText("已签");
+            holder.button_tv.setTextColor(scheduleFragment.getResources().getColor(R.color.color_929292));
+        } else {//未签到
+            holder.status_img.setImageResource(R.drawable.yiqiandao);
             holder.button_tv.setText("签到");
             holder.button_tv.setTextColor(scheduleFragment.getResources().getColor(R.color.color_lan));
-            //如果是私教
-            holder.type_icon_tv.setText("私");
-            holder.phone_or_name_tv.setText("古巨基");
-            holder.type_icon_bg.setBackgroundResource(R.drawable.si_bg);
             //点击签到
             holder.button_bg.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -100,23 +107,39 @@ public class WeijieshuTypeAdapter extends BaseAdapter implements EasyPermissions
                     holder.button_tv.setTextColor(scheduleFragment.getResources().getColor(R.color.color_929292));
                 }
             });
-            //点击打电话
-            holder.phone_img.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    call_pop(holder.phone_img);
-
-                }
-            });
-        } else {
-            holder.button_tv.setText("已签");
-            holder.button_tv.setTextColor(scheduleFragment.getResources().getColor(R.color.color_929292));
         }
+
+        //设置是否是团课
+        if (noEndCourseBean.getCourseType() == 1) {//团课
+            holder.type_icon_tv.setText("团");
+            holder.type_icon_bg.setBackgroundResource(R.drawable.tuan_bg);
+            holder.phone_or_name_tv.setVisibility(View.VISIBLE);
+            holder.phone_or_name_tv.setText(noEndCourseBean.getPersonNum()+"人");
+            holder.phone_img.setVisibility(View.GONE);
+
+        } else {//私教
+            holder.type_icon_tv.setText("私");
+            holder.type_icon_bg.setBackgroundResource(R.drawable.si_bg);
+            holder.phone_or_name_tv.setVisibility(View.GONE);
+            holder.phone_img.setVisibility(View.VISIBLE);
+
+        }
+
+        //点击打电话
+        holder.phone_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                call_pop(holder.phone_img, noEndCourseBean.getUserPhone());
+            }
+        });
+
+
+
 
         return convertView;
     }
 
-    private void call_pop(ImageView phone_img) {
+    private void call_pop(ImageView phone_img, String phone_number) {
         CommonPopupWindow popupWindow = new CommonPopupWindow.Builder(scheduleFragment.getContext())
                 .setView(R.layout.call_pop)
                 .setBackGroundLevel(0.5f)//0.5f
@@ -140,7 +163,7 @@ public class WeijieshuTypeAdapter extends BaseAdapter implements EasyPermissions
         sure_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                initSimple();
+                initSimple(phone_number);
                 popupWindow.dismiss();
             }
         });
@@ -149,10 +172,10 @@ public class WeijieshuTypeAdapter extends BaseAdapter implements EasyPermissions
     }
 
     @AfterPermissionGranted(PERMISSION_STORAGE_CODE)
-    public void initSimple() {
+    public void initSimple(String user_phone) {
         if (hasStoragePermission(scheduleFragment.getContext())) {
             //有权限
-            callPhone("10010");
+            callPhone(user_phone);
         } else {
             //申请权限
             EasyPermissions.requestPermissions(scheduleFragment, PERMISSION_STORAGE_MSG, PERMISSION_STORAGE_CODE, PERMISSION_STORAGE);

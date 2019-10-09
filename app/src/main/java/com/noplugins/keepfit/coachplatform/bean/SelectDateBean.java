@@ -49,4 +49,14 @@ public class SelectDateBean {
 
     private String date;
 
+    public String getCurrent_date() {
+        return current_date;
+    }
+
+    public void setCurrent_date(String current_date) {
+        this.current_date = current_date;
+    }
+
+    private String current_date;
+
 }

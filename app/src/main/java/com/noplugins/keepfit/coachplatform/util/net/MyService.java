@@ -39,6 +39,7 @@ public interface MyService {
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("passWordLogin")
     Observable<Bean<LoginBean>> password_login(@Body RequestBody json);
+
     /**
      * 验证验证码
      *
@@ -256,6 +257,7 @@ public interface MyService {
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("getCocahTeacherSetTime")
     Observable<Bean<ReturnTimeBean>> get_all_time(@Body RequestBody json);
+
     /**
      * 设置忙碌时间
      *
@@ -264,6 +266,7 @@ public interface MyService {
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("saveCocahTeacherHaveRestTime")
     Observable<Bean<BusyTimeBean>> save_time(@Body RequestBody json);
+
     /**
      * 忘记密码
      *
@@ -271,7 +274,7 @@ public interface MyService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("forgetPassword")
-    Observable<Bean<String>>  forgetPassword(@Body RequestBody json);
+    Observable<Bean<String>> forgetPassword(@Body RequestBody json);
 
     /**
      * 修改手机号
@@ -280,7 +283,7 @@ public interface MyService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("updatePhone")
-    Observable<Bean<String>>  updatePhone(@Body RequestBody json);
+    Observable<Bean<String>> updatePhone(@Body RequestBody json);
 
     /**
      * 设置提现密码
@@ -289,7 +292,7 @@ public interface MyService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("settingPayPassword")
-    Observable<Bean<String>>  settingPayPassword(@Body RequestBody json);
+    Observable<Bean<String>> settingPayPassword(@Body RequestBody json);
 
     /**
      * 教练类型管理
@@ -298,7 +301,7 @@ public interface MyService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("getCheckResult")
-    Observable<Bean<String>>  getCheckResult(@Body RequestBody json);
+    Observable<Bean<String>> getCheckResult(@Body RequestBody json);
 
     /**
      * 消息列表
@@ -307,7 +310,7 @@ public interface MyService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("coachMessageList")
-    Observable<Bean<MessageListBean>>  coachMessageList(@Body RequestBody json);
+    Observable<Bean<MessageListBean>> coachMessageList(@Body RequestBody json);
 
     /**
      * 读消息
@@ -316,7 +319,7 @@ public interface MyService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("readMessage")
-    Observable<Bean<String>>  readMessage(@Body RequestBody json);
+    Observable<Bean<String>> readMessage(@Body RequestBody json);
 
     /**
      * 消息总数
@@ -325,6 +328,16 @@ public interface MyService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("messageTotalCount")
-    Observable<Bean<MaxMessageEntity>>  messageTotalCount(@Body RequestBody json);
+    Observable<Bean<MaxMessageEntity>> messageTotalCount(@Body RequestBody json);
+
+    /**
+     * 消息总数
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("findSchedule")
+    Observable<Bean<ScheduleBean>> get_shouye_date(@Body RequestBody json);
+
 
 }

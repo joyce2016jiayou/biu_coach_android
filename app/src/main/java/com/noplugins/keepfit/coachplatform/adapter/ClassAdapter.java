@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.andview.refreshview.recyclerview.BaseRecyclerAdapter;
 import com.noplugins.keepfit.coachplatform.R;
 import com.noplugins.keepfit.coachplatform.bean.ClassDateBean;
+import com.noplugins.keepfit.coachplatform.bean.ScheduleBean;
 import com.noplugins.keepfit.coachplatform.bean.SelectDateBean;
 import com.noplugins.keepfit.coachplatform.fragment.ScheduleFragment;
 import com.noplugins.keepfit.coachplatform.util.ui.MyListView;
@@ -21,7 +22,6 @@ import java.util.Map;
 import java.util.WeakHashMap;
 
 public class ClassAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder> {
-    private List<ClassDateBean> list;
     private static final int EMPTY_VIEW = 2;
     private static final int TYPE_YOUTANG = 1;
     private static final int WEIJIESHU_VIEW = 3;
@@ -29,8 +29,9 @@ public class ClassAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder> {
     private List<Integer> weijieshu_status_map = new ArrayList<>();
     private List<Integer> yijieshu_status_map = new ArrayList<>();
     ScheduleFragment scheduleFragment;
-    public ClassAdapter(List<ClassDateBean> mlist, ScheduleFragment  m_scheduleFragment) {
-        list = mlist;
+    List<ClassDateBean> classDateBeans;
+    public ClassAdapter(List<ClassDateBean> m_classDateBean, ScheduleFragment m_scheduleFragment) {
+        classDateBeans = m_classDateBean;
         scheduleFragment = m_scheduleFragment;
     }
 
@@ -67,7 +68,6 @@ public class ClassAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder> {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder view_holder, int position, boolean isItem) {
-        ClassDateBean classDateBean = list.get(position);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,17 +77,29 @@ public class ClassAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder> {
                 }
             }
         });
-
+        ClassDateBean classDateBean = classDateBeans.get(position);
         if (view_holder instanceof WeiJieShuViewHolder) {
             WeiJieShuViewHolder holder = (WeiJieShuViewHolder) view_holder;
             holder.status_tv.setText("未结束");
-            WeijieshuTypeAdapter weijieshuTypeAdapter = new WeijieshuTypeAdapter(classDateBean.getWeijieshu_list(),scheduleFragment);
-            holder.listview.setAdapter(weijieshuTypeAdapter);
+            if(classDateBean.getWeijieshu_list().size()>0){
+                holder.status_tv.setVisibility(View.VISIBLE);
+                WeijieshuTypeAdapter weijieshuTypeAdapter = new WeijieshuTypeAdapter(classDateBean.getWeijieshu_list(), scheduleFragment);
+                holder.listview.setAdapter(weijieshuTypeAdapter);
+            }else{
+                holder.status_tv.setVisibility(View.GONE);
+            }
+
         } else if (view_holder instanceof YiJieShuViewHolder) {
             YiJieShuViewHolder holder = (YiJieShuViewHolder) view_holder;
             holder.status_tv.setText("已结束");
-            YiJieShuTypeAdapter yiJieShuTypeAdapter = new YiJieShuTypeAdapter(classDateBean.getYijieshu_list(),scheduleFragment);
-            holder.listview.setAdapter(yiJieShuTypeAdapter);
+            if(classDateBean.getYijieshu_list().size()>0){
+                holder.status_tv.setVisibility(View.VISIBLE);
+                YiJieShuTypeAdapter yiJieShuTypeAdapter = new YiJieShuTypeAdapter(classDateBean.getYijieshu_list(), scheduleFragment);
+                holder.listview.setAdapter(yiJieShuTypeAdapter);
+            }else{
+                holder.status_tv.setVisibility(View.GONE);
+            }
+
         }
 
 
@@ -105,24 +117,26 @@ public class ClassAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getAdapterItemViewType(int position) {
-        if (list.size() == 0) {
+        if (classDateBeans.get(position).getWeijieshu_list().size()== 0&&classDateBeans.get(position).getYijieshu_list().size()==0) {
             return EMPTY_VIEW;
-        } else if (list.get(position).getType().equals("未结束")) {
-            return WEIJIESHU_VIEW;
         } else {
-            return YIJIESHU_VIEW;
+            if (classDateBeans.get(position).getType().equals("未结束")) {
+                return WEIJIESHU_VIEW;
+            } else {
+                return YIJIESHU_VIEW;
+            }
         }
     }
 
 
     @Override
     public int getAdapterItemCount() {
-        return list.size() > 0 ? list.size() : 1;
+        return classDateBeans.size() > 0 ? classDateBeans.size() : 0;
     }
 
 
     public void setData(List<ClassDateBean> list) {
-        this.list = list;
+        this.classDateBeans = list;
         notifyDataSetChanged();
     }
 

@@ -149,14 +149,14 @@ public class Network {
 
         retrofit = new Retrofit.Builder()
                 .client(client)
-                .baseUrl(get_main_url("main"))//设置请求网址根部
+                .baseUrl(get_main_url("test"))//设置请求网址根部
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
 
         get_tag_retrofit = new Retrofit.Builder()
                 .client(client)
-                .baseUrl(get_changguang_url("main"))//设置请求网址根部
+                .baseUrl(get_changguang_url("test"))//设置请求网址根部
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
@@ -186,7 +186,6 @@ public class Network {
     }
 
 
-
     public Subscription get_yanzhengma(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
         return service.get_yanzhengma(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
@@ -202,6 +201,7 @@ public class Network {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
+
     public Subscription yanzheng_yanzhengma(Map<String, Object> params, Subscriber<Bean<YanZhengMaBean>> subscriber) {
         return service.yanzheng_yanzhengma(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
@@ -209,6 +209,7 @@ public class Network {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
+
     public Subscription set_password(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
         return service.set_password(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
@@ -232,6 +233,7 @@ public class Network {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
+
     public Subscription courseDetail(Map<String, Object> params, Subscriber<Bean<ManagerTeamBean>> subscriber) {
         return service.courseDetail(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
@@ -288,6 +290,7 @@ public class Network {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
+
     public Subscription yuekeInformation(Map<String, Object> params, Subscriber<Bean<YueKeBean>> subscriber) {
         return service.yuekeInformation(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
@@ -303,6 +306,7 @@ public class Network {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
+
     public Subscription myBalanceList(Map<String, Object> params, Subscriber<Bean<BalanceListBean>> subscriber) {
         return service.myBalanceList(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
@@ -398,6 +402,7 @@ public class Network {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
+
     public Subscription updatePhone(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
         return service.updatePhone(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
@@ -405,6 +410,7 @@ public class Network {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
+
     public Subscription settingPayPassword(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
         return service.settingPayPassword(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
@@ -414,7 +420,6 @@ public class Network {
     }
 
 
-
     public Subscription get_all_time(Map<String, Object> params, Subscriber<Bean<ReturnTimeBean>> subscriber) {
         return service.get_all_time(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
@@ -422,6 +427,7 @@ public class Network {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
+
     public Subscription set_shouke_time(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
         return service.set_shouke_time(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
@@ -429,6 +435,7 @@ public class Network {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
+
     public Subscription save_time(Map<String, Object> params, Subscriber<Bean<BusyTimeBean>> subscriber) {
         return service.save_time(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
@@ -461,5 +468,12 @@ public class Network {
                 .subscribe(subscriber);
     }
 
+    public Subscription get_shouye_date(Map<String, Object> params, Subscriber<Bean<ScheduleBean>> subscriber) {
+        return service.get_shouye_date(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
 
 }

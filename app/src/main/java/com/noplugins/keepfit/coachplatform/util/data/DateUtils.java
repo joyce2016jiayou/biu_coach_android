@@ -28,11 +28,11 @@ public class DateUtils {
         if (Integer.parseInt(mDay) > MaxDayFromDay_OF_MONTH(Integer.parseInt(mYear), (Integer.parseInt(mMonth)))) {
             mDay = String.valueOf(MaxDayFromDay_OF_MONTH(Integer.parseInt(mYear), (Integer.parseInt(mMonth))));
         }
-        if(Integer.valueOf(mMonth)<=9){
-            mMonth="0"+mMonth;
+        if (Integer.valueOf(mMonth) <= 9) {
+            mMonth = "0" + mMonth;
         }
-        if(Integer.valueOf(mDay)<=9){
-            mDay = "0"+mDay;
+        if (Integer.valueOf(mDay) <= 9) {
+            mDay = "0" + mDay;
         }
         return mYear + "-" + mMonth + "-" + mDay;
     }
@@ -140,6 +140,20 @@ public class DateUtils {
                 selectDateBean.setWeek_str(weeksList.get(i));
 //                Log.e("获取到的往后的时间", mMonth + "/" + mDay);
 //                Log.e("获取到的往后星期", weeksList.get(i));
+                String current_month = "";
+                String current_date = "";
+                if (Integer.valueOf(mMonth) <= 9) {
+                    current_month = "0" + Integer.valueOf(mMonth);
+                } else {
+                    current_month = "" + Integer.valueOf(mMonth);
+                }
+                if (Integer.valueOf(mDay) <= 9) {
+                    current_date = "0" + Integer.valueOf(mDay);
+                } else {
+                    current_date = "" + Integer.valueOf(mDay);
+                }
+                selectDateBean.setCurrent_date(mYear + "-" + current_month + "-" + current_date);
+
                 dates.add(selectDateBean);
             }
             get_max_day = get_max_day - max_date_of_month;
@@ -277,9 +291,9 @@ public class DateUtils {
             SelectDateBean selectDateBean = new SelectDateBean();
             //Log.e("今天的日期",getDateString()+"打印今天的日期"+get_week_str);
             //判断日期是不是今天
-            if(getDateString().equals(get_week_str)){
+            if (getDateString().equals(get_week_str)) {
                 selectDateBean.setWeek_str("今天");
-            }else{
+            } else {
                 selectDateBean.setWeek_str(getDayOfWeekByDate(get_week_str));
             }
             selectDateBean.setMonth(month_str);
