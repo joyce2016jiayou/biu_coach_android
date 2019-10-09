@@ -66,12 +66,14 @@ public class AddTimeAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder>
                     notifyDataSetChanged();
                 }
             });
-            if(null==list.get(position).getBeg_date()){
+            if (null == list.get(position).getBegDate()) {
                 holder.date_tv.setText("今天");
-            }else{
-                holder.date_tv.setText(list.get(position).getBeg_date());
+            } else {
+                holder.date_tv.setText(list.get(position).getBegDate());
             }
-            holder.time_tv.setText(list.get(position).getBeg_time()+":"+list.get(position).getEnd_time());
+            String begin_time = list.get(position).getBegTime().substring(0,list.get(position).getBegTime().length()-3);
+            String end_time = list.get(position).getEndTime().substring(0,list.get(position).getEndTime().length()-3);
+            holder.time_tv.setText(begin_time + ":" + end_time);
         }
     }
 
@@ -109,6 +111,7 @@ public class AddTimeAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder>
 
     public class EmptyViewHolder extends RecyclerView.ViewHolder {
         public View view;
+
         public EmptyViewHolder(View item_view, boolean isItem) {
             super(item_view);
             if (isItem) {
@@ -123,7 +126,7 @@ public class AddTimeAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder>
     public class YouYangViewHolder extends RecyclerView.ViewHolder {
         public View view;
         ImageView delete_btn;
-        TextView date_tv,time_tv;
+        TextView date_tv, time_tv;
 
         public YouYangViewHolder(View itemView, boolean isItem) {
             super(itemView);

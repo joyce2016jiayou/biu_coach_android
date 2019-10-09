@@ -47,42 +47,45 @@ public class ReturnTimeBean {
              * beg_date : 2019-09-24
              */
 
-            private String end_date;
-            private String beg_time;
-            private String end_time;
-            private String beg_date;
+            private String endDate;
+            private String begTime;
+            private String endTime;
 
-            public String getEnd_date() {
-                return end_date;
+            public String getEndDate() {
+                return endDate;
             }
 
-            public void setEnd_date(String end_date) {
-                this.end_date = end_date;
+            public void setEndDate(String endDate) {
+                this.endDate = endDate;
             }
 
-            public String getBeg_time() {
-                return beg_time;
+            public String getBegTime() {
+                return begTime;
             }
 
-            public void setBeg_time(String beg_time) {
-                this.beg_time = beg_time;
+            public void setBegTime(String begTime) {
+                this.begTime = begTime;
             }
 
-            public String getEnd_time() {
-                return end_time;
+            public String getEndTime() {
+                return endTime;
             }
 
-            public void setEnd_time(String end_time) {
-                this.end_time = end_time;
+            public void setEndTime(String endTime) {
+                this.endTime = endTime;
             }
 
-            public String getBeg_date() {
-                return beg_date;
+            public String getBegDate() {
+                return begDate;
             }
 
-            public void setBeg_date(String beg_date) {
-                this.beg_date = beg_date;
+            public void setBegDate(String begDate) {
+                this.begDate = begDate;
             }
+
+            private String begDate;
+
+
         }
     }
 

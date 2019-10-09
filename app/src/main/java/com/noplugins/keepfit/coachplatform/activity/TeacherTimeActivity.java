@@ -103,13 +103,12 @@ public class TeacherTimeActivity extends BaseActivity {
                 } else {
                     ReturnTimeBean.RestTimeBean.DataBean restTimeBean = new ReturnTimeBean.RestTimeBean.DataBean();
                     if (select_date_tv.getText().equals("Y/M/D")) {
-                        restTimeBean.setBeg_date(null);
+                        restTimeBean.setBegDate(null);
                     } else {
-                        restTimeBean.setBeg_date(select_time_str);
-
+                        restTimeBean.setBegDate(select_time_str);
                     }
-                    restTimeBean.setBeg_time(select_start_time.getText().toString());
-                    restTimeBean.setEnd_time(select_end_time.getText().toString());
+                    restTimeBean.setBegTime(select_start_time.getText().toString() + ":00");
+                    restTimeBean.setEndTime(select_end_time.getText().toString() + ":00");
                     strings.add(restTimeBean);
                     if (null != addTimeAdapter) {
                         addTimeAdapter.notifyDataSetChanged();
@@ -118,8 +117,6 @@ public class TeacherTimeActivity extends BaseActivity {
                         recycler_time.setAdapter(addTimeAdapter);
                     }
                 }
-
-
             }
         });
 
@@ -195,6 +192,7 @@ public class TeacherTimeActivity extends BaseActivity {
     private void save_time() {
         Map<String, Object> params = new HashMap<>();
         params.put("teacherNum", SpUtils.getString(getApplicationContext(), AppConstants.SELECT_TEACHER_NUMBER));
+        params.put("restTime", strings);
         Subscription subscription = Network.getInstance("设置忙碌时间", this)
                 .save_time(params,
                         new ProgressSubscriber<>("设置忙碌时间", new SubscriberOnNextListener<Bean<BusyTimeBean>>() {
@@ -233,13 +231,13 @@ public class TeacherTimeActivity extends BaseActivity {
                 Log.e("选择的时间", date.toString());
                 int select_year = date.getYear() + 1900;
                 String select_month = date.getMonth() + "";
-                if (Integer.valueOf(select_month) <= 9) {
+                if (Integer.valueOf(select_month) < 9) {
                     select_month = "0" + (date.getMonth() + 1);
                 } else {
                     select_month = "" + (date.getMonth() + 1);
                 }
                 String select_date = date.getDate() + "";
-                if (Integer.valueOf(select_date) <= 9) {
+                if (Integer.valueOf(select_date) < 9) {
                     select_date = "0" + (date.getDate());
                 } else {
                     select_date = "" + (date.getDate());
@@ -329,8 +327,9 @@ public class TeacherTimeActivity extends BaseActivity {
                             @Override
                             public void onNext(Bean<ReturnTimeBean> result) {
                                 String begin_time = result.getData().getWorkTime().getData().getBegTime();
+
                                 String end_time = result.getData().getWorkTime().getData().getEndTime();
-                                shouke_tv.setText(begin_time + "-" + end_time);
+                                shouke_tv.setText(begin_time.substring(0, begin_time.length() - 3) + "-" + end_time.substring(0, end_time.length() - 3));
                                 strings.addAll(result.getData().getRestTime().getData());
                                 addTimeAdapter = new AddTimeAdapter(strings, TeacherTimeActivity.this);
                                 recycler_time.setAdapter(addTimeAdapter);
