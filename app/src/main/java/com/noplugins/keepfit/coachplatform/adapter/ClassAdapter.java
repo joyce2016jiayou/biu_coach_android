@@ -1,6 +1,7 @@
 package com.noplugins.keepfit.coachplatform.adapter;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ public class ClassAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder> {
     private List<Integer> yijieshu_status_map = new ArrayList<>();
     ScheduleFragment scheduleFragment;
     List<ClassDateBean> classDateBeans;
+
     public ClassAdapter(List<ClassDateBean> m_classDateBean, ScheduleFragment m_scheduleFragment) {
         classDateBeans = m_classDateBean;
         scheduleFragment = m_scheduleFragment;
@@ -77,30 +79,32 @@ public class ClassAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder> {
                 }
             }
         });
-        ClassDateBean classDateBean = classDateBeans.get(position);
-        if (view_holder instanceof WeiJieShuViewHolder) {
-            WeiJieShuViewHolder holder = (WeiJieShuViewHolder) view_holder;
-            holder.status_tv.setText("未结束");
-            if(classDateBean.getWeijieshu_list().size()>0){
-                holder.status_tv.setVisibility(View.VISIBLE);
-                WeijieshuTypeAdapter weijieshuTypeAdapter = new WeijieshuTypeAdapter(classDateBean.getWeijieshu_list(), scheduleFragment);
-                holder.listview.setAdapter(weijieshuTypeAdapter);
-            }else{
-                holder.status_tv.setVisibility(View.GONE);
-            }
+        if(classDateBeans.size()>0){
+            ClassDateBean classDateBean = classDateBeans.get(position);
+            if (view_holder instanceof WeiJieShuViewHolder) {
+                WeiJieShuViewHolder holder = (WeiJieShuViewHolder) view_holder;
+                holder.status_tv.setText("未结束");
+                if (classDateBean.getWeijieshu_list().size() > 0) {
+                    holder.status_tv.setVisibility(View.VISIBLE);
+                    WeijieshuTypeAdapter weijieshuTypeAdapter = new WeijieshuTypeAdapter(classDateBean.getWeijieshu_list(), scheduleFragment);
+                    holder.listview.setAdapter(weijieshuTypeAdapter);
+                } else {
+                    holder.status_tv.setVisibility(View.GONE);
+                }
 
-        } else if (view_holder instanceof YiJieShuViewHolder) {
-            YiJieShuViewHolder holder = (YiJieShuViewHolder) view_holder;
-            holder.status_tv.setText("已结束");
-            if(classDateBean.getYijieshu_list().size()>0){
-                holder.status_tv.setVisibility(View.VISIBLE);
-                YiJieShuTypeAdapter yiJieShuTypeAdapter = new YiJieShuTypeAdapter(classDateBean.getYijieshu_list(), scheduleFragment);
-                holder.listview.setAdapter(yiJieShuTypeAdapter);
-            }else{
-                holder.status_tv.setVisibility(View.GONE);
+            } else if (view_holder instanceof YiJieShuViewHolder) {
+                YiJieShuViewHolder holder = (YiJieShuViewHolder) view_holder;
+                holder.status_tv.setText("已结束");
+                if (classDateBean.getYijieshu_list().size() > 0) {
+                    holder.status_tv.setVisibility(View.VISIBLE);
+                    YiJieShuTypeAdapter yiJieShuTypeAdapter = new YiJieShuTypeAdapter(classDateBean.getYijieshu_list(), scheduleFragment);
+                    holder.listview.setAdapter(yiJieShuTypeAdapter);
+                } else {
+                    holder.status_tv.setVisibility(View.GONE);
+                }
             }
-
         }
+
 
 
     }
@@ -115,23 +119,26 @@ public class ClassAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder> {
         void onItemClick(View view, int position);
     }
 
+    int RETUEN_CODE;
+
     @Override
     public int getAdapterItemViewType(int position) {
-        if (classDateBeans.get(position).getWeijieshu_list().size()== 0&&classDateBeans.get(position).getYijieshu_list().size()==0) {
-            return EMPTY_VIEW;
+        if (classDateBeans.size() == 0) {
+            RETUEN_CODE = EMPTY_VIEW;
         } else {
             if (classDateBeans.get(position).getType().equals("未结束")) {
-                return WEIJIESHU_VIEW;
+                RETUEN_CODE = WEIJIESHU_VIEW;
             } else {
-                return YIJIESHU_VIEW;
+                RETUEN_CODE = YIJIESHU_VIEW;
             }
         }
+        return RETUEN_CODE;
     }
 
 
     @Override
     public int getAdapterItemCount() {
-        return classDateBeans.size() > 0 ? classDateBeans.size() : 0;
+        return classDateBeans.size() > 0 ? classDateBeans.size() : 1;
     }
 
 
@@ -143,11 +150,12 @@ public class ClassAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder> {
 
     public class EmptyViewHolder extends RecyclerView.ViewHolder {
         public View view;
-
         public EmptyViewHolder(View item_view, boolean isItem) {
             super(item_view);
             if (isItem) {
                 this.view = item_view;
+            } else {
+
             }
         }
     }

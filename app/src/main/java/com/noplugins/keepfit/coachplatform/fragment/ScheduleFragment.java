@@ -52,7 +52,7 @@ public class ScheduleFragment extends Fragment {
     @BindView(R.id.ll_class_manager)
     LinearLayout ll_class_manager;
     List<ClassDateBean> classDateBeans = new ArrayList<>();
-    List<SelectDateBean> selectDateBeans = new ArrayList<>(DateUtils.getmoredate());
+    List<SelectDateBean> selectDateBeans = new ArrayList<>();
     private String select_date = "";
 
     public static ScheduleFragment getInstance(String title) {
@@ -71,19 +71,15 @@ public class ScheduleFragment extends Fragment {
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_schedule, container, false);
             ButterKnife.bind(this, view);//绑定黄牛刀
+            selectDateBeans.addAll(DateUtils.getmoredate());
             initView();
         }
         return view;
     }
 
     private void initView() {
-        //初始化日期数据
-        init_date_resoure();
-        //初始化课程数控
-        SelectDateBean selectDateBean = selectDateBeans.get(0);
-        String current_date = selectDateBean.getCurrent_date();
-        select_date = current_date;
-        init_class_date_resource(select_date);
+
+
         touxiang_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,16 +125,32 @@ public class ScheduleFragment extends Fragment {
 //        });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (classDateBeans.size() > 0) {
+            classDateBeans.clear();
+        }
+
+        //初始化日期数据
+        init_date_resoure();
+        //初始化课程数控
+        SelectDateBean selectDateBean = selectDateBeans.get(0);
+        String current_date = selectDateBean.getCurrent_date();
+        select_date = current_date;
+        init_class_date_resource(select_date);
+    }
+
     private void init_class_date_resource(String select_date) {
         Map<String, Object> params = new HashMap<>();
         params.put("teacherNum", SpUtils.getString(getActivity(), AppConstants.SELECT_TEACHER_NUMBER));
-        params.put("date", this.select_date);
+        params.put("date", select_date);
         Subscription subscription = Network.getInstance("首页接口", getActivity())
                 .get_shouye_date(params,
                         new ProgressSubscriber<>("首页接口", new SubscriberOnNextListener<Bean<ScheduleBean>>() {
                             @Override
                             public void onNext(Bean<ScheduleBean> result) {
-
                                 for (int i = 0; i < 2; i++) {
                                     if (i == 0) {
                                         ClassDateBean selectDateBean = new ClassDateBean();
@@ -156,6 +168,9 @@ public class ScheduleFragment extends Fragment {
                                 }
                                 LinearLayoutManager class_linearLayoutManager = new LinearLayoutManager(getActivity());
                                 class_recycler_view.setLayoutManager(class_linearLayoutManager);
+                                if(classDateBeans.get(0).getYijieshu_list().size()==0&&classDateBeans.get(0).getWeijieshu_list().size()==0){
+                                    classDateBeans.clear();
+                                }
                                 ClassAdapter classAdapter = new ClassAdapter(classDateBeans, ScheduleFragment.this);
                                 class_recycler_view.setAdapter(classAdapter);
                                 classAdapter.setOnItemClickListener(new ClassAdapter.OnItemClickListener() {

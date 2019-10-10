@@ -71,8 +71,9 @@ public class AddTimeAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder>
             } else {
                 holder.date_tv.setText(list.get(position).getBegDate());
             }
-            String begin_time = list.get(position).getBegTime().substring(0,list.get(position).getBegTime().length()-3);
-            String end_time = list.get(position).getEndTime().substring(0,list.get(position).getEndTime().length()-3);
+
+            String begin_time = list.get(position).getBegTime().substring(0, list.get(position).getBegTime().length() - 3);
+            String end_time = list.get(position).getEndTime().substring(0, list.get(position).getEndTime().length() - 3);
             holder.time_tv.setText(begin_time + ":" + end_time);
         }
     }

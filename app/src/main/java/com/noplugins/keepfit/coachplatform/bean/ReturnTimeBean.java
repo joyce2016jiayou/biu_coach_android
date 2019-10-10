@@ -40,17 +40,6 @@ public class ReturnTimeBean {
         }
 
         public static class DataBean {
-            /**
-             * end_date : 2019-09-24
-             * beg_time : 14:29:50
-             * end_time : 17:29:53
-             * beg_date : 2019-09-24
-             */
-
-            private String endDate;
-            private String begTime;
-            private String endTime;
-
             public String getEndDate() {
                 return endDate;
             }
@@ -83,6 +72,16 @@ public class ReturnTimeBean {
                 this.begDate = begDate;
             }
 
+            /**
+             * end_date : 2019-09-24
+             * beg_time : 14:29:50
+             * end_time : 17:29:53
+             * beg_date : 2019-09-24
+             */
+
+            private String endDate;
+            private String begTime;
+            private String endTime;
             private String begDate;
 
 

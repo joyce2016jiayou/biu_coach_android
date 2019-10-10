@@ -265,7 +265,7 @@ public interface MyService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("saveCocahTeacherHaveRestTime")
-    Observable<Bean<BusyTimeBean>> save_time(@Body RequestBody json);
+    Observable<Bean<String>> save_time(@Body RequestBody json);
 
     /**
      * 忘记密码
@@ -338,6 +338,22 @@ public interface MyService {
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("findSchedule")
     Observable<Bean<ScheduleBean>> get_shouye_date(@Body RequestBody json);
+    /**
+     *获取运动日志详情
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("coachSportLog")
+    Observable<Bean<GetDailryBean>> get_trail_detail(@Body RequestBody json);
 
+    /**
+     *提交运动数据
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("updateCoachSportLog")
+    Observable<Bean<String>> submit_tice(@Body RequestBody json);
 
 }

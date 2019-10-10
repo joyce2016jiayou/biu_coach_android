@@ -436,7 +436,7 @@ public class Network {
                 .subscribe(subscriber);
     }
 
-    public Subscription save_time(Map<String, Object> params, Subscriber<Bean<BusyTimeBean>> subscriber) {
+    public Subscription save_time(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
         return service.save_time(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -470,6 +470,22 @@ public class Network {
 
     public Subscription get_shouye_date(Map<String, Object> params, Subscriber<Bean<ScheduleBean>> subscriber) {
         return service.get_shouye_date(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public Subscription get_trail_detail(Map<String, Object> params, Subscriber<Bean<GetDailryBean>> subscriber) {
+        return service.get_trail_detail(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public Subscription submit_tice(DairyBean params, Subscriber<Bean<String>> subscriber) {
+        return service.submit_tice(retuen_json_object(params))
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

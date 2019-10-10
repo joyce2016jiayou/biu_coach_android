@@ -7,15 +7,16 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import com.noplugins.keepfit.coachplatform.R;
+import com.noplugins.keepfit.coachplatform.bean.GetDailryBean;
 
 import java.util.List;
 
 public class DailyTagAdapter extends BaseAdapter {
-    private List<String> strings;
+    private List<GetDailryBean.LableListBean> strings;
     private LayoutInflater layoutInflater;
     private Context context;
 
-    public DailyTagAdapter(Context mcontext, List<String> mstrings) {
+    public DailyTagAdapter(Context mcontext, List<GetDailryBean.LableListBean> mstrings) {
         this.strings = mstrings;
         context = mcontext;
         layoutInflater = LayoutInflater.from(mcontext);
@@ -47,8 +48,14 @@ public class DailyTagAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.tag_value.setText(strings.get(position));
-
+        holder.tag_value.setText(strings.get(position).getName());
+        if (strings.get(position).isCheck()) {
+            holder.tag_value.setBackgroundResource(R.drawable.tag_select_bg);
+            holder.tag_value.setTextColor(context.getResources().getColor(R.color.white));
+        } else {
+            holder.tag_value.setBackgroundResource(R.drawable.tag_bg);
+            holder.tag_value.setTextColor(context.getResources().getColor(R.color.color_4A4A4A));
+        }
 
         return convertView;
     }

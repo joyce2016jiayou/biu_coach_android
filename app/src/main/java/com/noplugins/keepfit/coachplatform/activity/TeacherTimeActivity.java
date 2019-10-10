@@ -195,14 +195,15 @@ public class TeacherTimeActivity extends BaseActivity {
         params.put("restTime", strings);
         Subscription subscription = Network.getInstance("设置忙碌时间", this)
                 .save_time(params,
-                        new ProgressSubscriber<>("设置忙碌时间", new SubscriberOnNextListener<Bean<BusyTimeBean>>() {
+                        new ProgressSubscriber<>("设置忙碌时间", new SubscriberOnNextListener<Bean<String>>() {
                             @Override
-                            public void onNext(Bean<BusyTimeBean> result) {
+                            public void onNext(Bean<String> result) {
 
                             }
 
                             @Override
                             public void onError(String error) {
+                                Toast.makeText(getApplicationContext(),error,Toast.LENGTH_SHORT).show();
 
                             }
                         }, this, false));

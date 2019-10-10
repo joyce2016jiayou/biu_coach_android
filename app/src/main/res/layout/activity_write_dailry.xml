@@ -43,6 +43,7 @@
         </RelativeLayout>
 
         <TextView
+                android:id="@+id/title_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="小马快死的运动日志"
@@ -86,6 +87,7 @@
                             />
 
                     <TextView
+                            android:id="@+id/cource_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/color_181818"
@@ -113,6 +115,7 @@
                             />
 
                     <TextView
+                            android:id="@+id/time_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/color_181818"
@@ -141,6 +144,7 @@
                             />
 
                     <TextView
+                            android:id="@+id/cource_area"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/color_181818"
@@ -190,6 +194,7 @@
 
 
                     <TextView
+                            android:id="@+id/ruchang_time"
                             android:layout_width="@dimen/m53"
                             android:layout_height="@dimen/m16"
                             android:text="12:50入场"
@@ -202,6 +207,7 @@
                 </LinearLayout>
 
                 <ImageView
+                        android:id="@+id/ruchang_biaoqing_img"
                         android:layout_toRightOf="@+id/lin1"
                         android:layout_width="@dimen/m20"
                         android:layout_marginLeft="@dimen/m19"
@@ -228,6 +234,7 @@
 
 
                     <TextView
+                            android:id="@+id/lichang_time"
                             android:layout_width="@dimen/m53"
                             android:layout_height="@dimen/m16"
                             android:text="12:50离场"
@@ -242,6 +249,7 @@
                 </LinearLayout>
 
                 <ImageView
+                        android:id="@+id/chuchang_biaoqing_img"
                         android:layout_width="@dimen/m20"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="@dimen/m50"
@@ -294,6 +302,7 @@
                     android:layout_height="match_parent">
 
                 <EditText
+                        android:id="@+id/class_content"
                         android:layout_width="match_parent"
                         android:background="@null"
                         android:hint="@string/tv126"
@@ -372,7 +381,7 @@
 
 
         <com.noplugins.keepfit.coachplatform.util.ui.LoadingButton
-                android:id="@+id/login_btn"
+                android:id="@+id/add_btn"
                 android:layout_width="@dimen/m209"
                 android:layout_marginTop="@dimen/m37"
                 android:layout_marginBottom="@dimen/m12"
