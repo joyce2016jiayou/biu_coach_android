@@ -301,7 +301,7 @@ public interface MyService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("getCheckResult")
-    Observable<Bean<String>> getCheckResult(@Body RequestBody json);
+    Observable<Bean<CheckResultBean>> getCheckResult(@Body RequestBody json);
 
     /**
      * 消息列表
@@ -355,5 +355,34 @@ public interface MyService {
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("updateCoachSportLog")
     Observable<Bean<String>> submit_tice(@Body RequestBody json);
+
+
+    /**
+     *授权场馆
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("myBindingArea")
+    Observable<Bean<CgListBean>> myBindingArea(@Body RequestBody json);
+
+    /**
+     *解除绑定授权场馆
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("deleteMyBindingArea")
+    Observable<Bean<String>> deleteMyBindingArea(@Body RequestBody json);
+
+    /**
+     *教练同意/拒绝绑定
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("agreeBindingArea")
+    Observable<Bean<String>> agreeBindingArea(@Body RequestBody json);
+
 
 }

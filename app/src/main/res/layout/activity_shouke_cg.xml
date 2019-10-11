@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center_vertical"
-                android:text="完成"
+                android:text="添加"
                 android:textColor="@color/color_181818"
                 android:textSize="15sp"
                 android:layout_marginRight="@dimen/m20"
@@ -70,9 +70,20 @@
                 android:background="@null"
                 android:button="@null"
                 android:textColor="@drawable/btn_radio_select"
-                android:text="申请中/邀请中"/>
+                android:text="申请中"/>
         <RadioButton
                 android:id="@+id/rb_3"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:background="@null"
+                android:button="@null"
+                android:textColor="@drawable/btn_radio_select"
+                android:text="邀请中"/>
+        <RadioButton
+                android:id="@+id/rb_4"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

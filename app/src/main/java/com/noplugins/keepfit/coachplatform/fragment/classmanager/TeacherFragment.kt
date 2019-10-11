@@ -136,6 +136,9 @@ class TeacherFragment : BaseFragment() {
                     override fun onNext(result: Bean<ManagerBean>) {
                         if (code == 10){
                             val intent = Intent(activity,TeacherAddOrEditActivity::class.java)
+                            val bundle = Bundle()
+                            bundle.putString("type","add")
+                            intent.putExtras(bundle)
                             startActivity(intent)
                         } else{
                             initFragment()

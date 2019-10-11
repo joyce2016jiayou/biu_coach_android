@@ -31,12 +31,14 @@ class TeacherAddOrEditActivity : BaseActivity() {
     override fun initBundle(parms: Bundle?) {
         if (parms!=  null){
             val type = parms.getString("type")
-            if (type!=null && type == "edit"){
+            if (type == "edit"){
                 val courseNum = parms.getString("courseNum")
                 intentType = 1
                 if (courseNum != null) {
                     requestData(courseNum)
                 }
+            }  else{
+                title_tv.text = "添加课程"
             }
         }
     }

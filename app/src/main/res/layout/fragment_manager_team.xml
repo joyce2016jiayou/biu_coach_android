@@ -62,6 +62,7 @@
             android:id="@+id/iv_team_add"
             android:layout_width="@dimen/m60"
             android:layout_height="@dimen/m60"
+            android:visibility="gone"
             android:src="@drawable/add_img"
             android:layout_gravity="bottom|right"
             android:layout_marginBottom="@dimen/m29"

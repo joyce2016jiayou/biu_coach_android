@@ -41,6 +41,7 @@ public class Network {
     private static Network mInstance;
     public MyService service;
     public ChangGuanService changGuanService;
+    public UserService userService;
 
     public static String token = "";
     //测试服
@@ -49,9 +50,13 @@ public class Network {
     private static String MRTHOD_NAME = "";
     private String test_get_tag_url = "http://192.168.1.45:8888/api/gym-service/";//获取字典
     private String main_tag_url = "http://kft.ahcomg.com/api/gym-service/";//获取字典
+
+    private String user_url = "http://kft.ahcomg.com/api/cust-service/custuser/";
     Gson gson;
     Retrofit retrofit;
     Retrofit get_tag_retrofit;
+    Retrofit get_user_retrofit;
+
     OkHttpClient client;
 
     public String get_main_url(String str) {
@@ -161,9 +166,16 @@ public class Network {
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
 
+        get_user_retrofit = new Retrofit.Builder()
+                .client(client)
+                .baseUrl(user_url)//设置请求网址根部
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build();
         service = retrofit.create(MyService.class);
 
         changGuanService = get_tag_retrofit.create(ChangGuanService.class);
+        userService = get_user_retrofit.create(UserService.class);
 
     }
 
@@ -491,5 +503,48 @@ public class Network {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
+
+    public Subscription getCheckResult(Map<String, Object> params, Subscriber<Bean<CheckResultBean>> subscriber) {
+        return service.getCheckResult(retuen_json_object(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    //userService
+    public Subscription findAllCity(Map<String, Object> params, Subscriber<Bean<AddressBean>> subscriber) {
+        return userService.findAllCity(retuen_json_object(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public Subscription myBindingArea(Map<String, Object> params, Subscriber<Bean<CgListBean>> subscriber) {
+        return service.myBindingArea(retuen_json_object(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public Subscription deleteMyBindingArea(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
+        return service.deleteMyBindingArea(retuen_json_object(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public Subscription agreeBindingArea(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
+        return service.agreeBindingArea(retuen_json_object(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+
 
 }

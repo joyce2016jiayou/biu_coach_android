@@ -50,7 +50,6 @@
                 android:id="@+id/iv_class_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/class_1"
                 android:layout_marginTop="@dimen/m22"
                 android:layout_marginLeft="@dimen/m23"/>
         <TextView
@@ -59,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/m22"
                 android:layout_marginTop="@dimen/m6"
-                android:text="私人教练"
+                tools:text="私人教练"
                 android:textSize="15sp"
                 android:textColor="@color/color_e8e8e8"
                 android:layout_marginBottom="@dimen/m21"/>
@@ -68,13 +67,15 @@
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:orientation="vertical"
-               android:visibility="visible">
+               android:visibility="gone">
            <ImageView
+                   android:id="@+id/iv_class_type_2"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:src="@drawable/class_1"
                    android:layout_marginLeft="@dimen/m23"/>
            <TextView
+                   android:id="@+id/tv_class_type_2"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:layout_marginLeft="@dimen/m22"
@@ -102,7 +103,7 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="visible"
+            android:visibility="gone"
             android:orientation="vertical">
         <TextView
                 android:layout_width="match_parent"

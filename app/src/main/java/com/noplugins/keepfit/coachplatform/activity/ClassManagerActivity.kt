@@ -11,7 +11,9 @@ import com.noplugins.keepfit.coachplatform.R
 import com.noplugins.keepfit.coachplatform.base.BaseActivity
 import com.noplugins.keepfit.coachplatform.fragment.classmanager.TeacherFragment
 import com.noplugins.keepfit.coachplatform.fragment.classmanager.TeamClassFragment
+import com.noplugins.keepfit.coachplatform.global.AppConstants
 import com.noplugins.keepfit.coachplatform.global.clickWithTrigger
+import com.noplugins.keepfit.coachplatform.util.SpUtils
 import kotlinx.android.synthetic.main.activity_class_manager.*
 
 class ClassManagerActivity : BaseActivity() {
@@ -32,9 +34,32 @@ class ClassManagerActivity : BaseActivity() {
         fragmentManager = supportFragmentManager
         fragments = ArrayList()
 
-        teamClass = TeamClassFragment.newInstance("团课")
-        fragments.add(teamClass!!)
-        hideOthersFragment(teamClass!!, true)
+
+
+        val type = SpUtils.getString(applicationContext,AppConstants.TEACHER_TYPE)
+        when(type){
+            "1" ->{
+                rl_team.visibility = View.VISIBLE
+                rl_private.visibility = View.GONE
+                teamClass = TeamClassFragment.newInstance("团课")
+                fragments.add(teamClass!!)
+                hideOthersFragment(teamClass!!, true)
+            }
+            "2" ->{
+                rl_team.visibility = View.GONE
+                rl_private.visibility = View.VISIBLE
+                teacher = TeacherFragment.newInstance("私教")
+                fragments.add(teacher!!)
+                hideOthersFragment(teacher!!, true)
+            }
+            "3" ->{
+                rl_team.visibility = View.VISIBLE
+                rl_private.visibility = View.VISIBLE
+                teamClass = TeamClassFragment.newInstance("团课")
+                fragments.add(teamClass!!)
+                hideOthersFragment(teamClass!!, true)
+            }
+        }
 
     }
 

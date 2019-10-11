@@ -22,10 +22,10 @@ import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextLis
 import kotlinx.android.synthetic.main.fragment_manager_teacher_1.*
 import java.util.HashMap
 
-class SqAndYaoqinFragment : BaseFragment()  {
+class YaoqinFragment : BaseFragment()  {
     companion object {
-        fun newInstance(title: String): SqAndYaoqinFragment {
-            val fragment = SqAndYaoqinFragment()
+        fun newInstance(title: String): YaoqinFragment {
+            val fragment = YaoqinFragment()
             val args = Bundle()
             args.putString("home_fragment_title", title)
             fragment.arguments = args
@@ -75,6 +75,13 @@ class SqAndYaoqinFragment : BaseFragment()  {
                     toInfo.putExtras(bundle)
                     startActivity(toInfo)
                 }
+                R.id.tv_jieshou -> {
+                    agreeBinding(datas[position].gymBindingNum,1)
+                }
+                R.id.tv_jujue -> {
+                    agreeBinding(datas[position].gymBindingNum,2)
+                }
+
             }
         }
         refresh_layout.setOnRefreshListener {
@@ -91,11 +98,11 @@ class SqAndYaoqinFragment : BaseFragment()  {
     private fun requestData(){
         val params = HashMap<String, Any>()
         params["teacherNum"] = SpUtils.getString(activity, AppConstants.USER_NAME)
-        params["status"] = 4
+        params["status"] = 3
         params["longitude"] = SpUtils.getString(activity,AppConstants.LON)
         params["latitude"] = SpUtils.getString(activity,AppConstants.LAT)
         val subscription = Network.getInstance("场馆列表", activity)
-            .bindingAreaList(
+            .myBindingArea(
                 params,
                 ProgressSubscriber("场馆列表", object : SubscriberOnNextListener<Bean<CgListBean>> {
                     override fun onNext(result: Bean<CgListBean>) {
@@ -107,6 +114,28 @@ class SqAndYaoqinFragment : BaseFragment()  {
                             datas.addAll(result.data.areaList)
                         }
                         adapterManager.notifyDataSetChanged()
+                    }
+
+                    override fun onError(error: String) {
+
+                    }
+                }, activity, false)
+            )
+
+    }
+//
+
+    private fun agreeBinding(bindingNum:String,status:Int){
+        val params = HashMap<String, Any>()
+        params["bindingNum"] = bindingNum
+        params["status"] = status
+        val subscription = Network.getInstance("场馆列表", activity)
+            .agreeBindingArea(
+                params,
+                ProgressSubscriber("场馆列表", object : SubscriberOnNextListener<Bean<String>> {
+                    override fun onNext(result: Bean<String>) {
+//                        setting(result.data.areaList)
+                        requestData()
                     }
 
                     override fun onError(error: String) {

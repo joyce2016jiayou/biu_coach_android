@@ -35,6 +35,7 @@ import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriberN
 import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
 import com.noplugins.keepfit.coachplatform.util.ui.ProgressUtil
 import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow
+import com.noplugins.keepfit.coachplatform.util.ui.toast.SuperCustomToast
 import com.qiniu.android.storage.UpCompletionHandler
 import com.qiniu.android.storage.UploadManager
 import com.qiniu.android.storage.UploadOptions
@@ -112,7 +113,7 @@ class InformationActivity : BaseActivity() {
         Glide.with(this)
             .load(info.logoUrl)
             .into(iv_logo)
-        tv_user_name.text = info.name
+        tv_user_name.text = info.realname
         tv_sex.text = if (info.sex == 1) {
             "男"
         } else {
@@ -276,6 +277,9 @@ class InformationActivity : BaseActivity() {
                 params,
                 ProgressSubscriber("个人资料", object : SubscriberOnNextListener<Bean<String>> {
                     override fun onNext(result: Bean<String>) {
+                        //保存成功
+                        SuperCustomToast.getInstance(this@InformationActivity)
+                            .show("修改成功")
                     }
 
                     override fun onError(error: String) {

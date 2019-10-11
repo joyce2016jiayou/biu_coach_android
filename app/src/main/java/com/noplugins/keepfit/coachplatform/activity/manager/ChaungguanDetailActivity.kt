@@ -17,9 +17,11 @@ import com.noplugins.keepfit.coachplatform.adapter.ChangguanDetailFeaturesAdapte
 import com.noplugins.keepfit.coachplatform.adapter.WeijieshuTypeAdapter.*
 import com.noplugins.keepfit.coachplatform.base.BaseActivity
 import com.noplugins.keepfit.coachplatform.bean.manager.CgDetailBean
+import com.noplugins.keepfit.coachplatform.global.AppConstants
 import com.noplugins.keepfit.coachplatform.global.clickWithTrigger
 import com.noplugins.keepfit.coachplatform.holder.CustomViewHolder
 import com.noplugins.keepfit.coachplatform.util.BaseUtils
+import com.noplugins.keepfit.coachplatform.util.SpUtils
 import com.noplugins.keepfit.coachplatform.util.TypeUtil
 import com.noplugins.keepfit.coachplatform.util.net.Network
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
@@ -203,6 +205,27 @@ private fun toMap(view1: TextView) {
     }
 }
 
+    private fun quxiaoBinding(){
+        val params = HashMap<String, Any>()
+        params["teacherNum"] = SpUtils.getString(this, AppConstants.USER_NAME)
+        params["areaNum"] = cgNum
+        val subscription = Network.getInstance("场馆列表", this)
+            .deleteMyBindingArea(
+                params,
+                ProgressSubscriber("场馆列表", object : SubscriberOnNextListener<Bean<String>> {
+                    override fun onNext(result: Bean<String>) {
+//                        setting(result.data.areaList)
+                        agreeCourse()
+
+                    }
+
+                    override fun onError(error: String) {
+
+                    }
+                }, this, false)
+            )
+    }
+
 private fun toUnBinding(view1: TextView) {
     val popupWindow = CommonPopupWindow.Builder(this)
         .setView(R.layout.dialog_to_unbinding)
@@ -225,7 +248,7 @@ private fun toUnBinding(view1: TextView) {
     }
     sure.setOnClickListener {
         popupWindow.dismiss()
-        initSimple()
+        quxiaoBinding()
 
     }
 }

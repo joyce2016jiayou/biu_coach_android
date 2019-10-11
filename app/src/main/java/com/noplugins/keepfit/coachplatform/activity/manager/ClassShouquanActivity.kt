@@ -27,6 +27,7 @@ import com.noplugins.keepfit.coachplatform.R
 import com.noplugins.keepfit.coachplatform.adapter.PopUpAdapter
 import com.noplugins.keepfit.coachplatform.adapter.TeacherCgSelectAdapter
 import com.noplugins.keepfit.coachplatform.base.BaseActivity
+import com.noplugins.keepfit.coachplatform.bean.AddressBean
 import com.noplugins.keepfit.coachplatform.bean.BindingCgBean
 import com.noplugins.keepfit.coachplatform.bean.BindingListBean
 import com.noplugins.keepfit.coachplatform.bean.manager.CgListBean
@@ -64,7 +65,8 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
 
                 Log.d("LogInfo","cityCode():"+amapLocation.adCode)
                 Log.d("LogInfo", "city():$code")
-
+                initAdapter()
+                requsetData(code)
                 agreeCourse()
 
             } else {
@@ -102,7 +104,6 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
 
     override fun initView() {
         setContentView(R.layout.activity_class_shouquan)
-        initAdapter()
         requestPermission()
     }
 
@@ -162,7 +163,6 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
 
     private lateinit var layoutManager: LinearLayoutManager
     private fun initAdapter() {
-
         val listClass = resources.getStringArray(R.array.identify_types).toMutableList()
         popWindow = SpinnerPopWindow(this,
             listClass,
@@ -181,7 +181,6 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
             showPopwindow(popWindow!!,changguan_eat)
 
         }
-
         adapter = TeacherCgSelectAdapter(data)
         layoutManager = LinearLayoutManager(this)
         rv_list.layoutManager = layoutManager
@@ -231,17 +230,58 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
         }
     }
 
+    private fun initArea(list:List<String>){
+        popWindowArea = SpinnerPopWindow(this,
+            list,
+            PopUpAdapter.OnItemClickListener { _, _, position ->
+                tv_location.text = list[position]
+               //
+                getLatlon(list[position])
+                popWindowArea!!.dismiss()
+            })
+        ll_location.setOnClickListener {
+            showPopwindow(popWindowArea!!,ll_location)
+
+        }
+    }
+
     private fun showPopwindow(pop: SpinnerPopWindow<String>, view: View){
         pop.width = view.width
         pop.showAsDropDown(view)
 
     }
     private var popWindow: SpinnerPopWindow<String>? = null
+    private var popWindowArea: SpinnerPopWindow<String>? = null
+
+    private fun requsetData(citycd:String) {
+        val params = HashMap<String, Any>()
+        params["citycd"] = citycd
+
+        subscription = Network.getInstance("获取所有三级城市列表", this)
+            .findAllCity(
+                params,
+                ProgressSubscriber("获取所有三级城市列表", object : SubscriberOnNextListener<Bean<AddressBean>> {
+                    override fun onNext(result: Bean<AddressBean>) {
+                        val list:MutableList<String> = ArrayList()
+                        for (i in 0 until result.data.area.size){
+                            list.add(result.data.area[i].distnm)
+                        }
+                        //申请成功
+                        initArea(list)
+                    }
+
+                    override fun onError(error: String) {
+
+
+                    }
+                }, this, false)
+            )
+    }
 
     private fun agreeCourse() {
         val params = HashMap<String, Any>()
 //        params["teacherNum"] = SpUtils.getString(activity, AppConstants.USER_NAME)
-        params["teacherNum"] = "GEN23456"
+        params["teacherNum"] = SpUtils.getString(applicationContext, AppConstants.USER_NAME)
         params["page"] = page
         params["longitude"] = longitude
         params["latitude"] = latitude
@@ -272,8 +312,6 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
     }
 
     private fun submitData(){
-//        val params = HashMap<String, Any>()
-//        params["areaNumList"] = submitList
 
         bean.areaNumList = submitList
         subscription = Network.getInstance("绑定场馆", this)
@@ -384,26 +422,6 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
                         val geocodeAddress = geocodeResult.getGeocodeAddressList().get(0)
                         val latitude = geocodeAddress.latLonPoint.latitude//纬度
                         val longititude = geocodeAddress.latLonPoint.longitude//经度
-
-                        var adcode = ""//区域编码
-                        when(geocodeAddress.adcode){
-                            "110000"->{
-                                adcode = "110100"
-                            }
-                            "310000"->{
-                                adcode = "310100"
-                            }
-                            "120000"->{
-                                adcode = "120100"
-                            }
-                            "500000"->{
-                                adcode = "500100"
-                            }
-                            else -> {
-                                geocodeAddress.adcode
-                            }
-                        }
-                        Log.d("tag","info:$adcode")
 
 
                     }

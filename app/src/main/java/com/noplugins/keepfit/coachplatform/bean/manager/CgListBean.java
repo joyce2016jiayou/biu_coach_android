@@ -94,6 +94,21 @@ public class CgListBean {
         private String businessEnd;
         private String facility;
         private int status;
+        /**
+         * gymAreaNum : GYM19091204791290
+         * bingdingDate : 2019-09-25 19:28:32
+         * refuse : null
+         * gymBindingNum : null
+         * genTeacherNum : GEN23456
+         * name : null
+         */
+
+        private String gymAreaNum;
+        private String bingdingDate;
+        private Object refuse;
+        private String gymBindingNum;
+        private String genTeacherNum;
+        private Object name;
 
         public String getEdxtendVar05() {
             return edxtendVar05;
@@ -397,6 +412,54 @@ public class CgListBean {
 
         public void setStatus(int status) {
             this.status = status;
+        }
+
+        public String getGymAreaNum() {
+            return gymAreaNum;
+        }
+
+        public void setGymAreaNum(String gymAreaNum) {
+            this.gymAreaNum = gymAreaNum;
+        }
+
+        public String getBingdingDate() {
+            return bingdingDate;
+        }
+
+        public void setBingdingDate(String bingdingDate) {
+            this.bingdingDate = bingdingDate;
+        }
+
+        public Object getRefuse() {
+            return refuse;
+        }
+
+        public void setRefuse(Object refuse) {
+            this.refuse = refuse;
+        }
+
+        public String getGymBindingNum() {
+            return gymBindingNum;
+        }
+
+        public void setGymBindingNum(String gymBindingNum) {
+            this.gymBindingNum = gymBindingNum;
+        }
+
+        public String getGenTeacherNum() {
+            return genTeacherNum;
+        }
+
+        public void setGenTeacherNum(String genTeacherNum) {
+            this.genTeacherNum = genTeacherNum;
+        }
+
+        public Object getName() {
+            return name;
+        }
+
+        public void setName(Object name) {
+            this.name = name;
         }
     }
 }

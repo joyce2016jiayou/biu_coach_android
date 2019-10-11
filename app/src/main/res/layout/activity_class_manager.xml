@@ -41,8 +41,9 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
+                android:visibility="gone"
                 android:layout_marginRight="@dimen/m30"
-                android:gravity="right">
+                android:gravity="center">
 
             <TextView
                     android:id="@+id/tv1"
@@ -71,7 +72,8 @@
                 android:layout_marginLeft="@dimen/m30"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:gravity="left">
+                android:visibility="gone"
+                android:gravity="center">
 
             <TextView
                     android:id="@+id/tv2"

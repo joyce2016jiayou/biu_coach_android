@@ -106,7 +106,7 @@
                 android:layout_marginBottom="@dimen/m10">
 
             <TextView
-                    android:id="@+id/tv_up_down"
+                    android:id="@+id/tv_jujue"
                     android:layout_width="@dimen/m59"
                     android:layout_height="@dimen/m24"
                     android:textSize="13sp"
@@ -117,7 +117,7 @@
                     android:text="拒绝"/>
 
             <TextView
-                    android:id="@+id/tv_edit"
+                    android:id="@+id/tv_jieshou"
                     android:layout_width="@dimen/m59"
                     android:layout_height="@dimen/m24"
                     android:textSize="13sp"

@@ -72,7 +72,7 @@ class MineFragment : BaseFragment() {
         val min1 = MineFunctionBean("钱包", R.drawable.mine_qb)
         val min2 = MineFunctionBean("课程管理", R.drawable.mine_kc)
 
-        if (min.teacherType == 1) {
+        if (min.teacherType == 2) {
             val min3 = MineFunctionBean("授课场馆", R.drawable.mine_cgyy)
             fuctionBean.add(min3)
         }
@@ -116,7 +116,7 @@ class MineFragment : BaseFragment() {
                 }
             }
         }
-        tv_user_Name.text = min.name
+        tv_user_Name.text = min.realname
         tv_score.text = "${min.finalGrade}分"
         tv_teacher_tips.text = min.tips
 

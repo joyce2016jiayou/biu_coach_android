@@ -13,6 +13,8 @@ import com.noplugins.keepfit.coachplatform.activity.manager.ChaungguanDetailActi
 import com.noplugins.keepfit.coachplatform.adapter.ShoukeCgAdapter
 import com.noplugins.keepfit.coachplatform.base.BaseFragment
 import com.noplugins.keepfit.coachplatform.bean.manager.CgListBean
+import com.noplugins.keepfit.coachplatform.global.AppConstants
+import com.noplugins.keepfit.coachplatform.util.SpUtils
 import com.noplugins.keepfit.coachplatform.util.net.Network
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
@@ -88,10 +90,10 @@ class BindingFragment : BaseFragment()  {
 
     private fun requestData(){
         val params = HashMap<String, Any>()
-//        params["teacherNum"] = SpUtils.getString(activity,AppConstants.USER_NAME)
-        params["teacherNum"] = "GEN23456"
-        params["courseType"] = 1
-        params["type"] = 1
+        params["teacherNum"] = SpUtils.getString(activity, AppConstants.USER_NAME)
+        params["status"] = 1
+        params["longitude"] = SpUtils.getString(activity,AppConstants.LON)
+        params["latitude"] = SpUtils.getString(activity,AppConstants.LAT)
         val subscription = Network.getInstance("场馆列表", activity)
             .bindingAreaList(
                 params,
