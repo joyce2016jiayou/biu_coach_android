@@ -118,7 +118,7 @@ public class YueKeInformationActivity extends BaseActivity {
         } else {
             params.put("date", current_select_year + "-" + Integer.valueOf(current_select_month));
         }
-        params.put("teacherNum", "GEN23456");
+        params.put("teacherNum", SpUtils.getString(getApplicationContext(), AppConstants.SELECT_TEACHER_NUMBER));
 
         Subscription subscription = Network.getInstance("约课信息", this)
                 .yuekeInformation(params,
@@ -131,16 +131,6 @@ public class YueKeInformationActivity extends BaseActivity {
 
                             @Override
                             public void onError(String error) {
-//                                for(int i=0;i<2;i++){
-//                                    YueKeBean.CourseListBean courseListBean = new YueKeBean.CourseListBean();
-//                                    if(i==0){
-//                                        courseListBean.setStartTimeStamp(1568973600000L);
-//                                    }else{
-//                                        courseListBean.setStartTimeStamp(1568912400000L);
-//                                    }
-//                                    courseListBeans.add(courseListBean);
-//                                }
-//                                init_class_date(current_select_year, current_select_month, true);
 
                             }
                         }, this, true));

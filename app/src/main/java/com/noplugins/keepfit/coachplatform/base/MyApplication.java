@@ -199,6 +199,8 @@ public class MyApplication extends MultiDexApplication {
         /**方法负载过多解决*/
         MultiDex.install(this);
 
+
+
     }
 
 
