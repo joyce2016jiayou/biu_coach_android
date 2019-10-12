@@ -101,7 +101,7 @@ class WalletActivity : BaseActivity() {
     private fun requestData() {
         val params = HashMap<String, Any>()
 //        params["teacherNum"] = SpUtils.getString(activity, AppConstants.USER_NAME)
-        params["userNum"] = SpUtils.getString(this, AppConstants.USER_NAME)
+        params["userNum"] = "GEN23456"
         val subscription = Network.getInstance("我的钱包", this)
             .myBalance(
                 params,

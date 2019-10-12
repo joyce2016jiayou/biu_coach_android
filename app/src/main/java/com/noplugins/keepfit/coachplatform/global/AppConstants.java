@@ -13,6 +13,7 @@ public class AppConstants {
     public static final String TOKEN = "token";
     public static final String PHONE = "phone";
     public static final String USER_NAME = "userNum";
+    public static final String NAME = "userName";
     public static final String TEACHER_TYPE = "teacher_type";//判断是否审核过
     public static final String SELECT_TEACHER_TYPE = "select_teacher_type";//教练类型
     public static final String SELECT_TEACHER_NUMBER = "select_teacher_number";//教练编号

@@ -22,7 +22,9 @@ import com.noplugins.keepfit.coachplatform.R
 import com.noplugins.keepfit.coachplatform.activity.info.VerificationPhoneActivity
 import com.noplugins.keepfit.coachplatform.adapter.CardAdapter
 import com.noplugins.keepfit.coachplatform.base.BaseActivity
+import com.noplugins.keepfit.coachplatform.global.AppConstants
 import com.noplugins.keepfit.coachplatform.global.clickWithTrigger
+import com.noplugins.keepfit.coachplatform.util.SpUtils
 import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow
 import kotlinx.android.synthetic.main.activity_withdraw.*
 
@@ -39,6 +41,7 @@ class WithdrawActivity : BaseActivity() {
 
     override fun initView() {
         setContentView(R.layout.activity_withdraw)
+        tv_name.text = "持卡人  "+SpUtils.getString(this, AppConstants.NAME)
         //超过1000元可以提现
         val ss = SpannableString("超过500元可以提现")//定义hint的值
         val ass = AbsoluteSizeSpan(15, true)//设置字体大小 true表示单位是sp
@@ -82,7 +85,7 @@ class WithdrawActivity : BaseActivity() {
                 if (s!!.isNotEmpty()){
                     iv_delete_edit.visibility = View.VISIBLE
                     if (s[0].toString() != "."){
-                        if (s.toString().toDouble() > 1000){
+                        if (s.toString().toDouble() > finalCanWithdraw){
                             tv_tips.visibility = View.VISIBLE
                             tv_withdraw_ok.setBackgroundResource(R.drawable.btn_no_click)
                             tv_withdraw_ok.isClickable = false

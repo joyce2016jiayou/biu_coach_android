@@ -82,7 +82,6 @@
                 android:layout_marginRight="25dp"
                 android:gravity="center_vertical"
                 android:background="@null"
-                android:text="123131231231"
                 android:inputType="number"
                 android:maxLength="18"
                 android:digits="1234567890Xx"

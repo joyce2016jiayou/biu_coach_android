@@ -43,20 +43,28 @@ class BillDetailInfoActivity : BaseActivity() {
             tv_zcje.text ="¥${bean.money}"
             tv_sqsj.text= bean.createDate
             tv_txyh.text= ""
+            tv_operate.text = "收入-银行"
             tv_dqzt.text= statusToString(bean.status)
         } else {
             lv_1.visibility = View.GONE
             lv_2.visibility = View.VISIBLE
-            tv_srlb.text = ""
+
             tv_srje.text = "¥${bean.money}"
-            tv_kcmc.text = ""
-            tv_cgmc.text = ""
+            tv_kcmc.text = bean.courseName
+            tv_cgmc.text = bean.areaName
             tv_sksj.text = ""
+            if (bean.type == 3){
+                tv_srlb.text = "私教服务"
+                tv_operate.text = "收入-私教服务"
+            } else {
+                tv_srlb.text = "团课服务"
+                tv_operate.text = "收入-团课服务"
+            }
         }
         Glide.with(this)
             .load(typeToDrawble(bean.type))
             .into(iv_logo)
-        tv_operate.text = ""
+
         tv_money.text = "-${bean.money}"
     }
 
@@ -84,8 +92,8 @@ class BillDetailInfoActivity : BaseActivity() {
     private fun typeToDrawble(type: Int): Int {
         return when (type) {
             1 -> R.drawable.yinlian
-            3 -> R.drawable.yinlian
-            4 -> R.drawable.yinlian
+            3 -> R.drawable.sijiao_logo
+            4 -> R.drawable.team_logo
             else -> R.drawable.yinlian
         }
     }

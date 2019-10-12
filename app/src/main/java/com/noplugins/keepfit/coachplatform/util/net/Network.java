@@ -521,7 +521,7 @@ public class Network {
                 .subscribe(subscriber);
     }
 
-    public Subscription myBindingArea(Map<String, Object> params, Subscriber<Bean<CgListBean>> subscriber) {
+    public Subscription myBindingArea(Map<String, Object> params, Subscriber<Bean<List<CgListBean.AreaListBean>>> subscriber) {
         return service.myBindingArea(retuen_json_object(params))
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())

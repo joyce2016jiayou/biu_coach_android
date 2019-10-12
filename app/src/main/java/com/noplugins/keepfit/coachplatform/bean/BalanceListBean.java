@@ -1,5 +1,7 @@
 package com.noplugins.keepfit.coachplatform.bean;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class BalanceListBean {
@@ -66,6 +68,7 @@ public class BalanceListBean {
          * finalmoney : 7.0
          */
 
+
         private String pkname;
         private int id;
         private String walletDetailNum;
@@ -80,6 +83,16 @@ public class BalanceListBean {
         private int deleted;
         private String remark;
         private double finalmoney;
+        /**
+         * courseNum :
+         * courseName : 课程名称
+         * areaName : 场馆名称
+         * finalmoney : 7
+         */
+
+        private String courseNum;
+        private String courseName;
+        private String areaName;
 
         public String getPkname() {
             return pkname;
@@ -192,5 +205,30 @@ public class BalanceListBean {
         public void setFinalmoney(double finalmoney) {
             this.finalmoney = finalmoney;
         }
+
+        public String getCourseNum() {
+            return courseNum;
+        }
+
+        public void setCourseNum(String courseNum) {
+            this.courseNum = courseNum;
+        }
+
+        public String getCourseName() {
+            return courseName;
+        }
+
+        public void setCourseName(String courseName) {
+            this.courseName = courseName;
+        }
+
+        public String getAreaName() {
+            return areaName;
+        }
+
+        public void setAreaName(String areaName) {
+            this.areaName = areaName;
+        }
+
     }
 }

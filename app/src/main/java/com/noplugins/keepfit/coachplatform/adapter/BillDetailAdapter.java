@@ -52,9 +52,9 @@ public class BillDetailAdapter extends BaseQuickAdapter<BalanceListBean.ListBean
             case 1:
                 return R.drawable.yinlian;
             case 3:
-                return R.drawable.yinlian;
+                return R.drawable.sijiao_logo;
             case 4:
-                return R.drawable.yinlian;
+                return R.drawable.team_logo;
             default:
                 return R.drawable.yinlian;
         }

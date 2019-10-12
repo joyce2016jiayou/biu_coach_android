@@ -84,6 +84,9 @@ class YaoqinFragment : BaseFragment()  {
 
             }
         }
+
+        refresh_layout.setEnableLoadMore(false)
+        refresh_layout.setEnableRefresh(false)
         refresh_layout.setOnRefreshListener {
             //下拉刷新
             refresh_layout.finishRefresh(2000/*,false*/)
@@ -104,14 +107,14 @@ class YaoqinFragment : BaseFragment()  {
         val subscription = Network.getInstance("场馆列表", activity)
             .myBindingArea(
                 params,
-                ProgressSubscriber("场馆列表", object : SubscriberOnNextListener<Bean<CgListBean>> {
-                    override fun onNext(result: Bean<CgListBean>) {
+                ProgressSubscriber("场馆列表", object : SubscriberOnNextListener<Bean<List<CgListBean.AreaListBean>>> {
+                    override fun onNext(result: Bean<List<CgListBean.AreaListBean>>) {
 //                        setting(result.data.areaList)
                         if (page == 1){
                             datas.clear()
-                            datas.addAll(result.data.areaList)
+                            datas.addAll(result.data)
                         } else{
-                            datas.addAll(result.data.areaList)
+                            datas.addAll(result.data)
                         }
                         adapterManager.notifyDataSetChanged()
                     }
