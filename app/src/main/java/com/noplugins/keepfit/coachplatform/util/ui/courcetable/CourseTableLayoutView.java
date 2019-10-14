@@ -262,7 +262,6 @@ public class CourseTableLayoutView extends LinearLayout {
                         layoutParams.setMargins(0, move_height, 0, 0);//设置格子距离上部的位置
                         cource_layout.setLayoutParams(layoutParams);
 
-
                         //设置数据
                         class_name.setText(courseFlag.course.getCourseName());
                         cource_teacher.setText(courseFlag.course.getCoachUserName());

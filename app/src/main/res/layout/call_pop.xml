@@ -12,17 +12,44 @@
             android:layout_marginRight="@dimen/m32"
             android:background="@drawable/rizhi_pop_bg"
             android:layout_height="@dimen/m118">
-        <TextView
+
+        <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/top_heiziti"
-                android:textSize="18sp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/m24"
                 android:layout_gravity="center_horizontal"
-                android:text="确认拨打（021）67254325？"
-                android:textStyle="bold"
-                />
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/top_heiziti"
+                    android:textSize="18sp"
+                    android:layout_marginTop="@dimen/m24"
+                    android:text="确认拨打"
+                    android:textStyle="bold"
+                    />
+            <TextView
+                    android:id="@+id/phone_number_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/top_heiziti"
+                    android:textSize="18sp"
+                    android:layout_marginTop="@dimen/m24"
+                    android:text="(021）67254325"
+                    android:textStyle="bold"
+                    />
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/top_heiziti"
+                    android:textSize="18sp"
+                    android:layout_marginTop="@dimen/m24"
+                    android:text="？"
+                    android:textStyle="bold"
+                    />
+        </LinearLayout>
+
 
         <RelativeLayout
                 android:layout_width="match_parent"
@@ -31,7 +58,6 @@
                 android:layout_marginBottom="@dimen/m15"
                 android:layout_alignParentBottom="true"
                 android:layout_height="wrap_content">
-
 
 
             <LinearLayout
@@ -52,6 +78,7 @@
                         android:textColor="@color/top_heiziti"
                         />
             </LinearLayout>
+
             <LinearLayout
                     android:id="@+id/cancel_layout"
                     android:layout_width="@dimen/m130"

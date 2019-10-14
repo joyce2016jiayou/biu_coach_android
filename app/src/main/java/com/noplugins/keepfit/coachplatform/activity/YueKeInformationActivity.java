@@ -155,26 +155,25 @@ public class YueKeInformationActivity extends BaseActivity {
             @Override
             public void onClickCourse(View view, YueKeBean.CourseListBean course, int dataPosition, int dayPosition, int timePosition) {
                 Log.e("选择了", dataPosition + "");
-                if (dataPosition == 0) {
+                if (course.getCourseType() == 1) {//1.团课
                     Intent intent = new Intent(YueKeInformationActivity.this, ClassDetailActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putString("is_qiandao", "1");
+                    bundle.putString("cource_type", "1");
+                    bundle.putString("courseNum", course.getCourseNum());
+                    bundle.putString("order_number", course.getCustOrderItemNum());
+                    bundle.putString("user_number", course.getCustUserNum());
                     intent.putExtras(bundle);
                     startActivity(intent);
-                } else if (dataPosition == 1) {
+                } else {//2.私教
                     Intent intent = new Intent(YueKeInformationActivity.this, ClassDetailActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putString("is_qiandao", "2");
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-                } else {
-                    Intent intent = new Intent(YueKeInformationActivity.this, ClassDetailActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putString("is_qiandao", "3");
+                    bundle.putString("cource_type", "2");
+                    bundle.putString("courseNum", course.getCourseNum());
+                    bundle.putString("order_number", course.getCustOrderItemNum());
+                    bundle.putString("user_number", course.getCustUserNum());
                     intent.putExtras(bundle);
                     startActivity(intent);
                 }
-
             }
         });
 

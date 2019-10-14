@@ -383,6 +383,13 @@ public interface MyService {
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("agreeBindingArea")
     Observable<Bean<String>> agreeBindingArea(@Body RequestBody json);
-
+    /**
+     *教练同意/拒绝绑定
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("appointClassDetail")
+    Observable<Bean<ClassDetailBean>> class_detail(@Body RequestBody json);
 
 }

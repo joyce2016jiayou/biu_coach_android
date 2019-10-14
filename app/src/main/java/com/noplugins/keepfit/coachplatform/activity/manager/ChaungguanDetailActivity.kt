@@ -46,8 +46,8 @@ class ChaungguanDetailActivity : BaseActivity(), EasyPermissions.PermissionCallb
         if (parms != null) {
             listItem = parms.getInt("listItem")
             cgNum = parms.getString("cgNum").toString()
-            type = parms.getInt("type",-1)
-            if(type != -1){
+            type = parms.getInt("type", -1)
+            if (type != -1) {
                 btn_submit.text = "解 绑"
             }
             agreeCourse()
@@ -69,7 +69,7 @@ class ChaungguanDetailActivity : BaseActivity(), EasyPermissions.PermissionCallb
             toPhone(tv_toPhone)
         }
         btn_submit.clickWithTrigger {
-            if (type == -1){
+            if (type == -1) {
                 val mIntent = Intent()//没有任何参数（意图），只是用来传递数据
                 mIntent.putExtra("item", listItem)
                 setResult(RESULT_OK, mIntent)
@@ -89,6 +89,7 @@ class ChaungguanDetailActivity : BaseActivity(), EasyPermissions.PermissionCallb
 
 
     }
+
     var data: ArrayList<String> = ArrayList()
     var adapter: ChangguanDetailFeaturesAdapter? = null
     private fun initAdapter() {
@@ -97,8 +98,8 @@ class ChaungguanDetailActivity : BaseActivity(), EasyPermissions.PermissionCallb
         rv_features.adapter = adapter
     }
 
-    private fun setting(code: CgDetailBean){
-//简单使用
+    private fun setting(code: CgDetailBean) {
+        //简单使用
         banner
             .setBannerStyle(BannerConfig.NUM_INDICATOR)
             .setPages(code.picUrl, CustomViewHolder())
@@ -137,75 +138,75 @@ class ChaungguanDetailActivity : BaseActivity(), EasyPermissions.PermissionCallb
             )
     }
 
-private fun toMap(view1: TextView) {
-    val popupWindow = CommonPopupWindow.Builder(this)
-        .setView(R.layout.dialog_to_map)
-        .setBackGroundLevel(0.5f)//0.5f
-        .setAnimationStyle(R.style.main_menu_animstyle)
-        .setWidthAndHeight(
-            WindowManager.LayoutParams.MATCH_PARENT,
-            WindowManager.LayoutParams.MATCH_PARENT
-        )
-        .setOutSideTouchable(true).create()
-    popupWindow.showAsDropDown(view1)
+    private fun toMap(view1: TextView) {
+        val popupWindow = CommonPopupWindow.Builder(this)
+            .setView(R.layout.dialog_to_map)
+            .setBackGroundLevel(0.5f)//0.5f
+            .setAnimationStyle(R.style.main_menu_animstyle)
+            .setWidthAndHeight(
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.MATCH_PARENT
+            )
+            .setOutSideTouchable(true).create()
+        popupWindow.showAsDropDown(view1)
 
-    /**设置逻辑 */
-    val view = popupWindow.contentView
-    val cancel = view.findViewById<TextView>(R.id.cancel_layout)
+        /**设置逻辑 */
+        val view = popupWindow.contentView
+        val cancel = view.findViewById<TextView>(R.id.cancel_layout)
 
-    cancel.setOnClickListener {
-        popupWindow.dismiss()
-    }
-
-    val ivBaidu = view.findViewById<LinearLayout>(R.id.iv_baidu)
-    val ivGaode = view.findViewById<LinearLayout>(R.id.iv_gaode)
-    val ivQq = view.findViewById<LinearLayout>(R.id.iv_qq)
-
-    ivBaidu.clickWithTrigger {
-        if (!BaseUtils.isAvilible(this, "com.baidu.BaiduMap")) {
-            Toast.makeText(this, "请先安装百度地图客户端", Toast.LENGTH_SHORT).show()
-            return@clickWithTrigger
+        cancel.setOnClickListener {
+            popupWindow.dismiss()
         }
 
-        val intent = Intent()
-        intent.data = Uri.parse("baidumap://map/direction?destination=${tv_location.text}&mode=driving")
+        val ivBaidu = view.findViewById<LinearLayout>(R.id.iv_baidu)
+        val ivGaode = view.findViewById<LinearLayout>(R.id.iv_gaode)
+        val ivQq = view.findViewById<LinearLayout>(R.id.iv_qq)
+
+        ivBaidu.clickWithTrigger {
+            if (!BaseUtils.isAvilible(this, "com.baidu.BaiduMap")) {
+                Toast.makeText(this, "请先安装百度地图客户端", Toast.LENGTH_SHORT).show()
+                return@clickWithTrigger
+            }
+
+            val intent = Intent()
+            intent.data = Uri.parse("baidumap://map/direction?destination=${tv_location.text}&mode=driving")
 //            intent.data = Uri.parse("baidumap://map/navi?query=${tv_location.text}&src=$packageName")
-        startActivity(intent)
-    }
-
-    ivGaode.clickWithTrigger {
-        if (!BaseUtils.isAvilible(this, "com.autonavi.minimap")) {
-            Toast.makeText(this, "请先安装高德地图客户端", Toast.LENGTH_SHORT).show()
-            return@clickWithTrigger
+            startActivity(intent)
         }
 
-        val intent = Intent()
-        val stringBuffer = StringBuffer("androidamap://route?sourceApplication=").append(packageName)
+        ivGaode.clickWithTrigger {
+            if (!BaseUtils.isAvilible(this, "com.autonavi.minimap")) {
+                Toast.makeText(this, "请先安装高德地图客户端", Toast.LENGTH_SHORT).show()
+                return@clickWithTrigger
+            }
 
-        stringBuffer
-            .append("&dlat=").append(latitude)
-            .append("&dlon=").append(longitude)
-            .append("&dname=").append(tv_location.text)
-            .append("&dev=").append(0)
-            .append("&t=").append(0)
-        intent.data = Uri.parse(stringBuffer.toString())
-        startActivity(intent)
-    }
+            val intent = Intent()
+            val stringBuffer = StringBuffer("androidamap://route?sourceApplication=").append(packageName)
 
-    ivQq.clickWithTrigger {
-        if (!BaseUtils.isAvilible(this, "com.tencent.map")) {
-            Toast.makeText(this, "请先安装腾讯地图客户端", Toast.LENGTH_SHORT).show()
-            return@clickWithTrigger
+            stringBuffer
+                .append("&dlat=").append(latitude)
+                .append("&dlon=").append(longitude)
+                .append("&dname=").append(tv_location.text)
+                .append("&dev=").append(0)
+                .append("&t=").append(0)
+            intent.data = Uri.parse(stringBuffer.toString())
+            startActivity(intent)
         }
-        val stringBuffer = StringBuffer("qqmap://map/routeplan?type=drive")
-            .append("&tocoord=$latitude").append(",")
-            .append(longitude).append("&to=${tv_location.text}")
-        intent.data = Uri.parse(stringBuffer.toString())
-        startActivity(intent)
-    }
-}
 
-    private fun quxiaoBinding(){
+        ivQq.clickWithTrigger {
+            if (!BaseUtils.isAvilible(this, "com.tencent.map")) {
+                Toast.makeText(this, "请先安装腾讯地图客户端", Toast.LENGTH_SHORT).show()
+                return@clickWithTrigger
+            }
+            val stringBuffer = StringBuffer("qqmap://map/routeplan?type=drive")
+                .append("&tocoord=$latitude").append(",")
+                .append(longitude).append("&to=${tv_location.text}")
+            intent.data = Uri.parse(stringBuffer.toString())
+            startActivity(intent)
+        }
+    }
+
+    private fun quxiaoBinding() {
         val params = HashMap<String, Any>()
         params["teacherNum"] = SpUtils.getString(this, AppConstants.USER_NAME)
         params["areaNum"] = cgNum
@@ -226,32 +227,32 @@ private fun toMap(view1: TextView) {
             )
     }
 
-private fun toUnBinding(view1: TextView) {
-    val popupWindow = CommonPopupWindow.Builder(this)
-        .setView(R.layout.dialog_to_unbinding)
-        .setBackGroundLevel(0.5f)//0.5f
-        .setAnimationStyle(R.style.main_menu_animstyle)
-        .setWidthAndHeight(
-            WindowManager.LayoutParams.MATCH_PARENT,
-            WindowManager.LayoutParams.MATCH_PARENT
-        )
-        .setOutSideTouchable(true).create()
-    popupWindow.showAsDropDown(view1)
+    private fun toUnBinding(view1: TextView) {
+        val popupWindow = CommonPopupWindow.Builder(this)
+            .setView(R.layout.dialog_to_unbinding)
+            .setBackGroundLevel(0.5f)//0.5f
+            .setAnimationStyle(R.style.main_menu_animstyle)
+            .setWidthAndHeight(
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.MATCH_PARENT
+            )
+            .setOutSideTouchable(true).create()
+        popupWindow.showAsDropDown(view1)
 
-    /**设置逻辑 */
-    val view = popupWindow.contentView
-    val cancel = view.findViewById<LinearLayout>(R.id.cancel_layout)
-    val sure = view.findViewById<LinearLayout>(R.id.sure_layout)
+        /**设置逻辑 */
+        val view = popupWindow.contentView
+        val cancel = view.findViewById<LinearLayout>(R.id.cancel_layout)
+        val sure = view.findViewById<LinearLayout>(R.id.sure_layout)
 
-    cancel.setOnClickListener {
-        popupWindow.dismiss()
+        cancel.setOnClickListener {
+            popupWindow.dismiss()
+        }
+        sure.setOnClickListener {
+            popupWindow.dismiss()
+            quxiaoBinding()
+
+        }
     }
-    sure.setOnClickListener {
-        popupWindow.dismiss()
-        quxiaoBinding()
-
-    }
-}
 
     private fun toPhone(view1: TextView) {
         val popupWindow = CommonPopupWindow.Builder(this)
@@ -280,79 +281,79 @@ private fun toUnBinding(view1: TextView) {
         }
     }
 
-fun hasPermissions(context: Context?, vararg permissions: String): Boolean {
-    return EasyPermissions.hasPermissions(context!!, *permissions)
-}
-
-@AfterPermissionGranted(PERMISSION_STORAGE_CODE)
-fun initSimple() {
-    if (hasStoragePermission(this)) {
-        //有权限
-        callPhone("110")
-    } else {
-        //申请权限
-        EasyPermissions.requestPermissions(
-            this,
-            PERMISSION_STORAGE_MSG,
-            PERMISSION_STORAGE_CODE,
-            *PERMISSION_STORAGE
-        )
+    fun hasPermissions(context: Context?, vararg permissions: String): Boolean {
+        return EasyPermissions.hasPermissions(context!!, *permissions)
     }
-}
 
-/**
- * 是否有电话权限
- *
- * @param context
- * @return
- */
-fun hasStoragePermission(context: Context?): Boolean {
-    return hasPermissions(context, *PERMISSION_STORAGE)
-}
-
-
-@SuppressLint("MissingPermission")
-fun callPhone(phoneNum: String) {
-    val _intent = Intent(Intent.ACTION_CALL)
-    val data = Uri.parse("tel:$phoneNum")
-    _intent.data = data
-    startActivity(_intent)
-}
-
-/**
- * 权限设置页面回调
- *
- * @param requestCode
- * @param resultCode
- * @param data
- */
-override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-    super.onActivityResult(requestCode, resultCode, data)
-    if (requestCode == AppSettingsDialog.DEFAULT_SETTINGS_REQ_CODE) {
-
+    @AfterPermissionGranted(PERMISSION_STORAGE_CODE)
+    fun initSimple() {
+        if (hasStoragePermission(this)) {
+            //有权限
+            callPhone("110")
+        } else {
+            //申请权限
+            EasyPermissions.requestPermissions(
+                this,
+                PERMISSION_STORAGE_MSG,
+                PERMISSION_STORAGE_CODE,
+                *PERMISSION_STORAGE
+            )
+        }
     }
-}
 
-override fun onPermissionsGranted(requestCode: Int, perms: List<String>) {}
-
-override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-    super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
-}
-
-/**
- * 拒绝权限
- *
- * @param requestCode
- * @param perms
- */
-override fun onPermissionsDenied(requestCode: Int, perms: List<String>) {
-    if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
-        AppSettingsDialog.Builder(this)
-            .setTitle("提醒")
-            .setRationale("需要电话权限才能联系客服哦")
-            .build()
-            .show()
+    /**
+     * 是否有电话权限
+     *
+     * @param context
+     * @return
+     */
+    fun hasStoragePermission(context: Context?): Boolean {
+        return hasPermissions(context, *PERMISSION_STORAGE)
     }
-}
+
+
+    @SuppressLint("MissingPermission")
+    fun callPhone(phoneNum: String) {
+        val _intent = Intent(Intent.ACTION_CALL)
+        val data = Uri.parse("tel:$phoneNum")
+        _intent.data = data
+        startActivity(_intent)
+    }
+
+    /**
+     * 权限设置页面回调
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == AppSettingsDialog.DEFAULT_SETTINGS_REQ_CODE) {
+
+        }
+    }
+
+    override fun onPermissionsGranted(requestCode: Int, perms: List<String>) {}
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
+    }
+
+    /**
+     * 拒绝权限
+     *
+     * @param requestCode
+     * @param perms
+     */
+    override fun onPermissionsDenied(requestCode: Int, perms: List<String>) {
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            AppSettingsDialog.Builder(this)
+                .setTitle("提醒")
+                .setRationale("需要电话权限才能联系客服哦")
+                .build()
+                .show()
+        }
+    }
 }

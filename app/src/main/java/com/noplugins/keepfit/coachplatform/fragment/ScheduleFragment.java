@@ -168,7 +168,7 @@ public class ScheduleFragment extends Fragment {
                                 }
                                 LinearLayoutManager class_linearLayoutManager = new LinearLayoutManager(getActivity());
                                 class_recycler_view.setLayoutManager(class_linearLayoutManager);
-                                if(classDateBeans.get(0).getYijieshu_list().size()==0&&classDateBeans.get(0).getWeijieshu_list().size()==0){
+                                if (classDateBeans.get(0).getYijieshu_list().size() == 0 && classDateBeans.get(0).getWeijieshu_list().size() == 0) {
                                     classDateBeans.clear();
                                 }
                                 ClassAdapter classAdapter = new ClassAdapter(classDateBeans, ScheduleFragment.this);

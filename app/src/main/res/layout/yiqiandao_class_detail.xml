@@ -36,6 +36,7 @@
                         />
 
                 <TextView
+                        android:id="@+id/w_room_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="动感单车房"
@@ -44,21 +45,7 @@
                         android:textSize="15sp"
                         />
 
-                <LinearLayout
-                        android:layout_width="1dp"
-                        android:layout_marginLeft="@dimen/m10"
-                        android:background="@color/color_4A4A4A"
-                        android:layout_height="@dimen/m18"
-                        />
 
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="15人"
-                        android:layout_marginLeft="@dimen/m10"
-                        android:textColor="@color/color_4A4A4A"
-                        android:textSize="15sp"
-                        />
             </LinearLayout>
 
             <LinearLayout
@@ -78,6 +65,7 @@
                         />
 
                 <TextView
+                        android:id="@+id/w_class_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="动感单车"
@@ -105,6 +93,7 @@
                         />
 
                 <TextView
+                        android:id="@+id/w_class_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="动感单车"
@@ -132,6 +121,7 @@
                         />
 
                 <TextView
+                        android:id="@+id/w_price_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="¥ 235"
@@ -159,6 +149,7 @@
                         />
 
                 <TextView
+                        android:id="@+id/w_class_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="2019-08-09 13:00-13:45"
@@ -186,6 +177,7 @@
                         />
 
                 <TextView
+                        android:id="@+id/w_class_duration_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="45min/节"
@@ -214,6 +206,7 @@
                         />
 
                 <TextView
+                        android:id="@+id/w_class_renshu_zhanbi"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="11/23"

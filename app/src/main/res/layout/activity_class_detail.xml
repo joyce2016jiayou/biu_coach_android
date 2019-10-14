@@ -43,7 +43,7 @@
             android:layout_height="wrap_content">
 
         <LinearLayout
-                android:id="@+id/select_month_btn"
+                android:id="@+id/go_to_changguan_detail"
                 android:layout_width="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content">
 
             <TextView
-                    android:id="@+id/time_tv"
+                    android:id="@+id/changguan_name_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="X-park健身馆"
@@ -98,12 +98,12 @@
                     android:layout_height="@dimen/m24"
                     />
     </RelativeLayout>
-    <!--已签到-->
+    <!--团课-->
     <include
             android:id="@+id/yiqiandao_layout"
             android:visibility="gone"
             layout="@layout/yiqiandao_class_detail"/>
-    <!--已预约-->
+    <!--私教-->
     <include
             android:visibility="gone"
             android:id="@+id/yiyueyue_layout"
