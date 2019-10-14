@@ -75,11 +75,11 @@ class MineFragment : BaseFragment() {
         val min1 = MineFunctionBean("钱包", R.drawable.mine_qb)
         val min2 = MineFunctionBean("课程管理", R.drawable.mine_kc)
 
-        if (min.teacherType == 2) {
-            val min3 = MineFunctionBean("授课场馆", R.drawable.mine_cgyy)
-            fuctionBean.add(min3)
-        }
-
+//        if (min.teacherType == 2) {
+//
+//        }
+        val min3 = MineFunctionBean("授课场馆", R.drawable.mine_cgyy)
+        fuctionBean.add(min3)
         val min4 = MineFunctionBean("授课时间", R.drawable.mine_sksj)
         val min5 = MineFunctionBean("问题反馈", R.drawable.mine_wtfc)
         val min6 = MineFunctionBean("设置", R.drawable.setting)
@@ -104,6 +104,7 @@ class MineFragment : BaseFragment() {
                         startActivity(intent)
                     }
                     "授课场馆" -> {
+                        if (min.teacherType == 1) return@setOnItemClickListener
                         val intent = Intent(activity, ShoukeCgActivity::class.java)
                         startActivity(intent)
                     }

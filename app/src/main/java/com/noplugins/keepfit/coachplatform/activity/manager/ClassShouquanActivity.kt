@@ -7,8 +7,10 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.CheckBox
 import android.widget.TextView
@@ -120,6 +122,10 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
                 submitData()
             }
         }
+        iv_delete_edit.clickWithTrigger {
+            edit_search.setText("")
+        }
+
         edit_search.setOnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
                 //获取焦点
@@ -163,7 +169,20 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
             }
 
         })
-    }
+        edit_search.setOnEditorActionListener(object : TextView.OnEditorActionListener {
+            override fun onEditorAction(p0: TextView?, p1: Int, p2: KeyEvent?): Boolean {
+                if (p1 == EditorInfo.IME_ACTION_SEARCH) {
+                    Log.d("EditorInfo", "当前点击了")
+                    agreeCourse()
+                    return false
+                }
+                Log.d("EditorInfo", "当前点击了qita")
+                return true
+            }
+        })
+
+
+        }
 
     private lateinit var layoutManager: LinearLayoutManager
     private fun initAdapter() {
@@ -224,12 +243,14 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
         }
 
         refresh_layout.setEnableRefresh(false)
+        refresh_layout.setEnableLoadMore(false)
 //        refresh_layout.setOnRefreshListener {
 //            //下拉刷新
 //            refresh_layout.finishRefresh(2000/*,false*/)
 //        }
         refresh_layout.setOnLoadMoreListener {
             //上拉加载
+
             refresh_layout.finishLoadMore(2000/*,false*/)
         }
     }
@@ -291,6 +312,9 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
         params["latitude"] = latitude
         if (skillSelect > -1){
             params["type"] = skillSelect
+        }
+        if (edit_search.text.toString() != null){
+            params["data"] = edit_search.text.toString().trim()
         }
         val subscription = Network.getInstance("场馆列表", this)
             .bindingAreaList(

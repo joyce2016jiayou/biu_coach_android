@@ -122,6 +122,9 @@ public class ScheduleFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (BaseUtils.isFastClick()) {
+                    if (SpUtils.getString(getActivity(), AppConstants.TEACHER_TYPE).equals("2")){
+                        return;
+                    }
                     Intent intent = new Intent(getActivity(), ShoukeCgActivity.class);
                     startActivity(intent);
                 }
