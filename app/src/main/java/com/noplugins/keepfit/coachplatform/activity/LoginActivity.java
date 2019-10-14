@@ -216,6 +216,8 @@ public class LoginActivity extends BaseActivity {
                                         result.getData().getUserNum(),
                                         result.getData().getTeacherType(),
                                         result.getData().getUserNum());
+
+
                             }
 
                             @Override

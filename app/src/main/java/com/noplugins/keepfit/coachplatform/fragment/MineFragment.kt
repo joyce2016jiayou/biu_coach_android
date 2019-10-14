@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.noplugins.keepfit.coachplatform.R
+import com.noplugins.keepfit.coachplatform.activity.ClassManagerActivity
 import com.noplugins.keepfit.coachplatform.activity.ShoukeCgActivity
+import com.noplugins.keepfit.coachplatform.activity.TeacherTimeActivity
 import com.noplugins.keepfit.coachplatform.activity.info.InformationActivity
 import com.noplugins.keepfit.coachplatform.activity.info.ProductAdviceActivity
 import com.noplugins.keepfit.coachplatform.activity.info.SettingActivity
@@ -63,6 +65,7 @@ class MineFragment : BaseFragment() {
     }
 
     private fun setting(min: MineBean) {
+        SpUtils.putString(activity, AppConstants.NAME, min.realname)
         if (min.lableList!=null){
             val tagAdapter = TeacherTagAdapter(activity, min.lableList)
             grid_view.adapter = tagAdapter
@@ -72,11 +75,11 @@ class MineFragment : BaseFragment() {
         val min1 = MineFunctionBean("钱包", R.drawable.mine_qb)
         val min2 = MineFunctionBean("课程管理", R.drawable.mine_kc)
 
-        if (min.teacherType == 2) {
-            val min3 = MineFunctionBean("授课场馆", R.drawable.mine_cgyy)
-            fuctionBean.add(min3)
-        }
-
+//        if (min.teacherType == 2) {
+//
+//        }
+        val min3 = MineFunctionBean("授课场馆", R.drawable.mine_cgyy)
+        fuctionBean.add(min3)
         val min4 = MineFunctionBean("授课时间", R.drawable.mine_sksj)
         val min5 = MineFunctionBean("问题反馈", R.drawable.mine_wtfc)
         val min6 = MineFunctionBean("设置", R.drawable.setting)
@@ -97,19 +100,23 @@ class MineFragment : BaseFragment() {
                         startActivity(intent)
                     }
                     "课程管理" -> {
+                        val intent = Intent(activity, ClassManagerActivity::class.java)
+                        startActivity(intent)
                     }
                     "授课场馆" -> {
+                        if (min.teacherType == 1) return@setOnItemClickListener
                         val intent = Intent(activity, ShoukeCgActivity::class.java)
                         startActivity(intent)
                     }
                     "授课时间" -> {
+                        val intent = Intent(activity, TeacherTimeActivity::class.java)
+                        startActivity(intent)
                     }
                     "问题反馈" -> {
                         val intent = Intent(activity, ProductAdviceActivity::class.java)
                         startActivity(intent)
                     }
                     "设置" -> {
-
                         val intent = Intent(activity, SettingActivity::class.java)
                         startActivity(intent)
                     }

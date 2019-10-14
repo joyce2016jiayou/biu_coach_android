@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              xmlns:tools="http://schemas.android.com/tools"
 
               android:orientation="vertical">
     <FrameLayout
@@ -64,7 +65,7 @@
                 android:id="@+id/tv_income"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="收入：¥22222.22"
+                tools:text="收入：¥22222.22"
                 android:layout_marginTop="@dimen/m10"
                 android:textColor="@color/color_4A4A4A"
                 android:layout_alignParentRight="true" />
@@ -72,7 +73,7 @@
                 android:id="@+id/tv_withdraw"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="提现：¥22222.22"
+                tools:text="提现：¥22222.22"
                 android:layout_below="@+id/tv_income"
                 android:layout_marginTop="@dimen/m10"
                 android:textColor="@color/color_4A4A4A"

@@ -91,7 +91,7 @@ class VerificationPhoneActivity : BaseActivity() {
         val params = HashMap<String, Any>()
         params["phone"] = tv_phone.text.toString()
         params["messageId"] = messageId
-        params["verifyCode"] = edit_yzm.text.toString()
+        params["code"] = edit_yzm.text.toString()
         params["userNum"] = SpUtils.getString(applicationContext, AppConstants.USER_NAME)
         subscription = Network.getInstance("修改手机号", this)
             .updatePhone(

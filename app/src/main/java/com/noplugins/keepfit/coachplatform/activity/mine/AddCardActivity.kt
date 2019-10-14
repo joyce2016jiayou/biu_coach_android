@@ -7,8 +7,10 @@ import android.os.Bundle
 import com.nanchen.bankcardutil.BankInfoUtil
 import com.noplugins.keepfit.coachplatform.R
 import com.noplugins.keepfit.coachplatform.base.BaseActivity
+import com.noplugins.keepfit.coachplatform.global.AppConstants
 import com.noplugins.keepfit.coachplatform.global.clickWithTrigger
 import com.noplugins.keepfit.coachplatform.util.BankUtils
+import com.noplugins.keepfit.coachplatform.util.SpUtils
 import com.noplugins.keepfit.coachplatform.util.ui.toast.SuperCustomToast
 import kotlinx.android.synthetic.main.activity_add_card.*
 import org.greenrobot.eventbus.EventBus
@@ -22,6 +24,7 @@ class AddCardActivity : BaseActivity() {
     override fun initView() {
         setContentView(R.layout.activity_add_card)
         EventBus.getDefault().register(this)
+        tv_phone.text = SpUtils.getString(this, AppConstants.NAME)
     }
 
     /**

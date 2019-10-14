@@ -36,7 +36,7 @@
             android:id="@+id/tv_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="持卡人   李文"
+            tools:text="持卡人   李文"
             android:textColor="@color/color_929292"
             android:layout_marginLeft="@dimen/m20"
             android:textSize="13sp"/>

@@ -51,6 +51,8 @@ public class ScheduleFragment extends Fragment {
     LinearLayout more_btn;
     @BindView(R.id.ll_class_manager)
     LinearLayout ll_class_manager;
+    @BindView(R.id.shouke_cg)
+    LinearLayout shouke_cg;
     List<ClassDateBean> classDateBeans = new ArrayList<>();
     List<SelectDateBean> selectDateBeans = new ArrayList<>();
     private String select_date = "";
@@ -89,15 +91,21 @@ public class ScheduleFragment extends Fragment {
         teacher_time_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), TeacherTimeActivity.class);
-                startActivity(intent);
+                if (BaseUtils.isFastClick()) {
+                    Intent intent = new Intent(getActivity(), TeacherTimeActivity.class);
+                    startActivity(intent);
+                }
+
             }
         });
         more_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), YueKeInformationActivity.class);
-                startActivity(intent);
+                if (BaseUtils.isFastClick()) {
+                    Intent intent = new Intent(getActivity(), YueKeInformationActivity.class);
+                    startActivity(intent);
+                }
+
             }
         });
         ll_class_manager.setOnClickListener(new View.OnClickListener() {
@@ -105,6 +113,19 @@ public class ScheduleFragment extends Fragment {
             public void onClick(View v) {
                 if (BaseUtils.isFastClick()) {
                     Intent intent = new Intent(getActivity(), ClassManagerActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
+
+        shouke_cg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (BaseUtils.isFastClick()) {
+                    if (SpUtils.getString(getActivity(), AppConstants.TEACHER_TYPE).equals("2")){
+                        return;
+                    }
+                    Intent intent = new Intent(getActivity(), ShoukeCgActivity.class);
                     startActivity(intent);
                 }
             }

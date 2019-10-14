@@ -7,8 +7,10 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.CheckBox
 import android.widget.TextView
@@ -39,6 +41,7 @@ import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
 import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
 import com.noplugins.keepfit.coachplatform.util.ui.pop.SpinnerPopWindow
+import com.noplugins.keepfit.coachplatform.util.ui.toast.SuperCustomToast
 import kotlinx.android.synthetic.main.activity_class_shouquan.*
 import org.greenrobot.eventbus.EventBus
 import pub.devrel.easypermissions.AfterPermissionGranted
@@ -112,10 +115,17 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
             finish()
         }
         queren_btn.clickWithTrigger {
+
+            val gson = Gson().toJson(submitList)
+            Log.d("tag",gson)
             if (submitList.size > 0){
                 submitData()
             }
         }
+        iv_delete_edit.clickWithTrigger {
+            edit_search.setText("")
+        }
+
         edit_search.setOnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
                 //获取焦点
@@ -159,7 +169,20 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
             }
 
         })
-    }
+        edit_search.setOnEditorActionListener(object : TextView.OnEditorActionListener {
+            override fun onEditorAction(p0: TextView?, p1: Int, p2: KeyEvent?): Boolean {
+                if (p1 == EditorInfo.IME_ACTION_SEARCH) {
+                    Log.d("EditorInfo", "当前点击了")
+                    agreeCourse()
+                    return false
+                }
+                Log.d("EditorInfo", "当前点击了qita")
+                return true
+            }
+        })
+
+
+        }
 
     private lateinit var layoutManager: LinearLayoutManager
     private fun initAdapter() {
@@ -220,12 +243,14 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
         }
 
         refresh_layout.setEnableRefresh(false)
+        refresh_layout.setEnableLoadMore(false)
 //        refresh_layout.setOnRefreshListener {
 //            //下拉刷新
 //            refresh_layout.finishRefresh(2000/*,false*/)
 //        }
         refresh_layout.setOnLoadMoreListener {
             //上拉加载
+
             refresh_layout.finishLoadMore(2000/*,false*/)
         }
     }
@@ -288,12 +313,15 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
         if (skillSelect > -1){
             params["type"] = skillSelect
         }
+        if (edit_search.text.toString() != null){
+            params["data"] = edit_search.text.toString().trim()
+        }
         val subscription = Network.getInstance("场馆列表", this)
             .bindingAreaList(
                 params,
                 ProgressSubscriber("场馆列表", object : SubscriberOnNextListener<Bean<CgListBean>> {
                     override fun onNext(result: Bean<CgListBean>) {
-//                        setting(result.data.areaList)
+                        submitList.clear()
                         if (page == 1){
                             data.clear()
                             data.addAll(result.data.areaList)
@@ -319,6 +347,8 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
                 ProgressSubscriber("绑定场馆", object : SubscriberOnNextListener<Bean<String>> {
                     override fun onNext(result: Bean<String>) {
                         //提交成功
+                        SuperCustomToast.getInstance(this@ClassShouquanActivity)
+                            .show("申请绑定场馆已提交",2000)
                         finish()
                     }
 
@@ -420,9 +450,9 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
                     if (geocodeResult?.geocodeAddressList != null &&
                         geocodeResult.geocodeAddressList.size>0){
                         val geocodeAddress = geocodeResult.getGeocodeAddressList().get(0)
-                        val latitude = geocodeAddress.latLonPoint.latitude//纬度
-                        val longititude = geocodeAddress.latLonPoint.longitude//经度
-
+                        latitude = geocodeAddress.latLonPoint.latitude//纬度
+                        longitude = geocodeAddress.latLonPoint.longitude//经度
+                        agreeCourse()
 
                     }
                 } else{

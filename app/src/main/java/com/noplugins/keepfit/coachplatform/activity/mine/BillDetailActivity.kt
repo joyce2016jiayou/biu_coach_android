@@ -36,6 +36,7 @@ class BillDetailActivity : BaseActivity() {
     var walletNum = ""
     var page = 1
     var maxPage = 1
+    var selectDate = "2019-10"
     override fun initBundle(parms: Bundle?) {
         if (intent.getStringExtra("walletNum")!=""){
             walletNum = intent.getStringExtra("walletNum")
@@ -112,6 +113,9 @@ class BillDetailActivity : BaseActivity() {
                 select_month = "" + (date.month + 1)
             }
             tv_select_time.text = select_year.toString() + "年" + select_month + "月"
+            selectDate = "$select_year-$select_month"
+
+            requestData()
         })
             .setDate(selectedDate)
             .setRangDate(startDate, endDate)
@@ -143,13 +147,15 @@ class BillDetailActivity : BaseActivity() {
         val params = HashMap<String, Any>()
 //        params["teacherNum"] = SpUtils.getString(activity, AppConstants.USER_NAME)
         params["walletNum"] = walletNum
-        params["date"] = "2019-09"
+        params["date"] = selectDate
         params["page"] = page
-        val subscription = Network.getInstance("我的钱包", this)
+        subscription = Network.getInstance("我的钱包", this)
             .myBalanceList(
                 params,
                 ProgressSubscriber("我的钱包", object : SubscriberOnNextListener<Bean<BalanceListBean>> {
                     override fun onNext(result: Bean<BalanceListBean>) {
+//                        tv_income.text = "收入：0"
+//                        tv_withdraw.text = "提现：0"
                         maxPage = result.data.maxPage
                         if (page == 1){
                             data.clear()

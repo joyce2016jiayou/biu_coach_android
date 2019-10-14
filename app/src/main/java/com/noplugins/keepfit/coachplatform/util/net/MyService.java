@@ -364,7 +364,7 @@ public interface MyService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("myBindingArea")
-    Observable<Bean<CgListBean>> myBindingArea(@Body RequestBody json);
+    Observable<Bean<List<CgListBean.AreaListBean>>> myBindingArea(@Body RequestBody json);
 
     /**
      *解除绑定授权场馆
