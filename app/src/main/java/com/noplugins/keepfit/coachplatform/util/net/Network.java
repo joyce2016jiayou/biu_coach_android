@@ -545,6 +545,15 @@ public class Network {
                 .subscribe(subscriber);
     }
 
+    public Subscription bankList(Map<String, Object> params, Subscriber<Bean<List<BankCardBean>>> subscriber) {
+        return service.bankList(retuen_json_object(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+
     public Subscription class_detail(Map<String, Object> params, Subscriber<Bean<ClassDetailBean>> subscriber) {
         return service.class_detail(retuen_json_object(params))
                 .subscribeOn(Schedulers.io())

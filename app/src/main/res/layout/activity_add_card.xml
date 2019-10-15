@@ -83,7 +83,7 @@
                 android:gravity="center_vertical"
                 android:background="@null"
                 android:inputType="number"
-                android:maxLength="18"
+                android:maxLength="19"
                 android:digits="1234567890Xx"
                 android:hint="@string/tv_input_card"
                 android:textColor="@color/contents_text"

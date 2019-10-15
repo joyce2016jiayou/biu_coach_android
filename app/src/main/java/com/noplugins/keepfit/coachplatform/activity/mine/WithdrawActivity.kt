@@ -22,16 +22,24 @@ import com.noplugins.keepfit.coachplatform.R
 import com.noplugins.keepfit.coachplatform.activity.info.VerificationPhoneActivity
 import com.noplugins.keepfit.coachplatform.adapter.CardAdapter
 import com.noplugins.keepfit.coachplatform.base.BaseActivity
+import com.noplugins.keepfit.coachplatform.bean.BankCardBean
 import com.noplugins.keepfit.coachplatform.global.AppConstants
 import com.noplugins.keepfit.coachplatform.global.clickWithTrigger
+import com.noplugins.keepfit.coachplatform.util.HideDataUtil
 import com.noplugins.keepfit.coachplatform.util.SpUtils
+import com.noplugins.keepfit.coachplatform.util.net.Network
+import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
+import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
+import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
 import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow
 import kotlinx.android.synthetic.main.activity_withdraw.*
+import java.util.HashMap
 
 class WithdrawActivity : BaseActivity() {
     var cardNumber = ""
     var selectCard = -1
     var finalCanWithdraw = 0.0
+    val list:MutableList<BankCardBean> = ArrayList()
     override fun initBundle(parms: Bundle?) {
         if (parms!=null){
             finalCanWithdraw = parms.getDouble("finalCanWithdraw")
@@ -49,6 +57,10 @@ class WithdrawActivity : BaseActivity() {
         et_withdraw_money.hint = SpannedString(ss)
     }
 
+    override fun onResume() {
+        super.onResume()
+        requestCardList()
+    }
     override fun doBusiness(mContext: Context?) {
         back_btn.clickWithTrigger {
             finish()
@@ -127,7 +139,26 @@ class WithdrawActivity : BaseActivity() {
         })
     }
 
+    private fun requestCardList(){
+        val params = HashMap<String, Any>()
+//        params["teacherNum"] = SpUtils.getString(applicationContext,AppConstants.USER_NAME)
+        params["teacherNum"] = "CUS19091292977313"
+        subscription = Network.getInstance("银行卡列表", this)
+            .bankList(
+                params,
+                ProgressSubscriber("银行卡列表", object : SubscriberOnNextListener<Bean<List<BankCardBean>>> {
+                    override fun onNext(result: Bean<List<BankCardBean>>) {
+//                        setting(result.data.areaList)
+                        list.clear()
+                        list.addAll(result.data)
+                    }
 
+                    override fun onError(error: String) {
+
+                    }
+                }, this, false)
+            )
+    }
     private fun toSelectCard(view1: View) {
         val popupWindow = CommonPopupWindow.Builder(this)
             .setView(R.layout.selext_card_pop)
@@ -146,8 +177,6 @@ class WithdrawActivity : BaseActivity() {
         val rvCard = view.findViewById<RecyclerView>(R.id.rv_dialog_card)
         val layoutManager = LinearLayoutManager(this)
         rvCard.layoutManager = layoutManager
-        val list:MutableList<String> = ArrayList()
-        list.add("")
         val cardAdapter = CardAdapter(list)
         rvCard.adapter = cardAdapter
         if (selectCard >-1){
@@ -164,7 +193,10 @@ class WithdrawActivity : BaseActivity() {
             } else if (itemView.id == R.id.cb_select) {
                 (  itemView as CheckBox ).isChecked = true
             }
-            cardNumber = "1234567"
+            cardNumber = list[position].bankCardNum
+            tv_card_number.text  = HideDataUtil.hideCardNo(list[position].bankCardNum)
+            tv_bank_name.text = list[position].bankCardName
+            tv_card_type.text = "储蓄卡"
             rl_select_card.visibility = View.GONE
             ll_card.visibility = View.VISIBLE
             selectCard = position
