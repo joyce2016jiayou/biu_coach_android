@@ -30,7 +30,7 @@ import kotlinx.android.synthetic.main.fragment_manager_teacher_1.*
 import org.greenrobot.eventbus.EventBus
 import java.util.HashMap
 
-class YaoqinFragment : BaseFragment()  {
+class YaoqinFragment : BaseFragment() {
     companion object {
         fun newInstance(title: String): YaoqinFragment {
             val fragment = YaoqinFragment()
@@ -40,8 +40,9 @@ class YaoqinFragment : BaseFragment()  {
             return fragment
         }
     }
-    var  datas:MutableList<ManagerBean.CourseListBean> = ArrayList()
-    lateinit var adapterManager : ManagerTeamClassAdapter
+
+    var datas: MutableList<ManagerBean.CourseListBean> = ArrayList()
+    lateinit var adapterManager: ManagerTeamClassAdapter
     var newView: View? = null
 
 
@@ -60,12 +61,12 @@ class YaoqinFragment : BaseFragment()  {
 
     override fun onFragmentVisibleChange(isVisible: Boolean) {
         super.onFragmentVisibleChange(isVisible)
-        if (isVisible){
+        if (isVisible) {
 
         }
     }
 
-    private fun initAdapter(){
+    private fun initAdapter() {
         rv_list.layoutManager = LinearLayoutManager(context)
         adapterManager = ManagerTeamClassAdapter(datas)
         val view = LayoutInflater.from(context).inflate(R.layout.enpty_view, null, false)
@@ -73,22 +74,22 @@ class YaoqinFragment : BaseFragment()  {
         rv_list.adapter = adapterManager
 
         adapterManager.setOnItemChildClickListener { adapter, view, position ->
-            when(view.id){
+            when (view.id) {
                 R.id.rl_jump -> {
                     //跳转到详情 需要携带状态
                     val toInfo = Intent(activity, TeamInfoActivity::class.java)
                     val bundle = Bundle()
-                    bundle.putInt("type",2)
-                    bundle.putString("courseNum",datas[position].courseNum)
+                    bundle.putInt("type", 2)
+                    bundle.putString("courseNum", datas[position].courseNum)
                     toInfo.putExtras(bundle)
                     startActivity(toInfo)
                 }
                 R.id.tv_jujue -> {
-                    toJujue(view as TextView,position)
+                    toJujue(view as TextView, position)
                 }
                 R.id.tv_jieshou -> {
                     //接受
-                    agreeCourse(position,1,"")
+                    agreeCourse(position, 1, "")
                 }
             }
         }
@@ -104,14 +105,15 @@ class YaoqinFragment : BaseFragment()  {
 
     }
 
-    private fun requestData(){
+    private fun requestData() {
         val params = HashMap<String, Any>()
 //        params["teacherNum"] = SpUtils.getString(activity, AppConstants.USER_NAME)
         params["teacherNum"] = SpUtils.getString(activity, AppConstants.USER_NAME)
         params["courseType"] = 1
         params["type"] = 2
         val subscription = Network.getInstance("课程管理", activity)
-            .courseManager(params,
+            .courseManager(
+                params,
                 ProgressSubscriber("课程管理", object : SubscriberOnNextListener<Bean<ManagerBean>> {
                     override fun onNext(result: Bean<ManagerBean>) {
                         datas.clear()
@@ -128,7 +130,7 @@ class YaoqinFragment : BaseFragment()  {
 
     }
 
-    private fun toJujue(view1: TextView,position: Int) {
+    private fun toJujue(view1: TextView, position: Int) {
         val popupWindow = CommonPopupWindow.Builder(activity)
             .setView(R.layout.dialog_to_jujue)
             .setBackGroundLevel(0.5f)//0.5f
@@ -151,35 +153,36 @@ class YaoqinFragment : BaseFragment()  {
         sure.setOnClickListener {
             popupWindow.dismiss()
             //去申请
-            agreeCourse(position,0,edit.text.toString())
+            agreeCourse(position, 0, edit.text.toString())
 
         }
     }
 
-    private fun agreeCourse(position:Int,type:Int,str:String){
+    private fun agreeCourse(position: Int, type: Int, str: String) {
         val params = HashMap<String, Any>()
-//        params["teacherNum"] = SpUtils.getString(activity, AppConstants.USER_NAME)
-        params["teacherNum"] = "GEN23456"
+        params["teacherNum"] = SpUtils.getString(activity, AppConstants.USER_NAME)
+//        params["teacherNum"] = "GEN23456"
         params["courseNum"] = datas[position].courseNum
         params["agree"] = type
-        if (type == 0){
+        if (type == 0) {
             params["refuse"] = str
         }
         val subscription = Network.getInstance("团课同意/拒绝", activity)
-            .agreeCourse(params,
+            .agreeCourse(
+                params,
                 ProgressSubscriber("团课同意/拒绝", object : SubscriberOnNextListener<Bean<String>> {
                     override fun onNext(result: Bean<String>) {
                         //上架成功！
                         datas.removeAt(position)//删除数据源,移除集合中当前下标的数据
                         adapterManager.notifyItemRemoved(position)//刷新被删除的地方
-                        adapterManager.notifyItemRangeChanged(position,adapterManager.itemCount) //刷新被删除数据，以及其后面的数据
+                        adapterManager.notifyItemRangeChanged(position, adapterManager.itemCount) //刷新被删除数据，以及其后面的数据
 
-                        when(type){
+                        when (type) {
                             1 -> {
                                 EventBus.getDefault().post(AppConstants.TEAM_YQ_AGREE)
                             }
 
-                            0-> {
+                            0 -> {
                                 EventBus.getDefault().post(AppConstants.TEAM_YQ_REFUSE)
                             }
                         }

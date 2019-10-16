@@ -12,7 +12,9 @@ import com.noplugins.keepfit.coachplatform.adapter.PopUpAdapter
 import com.noplugins.keepfit.coachplatform.base.BaseActivity
 import com.noplugins.keepfit.coachplatform.bean.manager.ManagerBean
 import com.noplugins.keepfit.coachplatform.bean.manager.ManagerTeamBean
+import com.noplugins.keepfit.coachplatform.global.AppConstants
 import com.noplugins.keepfit.coachplatform.global.clickWithTrigger
+import com.noplugins.keepfit.coachplatform.util.SpUtils
 import com.noplugins.keepfit.coachplatform.util.net.Network
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
@@ -153,14 +155,25 @@ class TeacherAddOrEditActivity : BaseActivity() {
 
 
     private fun requestAddInfo(){
+        /**
+         * "gen_teacher_num":"GEN23456",
+        "price":200,
+        "course_name":"一起做运动",
+        "class_type":3,
+        "course_des":"一起运动介绍",
+        "tips":"注意注意",
+        "suit_person":"所有人"，
+        "course_type":2
+         */
         val params = HashMap<String, Any>()
-        params["gen_teacher_num"] = "GEN23456"
+        params["gen_teacher_num"] = SpUtils.getString(applicationContext,AppConstants.USER_NAME)
         params["price"] = edit_price.text.toString()
         params["course_name"] = edit_class_name.text.toString()
         params["class_type"] = skillType
         params["course_des"] = edit_jieshao.text.toString()
-        params["tips"] = edit_shihe.text.toString()
-        params["edit_zhuyi"] = edit_jieshao.text.toString()
+        params["suit_person"] = edit_shihe.text.toString()
+        params["tips"] = edit_jieshao.text.toString()
+        params["course_type"] = 2
         subscription = Network.getInstance("添加课程", this)
             .addTeacherCourse(params,
                 ProgressSubscriber("添加课程", object : SubscriberOnNextListener<Bean<String>> {

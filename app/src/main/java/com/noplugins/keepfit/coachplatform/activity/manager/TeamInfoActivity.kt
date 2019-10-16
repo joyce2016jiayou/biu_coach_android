@@ -16,8 +16,10 @@ import com.noplugins.keepfit.coachplatform.R
 import com.noplugins.keepfit.coachplatform.adapter.TeamDetail9ImgAdapter
 import com.noplugins.keepfit.coachplatform.base.BaseActivity
 import com.noplugins.keepfit.coachplatform.bean.manager.ManagerTeamBean
+import com.noplugins.keepfit.coachplatform.global.AppConstants
 import com.noplugins.keepfit.coachplatform.global.clickWithTrigger
 import com.noplugins.keepfit.coachplatform.util.GlideRoundTransform
+import com.noplugins.keepfit.coachplatform.util.SpUtils
 import com.noplugins.keepfit.coachplatform.util.data.DateHelper
 import com.noplugins.keepfit.coachplatform.util.net.Network
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
@@ -170,7 +172,7 @@ class TeamInfoActivity : BaseActivity() {
     private fun agreeCourse(type:Int,str:String){
         val params = HashMap<String, Any>()
 //        params["teacherNum"] = SpUtils.getString(activity, AppConstants.USER_NAME)
-        params["teacherNum"] = "GEN23456"
+        params["teacherNum"] = SpUtils.getString(applicationContext, AppConstants.USER_NAME)
         params["courseNum"] = courseNum
         params["agree"] = type
         if (type == 0){

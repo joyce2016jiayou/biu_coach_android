@@ -30,6 +30,7 @@ public class ShoukeCgAdapter extends BaseQuickAdapter<CgListBean.AreaListBean, B
         helper
                 .addOnClickListener(R.id.rl_detail)
                 .addOnClickListener(R.id.tv_jujue)
+                .addOnClickListener(R.id.rl_jump)
                 .addOnClickListener(R.id.tv_jieshou);
         helper.setText(R.id.tv_cg_name,item.getAreaName());
         helper.setText(R.id.tv_cg_ar,item.getDistance()+"m");
