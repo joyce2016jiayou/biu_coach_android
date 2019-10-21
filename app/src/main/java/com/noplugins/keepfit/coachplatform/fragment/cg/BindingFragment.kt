@@ -47,13 +47,13 @@ class BindingFragment : BaseFragment()  {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initAdapter()
-        requestData()
+
     }
 
     override fun onFragmentVisibleChange(isVisible: Boolean) {
         super.onFragmentVisibleChange(isVisible)
         if (isVisible){
-//            requestData()
+            requestData()
         }
     }
 

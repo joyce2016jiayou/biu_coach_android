@@ -80,8 +80,8 @@ class AuthenticationActivity : BaseActivity() {
 
     private fun binding(){
         val params = HashMap<String, Any>()
-//        params["coachNum"] = SpUtils.getString(this,AppConstants.USER_NAME)
-        params["coachNum"] ="CUS19091292977313"
+        params["coachNum"] = SpUtils.getString(this,AppConstants.USER_NAME)
+//        params["coachNum"] ="CUS19091292977313"
 
         params["userName"] = SpUtils.getString(this,AppConstants.NAME)
         params["phone"] = phone

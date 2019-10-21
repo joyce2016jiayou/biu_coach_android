@@ -80,14 +80,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/m20"
+                    android:gravity="center_vertical"
                     android:layout_marginRight="@dimen/m20"
                     android:orientation="horizontal">
 
                 <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="23dp"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/icon_user_off" />
+                        android:layout_width="@dimen/m21"
+                        android:layout_height="@dimen/m21"
+                        android:src="@drawable/icon_user_off"/>
 
                 <EditText
                         android:id="@+id/edit_yzm"

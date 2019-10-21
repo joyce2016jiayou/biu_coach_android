@@ -141,8 +141,8 @@ class WithdrawActivity : BaseActivity() {
 
     private fun requestCardList(){
         val params = HashMap<String, Any>()
-//        params["teacherNum"] = SpUtils.getString(applicationContext,AppConstants.USER_NAME)
-        params["teacherNum"] = "CUS19091292977313"
+        params["teacherNum"] = SpUtils.getString(applicationContext,AppConstants.USER_NAME)
+//        params["teacherNum"] = "CUS19091292977313"
         subscription = Network.getInstance("银行卡列表", this)
             .bankList(
                 params,
@@ -245,12 +245,33 @@ class WithdrawActivity : BaseActivity() {
                 return@setOnClickListener
             }
             Log.d("etPwd",etPwd.text.toString())
+            request(etPwd.text.toString())
             popupWindow.dismiss()
-            //去申请
-            toComplete()
         }
     }
 
+
+    private fun request(pwd:String){
+        //withdrawDeposit
+        val params = HashMap<String, Any>()
+        params["teacherNum"] = SpUtils.getString(this, AppConstants.USER_NAME)
+        params["money"] = et_withdraw_money.text.toString().trim()
+        params["paypassword"] = pwd
+        val subscription = Network.getInstance("提现", this)
+            .withdrawDeposit(
+                params,
+                ProgressSubscriber("提现", object : SubscriberOnNextListener<Bean<String>> {
+                    override fun onNext(result: Bean<String>) {
+                        toComplete()
+                    }
+
+                    override fun onError(error: String) {
+
+
+                    }
+                }, this, false)
+            )
+    }
     private fun toComplete(){
         val intent = Intent(this, WithdrawCompleteActivity::class.java)
         startActivity(intent)

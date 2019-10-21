@@ -6,7 +6,9 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Environment
+import android.text.Editable
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -107,6 +109,24 @@ class InformationActivity : BaseActivity() {
         tv_save.clickWithTrigger {
             updateData()
         }
+
+        edit_shihe.addTextChangedListener(object: TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (s!!.length > 120){
+                    SuperCustomToast.getInstance(applicationContext)
+                        .show("个人签名不能超过120个字哦")
+                    return
+                }
+            }
+
+        })
     }
 
     private fun setting(info: InformationBean) {
@@ -137,8 +157,8 @@ class InformationActivity : BaseActivity() {
                     }
 
                     override fun onError(error: String) {
-
-
+                        SuperCustomToast.getInstance(applicationContext)
+                            .show(error)
                     }
                 }, this, false)
             )
@@ -146,7 +166,7 @@ class InformationActivity : BaseActivity() {
 
     private fun logoDialog(view1: View) {
         val popupWindow = CommonPopupWindow.Builder(this)
-            .setView(R.layout.dialog_to_submit)
+            .setView(R.layout.dialog_to_logo)
             .setBackGroundLevel(0.5f)//0.5f
             .setAnimationStyle(R.style.main_menu_animstyle)
             .setWidthAndHeight(
@@ -162,7 +182,7 @@ class InformationActivity : BaseActivity() {
         val xiangce = view.findViewById<TextView>(R.id.tv_xiangce)
         pazhao.clickWithTrigger {
             EasyPhotos.createCamera(this)
-                .setFileProviderAuthority("com.noplugins.keepfit.userplatform.fileprovider")
+                .setFileProviderAuthority("com.noplugins.keepfit.coachplatform.fileprovider")
                 .setPuzzleMenu(false)
                 .setOriginalMenu(false, true, null)
                 .start(102)
@@ -173,7 +193,7 @@ class InformationActivity : BaseActivity() {
                 this,
                 true, GlideEngine.getInstance()
             )
-                .setFileProviderAuthority("com.noplugins.keepfit.userplatform.fileprovider")
+                .setFileProviderAuthority("com.noplugins.keepfit.coachplatform.fileprovider")
                 .setPuzzleMenu(false)
                 .setCount(1)
                 .setOriginalMenu(false, true, null)
@@ -283,7 +303,8 @@ class InformationActivity : BaseActivity() {
                     }
 
                     override fun onError(error: String) {
-
+                        SuperCustomToast.getInstance(applicationContext)
+                            .show(error)
 
                     }
                 }, this, false)

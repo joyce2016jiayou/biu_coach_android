@@ -17,6 +17,7 @@ import com.noplugins.keepfit.coachplatform.util.net.Network
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
 import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
+import com.noplugins.keepfit.coachplatform.util.ui.toast.SuperCustomToast
 import kotlinx.android.synthetic.main.activity_product_advice.*
 import okhttp3.RequestBody
 
@@ -25,7 +26,7 @@ import java.util.HashMap
 class ProductAdviceActivity : BaseActivity() {
 
 
-    private var type = -1
+    private var type = 1
 
     override fun initBundle(parms: Bundle?) {
 
@@ -82,6 +83,16 @@ class ProductAdviceActivity : BaseActivity() {
 
     private fun submit() {
         //
+        if (edit_content.text.toString() == ""){
+            SuperCustomToast.getInstance(applicationContext)
+                .show("呦主大人！问题描述不能为空呦")
+            return
+        }
+        if (edit_content.text.toString().length < 10){
+            SuperCustomToast.getInstance(applicationContext)
+                .show("呦主大人！问题描述不能少于10个字哦")
+            return
+        }
         val params = HashMap<String, Any>()
         params["coachNum"] = SpUtils.getString(this,AppConstants.USER_NAME)
         params["feedbackType"] = "" + type

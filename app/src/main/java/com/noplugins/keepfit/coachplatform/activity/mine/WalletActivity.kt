@@ -45,13 +45,16 @@ class WalletActivity : BaseActivity() {
             finish()
         }
         btn_tixian.clickWithTrigger(1000) {
-            //跳转到提现
-//            toQueren(btn_tixian)
-            val intent = Intent(this,WithdrawActivity::class.java)
-            val bundle = Bundle()
-            bundle.putDouble("finalCanWithdraw",finalCanWithdraw)
-            intent.putExtras(bundle)
-            startActivity(intent)
+            if (SpUtils.getInt(applicationContext,AppConstants.IS_TX) == 1){
+                val intent = Intent(this, WithdrawActivity::class.java)
+                val bundle = Bundle()
+                bundle.putDouble("finalCanWithdraw",finalCanWithdraw)
+                intent.putExtras(bundle)
+                startActivity(intent)
+            } else {
+                //跳转到提现
+                toQueren(btn_tixian)
+            }
         }
      }
 
@@ -100,8 +103,8 @@ class WalletActivity : BaseActivity() {
     //myBalance
     private fun requestData() {
         val params = HashMap<String, Any>()
-//        params["userNum"] = SpUtils.getString(this, AppConstants.USER_NAME)
-        params["userNum"] = "CUS19091292977313"
+        params["userNum"] = SpUtils.getString(this, AppConstants.USER_NAME)
+//        params["userNum"] = "CUS19091292977313"
         val subscription = Network.getInstance("我的钱包", this)
             .myBalance(
                 params,

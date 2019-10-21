@@ -403,4 +403,12 @@ public interface MyService {
     @POST("appointClassDetail")
     Observable<Bean<ClassDetailBean>> class_detail(@Body RequestBody json);
 
+    /**
+     *提现
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("withdrawDeposit")
+    Observable<Bean<String>> withdrawDeposit(@Body RequestBody json);
 }

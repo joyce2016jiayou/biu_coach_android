@@ -20,6 +20,9 @@ import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
 import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
 import kotlinx.android.synthetic.main.fragment_manager_teacher_1.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import java.util.HashMap
 
 class SqAndYaoqinFragment : BaseFragment()  {
@@ -44,16 +47,32 @@ class SqAndYaoqinFragment : BaseFragment()  {
         return newView
     }
 
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initAdapter()
-        requestData()
+//        requestData()
+    }
+
+    override fun onFragmentFirstVisible() {
+        super.onFragmentFirstVisible()
+        EventBus.getDefault().register(this)
+    }
+
+    /**
+     * eventBus
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public fun onEvent(data: String) {
+        if (data == "场馆绑定成功") {
+            requestData()
+        }
     }
 
     override fun onFragmentVisibleChange(isVisible: Boolean) {
         super.onFragmentVisibleChange(isVisible)
         if (isVisible){
-//            requestData()
+            requestData()
         }
     }
 
@@ -117,6 +136,11 @@ class SqAndYaoqinFragment : BaseFragment()  {
                     }
                 }, activity, false)
             )
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
     }
 
 }

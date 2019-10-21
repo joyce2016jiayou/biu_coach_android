@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
+import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -71,7 +72,6 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
                 initAdapter()
                 requsetData(code)
                 agreeCourse()
-
             } else {
                 //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
                 Log.e(
@@ -120,6 +120,9 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
             Log.d("tag",gson)
             if (submitList.size > 0){
                 submitData()
+            } else {
+                SuperCustomToast.getInstance(applicationContext)
+                    .show("请选择授课场馆")
             }
         }
         iv_delete_edit.clickWithTrigger {
@@ -205,6 +208,8 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
 
         }
         adapter = TeacherCgSelectAdapter(data)
+        val view = LayoutInflater.from(this).inflate(R.layout.enpty_view, rv_list, false)
+        adapter.emptyView = view
         layoutManager = LinearLayoutManager(this)
         rv_list.layoutManager = layoutManager
         rv_list.adapter = adapter
@@ -250,7 +255,8 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
 //        }
         refresh_layout.setOnLoadMoreListener {
             //上拉加载
-
+            page++
+            agreeCourse()
             refresh_layout.finishLoadMore(2000/*,false*/)
         }
     }
@@ -307,13 +313,14 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
         val params = HashMap<String, Any>()
 //        params["teacherNum"] = SpUtils.getString(activity, AppConstants.USER_NAME)
         params["teacherNum"] = SpUtils.getString(applicationContext, AppConstants.USER_NAME)
+        params["genTeacherNum"] = SpUtils.getString(applicationContext, AppConstants.USER_NAME)
         params["page"] = page
         params["longitude"] = longitude
         params["latitude"] = latitude
         if (skillSelect > -1){
             params["type"] = skillSelect
         }
-        if (edit_search.text.toString() != null){
+        if (edit_search.text.toString() != ""){
             params["data"] = edit_search.text.toString().trim()
         }
         val subscription = Network.getInstance("场馆列表", this)
@@ -332,8 +339,8 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
                     }
 
                     override fun onError(error: String) {
-
-
+                        SuperCustomToast.getInstance(applicationContext)
+                            .show(error)
                     }
                 }, this, false)
             )
@@ -349,12 +356,13 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
                         //提交成功
                         SuperCustomToast.getInstance(this@ClassShouquanActivity)
                             .show("申请绑定场馆已提交",2000)
+                        EventBus.getDefault().post("场馆绑定成功")
                         finish()
                     }
 
                     override fun onError(error: String) {
-
-
+                        SuperCustomToast.getInstance(applicationContext)
+                            .show(error)
                     }
                 }, this, false)
             )

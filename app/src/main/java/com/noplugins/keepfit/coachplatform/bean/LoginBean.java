@@ -7,6 +7,15 @@ public class LoginBean {
     private String userNum;
     private String token;
     private String teacherType;
+    private int havePayPassWord;
+
+    public int getHavePayPassWord() {
+        return havePayPassWord;
+    }
+
+    public void setHavePayPassWord(int havePayPassWord) {
+        this.havePayPassWord = havePayPassWord;
+    }
 
     public String getTeacherType() {
         return teacherType;

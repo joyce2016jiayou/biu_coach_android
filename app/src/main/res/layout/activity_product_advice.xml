@@ -90,7 +90,7 @@
                            android:layout_alignParentRight="true"
                            android:background="@drawable/btn_checkbox"
                            android:button="@null"
-                           android:checked="false" />
+                           android:checked="true" />
                </RelativeLayout>
 
                <RelativeLayout

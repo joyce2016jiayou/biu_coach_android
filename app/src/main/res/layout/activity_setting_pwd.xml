@@ -217,7 +217,7 @@
             android:layout_marginTop="@dimen/m180"
             android:background="@drawable/btn_click"
             android:gravity="center"
-            android:text="@string/tv39"
+            android:text="完成"
             android:textColor="@color/white"
             android:textSize="20sp" />
 </RelativeLayout>
