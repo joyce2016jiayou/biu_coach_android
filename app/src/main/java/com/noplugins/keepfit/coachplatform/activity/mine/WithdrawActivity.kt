@@ -32,6 +32,7 @@ import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
 import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
 import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow
+import com.noplugins.keepfit.coachplatform.util.ui.toast.SuperCustomToast
 import kotlinx.android.synthetic.main.activity_withdraw.*
 import java.util.HashMap
 
@@ -55,6 +56,7 @@ class WithdrawActivity : BaseActivity() {
         val ass = AbsoluteSizeSpan(15, true)//设置字体大小 true表示单位是sp
         ss.setSpan(ass, 0, ss.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         et_withdraw_money.hint = SpannedString(ss)
+        tv_withdraw_ok.isClickable = false
     }
 
     override fun onResume() {
@@ -83,6 +85,11 @@ class WithdrawActivity : BaseActivity() {
 
         tv_withdraw_ok.clickWithTrigger(2000) {
             //提现操作
+            if (et_withdraw_money.text.toString().toDouble() < 500){
+                SuperCustomToast.getInstance(applicationContext)
+                    .show("提现金额不能小于500")
+                return@clickWithTrigger
+            }
             toInputPwd(tv_withdraw_ok)
         }
         et_withdraw_money.addTextChangedListener(object :TextWatcher{

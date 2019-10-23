@@ -54,10 +54,10 @@ class SettingPwdActivity : BaseActivity() {
                 Toast.makeText(applicationContext, "密码不能为空！", Toast.LENGTH_SHORT).show()
                 return@clickWithTrigger
             }
-            if (!PwdCheckUtil.isLetterDigit(edit_new_password.text.toString())) {
-                Toast.makeText(applicationContext, "密码不符合规则！", Toast.LENGTH_SHORT).show()
-                return@clickWithTrigger
-            }
+//            if (!PwdCheckUtil.isLetterDigit(edit_new_password.text.toString())) {
+//                Toast.makeText(applicationContext, "密码不符合规则！", Toast.LENGTH_SHORT).show()
+//                return@clickWithTrigger
+//            }
             if (edit_new_password1.text.toString() == "") {
                 Toast.makeText(applicationContext, "确认密码不能为空！", Toast.LENGTH_SHORT).show()
                 return@clickWithTrigger

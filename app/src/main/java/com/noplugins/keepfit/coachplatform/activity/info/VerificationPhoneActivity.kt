@@ -35,10 +35,12 @@ class VerificationPhoneActivity : BaseActivity() {
 
     override fun initView() {
         setContentView(R.layout.activity_verification_phone)
-        tv_phone.text = intent.getStringExtra("newPhone")
+
         if (intent.getBooleanExtra("update", false)){
             tv_btn_text.text = "完成"
+            tv_phone.text = intent.getStringExtra("newPhone")
         } else{
+            tv_phone.text = SpUtils.getString(applicationContext,AppConstants.PHONE)
             tv_btn_text.text = "下一步"
         }
 

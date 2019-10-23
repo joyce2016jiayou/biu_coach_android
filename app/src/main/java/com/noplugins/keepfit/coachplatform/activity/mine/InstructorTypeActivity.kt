@@ -1,10 +1,12 @@
 package com.noplugins.keepfit.coachplatform.activity.mine
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.noplugins.keepfit.coachplatform.R
+import com.noplugins.keepfit.coachplatform.activity.CheckStatusActivity
 import com.noplugins.keepfit.coachplatform.base.BaseActivity
 import com.noplugins.keepfit.coachplatform.bean.CheckResultBean
 import com.noplugins.keepfit.coachplatform.global.AppConstants
@@ -33,7 +35,13 @@ class InstructorTypeActivity : BaseActivity() {
             finish()
         }
         tv_apply.clickWithTrigger {
-            //todo 申请操作 跳转到教练入住
+            //申请操作 跳转到教练入住
+            val intent = Intent(this@InstructorTypeActivity, CheckStatusActivity::class.java)
+            val bundle = Bundle()
+            bundle.putInt("fragment_type",2)
+            intent.putExtras(bundle)
+            startActivity(intent)
+            finish()
         }
     }
 

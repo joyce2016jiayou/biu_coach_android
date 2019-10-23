@@ -51,6 +51,9 @@ import java.util.HashMap
 
 class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
 
+    private var province = ""
+    private var city = ""
+    private var district = ""
     override fun onLocationChanged(amapLocation: AMapLocation?) {
         if (amapLocation != null) {
             if (amapLocation.errorCode == 0) {
@@ -66,12 +69,16 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
                 Log.d("LogInfo","district():"+amapLocation.district)
                 tv_location.text = amapLocation.district
                 val code = amapLocation.adCode.toString().substring(0,4)+"00"
+                province = amapLocation.adCode.toString().substring(0,3)+"00"
+                city = code
+                district = amapLocation.adCode
 
                 Log.d("LogInfo","cityCode():"+amapLocation.adCode)
                 Log.d("LogInfo", "city():$code")
                 initAdapter()
                 requsetData(code)
                 agreeCourse()
+
             } else {
                 //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
                 Log.e(
@@ -208,11 +215,11 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
 
         }
         adapter = TeacherCgSelectAdapter(data)
-        val view = LayoutInflater.from(this).inflate(R.layout.enpty_view, rv_list, false)
-        adapter.emptyView = view
         layoutManager = LinearLayoutManager(this)
         rv_list.layoutManager = layoutManager
         rv_list.adapter = adapter
+        val view = LayoutInflater.from(this).inflate(R.layout.enpty_view, rv_list, false)
+        adapter.emptyView = view
         adapter.setOnItemChildClickListener { adapter, view, position ->
             when (view.id) {
                 R.id.rl_detail -> {
@@ -248,7 +255,7 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
         }
 
         refresh_layout.setEnableRefresh(false)
-        refresh_layout.setEnableLoadMore(false)
+//        refresh_layout.setEnableLoadMore(false)
 //        refresh_layout.setOnRefreshListener {
 //            //下拉刷新
 //            refresh_layout.finishRefresh(2000/*,false*/)
@@ -311,12 +318,14 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
 
     private fun agreeCourse() {
         val params = HashMap<String, Any>()
-//        params["teacherNum"] = SpUtils.getString(activity, AppConstants.USER_NAME)
         params["teacherNum"] = SpUtils.getString(applicationContext, AppConstants.USER_NAME)
         params["genTeacherNum"] = SpUtils.getString(applicationContext, AppConstants.USER_NAME)
         params["page"] = page
         params["longitude"] = longitude
         params["latitude"] = latitude
+        params["province"] = province
+        params["city"] = city
+        params["district"] = district
         if (skillSelect > -1){
             params["type"] = skillSelect
         }
@@ -329,6 +338,11 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
                 ProgressSubscriber("场馆列表", object : SubscriberOnNextListener<Bean<CgListBean>> {
                     override fun onNext(result: Bean<CgListBean>) {
                         submitList.clear()
+                        if (result.data.areaList.size <=0){
+                            refresh_layout.setEnableLoadMore(false)
+                        } else {
+                            refresh_layout.setEnableLoadMore(true)
+                        }
                         if (page == 1){
                             data.clear()
                             data.addAll(result.data.areaList)
@@ -339,8 +353,8 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
                     }
 
                     override fun onError(error: String) {
-                        SuperCustomToast.getInstance(applicationContext)
-                            .show(error)
+
+
                     }
                 }, this, false)
             )
@@ -356,13 +370,12 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
                         //提交成功
                         SuperCustomToast.getInstance(this@ClassShouquanActivity)
                             .show("申请绑定场馆已提交",2000)
-                        EventBus.getDefault().post("场馆绑定成功")
                         finish()
                     }
 
                     override fun onError(error: String) {
-                        SuperCustomToast.getInstance(applicationContext)
-                            .show(error)
+
+
                     }
                 }, this, false)
             )
