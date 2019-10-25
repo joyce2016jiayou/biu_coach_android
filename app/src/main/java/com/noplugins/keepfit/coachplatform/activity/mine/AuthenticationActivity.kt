@@ -19,6 +19,7 @@ import com.noplugins.keepfit.coachplatform.util.net.Network
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
 import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
+import com.noplugins.keepfit.coachplatform.util.ui.toast.SuperCustomToast
 import kotlinx.android.synthetic.main.activity_authentication.*
 import org.greenrobot.eventbus.EventBus
 import java.util.HashMap
@@ -62,7 +63,7 @@ class AuthenticationActivity : BaseActivity() {
 
     private fun Get_YanZhengMa() {
         val params = HashMap<String, Any>()
-        params["phone"] = edit_yzm.text.toString()
+        params["phone"] = phone
         subscription = Network.getInstance("获取验证码", this)
             .get_yanzhengma(params,
                 ProgressSubscriber("获取验证码", object : SubscriberOnNextListener<Bean<String>> {
@@ -80,7 +81,9 @@ class AuthenticationActivity : BaseActivity() {
     private fun binding(){
         val params = HashMap<String, Any>()
         params["coachNum"] = SpUtils.getString(this,AppConstants.USER_NAME)
-        params["userName"] = SpUtils.getString(this,AppConstants.USER_NAME)
+//        params["coachNum"] ="CUS19091292977313"
+
+        params["userName"] = SpUtils.getString(this,AppConstants.NAME)
         params["phone"] = phone
         params["messageId"] = messageId
         params["code"] = edit_yzm.text.toString()
@@ -91,6 +94,8 @@ class AuthenticationActivity : BaseActivity() {
                 ProgressSubscriber("绑定银行卡", object : SubscriberOnNextListener<Bean<String>> {
                     override fun onNext(result: Bean<String>) {
                         EventBus.getDefault().post("添加银行卡成功")
+                        SuperCustomToast.getInstance(this@AuthenticationActivity)
+                            .show("绑定银行卡成功！")
                         finish()
                     }
 

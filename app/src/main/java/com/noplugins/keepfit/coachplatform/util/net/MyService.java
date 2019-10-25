@@ -371,7 +371,7 @@ public interface MyService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("myBindingArea")
-    Observable<Bean<List<CgListBean.AreaListBean>>> myBindingArea(@Body RequestBody json);
+    Observable<Bean<List<ChangguanBean>>> myBindingArea(@Body RequestBody json);
 
     /**
      *解除绑定授权场馆
@@ -390,6 +390,17 @@ public interface MyService {
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("agreeBindingArea")
     Observable<Bean<String>> agreeBindingArea(@Body RequestBody json);
+
+    /**
+     *绑定银行卡列表
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("bankList")
+    Observable<Bean<List<BankCardBean>>> bankList(@Body RequestBody json);
+
+
     /**
      *教练同意/拒绝绑定
      *
@@ -398,5 +409,23 @@ public interface MyService {
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("appointClassDetail")
     Observable<Bean<ClassDetailBean>> class_detail(@Body RequestBody json);
+
+    /**
+     *提现
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("withdrawDeposit")
+    Observable<Bean<String>> withdrawDeposit(@Body RequestBody json);
+
+    /**
+     * 数据字典
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("searchDict")
+    Observable<Bean<List<DictionaryBean>>> searchDict(@Body RequestBody json);
 
 }

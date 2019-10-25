@@ -22,6 +22,7 @@ import com.noplugins.keepfit.coachplatform.util.net.progress.GsonSubscriberOnNex
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriberNew
 import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
+import com.noplugins.keepfit.coachplatform.util.ui.toast.SuperCustomToast
 import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_verification_phone.*
 import okhttp3.RequestBody
@@ -34,11 +35,13 @@ class VerificationPhoneActivity : BaseActivity() {
 
     override fun initView() {
         setContentView(R.layout.activity_verification_phone)
-        tv_phone.text = intent.getStringExtra("newPhone")
+
         if (intent.getBooleanExtra("update", false)){
             tv_btn_text.text = "完成"
+            tv_phone.text = intent.getStringExtra("newPhone")
         } else{
-            tv_btn_text.text == "下一步"
+            tv_phone.text = SpUtils.getString(applicationContext,AppConstants.PHONE)
+            tv_btn_text.text = "下一步"
         }
 
     }
@@ -51,6 +54,10 @@ class VerificationPhoneActivity : BaseActivity() {
             send()
         }
         btn_ToLogin.clickWithTrigger {
+            if (edit_yzm.text.toString() == "") {
+                Toast.makeText(applicationContext, "验证码不能为空！", Toast.LENGTH_SHORT).show()
+                return@clickWithTrigger
+            }
             if (intent.getBooleanExtra("update", false)) {
                 updatePhone()
             } else {
@@ -84,10 +91,6 @@ class VerificationPhoneActivity : BaseActivity() {
     }
 
     private fun updatePhone() {
-        if (tv_send.text.toString() == "") {
-            Toast.makeText(applicationContext, "验证码不能为空！", Toast.LENGTH_SHORT).show()
-            return
-        }
         val params = HashMap<String, Any>()
         params["phone"] = tv_phone.text.toString()
         params["messageId"] = messageId
@@ -100,7 +103,9 @@ class VerificationPhoneActivity : BaseActivity() {
                     "修改手机号",
                     object : SubscriberOnNextListener<Bean<String>> {
                         override fun onNext(result: Bean<String>) {
-//                            toLogin()
+                            SuperCustomToast.getInstance(applicationContext)
+                                .show("修改成功")
+                            toLogin()
                         }
 
                         override fun onError(error: String) {

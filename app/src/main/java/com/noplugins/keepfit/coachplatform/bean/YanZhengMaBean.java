@@ -17,6 +17,15 @@ public class YanZhengMaBean {
     private String logo;
     private int firstLoad;
     private String token;
+    private int havePayPassWord;
+
+    public int getHavePayPassWord() {
+        return havePayPassWord;
+    }
+
+    public void setHavePayPassWord(int havePayPassWord) {
+        this.havePayPassWord = havePayPassWord;
+    }
 
     public String getUserNum() {
         return userNum;

@@ -8,8 +8,10 @@ import com.noplugins.keepfit.coachplatform.R
 import com.noplugins.keepfit.coachplatform.base.BaseActivity
 import com.noplugins.keepfit.coachplatform.bean.manager.ManagerBean
 import com.noplugins.keepfit.coachplatform.bean.manager.ManagerTeamBean
+import com.noplugins.keepfit.coachplatform.global.AppConstants
 import com.noplugins.keepfit.coachplatform.global.clickWithTrigger
 import com.noplugins.keepfit.coachplatform.global.withTrigger
+import com.noplugins.keepfit.coachplatform.util.SpUtils
 import com.noplugins.keepfit.coachplatform.util.net.Network
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
@@ -89,7 +91,7 @@ class TeacherInfoActivity : BaseActivity() {
     private fun requestData(courseNum:String){
         val params = HashMap<String, Any>()
         params["courseNum"] = courseNum
-        params["custUserNum"] = "GEN23456"
+        params["custUserNum"] = SpUtils.getString(applicationContext, AppConstants.USER_NAME)
         subscription = Network.getInstance("私教课程管理", this)
             .findCourseDetail(params,
                 ProgressSubscriber("私教课程管理", object : SubscriberOnNextListener<Bean<ManagerBean.CourseListBean >> {

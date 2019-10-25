@@ -50,7 +50,12 @@ public class CheckStatusActivity extends BaseActivity {
 
     @Override
     public void initBundle(Bundle parms) {
-
+        if (parms!=null){
+            int fragment_type = parms.getInt("fragment_type",-1);
+            if (fragment_type == 2){
+                viewpager_content.setCurrentItem(1);
+            }
+        }
     }
 
     @Override

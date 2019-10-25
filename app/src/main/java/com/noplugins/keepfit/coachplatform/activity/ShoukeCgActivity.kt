@@ -21,7 +21,7 @@ import com.noplugins.keepfit.coachplatform.base.BaseActivity
 import com.noplugins.keepfit.coachplatform.fragment.cg.BindingFragment
 import com.noplugins.keepfit.coachplatform.fragment.cg.JujueFragment
 import com.noplugins.keepfit.coachplatform.fragment.cg.SqAndYaoqinFragment
-import com.noplugins.keepfit.coachplatform.fragment.classmanager.team.YaoqinFragment
+import com.noplugins.keepfit.coachplatform.fragment.cg.YaoqinFragment
 import com.noplugins.keepfit.coachplatform.global.AppConstants
 import com.noplugins.keepfit.coachplatform.global.clickWithTrigger
 import com.noplugins.keepfit.coachplatform.util.SpUtils

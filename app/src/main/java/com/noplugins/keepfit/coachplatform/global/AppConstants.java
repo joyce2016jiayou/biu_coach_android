@@ -18,6 +18,7 @@ public class AppConstants {
     public static final String SELECT_TEACHER_TYPE = "select_teacher_type";//教练类型
     public static final String SELECT_TEACHER_NUMBER = "select_teacher_number";//教练编号
 
+    public static final String IS_TX = "istixian";
     public static final String RIGHT = "right";
     public static final String LOGO = "logo";
     public static final String LOCATION = "location";

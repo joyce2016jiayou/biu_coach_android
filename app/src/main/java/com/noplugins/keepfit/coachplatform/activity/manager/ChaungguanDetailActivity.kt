@@ -28,6 +28,7 @@ import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
 import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
 import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow
+import com.noplugins.keepfit.coachplatform.util.ui.toast.SuperCustomToast
 import kotlinx.android.synthetic.main.activity_chaungguan_detail.*
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.AppSettingsDialog
@@ -44,11 +45,16 @@ class ChaungguanDetailActivity : BaseActivity(), EasyPermissions.PermissionCallb
     private var type = -1
     override fun initBundle(parms: Bundle?) {
         if (parms != null) {
-            listItem = parms.getInt("listItem")
+            listItem = parms.getInt("listItem",-1)
+
+            if (listItem == -1){
+                btn_submit.visibility = View.GONE
+            }
             cgNum = parms.getString("cgNum").toString()
             type = parms.getInt("type", -1)
-            if (type != -1) {
+            if (type == 1) {
                 btn_submit.text = "解 绑"
+                btn_submit.visibility = View.VISIBLE
             }
             agreeCourse()
         }
@@ -131,8 +137,8 @@ class ChaungguanDetailActivity : BaseActivity(), EasyPermissions.PermissionCallb
                     }
 
                     override fun onError(error: String) {
-
-
+                        SuperCustomToast.getInstance(applicationContext)
+                            .show(error)
                     }
                 }, this, false)
             )

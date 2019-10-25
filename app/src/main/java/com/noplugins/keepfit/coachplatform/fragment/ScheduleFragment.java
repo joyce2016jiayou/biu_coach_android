@@ -150,9 +150,7 @@ public class ScheduleFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        if (classDateBeans.size() > 0) {
-            classDateBeans.clear();
-        }
+        classDateBeans.clear();
 
         //初始化日期数据
         init_date_resoure();

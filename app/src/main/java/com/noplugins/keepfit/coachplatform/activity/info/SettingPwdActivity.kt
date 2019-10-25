@@ -6,21 +6,19 @@ import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.widget.Toast
-import com.google.gson.Gson
 import com.noplugins.keepfit.coachplatform.R
 import com.noplugins.keepfit.coachplatform.base.BaseActivity
+import com.noplugins.keepfit.coachplatform.global.AppConstants
 import com.noplugins.keepfit.coachplatform.global.clickWithTrigger
+import com.noplugins.keepfit.coachplatform.util.SpUtils
 import com.noplugins.keepfit.coachplatform.util.data.PwdCheckUtil
 import com.noplugins.keepfit.coachplatform.util.data.StringsHelper
 import com.noplugins.keepfit.coachplatform.util.net.Network
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
-import com.noplugins.keepfit.coachplatform.util.net.progress.GsonSubscriberOnNextListener
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
-import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriberNew
 import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
-import com.orhanobut.logger.Logger
+import com.noplugins.keepfit.coachplatform.util.ui.toast.SuperCustomToast
 import kotlinx.android.synthetic.main.activity_setting_pwd.*
-import okhttp3.RequestBody
 import java.util.*
 
 class SettingPwdActivity : BaseActivity() {
@@ -30,6 +28,9 @@ class SettingPwdActivity : BaseActivity() {
 
     override fun initView() {
         setContentView(R.layout.activity_setting_pwd)
+        edit_phone.setText(SpUtils.getString(applicationContext,AppConstants.PHONE))
+        edit_phone.isFocusable = false
+        edit_phone.isFocusableInTouchMode = false
     }
 
     override fun doBusiness(mContext: Context?) {
@@ -53,10 +54,10 @@ class SettingPwdActivity : BaseActivity() {
                 Toast.makeText(applicationContext, "密码不能为空！", Toast.LENGTH_SHORT).show()
                 return@clickWithTrigger
             }
-            if (!PwdCheckUtil.isLetterDigit(edit_new_password.text.toString())) {
-                Toast.makeText(applicationContext, "密码不符合规则！", Toast.LENGTH_SHORT).show()
-                return@clickWithTrigger
-            }
+//            if (!PwdCheckUtil.isLetterDigit(edit_new_password.text.toString())) {
+//                Toast.makeText(applicationContext, "密码不符合规则！", Toast.LENGTH_SHORT).show()
+//                return@clickWithTrigger
+//            }
             if (edit_new_password1.text.toString() == "") {
                 Toast.makeText(applicationContext, "确认密码不能为空！", Toast.LENGTH_SHORT).show()
                 return@clickWithTrigger
@@ -99,7 +100,8 @@ class SettingPwdActivity : BaseActivity() {
                     }
 
                     override fun onError(error: String) {
-
+                        SuperCustomToast.getInstance(applicationContext)
+                            .show(error)
                     }
                 }, this, false)
             )
@@ -122,7 +124,7 @@ class SettingPwdActivity : BaseActivity() {
             )
     }
 
-    internal var timer: CountDownTimer = object : CountDownTimer(60000, 1000) {
+    private var timer: CountDownTimer = object : CountDownTimer(60000, 1000) {
         @SuppressLint("SetTextI18n")
         override fun onTick(millisUntilFinished: Long) {
             tv_send.setTextColor(Color.parseColor("#292C31"))

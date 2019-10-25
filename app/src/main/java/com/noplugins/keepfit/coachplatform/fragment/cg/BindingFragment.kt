@@ -12,6 +12,7 @@ import com.noplugins.keepfit.coachplatform.R
 import com.noplugins.keepfit.coachplatform.activity.manager.ChaungguanDetailActivity
 import com.noplugins.keepfit.coachplatform.adapter.ShoukeCgAdapter
 import com.noplugins.keepfit.coachplatform.base.BaseFragment
+import com.noplugins.keepfit.coachplatform.bean.ChangguanBean
 import com.noplugins.keepfit.coachplatform.bean.manager.CgListBean
 import com.noplugins.keepfit.coachplatform.global.AppConstants
 import com.noplugins.keepfit.coachplatform.util.SpUtils
@@ -32,7 +33,7 @@ class BindingFragment : BaseFragment()  {
             return fragment
         }
     }
-    var  datas:MutableList<CgListBean.AreaListBean> = ArrayList()
+    var  datas:MutableList<ChangguanBean> = ArrayList()
     lateinit var adapterManager : ShoukeCgAdapter
     var newView: View? = null
     var page = 1
@@ -47,13 +48,13 @@ class BindingFragment : BaseFragment()  {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initAdapter()
-        requestData()
+
     }
 
     override fun onFragmentVisibleChange(isVisible: Boolean) {
         super.onFragmentVisibleChange(isVisible)
         if (isVisible){
-//            requestData()
+            requestData()
         }
     }
 
@@ -66,12 +67,12 @@ class BindingFragment : BaseFragment()  {
 
         adapterManager.setOnItemChildClickListener { adapter, view, position ->
             when(view.id){
-                R.id.rl_jump -> {
+                R.id.rl_detail -> {
                     //跳转到详情页 需要携带状态
                     val toInfo = Intent(activity, ChaungguanDetailActivity::class.java)
                     val bundle = Bundle()
                     bundle.putInt("type",1)
-                    bundle.putString("cgNum",datas[position].areaNum)
+                    bundle.putString("cgNum",datas[position].gymAreaNum)
                     toInfo.putExtras(bundle)
                     startActivity(toInfo)
                 }
@@ -99,8 +100,8 @@ class BindingFragment : BaseFragment()  {
         val subscription = Network.getInstance("场馆列表", activity)
             .myBindingArea(
                 params,
-                ProgressSubscriber("场馆列表", object : SubscriberOnNextListener<Bean<List<CgListBean.AreaListBean>>> {
-                    override fun onNext(result: Bean<List<CgListBean.AreaListBean>>) {
+                ProgressSubscriber("场馆列表", object : SubscriberOnNextListener<Bean<List<ChangguanBean>>> {
+                    override fun onNext(result: Bean<List<ChangguanBean>>) {
 //                        setting(result.data.areaList)
                         if (page == 1){
                             datas.clear()

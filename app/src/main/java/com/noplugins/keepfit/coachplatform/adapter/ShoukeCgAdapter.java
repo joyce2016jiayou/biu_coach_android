@@ -9,18 +9,19 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.noplugins.keepfit.coachplatform.R;
+import com.noplugins.keepfit.coachplatform.bean.ChangguanBean;
 import com.noplugins.keepfit.coachplatform.bean.manager.CgListBean;
 import com.noplugins.keepfit.coachplatform.util.GlideRoundTransform;
 
 import java.util.List;
 
-public class ShoukeCgAdapter extends BaseQuickAdapter<CgListBean.AreaListBean, BaseViewHolder> {
-    public ShoukeCgAdapter(@Nullable List<CgListBean.AreaListBean> data) {
+public class ShoukeCgAdapter extends BaseQuickAdapter<ChangguanBean, BaseViewHolder> {
+    public ShoukeCgAdapter(@Nullable List<ChangguanBean> data) {
         super(R.layout.item_shouke_cg,data);
     }
 
     @Override
-    protected void convert(@NonNull BaseViewHolder helper, CgListBean.AreaListBean item) {
+    protected void convert(@NonNull BaseViewHolder helper, ChangguanBean item) {
 
         Glide.with(mContext)
                 .load(item.getLogo())
@@ -30,6 +31,7 @@ public class ShoukeCgAdapter extends BaseQuickAdapter<CgListBean.AreaListBean, B
         helper
                 .addOnClickListener(R.id.rl_detail)
                 .addOnClickListener(R.id.tv_jujue)
+                .addOnClickListener(R.id.rl_jump)
                 .addOnClickListener(R.id.tv_jieshou);
         helper.setText(R.id.tv_cg_name,item.getAreaName());
         helper.setText(R.id.tv_cg_ar,item.getDistance()+"m");

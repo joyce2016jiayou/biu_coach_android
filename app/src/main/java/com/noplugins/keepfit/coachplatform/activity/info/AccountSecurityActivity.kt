@@ -32,7 +32,7 @@ class AccountSecurityActivity : BaseActivity() {
             startActivity(intent)
         }
         rl_update_pwd.clickWithTrigger {
-            val intent = Intent(this, UpdatePasswordActivity::class.java)
+            val intent = Intent(this, VerificationPhoneActivity::class.java)
             startActivity(intent)
         }
     }

@@ -12,6 +12,7 @@ import com.noplugins.keepfit.coachplatform.R
 import com.noplugins.keepfit.coachplatform.activity.manager.ChaungguanDetailActivity
 import com.noplugins.keepfit.coachplatform.adapter.ShoukeCgAdapter
 import com.noplugins.keepfit.coachplatform.base.BaseFragment
+import com.noplugins.keepfit.coachplatform.bean.ChangguanBean
 import com.noplugins.keepfit.coachplatform.bean.manager.CgListBean
 import com.noplugins.keepfit.coachplatform.global.AppConstants
 import com.noplugins.keepfit.coachplatform.util.SpUtils
@@ -20,6 +21,9 @@ import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
 import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
 import kotlinx.android.synthetic.main.fragment_manager_teacher_1.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import java.util.HashMap
 
 class SqAndYaoqinFragment : BaseFragment()  {
@@ -32,7 +36,7 @@ class SqAndYaoqinFragment : BaseFragment()  {
             return fragment
         }
     }
-    var  datas:MutableList<CgListBean.AreaListBean> = ArrayList()
+    var  datas:MutableList<ChangguanBean> = ArrayList()
     lateinit var adapterManager : ShoukeCgAdapter
     var newView: View? = null
     var page = 1
@@ -44,16 +48,32 @@ class SqAndYaoqinFragment : BaseFragment()  {
         return newView
     }
 
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initAdapter()
-        requestData()
+//        requestData()
+    }
+
+    override fun onFragmentFirstVisible() {
+        super.onFragmentFirstVisible()
+        EventBus.getDefault().register(this)
+    }
+
+    /**
+     * eventBus
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public fun onEvent(data: String) {
+        if (data == "场馆绑定成功") {
+            requestData()
+        }
     }
 
     override fun onFragmentVisibleChange(isVisible: Boolean) {
         super.onFragmentVisibleChange(isVisible)
         if (isVisible){
-//            requestData()
+            requestData()
         }
     }
 
@@ -66,12 +86,12 @@ class SqAndYaoqinFragment : BaseFragment()  {
 
         adapterManager.setOnItemChildClickListener { adapter, view, position ->
             when(view.id){
-                R.id.rl_jump -> {
+                R.id.rl_detail -> {
                     //跳转到详情页 需要携带状态
                     val toInfo = Intent(activity, ChaungguanDetailActivity::class.java)
                     val bundle = Bundle()
-                    bundle.putInt("type",1)
-                    bundle.putString("cgNum",datas[position].areaNum)
+                    bundle.putInt("type",4)
+                    bundle.putString("cgNum",datas[position].gymAreaNum)
                     toInfo.putExtras(bundle)
                     startActivity(toInfo)
                 }
@@ -100,8 +120,8 @@ class SqAndYaoqinFragment : BaseFragment()  {
         val subscription = Network.getInstance("场馆列表", activity)
             .myBindingArea(
                 params,
-                ProgressSubscriber("场馆列表", object : SubscriberOnNextListener<Bean<List<CgListBean.AreaListBean>>> {
-                    override fun onNext(result: Bean<List<CgListBean.AreaListBean>>) {
+                ProgressSubscriber("场馆列表", object : SubscriberOnNextListener<Bean<List<ChangguanBean>>> {
+                    override fun onNext(result: Bean<List<ChangguanBean>>) {
 //                        setting(result.data.areaList)
                         if (page == 1){
                             datas.clear()
@@ -117,6 +137,11 @@ class SqAndYaoqinFragment : BaseFragment()  {
                     }
                 }, activity, false)
             )
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
     }
 
 }
