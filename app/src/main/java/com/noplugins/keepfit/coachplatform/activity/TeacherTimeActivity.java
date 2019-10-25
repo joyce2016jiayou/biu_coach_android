@@ -203,7 +203,7 @@ public class TeacherTimeActivity extends BaseActivity {
 
                             @Override
                             public void onError(String error) {
-                                Toast.makeText(getApplicationContext(),error,Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), error, Toast.LENGTH_SHORT).show();
 
                             }
                         }, this, false));
@@ -344,6 +344,24 @@ public class TeacherTimeActivity extends BaseActivity {
                         }, this, false));
     }
 
+    private void close_class_time() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("teacherNum", SpUtils.getString(getApplicationContext(), AppConstants.SELECT_TEACHER_NUMBER));
+        Subscription subscription = Network.getInstance("关闭授课时间", this)
+                .close_shouke_time(params,
+                        new ProgressSubscriber<>("关闭授课时间", new SubscriberOnNextListener<Bean<String>>() {
+                            @Override
+                            public void onNext(Bean<String> result) {
+                                Toast.makeText(getApplicationContext(), "关闭授课时间成功", Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onError(String error) {
+
+                            }
+                        }, this, true));
+    }
+
     private void dismiss_pop_window(boolean is_open_shouke) {
         CommonPopupWindow popupWindow = new CommonPopupWindow.Builder(TeacherTimeActivity.this)
                 .setView(R.layout.call_pop)
@@ -363,7 +381,6 @@ public class TeacherTimeActivity extends BaseActivity {
             tv_title.setText(R.string.tv93);
             tv_content.setText(R.string.tv94);
         } else {
-
             tv_title.setText(R.string.tv90);
             tv_content.setText(R.string.tv92);
 
@@ -383,9 +400,11 @@ public class TeacherTimeActivity extends BaseActivity {
                     switch_button.toogleOn();
                     is_open_switch = true;
 
+
                 } else {
                     switch_button.toogleOff();
                     is_open_switch = false;
+                    close_class_time();
 
                 }
 
