@@ -169,28 +169,6 @@ public class MyApplication extends MultiDexApplication {
         if (!rid.isEmpty()) {
             registrationId = rid;
             Log.e("极光registrationId", registrationId);
-
-            //如果没有缓存的别名，重新获取
-            /*if ("".equals(SharedPreferencesHelper.get(this, AppConstants.IS_SET_ALIAS, ""))) {
-                //设置别名
-                TagAliasOperatorHelper.TagAliasBean tagAliasBean = new TagAliasOperatorHelper.TagAliasBean();
-                sequence++;
-                //设置用户编号为别名
-                if ("".equals(SpUtils.getString(getApplicationContext(), AppConstants.USER_NAME))) {
-                    tagAliasBean.alias = "null_user_id";
-                } else {
-                    String user_id = SpUtils.getString(getApplicationContext(), AppConstants.USER_NAME);
-                    tagAliasBean.alias = user_id;
-                }
-                Log.e("设置的alisa",tagAliasBean.alias);
-                tagAliasBean.isAliasAction = true;
-                tagAliasBean.action = TagAliasOperatorHelper.ACTION_SET;
-                TagAliasOperatorHelper.getInstance().handleAction(getApplicationContext(), sequence, tagAliasBean);
-            } else {
-                Log.e("已缓存alias", "" + SharedPreferencesHelper.get(this, AppConstants.IS_SET_ALIAS, "").toString());
-
-            }*/
-
         } else {
             Log.e("极光报错", "Get registration fail, JPush init failed!");
             //Toast.makeText(this, "Get registration fail, JPush init failed!", Toast.LENGTH_SHORT).show();
@@ -198,9 +176,6 @@ public class MyApplication extends MultiDexApplication {
 
         /**方法负载过多解决*/
         MultiDex.install(this);
-
-
-
     }
 
 

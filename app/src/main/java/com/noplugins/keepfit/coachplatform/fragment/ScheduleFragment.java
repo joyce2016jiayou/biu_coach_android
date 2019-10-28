@@ -73,14 +73,24 @@ public class ScheduleFragment extends Fragment {
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_schedule, container, false);
             ButterKnife.bind(this, view);//绑定黄牛刀
-            selectDateBeans.addAll(DateUtils.getmoredate());
             initView();
         }
         return view;
     }
 
     private void initView() {
-
+        classDateBeans.clear();
+        selectDateBeans.addAll(DateUtils.getmoredate());
+        //初始化日期数据
+        init_date_resoure();
+        //初始化课程数控
+        if (selectDateBeans.size() == 0) {
+            selectDateBeans.addAll(DateUtils.getmoredate());
+        }
+        SelectDateBean selectDateBean = selectDateBeans.get(0);
+        String current_date = selectDateBean.getCurrent_date();
+        select_date = current_date;
+        init_class_date_resource(select_date);
 
         touxiang_image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,7 +132,7 @@ public class ScheduleFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (BaseUtils.isFastClick()) {
-                    if (SpUtils.getString(getActivity(), AppConstants.TEACHER_TYPE).equals("2")){
+                    if (SpUtils.getString(getActivity(), AppConstants.TEACHER_TYPE).equals("2")) {
                         return;
                     }
                     Intent intent = new Intent(getActivity(), ShoukeCgActivity.class);
@@ -150,15 +160,8 @@ public class ScheduleFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        classDateBeans.clear();
 
-        //初始化日期数据
-        init_date_resoure();
-        //初始化课程数控
-        SelectDateBean selectDateBean = selectDateBeans.get(0);
-        String current_date = selectDateBean.getCurrent_date();
-        select_date = current_date;
-        init_class_date_resource(select_date);
+
     }
 
     private void init_class_date_resource(String select_date) {

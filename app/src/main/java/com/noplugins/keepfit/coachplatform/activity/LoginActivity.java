@@ -209,21 +209,22 @@ public class LoginActivity extends BaseActivity {
                                         result.getData().getUserNum(),
                                         result.getData().getTeacherType(),
                                         result.getData().getUserNum());
-                                SpUtils.putInt(getApplicationContext(),AppConstants.IS_TX,result.getData().getHavePassword());
+                                SpUtils.putInt(getApplicationContext(), AppConstants.IS_TX, result.getData().getHavePassword());
                                 if (result.getData().getHavePassword() == 0) {//没有设置过密码
                                     Intent intent = new Intent(LoginActivity.this, SetPasswordActivity.class);
                                     startActivity(intent);
                                 } else {//设置过密码
                                     Intent intent = new Intent(LoginActivity.this, SelectRoleActivity.class);
                                     startActivity(intent);
+                                    finish();
                                 }
-
 
 
                             }
 
                             @Override
                             public void onError(String error) {
+                                Toast.makeText(getApplicationContext(), error, Toast.LENGTH_SHORT).show();
                                 login_btn.loadingComplete();
 
                             }
@@ -241,7 +242,7 @@ public class LoginActivity extends BaseActivity {
                             @Override
                             public void onNext(Bean<LoginBean> result) {
                                 login_btn.loadingComplete();
-                                SpUtils.putInt(getApplicationContext(),AppConstants.IS_TX,result.getData().getHavePayPassWord());
+                                SpUtils.putInt(getApplicationContext(), AppConstants.IS_TX, result.getData().getHavePayPassWord());
                                 save_resource(result.getData().getToken(),
                                         result.getData().getUserNum(),
                                         result.getData().getTeacherType(),
@@ -250,9 +251,11 @@ public class LoginActivity extends BaseActivity {
                                     if (SpUtils.getString(getApplicationContext(), AppConstants.TEACHER_TYPE).length() > 0) {//已经审核过了
                                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                         startActivity(intent);
+                                        finish();
                                     } else {//未审核
                                         Intent intent = new Intent(LoginActivity.this, SelectRoleActivity.class);
                                         startActivity(intent);
+                                        finish();
                                     }
                                 }
                             }
@@ -260,6 +263,7 @@ public class LoginActivity extends BaseActivity {
                             @Override
                             public void onError(String error) {
                                 login_btn.loadingComplete();
+                                Toast.makeText(getApplicationContext(), error, Toast.LENGTH_SHORT).show();
 
                             }
                         }, this, false));

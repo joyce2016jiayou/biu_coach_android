@@ -208,7 +208,7 @@ public class AddZhengshuActivity extends BaseActivity {
                 Log.e("选择的时间", date.toString());
                 int select_year = date.getYear() + 1900;
                 String select_month = date.getMonth() + "";
-                if (Integer.valueOf(select_month) <= 9) {
+                if (Integer.valueOf(select_month) < 9) {
                     select_month = "0" + (date.getMonth() + 1);
                 } else {
                     select_month = "" + (date.getMonth() + 1);

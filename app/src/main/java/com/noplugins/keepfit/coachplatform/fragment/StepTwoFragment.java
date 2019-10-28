@@ -180,15 +180,16 @@ public class StepTwoFragment extends ViewPagerFragment {
         submit_btn.setBtnOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //上传身份证图片
+
                 //上传授课图片
                 upload_shouke_images();
             }
-
-
         });
 
 
     }
+
 
     private final static String PHOTO_COMPRESS_JPG_BASEPATH = "/" + "TakePhoto" + "/CompressImgs/";
 
@@ -209,7 +210,6 @@ public class StepTwoFragment extends ViewPagerFragment {
             CheckInformationBean.CoachPicTeachingsBean teachingsBean = shouke_images_select.get(i);
             int finalI = i;
             String expectKey = UUID.randomUUID().toString();
-
             Luban.with(getActivity())
                     .load(teachingsBean.getLocal_iamge_path())
                     .ignoreBy(100)
@@ -228,7 +228,7 @@ public class StepTwoFragment extends ViewPagerFragment {
                 @Override
                 public void onSuccess(File file) {
                     // TODO 压缩成功后调用，返回压缩后的图片文件
-                    compressCallBack.onSucceed2(file.getAbsolutePath(),teachingsBean, expectKey, finalI);//正面
+                    compressCallBack.onSucceed2(file.getAbsolutePath(), teachingsBean, expectKey, finalI);//正面
                 }
 
                 @Override
@@ -243,11 +243,11 @@ public class StepTwoFragment extends ViewPagerFragment {
 
     ImageCompressCallBack compressCallBack = new ImageCompressCallBack() {
         @Override
-        public void onSucceed2(String data,CheckInformationBean.CoachPicTeachingsBean teachingsBean, String expectKey, int position) {
-            Log.e("压缩过的",data);
+        public void onSucceed2(String data, CheckInformationBean.CoachPicTeachingsBean teachingsBean, String expectKey, int position) {
+            Log.e("压缩过的", data);
             File file = new File(data);
             Log.e("压缩后的大小", FileSizeUtil.getFileOrFilesSize(file.getAbsolutePath(), 2) + "");
-            upload_images(data,teachingsBean, expectKey, position);
+            upload_images(data, teachingsBean, expectKey, position);
         }
 
         @Override
@@ -261,13 +261,12 @@ public class StepTwoFragment extends ViewPagerFragment {
         }
     };
 
-    private void upload_images(String iamge_path,CheckInformationBean.CoachPicTeachingsBean teachingsBean, String expectKey, int position) {
+    private void upload_images(String iamge_path, CheckInformationBean.CoachPicTeachingsBean teachingsBean, String expectKey, int position) {
         uploadManager.put(iamge_path, expectKey, uptoken, new UpCompletionHandler() {
             public void complete(String k, ResponseInfo rinfo, JSONObject response) {
                 if (rinfo.isOK()) {
                     Log.e("qiniu", "Upload Success");
                     String icon_net_path = k;
-                    String headpicPath = "http://upload.qiniup.com/" + k;
                     teachingsBean.setQiniuKey(icon_net_path);
                     Log.e("获取到的key", "获取到的key:" + k);
                     if (position == shouke_images_select.size() - 1) {//上传完最后一张之后，提交数据
@@ -333,7 +332,7 @@ public class StepTwoFragment extends ViewPagerFragment {
                             @Override
                             public void onNext(Bean<List<TagBean>> result) {
                                 shanchang_tagBeans.addAll(result.getData());
-                                set__shanchang_tag(shanchang_tagBeans);
+                                set_shanchang_tag(shanchang_tagBeans);
 
                             }
 
@@ -344,7 +343,7 @@ public class StepTwoFragment extends ViewPagerFragment {
                         }, getActivity(), false));
     }
 
-    private void set__shanchang_tag(List<TagBean> shanchang_tagBeans) {
+    private void set_shanchang_tag(List<TagBean> shanchang_tagBeans) {
         MineTagAdapter tagAdapter = new MineTagAdapter(getActivity(), shanchang_tagBeans);
         shanchang_class_tag_view.setAdapter(tagAdapter);
         set_shanchang_select_sum(shanchang_tagBeans);
@@ -424,8 +423,10 @@ public class StepTwoFragment extends ViewPagerFragment {
     private void submit_information() {
         CheckInformationBean checkInformationBean = new CheckInformationBean();
         CheckInformationBean.CoachPicCardBean coachPicCardBean = new CheckInformationBean.CoachPicCardBean();
-        coachPicCardBean.setCardBackKey(checkStatusActivity.select_card_fan_path);
-        coachPicCardBean.setCardFrontKey(checkStatusActivity.select_card_zheng_path);
+//        coachPicCardBean.setCardBackKey(checkStatusActivity.select_card_fan_path);
+//        coachPicCardBean.setCardFrontKey(checkStatusActivity.select_card_zheng_path);
+        coachPicCardBean.setCardBackKey("cardzheng");
+        coachPicCardBean.setCardFrontKey("cardfan");
         checkInformationBean.setCoachPicCard(coachPicCardBean);
         CheckInformationBean.CoachUserBean coachUserBean = new CheckInformationBean.CoachUserBean();
         if (SpUtils.getString(getActivity(), AppConstants.SELECT_TEACHER_TYPE).equals("1")) {//团课
@@ -464,16 +465,14 @@ public class StepTwoFragment extends ViewPagerFragment {
 
         Subscription subscription = Network.getInstance("提交审核资料", getActivity())
                 .submit_information(checkInformationBean,
-                        new ProgressSubscriber<>("提交审核资料", new SubscriberOnNextListener<Bean<String>>() {
+                        new ProgressSubscriber<>("提交审核资料", new SubscriberOnNextListener<Bean<Object>>() {
                             @Override
-                            public void onNext(Bean<String> result) {
+                            public void onNext(Bean<Object> result) {
                                 submit_btn.loadingComplete();
-
                                 progress_upload.dismissProgressDialog();
-
-                                viewpager_content.setCurrentItem(2);
+                                viewpager_content.setCurrentItem(3);
                                 int step = stepView.getCurrentStep();//设置进度条
-                                stepView.setCurrentStep((step + 1) % stepView.getStepNum());
+                                stepView.setCurrentStep((step + 2) % stepView.getStepNum());
                             }
 
                             @Override

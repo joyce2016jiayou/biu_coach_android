@@ -13,8 +13,10 @@ import butterknife.ButterKnife;
 import com.huantansheng.easyphotos.models.puzzle.Line;
 import com.noplugins.keepfit.coachplatform.R;
 import com.noplugins.keepfit.coachplatform.base.BaseActivity;
+import com.noplugins.keepfit.coachplatform.callback.DialogCallBack;
 import com.noplugins.keepfit.coachplatform.global.AppConstants;
 import com.noplugins.keepfit.coachplatform.util.SpUtils;
+import com.noplugins.keepfit.coachplatform.util.ui.PopWindowHelper;
 
 public class SelectRoleActivity extends BaseActivity {
 
@@ -90,8 +92,7 @@ public class SelectRoleActivity extends BaseActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(SelectRoleActivity.this, CheckStatusActivity.class);
                 startActivity(intent);
-                finish();
-                SpUtils.putString(getApplicationContext(), AppConstants.SELECT_TEACHER_TYPE,"1");//团课
+                SpUtils.putString(getApplicationContext(), AppConstants.SELECT_TEACHER_TYPE, "1");//团课
             }
         });
         //选择了团课
@@ -100,8 +101,28 @@ public class SelectRoleActivity extends BaseActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(SelectRoleActivity.this, CheckStatusActivity.class);
                 startActivity(intent);
-                finish();
-                SpUtils.putString(getApplicationContext(), AppConstants.SELECT_TEACHER_TYPE,"2");//私教
+                SpUtils.putString(getApplicationContext(), AppConstants.SELECT_TEACHER_TYPE, "2");//私教
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        show_advice_pop();
+    }
+
+    private void show_advice_pop() {
+        PopWindowHelper.public_tishi_pop(SelectRoleActivity.this, "温馨提示", "是否退出app？", "取消", "确定", new DialogCallBack() {
+            @Override
+            public void save() {
+                Intent home = new Intent(Intent.ACTION_MAIN);
+                home.addCategory(Intent.CATEGORY_HOME);
+                startActivity(home);
+            }
+
+            @Override
+            public void cancel() {
+
             }
         });
     }

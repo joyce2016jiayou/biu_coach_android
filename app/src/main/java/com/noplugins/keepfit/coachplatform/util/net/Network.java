@@ -214,6 +214,14 @@ public class Network {
                 .subscribe(subscriber);
     }
 
+    public Subscription agree_xieyi(Map<String, Object> params, Subscriber<Bean<Object>> subscriber) {
+        return service.agree_xieyi(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
     public Subscription yanzheng_yanzhengma(Map<String, Object> params, Subscriber<Bean<YanZhengMaBean>> subscriber) {
         return service.yanzheng_yanzhengma(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
@@ -230,7 +238,7 @@ public class Network {
                 .subscribe(subscriber);
     }
 
-    public Subscription submit_information(CheckInformationBean checkInformationBean, Subscriber<Bean<String>> subscriber) {
+    public Subscription submit_information(CheckInformationBean checkInformationBean, Subscriber<Bean<Object>> subscriber) {
         return service.submit_information(retuen_json_object(checkInformationBean))
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())

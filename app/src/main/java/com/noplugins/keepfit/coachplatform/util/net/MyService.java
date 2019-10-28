@@ -39,6 +39,14 @@ public interface MyService {
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("passWordLogin")
     Observable<Bean<LoginBean>> password_login(@Body RequestBody json);
+    /**
+     * 同意协议
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("teacherSign")
+    Observable<Bean<Object>> agree_xieyi(@Body RequestBody json);
 
     /**
      * 验证验证码
@@ -65,7 +73,7 @@ public interface MyService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("checkData")
-    Observable<Bean<String>> submit_information(@Body RequestBody json);
+    Observable<Bean<Object>> submit_information(@Body RequestBody json);
 
     /**
      * 课程管理
