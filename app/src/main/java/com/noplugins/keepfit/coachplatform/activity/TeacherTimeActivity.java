@@ -364,7 +364,7 @@ public class TeacherTimeActivity extends BaseActivity {
 
     private void dismiss_pop_window(boolean is_open_shouke) {
         CommonPopupWindow popupWindow = new CommonPopupWindow.Builder(TeacherTimeActivity.this)
-                .setView(R.layout.call_pop)
+                .setView(R.layout.set_shouke_pop)
                 .setBackGroundLevel(0.5f)//0.5f
                 .setAnimationStyle(R.style.main_menu_animstyle)
                 .setWidthAndHeight(WindowManager.LayoutParams.MATCH_PARENT,
@@ -399,17 +399,15 @@ public class TeacherTimeActivity extends BaseActivity {
                 if (is_open_shouke) {
                     switch_button.toogleOn();
                     is_open_switch = true;
-
-
+                    set_shouke_time();
                 } else {
                     switch_button.toogleOff();
                     is_open_switch = false;
                     close_class_time();
-
                 }
-
-
             }
         });
     }
+
+
 }
