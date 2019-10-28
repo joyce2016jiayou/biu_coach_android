@@ -176,8 +176,8 @@ class TeacherAddOrEditActivity : BaseActivity() {
         params["course_type"] = 2
         subscription = Network.getInstance("添加课程", this)
             .addTeacherCourse(params,
-                ProgressSubscriber("添加课程", object : SubscriberOnNextListener<Bean<String>> {
-                    override fun onNext(result: Bean<String>) {
+                ProgressSubscriber("添加课程", object : SubscriberOnNextListener<Bean<Any>> {
+                    override fun onNext(result: Bean<Any>) {
                         finish()
                     }
 
@@ -200,8 +200,8 @@ class TeacherAddOrEditActivity : BaseActivity() {
         params["edit_zhuyi"] = edit_jieshao.text.toString()
         subscription = Network.getInstance("修改课程", this)
             .updateCourse(params,
-                ProgressSubscriber("修改课程", object : SubscriberOnNextListener<Bean<String>> {
-                    override fun onNext(result: Bean<String>) {
+                ProgressSubscriber("修改课程", object : SubscriberOnNextListener<Bean<Any>> {
+                    override fun onNext(result: Bean<Any>) {
                         val mIntent = Intent()//没有任何参数（意图），只是用来传递数据
                         mIntent.putExtra("isUpdate", true)
                         setResult(RESULT_OK, mIntent)

@@ -91,8 +91,8 @@ class AuthenticationActivity : BaseActivity() {
         params["cardName"] = card.bankName
         subscription = Network.getInstance("绑定银行卡", this)
             .bindingCoachBank(params,
-                ProgressSubscriber("绑定银行卡", object : SubscriberOnNextListener<Bean<String>> {
-                    override fun onNext(result: Bean<String>) {
+                ProgressSubscriber("绑定银行卡", object : SubscriberOnNextListener<Bean<Any>> {
+                    override fun onNext(result: Bean<Any>) {
                         EventBus.getDefault().post("添加银行卡成功")
                         SuperCustomToast.getInstance(this@AuthenticationActivity)
                             .show("绑定银行卡成功！")

@@ -165,7 +165,7 @@ public interface MyService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("addTeacherCourse")
-    Observable<Bean<String>> addTeacherCourse(@Body RequestBody json);
+    Observable<Bean<Object>> addTeacherCourse(@Body RequestBody json);
 
     /**
      * 绑定场馆
@@ -174,7 +174,7 @@ public interface MyService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("bindingArea")
-    Observable<Bean<String>> bindingArea(@Body RequestBody json);
+    Observable<Bean<Object>> bindingArea(@Body RequestBody json);
 
     /**
      * 修改私教课程
@@ -183,7 +183,7 @@ public interface MyService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("updateCourse")
-    Observable<Bean<String>> updateCourse(@Body RequestBody json);
+    Observable<Bean<Object>> updateCourse(@Body RequestBody json);
 
     /**
      * 私教课程管理
@@ -201,7 +201,7 @@ public interface MyService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("bindingCoachBank")
-    Observable<Bean<String>> bindingCoachBank(@Body RequestBody json);
+    Observable<Bean<Object>> bindingCoachBank(@Body RequestBody json);
 
     /**
      * 产品反馈
@@ -210,7 +210,7 @@ public interface MyService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("feedBackData")
-    Observable<Bean<String>> feedBackData(@Body RequestBody json);
+    Observable<Bean<Object>> feedBackData(@Body RequestBody json);
 
     /**
      * 我的主页
@@ -237,7 +237,7 @@ public interface MyService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("updateCoachHome")
-    Observable<Bean<String>> updateCoachHome(@Body RequestBody json);
+    Observable<Bean<Object>> updateCoachHome(@Body RequestBody json);
 
     /**
      * 设置授课时间
@@ -290,7 +290,7 @@ public interface MyService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("updatePhone")
-    Observable<Bean<String>> updatePhone(@Body RequestBody json);
+    Observable<Bean<Object>> updatePhone(@Body RequestBody json);
 
     /**
      * 设置提现密码
@@ -299,7 +299,7 @@ public interface MyService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("settingPayPassword")
-    Observable<Bean<String>> settingPayPassword(@Body RequestBody json);
+    Observable<Bean<Object>> settingPayPassword(@Body RequestBody json);
 
     /**
      * 教练类型管理

@@ -319,13 +319,13 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
     private fun agreeCourse() {
         val params = HashMap<String, Any>()
         params["teacherNum"] = SpUtils.getString(applicationContext, AppConstants.USER_NAME)
-        params["genTeacherNum"] = SpUtils.getString(applicationContext, AppConstants.USER_NAME)
+//        params["genTeacherNum"] = SpUtils.getString(applicationContext, AppConstants.USER_NAME)
         params["page"] = page
         params["longitude"] = longitude
         params["latitude"] = latitude
-        params["province"] = province
-        params["city"] = city
-        params["district"] = district
+//        params["province"] = province
+//        params["city"] = city
+//        params["district"] = district
         if (skillSelect > -1){
             params["type"] = skillSelect
         }
@@ -365,8 +365,8 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
         bean.areaNumList = submitList
         subscription = Network.getInstance("绑定场馆", this)
             .bindingArea(bean,
-                ProgressSubscriber("绑定场馆", object : SubscriberOnNextListener<Bean<String>> {
-                    override fun onNext(result: Bean<String>) {
+                ProgressSubscriber("绑定场馆", object : SubscriberOnNextListener<Bean<Any>> {
+                    override fun onNext(result: Bean<Any>) {
                         //提交成功
                         SuperCustomToast.getInstance(this@ClassShouquanActivity)
                             .show("申请绑定场馆已提交",2000)

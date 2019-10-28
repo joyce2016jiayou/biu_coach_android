@@ -99,10 +99,10 @@ class VerificationPhoneActivity : BaseActivity() {
         subscription = Network.getInstance("修改手机号", this)
             .updatePhone(
                 params,
-                ProgressSubscriber<String>(
+                ProgressSubscriber<Any>(
                     "修改手机号",
-                    object : SubscriberOnNextListener<Bean<String>> {
-                        override fun onNext(result: Bean<String>) {
+                    object : SubscriberOnNextListener<Bean<Any>> {
+                        override fun onNext(result: Bean<Any>) {
                             SuperCustomToast.getInstance(applicationContext)
                                 .show("修改成功")
                             toLogin()

@@ -100,8 +100,8 @@ class ProductAdviceActivity : BaseActivity() {
 
         subscription = Network.getInstance("反馈", this)
             .feedBackData(params,
-                ProgressSubscriber("反馈", object : SubscriberOnNextListener<Bean<String>> {
-                    override fun onNext(result: Bean<String>) {
+                ProgressSubscriber("反馈", object : SubscriberOnNextListener<Bean<Any>> {
+                    override fun onNext(result: Bean<Any>) {
                         finish()
                     }
 

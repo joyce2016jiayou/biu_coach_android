@@ -44,6 +44,7 @@ import com.qiniu.android.storage.UploadOptions
 import com.ycuwq.datepicker.date.DatePickerDialogFragment
 import kotlinx.android.synthetic.main.activity_information.*
 import okhttp3.RequestBody
+import org.greenrobot.eventbus.EventBus
 import top.zibin.luban.Luban
 import top.zibin.luban.OnCompressListener
 import java.io.File
@@ -295,9 +296,10 @@ class InformationActivity : BaseActivity() {
         subscription = Network.getInstance("个人资料", this)
             .updateCoachHome(
                 params,
-                ProgressSubscriber("个人资料", object : SubscriberOnNextListener<Bean<String>> {
-                    override fun onNext(result: Bean<String>) {
+                ProgressSubscriber("个人资料", object : SubscriberOnNextListener<Bean<Any>> {
+                    override fun onNext(result: Bean<Any>) {
                         //保存成功
+                        EventBus.getDefault().post("修改了资料")
                         SuperCustomToast.getInstance(this@InformationActivity)
                             .show("修改成功")
                     }

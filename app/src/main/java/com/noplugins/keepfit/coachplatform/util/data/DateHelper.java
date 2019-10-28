@@ -219,6 +219,7 @@ public class DateHelper {
         return sdf.format(new Date());
     }
 
+
     /**
      * @return
      * @作者
@@ -652,6 +653,15 @@ public class DateHelper {
         Date date = transForDate(start_time);
         int hour = date.getMinutes();
         return hour;
+    }
+
+
+    public static String timeDay(long start_time){
+        return get_year(start_time)+"."+get_month(start_time)+"."+get_date(start_time);
+    }
+
+    public static String timeHourAndMinite(long start_time){
+        return get_hour(start_time)+":"+get_minite(start_time);
     }
 
 }

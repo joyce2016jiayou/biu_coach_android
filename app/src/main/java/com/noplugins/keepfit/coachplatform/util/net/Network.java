@@ -335,7 +335,7 @@ public class Network {
                 .subscribe(subscriber);
     }
 
-    public Subscription addTeacherCourse(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
+    public Subscription addTeacherCourse(Map<String, Object> params, Subscriber<Bean<Object>> subscriber) {
         return service.addTeacherCourse(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -343,7 +343,7 @@ public class Network {
                 .subscribe(subscriber);
     }
 
-    public Subscription bindingArea(BindingListBean params, Subscriber<Bean<String>> subscriber) {
+    public Subscription bindingArea(BindingListBean params, Subscriber<Bean<Object>> subscriber) {
         return service.bindingArea(retuen_json_object(params))
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -351,7 +351,7 @@ public class Network {
                 .subscribe(subscriber);
     }
 
-    public Subscription updateCourse(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
+    public Subscription updateCourse(Map<String, Object> params, Subscriber<Bean<Object>> subscriber) {
         return service.updateCourse(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -367,7 +367,7 @@ public class Network {
                 .subscribe(subscriber);
     }
 
-    public Subscription bindingCoachBank(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
+    public Subscription bindingCoachBank(Map<String, Object> params, Subscriber<Bean<Object>> subscriber) {
         return service.bindingCoachBank(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -375,7 +375,7 @@ public class Network {
                 .subscribe(subscriber);
     }
 
-    public Subscription feedBackData(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
+    public Subscription feedBackData(Map<String, Object> params, Subscriber<Bean<Object>> subscriber) {
         return service.feedBackData(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -399,7 +399,7 @@ public class Network {
                 .subscribe(subscriber);
     }
 
-    public Subscription updateCoachHome(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
+    public Subscription updateCoachHome(Map<String, Object> params, Subscriber<Bean<Object>> subscriber) {
         return service.updateCoachHome(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -415,7 +415,7 @@ public class Network {
                 .subscribe(subscriber);
     }
 
-    public Subscription updatePhone(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
+    public Subscription updatePhone(Map<String, Object> params, Subscriber<Bean<Object>> subscriber) {
         return service.updatePhone(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -423,7 +423,7 @@ public class Network {
                 .subscribe(subscriber);
     }
 
-    public Subscription settingPayPassword(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
+    public Subscription settingPayPassword(Map<String, Object> params, Subscriber<Bean<Object>> subscriber) {
         return service.settingPayPassword(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
