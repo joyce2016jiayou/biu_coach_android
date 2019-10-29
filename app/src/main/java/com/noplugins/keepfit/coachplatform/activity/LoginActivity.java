@@ -268,60 +268,7 @@ public class LoginActivity extends BaseActivity {
                         new ProgressSubscriber<>("获取教练状态", new SubscriberOnNextListener<Bean<TeacherStatusBean>>() {
                             @Override
                             public void onNext(Bean<TeacherStatusBean> result) {
-//                        teacherType 1团课 2私教 3都有
-//                        pType 私教 1 通过2拒绝3审核中
-//                        lType 团课 1 通过2拒绝3审核中
-//                        sign 是否签约上架 1 是 0 否
-                                if (result.getData().getTeacherType() == -1) {//目前没有身份
-                                    Intent intent = new Intent(LoginActivity.this, SelectRoleActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                } else if (result.getData().getTeacherType() == 1) {//团课
-                                    if (result.getData().getLType() == 1) {
-                                        if (result.getData().getSign() == 1) {//已签约
-                                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                            startActivity(intent);
-                                            finish();
-                                        } else {//未签约
-                                            Intent intent = new Intent(LoginActivity.this, CheckStatusActivity.class);
-                                            Bundle bundle = new Bundle();
-                                            bundle.putInt("into_index", 3);
-                                            intent.putExtras(bundle);
-                                            startActivity(intent);
-                                            finish();
-                                        }
-                                    } else if (result.getData().getLType() == 2 || result.getData().getLType() == 3) {//团课不通过
-                                        Intent intent = new Intent(LoginActivity.this, SelectRoleActivity.class);
-                                        startActivity(intent);
-                                        finish();
-                                    }
-
-                                } else if (result.getData().getTeacherType() == 2) {//私教
-                                    if (result.getData().getPType() == 1) {
-                                        if (result.getData().getSign() == 1) {//已签约
-                                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                            startActivity(intent);
-                                            finish();
-                                        } else {//未签约
-                                            Intent intent = new Intent(LoginActivity.this, CheckStatusActivity.class);
-                                            Bundle bundle = new Bundle();
-                                            bundle.putInt("into_index", 3);
-                                            intent.putExtras(bundle);
-                                            startActivity(intent);
-                                            finish();
-                                        }
-                                    } else if (result.getData().getPType() == 2 || result.getData().getPType() == 3) {//私教不通过
-                                        Intent intent = new Intent(LoginActivity.this, SelectRoleActivity.class);
-                                        startActivity(intent);
-                                        finish();
-                                    }
-                                } else {
-                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                }
-
-
+                                set_status(result);
                             }
 
                             @Override
@@ -329,6 +276,90 @@ public class LoginActivity extends BaseActivity {
 
                             }
                         }, this, false));
+    }
+
+    private void set_status(Bean<TeacherStatusBean> result) {
+        //teacherType 1团课 2私教 3都有
+        //pType 私教 1 通过2拒绝3审核中
+        //lType 团课 1 通过2拒绝3审核中
+        // sign 是否签约上架 1 是 0 否
+        if (result.getData().getTeacherType() == -1) {//目前没有身份
+            Intent intent = new Intent(LoginActivity.this, SelectRoleActivity.class);
+            startActivity(intent);
+            finish();
+        } else if (result.getData().getTeacherType() == 1) {//团课
+            if (result.getData().getLType() == 1) {
+                if (result.getData().getSign() == 1) {//已签约
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {//未签约
+
+                    if (result.getData().getLType() == 1) {//通过的话就直接签约
+                        Intent intent = new Intent(LoginActivity.this, CheckStatusActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("into_index", 3);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                        finish();
+                    } else if (result.getData().getLType() == 3) {//审核中
+                        Intent intent = new Intent(LoginActivity.this, CheckStatusActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("into_index", 2);
+                        bundle.putInt("status", 1);//审核中
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                        finish();
+                    } else if (result.getData().getLType() == 2) {//拒绝
+                        Intent intent = new Intent(LoginActivity.this, CheckStatusActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("into_index", 2);
+                        bundle.putInt("status", -1);//拒绝
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+            }
+
+        } else if (result.getData().getTeacherType() == 2) {//私教
+            if (result.getData().getPType() == 1) {
+                if (result.getData().getSign() == 1) {//已签约
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {//未签约
+                    if (result.getData().getLType() == 1) {//通过的话就直接签约
+                        Intent intent = new Intent(LoginActivity.this, CheckStatusActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("into_index", 3);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                        finish();
+                    } else if (result.getData().getLType() == 3) {//审核中
+                        Intent intent = new Intent(LoginActivity.this, CheckStatusActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("into_index", 2);
+                        bundle.putInt("status", 1);//审核中
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                        finish();
+                    } else if (result.getData().getLType() == 2) {//拒绝
+                        Intent intent = new Intent(LoginActivity.this, CheckStatusActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("into_index", 2);
+                        bundle.putInt("status", -1);//拒绝
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+            }
+        } else {
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     private void Get_YanZhengMa() {

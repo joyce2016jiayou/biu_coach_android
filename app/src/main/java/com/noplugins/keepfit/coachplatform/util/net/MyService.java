@@ -30,6 +30,7 @@ public interface MyService {
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("sendCode")
     Observable<Bean<String>> get_yanzhengma(@Body RequestBody json);
+
     /**
      * 获取验证码
      *
@@ -47,6 +48,7 @@ public interface MyService {
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("passWordLogin")
     Observable<Bean<LoginBean>> password_login(@Body RequestBody json);
+
     /**
      * 同意协议
      *
@@ -72,7 +74,7 @@ public interface MyService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("setPassword")
-    Observable<Bean<String>> set_password(@Body RequestBody json);
+    Observable<Bean<SetPasswordBean>> set_password(@Body RequestBody json);
 
     /**
      * 提交信息
@@ -263,6 +265,7 @@ public interface MyService {
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("saveCocahTeacherWorkTime")
     Observable<Bean<String>> set_shouke_time(@Body RequestBody json);
+
     /**
      * 关闭授课时间
      *
@@ -355,14 +358,16 @@ public interface MyService {
 
     /**
      * 消息总数
-     searchDict
+     * searchDict
+     *
      * @return
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("findSchedule")
     Observable<Bean<ScheduleBean>> get_shouye_date(@Body RequestBody json);
+
     /**
-     *获取运动日志详情
+     * 获取运动日志详情
      *
      * @return
      */
@@ -371,7 +376,7 @@ public interface MyService {
     Observable<Bean<GetDailryBean>> get_trail_detail(@Body RequestBody json);
 
     /**
-     *提交运动数据
+     * 提交运动数据
      *
      * @return
      */
@@ -381,7 +386,7 @@ public interface MyService {
 
 
     /**
-     *授权场馆
+     * 授权场馆
      *
      * @return
      */
@@ -390,7 +395,7 @@ public interface MyService {
     Observable<Bean<List<ChangguanBean>>> myBindingArea(@Body RequestBody json);
 
     /**
-     *解除绑定授权场馆
+     * 解除绑定授权场馆
      *
      * @return
      */
@@ -399,7 +404,7 @@ public interface MyService {
     Observable<Bean<String>> deleteMyBindingArea(@Body RequestBody json);
 
     /**
-     *教练同意/拒绝绑定
+     * 教练同意/拒绝绑定
      *
      * @return
      */
@@ -408,7 +413,7 @@ public interface MyService {
     Observable<Bean<String>> agreeBindingArea(@Body RequestBody json);
 
     /**
-     *绑定银行卡列表
+     * 绑定银行卡列表
      *
      * @return
      */
@@ -418,7 +423,7 @@ public interface MyService {
 
 
     /**
-     *教练同意/拒绝绑定
+     * 教练同意/拒绝绑定
      *
      * @return
      */
@@ -427,7 +432,7 @@ public interface MyService {
     Observable<Bean<ClassDetailBean>> class_detail(@Body RequestBody json);
 
     /**
-     *提现
+     * 提现
      *
      * @return
      */

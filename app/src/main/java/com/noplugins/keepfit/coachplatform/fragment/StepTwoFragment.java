@@ -480,10 +480,9 @@ public class StepTwoFragment extends ViewPagerFragment {
                         new ProgressSubscriber<>("提交审核资料", new SubscriberOnNextListener<Bean<Object>>() {
                             @Override
                             public void onNext(Bean<Object> result) {
-
-                                viewpager_content.setCurrentItem(3);
+                                viewpager_content.setCurrentItem(2);
                                 int step = stepView.getCurrentStep();//设置进度条
-                                stepView.setCurrentStep((step + 2) % stepView.getStepNum());
+                                stepView.setCurrentStep((step + 1) % stepView.getStepNum());
                             }
 
                             @Override

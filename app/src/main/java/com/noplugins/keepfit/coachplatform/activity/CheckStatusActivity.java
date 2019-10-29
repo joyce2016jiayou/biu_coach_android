@@ -1,6 +1,8 @@
 package com.noplugins.keepfit.coachplatform.activity;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,7 +45,9 @@ public class CheckStatusActivity extends BaseActivity {
     public String school = "";
     public String ruhang_time = "";
     public List<Fragment> tabFragments = new ArrayList<>();
-
+    int into_index = 0;
+    public int into_status=0;
+    Bundle bundle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,15 +56,13 @@ public class CheckStatusActivity extends BaseActivity {
     @Override
     public void initBundle(Bundle parms) {
         if (parms != null) {
+            bundle  = parms;
             int fragment_type = parms.getInt("fragment_type", -1);
             if (fragment_type == 2) {
                 viewpager_content.setCurrentItem(1);
             }
+            into_index = parms.getInt("into_index", -1);
 
-            int into_index = parms.getInt("into_index", -1);
-            if (into_index == 3) {
-                viewpager_content.setCurrentItem(3);
-            }
         }
     }
 
@@ -92,12 +94,32 @@ public class CheckStatusActivity extends BaseActivity {
 
         ContentPagerAdapterMy contentAdapter = new ContentPagerAdapterMy(getSupportFragmentManager(), tabFragments);
         viewpager_content.setAdapter(contentAdapter);
-        viewpager_content.setCurrentItem(0);
-
+        if (into_index == 3) {//未签合同
+            int step = step_view.getCurrentStep();//设置进度条
+            step_view.setCurrentStep((step + 3) % step_view.getStepNum());
+            viewpager_content.setCurrentItem(3);
+        }else if(into_index == 2){
+            int status = bundle.getInt("status",-1);
+            if(status==1){//审核中
+                into_status = 1;
+            }else if(status==-1){//已被拒绝
+                into_status = -1;
+            }
+            int step = step_view.getCurrentStep();//设置进度条
+            step_view.setCurrentStep((step + 2) % step_view.getStepNum());
+            viewpager_content.setCurrentItem(2);
+        } else {
+            viewpager_content.setCurrentItem(0);
+        }
 
         back_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(CheckStatusActivity.this, SelectRoleActivity.class);
+                Bundle bundle  = new Bundle();
+                bundle.putInt("back",1);
+                intent.putExtras(bundle);
+                startActivity(intent);
                 finish();
             }
         });

@@ -11,12 +11,22 @@ import android.os.Bundle;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.huantansheng.easyphotos.models.puzzle.Line;
+import com.noplugins.keepfit.coachplatform.MainActivity;
 import com.noplugins.keepfit.coachplatform.R;
 import com.noplugins.keepfit.coachplatform.base.BaseActivity;
+import com.noplugins.keepfit.coachplatform.bean.TeacherStatusBean;
 import com.noplugins.keepfit.coachplatform.callback.DialogCallBack;
 import com.noplugins.keepfit.coachplatform.global.AppConstants;
 import com.noplugins.keepfit.coachplatform.util.SpUtils;
+import com.noplugins.keepfit.coachplatform.util.net.Network;
+import com.noplugins.keepfit.coachplatform.util.net.entity.Bean;
+import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber;
+import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener;
 import com.noplugins.keepfit.coachplatform.util.ui.PopWindowHelper;
+import rx.Subscription;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SelectRoleActivity extends BaseActivity {
 
@@ -38,10 +48,13 @@ public class SelectRoleActivity extends BaseActivity {
     RelativeLayout select_tuanke_view;
     @BindView(R.id.select_sijiao_view)
     RelativeLayout select_sijiao_view;
+    int back_number = 0;
 
     @Override
     public void initBundle(Bundle parms) {
-
+        if (null != parms) {
+            back_number = parms.getInt("back");
+        }
     }
 
     @Override
@@ -90,20 +103,117 @@ public class SelectRoleActivity extends BaseActivity {
         sijiao_sure_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SelectRoleActivity.this, CheckStatusActivity.class);
-                startActivity(intent);
-                SpUtils.putString(getApplicationContext(), AppConstants.SELECT_TEACHER_TYPE, "1");//团课
+                if (back_number == 0) {//正常状态进来的
+                    go_to(true);
+                } else {//返回状态进来的
+                    get_teacher_status(true);
+                }
             }
         });
         //选择了团课
         tuanke_sure_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SelectRoleActivity.this, CheckStatusActivity.class);
-                startActivity(intent);
-                SpUtils.putString(getApplicationContext(), AppConstants.SELECT_TEACHER_TYPE, "2");//私教
+                if (back_number == 0) {
+                    go_to(false);
+                } else {//返回状态进来的
+                    get_teacher_status(false);
+                }
             }
         });
+    }
+
+    private void go_to(boolean is_tuanke) {
+        Intent intent = new Intent(SelectRoleActivity.this, CheckStatusActivity.class);
+        if (is_tuanke) {
+            SpUtils.putString(getApplicationContext(), AppConstants.SELECT_TEACHER_TYPE, "1");//团课
+        } else {
+            SpUtils.putString(getApplicationContext(), AppConstants.SELECT_TEACHER_TYPE, "2");//私教
+        }
+        startActivity(intent);
+        finish();
+    }
+
+    private void get_teacher_status(boolean is_tuanke) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("userNum", SpUtils.getString(getApplicationContext(), AppConstants.SELECT_TEACHER_NUMBER));
+        Subscription subscription = Network.getInstance("获取教练状态", this)
+                .get_teacher_status(params,
+                        new ProgressSubscriber<>("获取教练状态", new SubscriberOnNextListener<Bean<TeacherStatusBean>>() {
+                            @Override
+                            public void onNext(Bean<TeacherStatusBean> result) {
+//                        teacherType 1团课 2私教 3都有
+//                        pType 私教 1 通过2拒绝3审核中
+//                        lType 团课 1 通过2拒绝3审核中
+//                        sign 是否签约上架 1 是 0 否
+                                if (is_tuanke) {//团课
+                                    if (result.getData().getTeacherType() == 1) {
+                                        //获取状态
+                                        if (result.getData().getLType() == 1) {//通过的话就直接签约
+                                            Intent intent = new Intent(SelectRoleActivity.this, CheckStatusActivity.class);
+                                            Bundle bundle = new Bundle();
+                                            bundle.putInt("into_index", 3);
+                                            intent.putExtras(bundle);
+                                            startActivity(intent);
+                                            finish();
+                                        } else if (result.getData().getLType() == 3) {//审核中
+                                            Intent intent = new Intent(SelectRoleActivity.this, CheckStatusActivity.class);
+                                            Bundle bundle = new Bundle();
+                                            bundle.putInt("into_index", 2);
+                                            bundle.putInt("status", 1);//审核中
+                                            intent.putExtras(bundle);
+                                            startActivity(intent);
+                                            finish();
+                                        } else if (result.getData().getLType() == 2) {//拒绝
+                                            Intent intent = new Intent(SelectRoleActivity.this, CheckStatusActivity.class);
+                                            Bundle bundle = new Bundle();
+                                            bundle.putInt("into_index", 2);
+                                            bundle.putInt("status", -1);//拒绝
+                                            intent.putExtras(bundle);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    } else {
+                                        go_to(true);
+                                    }
+                                } else {//私教
+                                    if (result.getData().getTeacherType() == 2) {
+                                        //获取状态
+                                        if (result.getData().getPType() == 1) {//通过的话就直接签约
+                                            Intent intent = new Intent(SelectRoleActivity.this, CheckStatusActivity.class);
+                                            Bundle bundle = new Bundle();
+                                            bundle.putInt("into_index", 3);
+                                            intent.putExtras(bundle);
+                                            startActivity(intent);
+                                            finish();
+                                        } else if (result.getData().getPType() == 3) {//审核中
+                                            Intent intent = new Intent(SelectRoleActivity.this, CheckStatusActivity.class);
+                                            Bundle bundle = new Bundle();
+                                            bundle.putInt("into_index", 2);
+                                            bundle.putInt("status", 1);//审核中
+                                            intent.putExtras(bundle);
+                                            startActivity(intent);
+                                            finish();
+                                        } else if (result.getData().getPType() == 2) {//拒绝
+                                            Intent intent = new Intent(SelectRoleActivity.this, CheckStatusActivity.class);
+                                            Bundle bundle = new Bundle();
+                                            bundle.putInt("into_index", 2);
+                                            bundle.putInt("status", -1);//拒绝
+                                            intent.putExtras(bundle);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    } else {
+                                        go_to(false);
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onError(String error) {
+
+                            }
+                        }, this, false));
     }
 
     @Override

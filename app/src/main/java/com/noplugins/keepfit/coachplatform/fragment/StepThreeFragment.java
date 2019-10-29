@@ -55,8 +55,16 @@ public class StepThreeFragment extends ViewPagerFragment {
     }
 
     private void initView() {
-        success_layout.setVisibility(View.VISIBLE);
-        fail_layout.setVisibility(View.GONE);
+        if (checkStatusActivity.into_status == 1) {//成功
+            success_layout.setVisibility(View.VISIBLE);
+            fail_layout.setVisibility(View.GONE);
+        } else if (checkStatusActivity.into_status == -1) {//拒绝
+            success_layout.setVisibility(View.GONE);
+            fail_layout.setVisibility(View.VISIBLE);
+        } else {
+            success_layout.setVisibility(View.VISIBLE);
+            fail_layout.setVisibility(View.GONE);
+        }
         return_submit.setBtnOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

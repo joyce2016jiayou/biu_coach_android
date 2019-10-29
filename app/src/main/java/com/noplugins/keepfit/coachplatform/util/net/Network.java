@@ -239,7 +239,7 @@ public class Network {
                 .subscribe(subscriber);
     }
 
-    public Subscription set_password(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
+    public Subscription set_password(Map<String, Object> params, Subscriber<Bean<SetPasswordBean>> subscriber) {
         return service.set_password(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
