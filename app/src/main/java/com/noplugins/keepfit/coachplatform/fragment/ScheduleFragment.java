@@ -29,10 +29,7 @@ import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextLis
 import de.hdodenhof.circleimageview.CircleImageView;
 import rx.Subscription;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class ScheduleFragment extends Fragment {
@@ -78,19 +75,20 @@ public class ScheduleFragment extends Fragment {
         return view;
     }
 
+
     private void initView() {
-        classDateBeans.clear();
-        selectDateBeans.addAll(DateUtils.getmoredate());
-        //初始化日期数据
-        init_date_resoure();
-        //初始化课程数控
-        if (selectDateBeans.size() == 0) {
-            selectDateBeans.addAll(DateUtils.getmoredate());
+        if (classDateBeans.size() > 0) {
+            classDateBeans.clear();
         }
+        List<SelectDateBean> list = DateUtils.getmoredate();
+        selectDateBeans.addAll(list);
         SelectDateBean selectDateBean = selectDateBeans.get(0);
         String current_date = selectDateBean.getCurrent_date();
         select_date = current_date;
         init_class_date_resource(select_date);
+        //初始化日期数据
+        init_date_resoure();
+
 
         touxiang_image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,7 +159,6 @@ public class ScheduleFragment extends Fragment {
         super.onResume();
 
 
-
     }
 
     private void init_class_date_resource(String select_date) {
@@ -230,9 +227,12 @@ public class ScheduleFragment extends Fragment {
                 }
 
                 dateSelectAdapter.notifyDataSetChanged();
-                classDateBeans.clear();
+                if (classDateBeans.size() > 0) {
+                    classDateBeans.clear();
+                }
                 select_date = selectDateBeans.get(position).getCurrent_date();
                 init_class_date_resource(select_date);
+
             }
         });
 

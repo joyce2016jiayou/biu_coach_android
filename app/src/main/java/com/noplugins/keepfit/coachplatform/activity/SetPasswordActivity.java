@@ -15,6 +15,7 @@ import com.noplugins.keepfit.coachplatform.MainActivity;
 import com.noplugins.keepfit.coachplatform.R;
 import com.noplugins.keepfit.coachplatform.base.BaseActivity;
 import com.noplugins.keepfit.coachplatform.bean.LoginBean;
+import com.noplugins.keepfit.coachplatform.bean.TeacherStatusBean;
 import com.noplugins.keepfit.coachplatform.global.AppConstants;
 import com.noplugins.keepfit.coachplatform.util.SpUtils;
 import com.noplugins.keepfit.coachplatform.util.net.Network;
@@ -82,13 +83,7 @@ public class SetPasswordActivity extends BaseActivity {
                         Toast.makeText(SetPasswordActivity.this, "请输入正确的格式！", Toast.LENGTH_SHORT).show();
                         return;
                     } else {
-
-
-
                         set_password();
-                        Intent intent = new Intent(SetPasswordActivity.this, SelectRoleActivity.class);
-                        startActivity(intent);
-                        finish();
                     }
 
                 }
@@ -112,22 +107,82 @@ public class SetPasswordActivity extends BaseActivity {
                             public void onNext(Bean<String> result) {
                                 sure_btn.loadingComplete();
 
-                                if(null!=SpUtils.getString(getApplicationContext(),AppConstants.TEACHER_TYPE)){
-                                    if(SpUtils.getString(getApplicationContext(),AppConstants.TEACHER_TYPE).length()>0){//已经审核过了
-                                        Intent intent = new Intent(SetPasswordActivity.this, MainActivity.class);
-                                        startActivity(intent);
-                                    }else{//未审核
-                                        Intent intent = new Intent(SetPasswordActivity.this, SelectRoleActivity.class);
-                                        startActivity(intent);
-                                    }
-                                }
-
+                                //获取教练状态
+                                get_teacher_status();
                             }
 
                             @Override
                             public void onError(String error) {
                                 sure_btn.loadingComplete();
 
+
+                            }
+                        }, this, false));
+    }
+
+    private void get_teacher_status() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("userNum", SpUtils.getString(getApplicationContext(), AppConstants.SELECT_TEACHER_NUMBER));
+        Subscription subscription = Network.getInstance("获取教练状态", this)
+                .get_teacher_status(params,
+                        new ProgressSubscriber<>("获取教练状态", new SubscriberOnNextListener<Bean<TeacherStatusBean>>() {
+                            @Override
+                            public void onNext(Bean<TeacherStatusBean> result) {
+//                        teacherType 1团课 2私教 3都有
+//                        pType 私教 1 通过2拒绝3审核中
+//                        lType 团课 1 通过2拒绝3审核中
+//                        sign 是否签约上架 1 是 0 否
+                                if (result.getData().getTeacherType() == -1) {//目前没有身份
+                                    Intent intent = new Intent(SetPasswordActivity.this, SelectRoleActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                } else if (result.getData().getTeacherType() == 1) {//团课
+                                    if (result.getData().getLType() == 1) {
+                                        if (result.getData().getSign() == 1) {//已签约
+                                            Intent intent = new Intent(SetPasswordActivity.this, MainActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        } else {//未签约
+                                            Intent intent = new Intent(SetPasswordActivity.this, CheckStatusActivity.class);
+                                            Bundle bundle = new Bundle();
+                                            bundle.putInt("into_index", 3);
+                                            intent.putExtras(bundle);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    } else if (result.getData().getLType() == 2 || result.getData().getLType() == 3) {//团课不通过
+                                        Intent intent = new Intent(SetPasswordActivity.this, SelectRoleActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+
+                                } else if (result.getData().getTeacherType() == 2) {//私教
+                                    if (result.getData().getPType() == 1) {
+                                        if (result.getData().getSign() == 1) {//已签约
+                                            Intent intent = new Intent(SetPasswordActivity.this, MainActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        } else {//未签约
+                                            Intent intent = new Intent(SetPasswordActivity.this, CheckStatusActivity.class);
+                                            Bundle bundle = new Bundle();
+                                            bundle.putInt("into_index", 3);
+                                            intent.putExtras(bundle);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    } else if (result.getData().getPType() == 2 || result.getData().getPType() == 3) {//私教不通过
+                                        Intent intent = new Intent(SetPasswordActivity.this, SelectRoleActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                }else{
+                                    Intent intent = new Intent(SetPasswordActivity.this, MainActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            }
+                            @Override
+                            public void onError(String error) {
 
                             }
                         }, this, false));

@@ -121,7 +121,6 @@ public class DateUtils {
         mMonth = String.valueOf(calendar.get(Calendar.MONTH) + 1);// 获取当前月份
         int max_date_of_month = MaxDayFromDay_OF_MONTH(Integer.parseInt(mYear), Integer.parseInt(mMonth));
         int next_max_month = (get_max_day - max_date_of_month) / 31; //获取往后可能有几个月
-
         for (int k = 0; k <= next_max_month; k++) {//需要循环设置几个月
             for (int i = 0; i < get_max_day; i++) {
                 SelectDateBean selectDateBean = new SelectDateBean();

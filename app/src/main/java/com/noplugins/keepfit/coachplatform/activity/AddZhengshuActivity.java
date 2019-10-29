@@ -78,11 +78,12 @@ public class AddZhengshuActivity extends BaseActivity {
     private String qiniu_key;
     private int select_zhengshu_max_num = 0;
     private String uptoken = "xxxxxxxxx:xxxxxxx:xxxxxxxxxx";
-    //private List<CheckInformationBean.CoachPicCertificatesBean> zhengshu_images_select = new ArrayList<>();
+    private List<CheckInformationBean.CoachPicCertificatesBean> zhengshu_images_select = new ArrayList<>();
     TimePickerView pvCustomTime;
     private UploadManager uploadManager;
     CheckInformationBean.CoachPicCertificatesBean upload_coachPicCertificatesBean = null;
     private boolean is_click_add_btn = false;
+    private int select_zhengshu_type_number = 0;
 
     @Override
     public void initBundle(Bundle parms) {
@@ -150,16 +151,31 @@ public class AddZhengshuActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 //对重复图片做校验 AppConstants.SELECT_PHOTO_NUM
-
                 /**判断页面有没有数据，有的话，添加并上传，
                  没有说明可能已经点击"添加"过了，但并没有添加数据,此时返回上一页刷新*/
-                if (zhengshu_type_tv.getText().length() > 0) {
+                //判断页面是否有空文本框
+                if (TextUtils.isEmpty(zhengshu_type_tv.getText())) {
+                    Toast.makeText(getApplicationContext(), "证书选择不能为空！", Toast.LENGTH_SHORT).show();
+                    return;
+                } else if (TextUtils.isEmpty(zhengshu_tv.getText())) {
+                    Toast.makeText(getApplicationContext(), "证书名字不能为空！", Toast.LENGTH_SHORT).show();
+                    return;
+                } else if (TextUtils.isEmpty(time_tv.getText())) {
+                    Toast.makeText(getApplicationContext(), "获证时间不能为空！", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
                     set_zhengshu_view();
                     AppConstants.SELECT_PHOTO_NUM.add(upload_coachPicCertificatesBean);
+                    // 点击完成 通知上一个页面更新
+                    MessageEvent messageEvent = new MessageEvent(AppConstants.UPDATE_SELECT_PHOTO);
+                    EventBus.getDefault().postSticky(messageEvent);
+                    if (progress_upload != null) {
+                        progress_upload.dismissProgressDialog();
+                    }
+                    finish();
                 }
-                MessageEvent messageEvent = new MessageEvent(AppConstants.UPDATE_SELECT_PHOTO);
-                EventBus.getDefault().postSticky(messageEvent);
-                finish();
+
+
             }
         });
         //继续添加
@@ -298,6 +314,8 @@ public class AddZhengshuActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 zhengshu_type_tv.setText(strings.get(i));
+                select_zhengshu_type_number = i + 1;
+                //设置选择证书类型
                 popupWindow.dismiss();
             }
         });
@@ -360,47 +378,26 @@ public class AddZhengshuActivity extends BaseActivity {
 
                 ArrayList<String> resultPaths = data.getStringArrayListExtra(EasyPhotos.RESULT_PATHS);
                 Log.e("返回的path:", resultPaths.size() + "");
-
-                List<CheckInformationBean.CoachPicCertificatesBean> return_selet = new ArrayList<>();
                 if (null == upload_coachPicCertificatesBean) {
                     upload_coachPicCertificatesBean = new CheckInformationBean.CoachPicCertificatesBean();
+                    upload_coachPicCertificatesBean.setCertType(select_zhengshu_type_number + "");//证书类型,有字典
+                    upload_coachPicCertificatesBean.setCertDate(select_time);//证书日期
+                    upload_coachPicCertificatesBean.setCertName(zhengshu_tv.getText().toString());
                 }
-                upload_coachPicCertificatesBean.setCertType("1");//证书类型,有字典
-                upload_coachPicCertificatesBean.setCertDate(select_time);//证书日期
-                upload_coachPicCertificatesBean.setCertName(zhengshu_tv.getText().toString());
+
                 if (resultPaths.size() == 1) {
                     if (null == upload_coachPicCertificatesBean.getZheng_local_img_path()) {
                         upload_coachPicCertificatesBean.setZheng_local_img_path(resultPaths.get(0));//设置正面的本地路径
                     } else {
                         upload_coachPicCertificatesBean.setFan_local_img_path(resultPaths.get(0));
                     }
-//                    if (null == upload_coachPicCertificatesBean.getFan_local_img_path()) {
-//                        upload_coachPicCertificatesBean.setFan_local_img_path(resultPaths.get(0));
-//                    }
+
 
                 } else if (resultPaths.size() == 2) {
                     upload_coachPicCertificatesBean.setZheng_local_img_path(resultPaths.get(0));//设置正面的本地路径
                     upload_coachPicCertificatesBean.setFan_local_img_path(resultPaths.get(1));//设置反面的本地路径
                 }
-
                 set_jiugongge();//先设置九宫格
-
-
-//                for (int i = 0; i < resultPaths.size(); i++) {
-//                    if (i == 0) {
-//                        upload_coachPicCertificatesBean.setCertType("1");//证书类型,有字典
-//                        upload_coachPicCertificatesBean.setCertDate(select_time);//证书日期
-//                        upload_coachPicCertificatesBean.setZheng_local_img_path(resultPaths.get(i));//设置正面的本地路径
-//                        upload_coachPicCertificatesBean.setCertName(zhengshu_tv.getText().toString());
-//                    } else {
-//                        upload_coachPicCertificatesBean.setFan_local_img_path(resultPaths.get(i));//设置反面的本地路径
-//                    }
-//
-//                    //return_selet.add(upload_coachPicCertificatesBean);
-//                }
-                //zhengshu_images_select.addAll(return_selet);
-                //todo 重复添加第二张的问题
-
                 return;
             }
 
@@ -427,21 +424,17 @@ public class AddZhengshuActivity extends BaseActivity {
     }
 
     private void set_zhengshu_view() {
-
-        progress_upload = new ProgressUtil();
-        progress_upload.showProgressDialog(this, "图片上传中...");
-
         //上传正面
         if (null != upload_coachPicCertificatesBean.getZheng_local_img_path()) {
-            upload_images(upload_coachPicCertificatesBean.getZheng_local_img_path(),true);
+            upload_images(upload_coachPicCertificatesBean.getZheng_local_img_path(), true);
         }
         //上传反面
         if (null != upload_coachPicCertificatesBean.getFan_local_img_path()) {
-            upload_images(upload_coachPicCertificatesBean.getFan_local_img_path(),false);
+            upload_images(upload_coachPicCertificatesBean.getFan_local_img_path(), false);
         }
     }
 
-    private void upload_images(String image_path,boolean is_zheng){
+    private void upload_images(String image_path, boolean is_zheng) {
         Luban.with(this)
                 .load(image_path)
                 .ignoreBy(100)
@@ -460,7 +453,7 @@ public class AddZhengshuActivity extends BaseActivity {
             @Override
             public void onSuccess(File file) {
                 // TODO 压缩成功后调用，返回压缩后的图片文件
-                compressCallBack.onSucceed(file.getAbsolutePath(),is_zheng);//正面
+                compressCallBack.onSucceed(file.getAbsolutePath(), is_zheng);//正面
             }
 
             @Override
@@ -477,22 +470,22 @@ public class AddZhengshuActivity extends BaseActivity {
 //            Log.e("压缩过的",data);
 //            File file = new File(data);
 //            Log.e("压缩后的大小", FileSizeUtil.getFileOrFilesSize(file.getAbsolutePath(), 2) + "");
-            if(b){//上传正面
+            if (b) {//上传正面
                 upload_image_work(data, true);
-            }else{
+            } else {
                 upload_image_work(data, false);
 
             }
         }
 
         @Override
-        public void onSucceed2(String data,CheckInformationBean.CoachPicTeachingsBean teachingsBean, String expectKey, int position) {
+        public void onSucceed2(String data, CheckInformationBean.CoachPicTeachingsBean teachingsBean, String expectKey, int position) {
 
         }
 
         @Override
         public void onFailure(String msg) {
-            Log.e("压缩失败的",msg);
+            Log.e("压缩失败的", msg);
         }
     };
 
@@ -513,16 +506,15 @@ public class AddZhengshuActivity extends BaseActivity {
     }
 
     private void upload_image_work(String image_path, boolean is_zheng) {
-        Log.e("进来了添加", "进来了添加");
         //上传icon
         uploadManager.put(image_path, qiniu_key, uptoken,
                 new UpCompletionHandler() {
                     @Override
                     public void complete(String key, ResponseInfo info, JSONObject response) {
                         //res包含hash、key等信息，具体字段取决于上传策略的设置
+
                         if (info.isOK()) {
                             String icon_net_path = key;
-                            String headpicPath = "http://upload.qiniup.com/" + key;
 
                             if (is_zheng) {//设置正面
                                 upload_coachPicCertificatesBean.setCertFrontKey(icon_net_path);
@@ -530,17 +522,14 @@ public class AddZhengshuActivity extends BaseActivity {
                                 upload_coachPicCertificatesBean.setCertBackKey(icon_net_path);
                             }
 
-
                             Log.e("qiniu", "Upload Success");
                             Log.e("打印key：", icon_net_path);
-                            Log.e("返回的地址", headpicPath);
+
                         } else {
                             Log.e("qiniu", "Upload Fail");
                             //如果失败，这里可以把info信息上报自己的服务器，便于后面分析上传错误原因
                         }
                         //Log.e("qiniu", key + ",\r\n " + info.path + ",\r\n " + response);
-                        progress_upload.dismissProgressDialog();
-
                     }
                 }, new UploadOptions(null, "test-type", true, null, null));
     }
@@ -550,6 +539,6 @@ public class AddZhengshuActivity extends BaseActivity {
         super.onDestroy();
         Log.e("进来了吗", "进来了");
         AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE_TWO = 0;
-        //zhengshu_images_select.clear();
+
     }
 }

@@ -117,12 +117,10 @@ public class StepFourFragement extends ViewPagerFragment {
                         new ProgressSubscriber<>("同意协议", new SubscriberOnNextListener<Bean<Object>>() {
                             @Override
                             public void onNext(Bean<Object> result) {
-                                agree_xieyi();
                                 submit_btn.loadingComplete();
                                 Toast.makeText(getActivity(), "恭喜您，签约成功！", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(getActivity(), MainActivity.class);
                                 startActivity(intent);
-                                getActivity().finish();
                             }
 
                             @Override

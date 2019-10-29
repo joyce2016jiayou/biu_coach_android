@@ -10,8 +10,14 @@ import butterknife.ButterKnife
 import com.noplugins.keepfit.coachplatform.MainActivity
 import com.noplugins.keepfit.coachplatform.R
 import com.noplugins.keepfit.coachplatform.base.BaseActivity
+import com.noplugins.keepfit.coachplatform.bean.TeacherStatusBean
 import com.noplugins.keepfit.coachplatform.global.AppConstants
 import com.noplugins.keepfit.coachplatform.util.SpUtils
+import com.noplugins.keepfit.coachplatform.util.net.Network
+import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
+import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
+import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
+import java.util.HashMap
 
 class SplashActivity : BaseActivity() {
     override fun initView() {
@@ -72,32 +78,85 @@ class SplashActivity : BaseActivity() {
 
         Log.d("AAAAAA", "" + SpUtils.getString(applicationContext, AppConstants.TOKEN))
 
-        val intent = if (SpUtils.getString(applicationContext, AppConstants.TOKEN) == "") {
-            Intent(this@SplashActivity, LoginActivity::class.java)
-
+        if (SpUtils.getString(applicationContext, AppConstants.TOKEN) == "") {
+            val intent = Intent(this@SplashActivity, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
         } else {
-            Intent(
-                this@SplashActivity, MainActivity::class.java
-            )
-
-            /*if (null == SpUtils.getString(getApplicationContext(), AppConstants.TEACHER_TYPE)) {
-                val intent = Intent(this@SplashActivity, SelectRoleActivity::class.java)
-                startActivity(intent)
-            } else {
-                if (SpUtils.getString(applicationContext, AppConstants.TEACHER_TYPE).length > 0) {//已经审核过了
-                    val intent = Intent(this@SplashActivity, MainActivity::class.java)
-                    startActivity(intent)
-                } else {//未审核
-                    val intent = Intent(this@SplashActivity, SelectRoleActivity::class.java)
-                    startActivity(intent)
-                }
-            }
-
-*/
+            //获取教练状态
+            get_teacher_status()
         }
-        startActivity(intent)
-        finish()
 
 
     }
+
+    private fun get_teacher_status() {
+        val params = HashMap<String, Any>()
+        params["userNum"] = SpUtils.getString(applicationContext, AppConstants.SELECT_TEACHER_NUMBER)
+        val subscription = Network.getInstance("获取教练状态", this)
+            .get_teacher_status(
+                params,
+                ProgressSubscriber("获取教练状态", object : SubscriberOnNextListener<Bean<TeacherStatusBean>> {
+                    override fun onNext(result: Bean<TeacherStatusBean>) {
+//                        teacherType 1团课 2私教 3都有
+//                        pType 私教 1 通过2拒绝3审核中
+//                        lType 团课 1 通过2拒绝3审核中
+//                        sign 是否签约上架 1 是 0 否
+                        if (result.data.teacherType == -1) {//目前没有身份
+                            val intent = Intent(this@SplashActivity, SelectRoleActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        } else if (result.data.teacherType == 1) {//团课
+                            if (result.data.lType == 1) {
+                                if (result.data.sign == 1) {//已签约
+                                    val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                                    startActivity(intent)
+                                    finish()
+                                } else {//未签约
+                                    val intent = Intent(this@SplashActivity, CheckStatusActivity::class.java)
+                                    val bundle = Bundle()
+                                    bundle.putInt("into_index", 3)
+                                    intent.putExtras(bundle)
+                                    startActivity(intent)
+                                    finish()
+                                }
+                            } else if (result.data.lType == 2 || result.data.lType == 3) {//团课不通过
+                                val intent = Intent(this@SplashActivity, SelectRoleActivity::class.java)
+                                startActivity(intent)
+                                finish()
+                            }
+
+                        } else if (result.data.teacherType == 2) {//私教
+                            if (result.data.pType == 1) {
+                                if (result.data.sign == 1) {//已签约
+                                    val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                                    startActivity(intent)
+                                    finish()
+                                } else {//未签约
+                                    val intent = Intent(this@SplashActivity, CheckStatusActivity::class.java)
+                                    val bundle = Bundle()
+                                    bundle.putInt("into_index", 3)
+                                    intent.putExtras(bundle)
+                                    startActivity(intent)
+                                    finish()
+                                }
+                            } else if (result.data.pType == 2 || result.data.pType == 3) {//私教不通过
+                                val intent = Intent(this@SplashActivity, SelectRoleActivity::class.java)
+                                startActivity(intent)
+                                finish()
+                            }
+                        } else {
+                            val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        }
+                    }
+
+                    override fun onError(error: String) {
+
+                    }
+                }, this, false)
+            )
+    }
+
 }

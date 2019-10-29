@@ -30,6 +30,14 @@ public interface MyService {
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("sendCode")
     Observable<Bean<String>> get_yanzhengma(@Body RequestBody json);
+    /**
+     * 获取验证码
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("searchTeacherStatus")
+    Observable<Bean<TeacherStatusBean>> get_teacher_status(@Body RequestBody json);
 
     /**
      * 密码登陆

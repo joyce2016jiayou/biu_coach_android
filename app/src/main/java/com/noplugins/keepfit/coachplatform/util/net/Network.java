@@ -205,6 +205,15 @@ public class Network {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
+    public Subscription get_teacher_status(Map<String, Object> params, Subscriber<Bean<TeacherStatusBean>> subscriber) {
+        return service.get_teacher_status(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+
 
     public Subscription password_login(Map<String, Object> params, Subscriber<Bean<LoginBean>> subscriber) {
         return service.password_login(retuen_json_params(params))

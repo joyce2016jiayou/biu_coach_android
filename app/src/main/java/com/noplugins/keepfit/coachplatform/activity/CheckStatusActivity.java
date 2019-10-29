@@ -35,14 +35,15 @@ public class CheckStatusActivity extends BaseActivity {
 
     public String select_card_zheng_path = "";
     public String select_card_fan_path = "";
-    public String user_name="";
-    public String card_id="";
-    public String sex="";
-    public String phone="";
-    public String city="";
-    public String school="";
-    public String ruhang_time="";
+    public String user_name = "";
+    public String card_id = "";
+    public String sex = "";
+    public String phone = "";
+    public String city = "";
+    public String school = "";
+    public String ruhang_time = "";
     public List<Fragment> tabFragments = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,10 +51,15 @@ public class CheckStatusActivity extends BaseActivity {
 
     @Override
     public void initBundle(Bundle parms) {
-        if (parms!=null){
-            int fragment_type = parms.getInt("fragment_type",-1);
-            if (fragment_type == 2){
+        if (parms != null) {
+            int fragment_type = parms.getInt("fragment_type", -1);
+            if (fragment_type == 2) {
                 viewpager_content.setCurrentItem(1);
+            }
+
+            int into_index = parms.getInt("into_index", -1);
+            if (into_index == 3) {
+                viewpager_content.setCurrentItem(3);
             }
         }
     }
@@ -95,7 +101,6 @@ public class CheckStatusActivity extends BaseActivity {
                 finish();
             }
         });
-
 
 
     }

@@ -19,6 +19,7 @@ import com.huantansheng.easyphotos.EasyPhotos;
 import com.noplugins.keepfit.coachplatform.R;
 import com.noplugins.keepfit.coachplatform.activity.AddZhengshuActivity;
 import com.noplugins.keepfit.coachplatform.activity.CheckStatusActivity;
+import com.noplugins.keepfit.coachplatform.activity.LoginActivity;
 import com.noplugins.keepfit.coachplatform.adapter.MineTagAdapter;
 import com.noplugins.keepfit.coachplatform.base.MyApplication;
 import com.noplugins.keepfit.coachplatform.bean.CheckInformationBean;
@@ -61,7 +62,6 @@ import static com.noplugins.keepfit.coachplatform.activity.AddZhengshuActivity.g
 
 public class StepTwoFragment extends ViewPagerFragment {
     private View view;
-
     @BindView(R.id.grid_view)
     GridView grid_view;
     @BindView(R.id.tag_num)
@@ -76,7 +76,6 @@ public class StepTwoFragment extends ViewPagerFragment {
     GridViewForScrollView shanchang_class_tag_view;
     @BindView(R.id.shanchang_tag_num)
     TextView shanchang_tag_num;
-
     @BindView(R.id.tag_layout_view)
     LinearLayout tag_layout_view;
     @BindView(R.id.teacher_shanchang_class_layout)
@@ -85,15 +84,10 @@ public class StepTwoFragment extends ViewPagerFragment {
     LinearLayout zhengshu_layout;
     @BindView(R.id.shouke_layout)
     LinearLayout shouke_layout;
-
-
     private CheckStatusActivity checkStatusActivity;
     private StepView stepView;
-
-
     private int select_zhengshu_max_num = 0;
     private int select_shouke_max_num = 0;
-
     private List<CheckInformationBean.CoachPicTeachingsBean> shouke_images_select = new ArrayList<>();
     private List<CheckInformationBean.CoachPicCertificatesBean> zhengshu_images_select = new ArrayList<>();
     List<TagBean> shanchang_tagBeans = new ArrayList<>();
@@ -164,7 +158,6 @@ public class StepTwoFragment extends ViewPagerFragment {
             zhengshu_layout.setVisibility(View.VISIBLE);
             shouke_layout.setVisibility(View.VISIBLE);
             init_tag_resource(6);
-
         } else if (SpUtils.getString(getActivity(), AppConstants.SELECT_TEACHER_TYPE).equals("2")) {//私教
             teacher_shanchang_class_layout.setVisibility(View.VISIBLE);
             tag_layout_view.setVisibility(View.VISIBLE);
@@ -173,17 +166,18 @@ public class StepTwoFragment extends ViewPagerFragment {
             init_tag_resource(7);
             init_jineng_tag_resource(3);
         }
-
         //设置九宫格图片
         set_zhengshu_view();
 
         submit_btn.setBtnOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //上传身份证图片
+                Log.e("哈哈哈啊哈哈", "0");
+                submit_btn.startLoading();
+                //请求数据提交审核
+                check_information_for_net();
 
-                //上传授课图片
-                upload_shouke_images();
+                submit_btn.loadingComplete();
             }
         });
 
@@ -207,6 +201,8 @@ public class StepTwoFragment extends ViewPagerFragment {
         progress_upload = new ProgressUtil();
         progress_upload.showProgressDialog(getActivity(), "图片上传中...");
         for (int i = 0; i < shouke_images_select.size(); i++) {
+            Log.e("哈哈哈啊哈哈", "数据" + shouke_images_select.size() + "");
+
             CheckInformationBean.CoachPicTeachingsBean teachingsBean = shouke_images_select.get(i);
             int finalI = i;
             String expectKey = UUID.randomUUID().toString();
@@ -223,16 +219,23 @@ public class StepTwoFragment extends ViewPagerFragment {
                 @Override
                 public void onStart() {
                     // TODO 压缩开始前调用，可以在方法内启动 loading UI
+                    Log.e("哈哈哈啊哈哈", "2");
+
+
                 }
 
                 @Override
                 public void onSuccess(File file) {
+                    Log.e("哈哈哈啊哈哈", "3");
+
                     // TODO 压缩成功后调用，返回压缩后的图片文件
                     compressCallBack.onSucceed2(file.getAbsolutePath(), teachingsBean, expectKey, finalI);//正面
                 }
 
                 @Override
                 public void onError(Throwable e) {
+                    Log.e("哈哈哈啊哈哈", "4");
+
                     compressCallBack.onFailure(e.getMessage());
                     // TODO 当压缩过程出现问题时调用
                 }
@@ -244,9 +247,10 @@ public class StepTwoFragment extends ViewPagerFragment {
     ImageCompressCallBack compressCallBack = new ImageCompressCallBack() {
         @Override
         public void onSucceed2(String data, CheckInformationBean.CoachPicTeachingsBean teachingsBean, String expectKey, int position) {
-            Log.e("压缩过的", data);
+//            Log.e("哈哈哈啊哈哈", "5");
+//            Log.e("压缩过的", data);
             File file = new File(data);
-            Log.e("压缩后的大小", FileSizeUtil.getFileOrFilesSize(file.getAbsolutePath(), 2) + "");
+            //Log.e("压缩后的大小", FileSizeUtil.getFileOrFilesSize(file.getAbsolutePath(), 2) + "");
             upload_images(data, teachingsBean, expectKey, position);
         }
 
@@ -270,8 +274,8 @@ public class StepTwoFragment extends ViewPagerFragment {
                     teachingsBean.setQiniuKey(icon_net_path);
                     Log.e("获取到的key", "获取到的key:" + k);
                     if (position == shouke_images_select.size() - 1) {//上传完最后一张之后，提交数据
-                        //请求数据提交审核
-                        check_information_for_net();
+                        progress_upload.dismissProgressDialog();
+                        submit_information();
                     }
                 } else {
                     Log.e("qiniu", "Upload Fail");
@@ -286,15 +290,16 @@ public class StepTwoFragment extends ViewPagerFragment {
      */
     private void check_information_for_net() {
         if (SpUtils.getString(getActivity(), AppConstants.SELECT_TEACHER_TYPE).equals("1")) {//团课
-            if (shanchang_tagBeans.size() == 0) {
+            if (shanchang_tagBeans.size() == 0) {//擅长课程
                 Toast.makeText(getActivity(), R.string.tv142, Toast.LENGTH_SHORT).show();
                 return;
-            } else if (shouke_images_select.size() == 0) {
+            } else if (shouke_images_select.size() == 0) {//授课不能为空
                 Toast.makeText(getActivity(), R.string.tv141, Toast.LENGTH_SHORT).show();
                 return;
             } else {
-                submit_btn.startLoading();
-                submit_information();
+                Log.e("进来了团课", "进来了团课");
+                //上传授课图片
+                upload_shouke_images();
             }
         } else {//私教
             if (zhengshu_images_select.size() == 0) {
@@ -306,11 +311,8 @@ public class StepTwoFragment extends ViewPagerFragment {
             } else if (shanchang_tagBeans.size() == 0) {
                 Toast.makeText(getActivity(), R.string.tv142, Toast.LENGTH_SHORT).show();
                 return;
-            } else if (shouke_images_select.size() == 0) {
-                Toast.makeText(getActivity(), R.string.tv141, Toast.LENGTH_SHORT).show();
-                return;
             } else {
-                submit_btn.startLoading();
+                Log.e("进来了私教", "进来了私教");
                 submit_information();
             }
 
@@ -361,6 +363,8 @@ public class StepTwoFragment extends ViewPagerFragment {
         });
     }
 
+    int max_select_sum = 0;
+
     private void set_tag(List<TagBean> jineng_tagBeans) {
         MineTagAdapter tagAdapter = new MineTagAdapter(getActivity(), jineng_tagBeans);
         grid_view.setAdapter(tagAdapter);
@@ -370,11 +374,19 @@ public class StepTwoFragment extends ViewPagerFragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (jineng_tagBeans.get(i).isCheck()) {
                     jineng_tagBeans.get(i).setCheck(false);
+                    max_select_sum--;
+                    tagAdapter.notifyDataSetChanged();
                 } else {
-                    jineng_tagBeans.get(i).setCheck(true);
+                    if (max_select_sum >= 4) {
+                        Toast.makeText(getContext(), "最多只能选择4个技能", Toast.LENGTH_SHORT).show();
+                        return;
+                    } else {
+                        max_select_sum++;
+                        jineng_tagBeans.get(i).setCheck(true);
+                        tagAdapter.notifyDataSetChanged();
+                    }
                 }
-                tagAdapter.notifyDataSetChanged();
-                set_select_sum(jineng_tagBeans);
+                tag_num.setText("(" + max_select_sum + "/" + "4)");
             }
         });
     }
@@ -468,8 +480,7 @@ public class StepTwoFragment extends ViewPagerFragment {
                         new ProgressSubscriber<>("提交审核资料", new SubscriberOnNextListener<Bean<Object>>() {
                             @Override
                             public void onNext(Bean<Object> result) {
-                                submit_btn.loadingComplete();
-                                progress_upload.dismissProgressDialog();
+
                                 viewpager_content.setCurrentItem(3);
                                 int step = stepView.getCurrentStep();//设置进度条
                                 stepView.setCurrentStep((step + 2) % stepView.getStepNum());
@@ -477,11 +488,8 @@ public class StepTwoFragment extends ViewPagerFragment {
 
                             @Override
                             public void onError(String error) {
-                                progress_upload.dismissProgressDialog();
-
-                                submit_btn.loadingComplete();
                             }
-                        }, getActivity(), false));
+                        }, getActivity(), true));
     }
 
     @Override
@@ -497,6 +505,7 @@ public class StepTwoFragment extends ViewPagerFragment {
             //Logger.e("进来了", "进来了");
             zhengshu_images_select.clear();
             zhengshu_images_select.addAll(AppConstants.SELECT_PHOTO_NUM);
+            Log.e("传过来的图片数量", "" + zhengshu_images_select.size());
             List<String> iamge_paths = new ArrayList<>();
             for (CheckInformationBean.CoachPicCertificatesBean coachPicCertificatesBean : zhengshu_images_select) {
                 iamge_paths.add(coachPicCertificatesBean.getZheng_local_img_path());
@@ -519,9 +528,10 @@ public class StepTwoFragment extends ViewPagerFragment {
         for (int j = 0; j < strings.size(); j++) {
             if (strings.get(j).isCheck()) {
                 select_sum++;
+
             }
         }
-        tag_num.setText("(" + select_sum + "/" + strings.size() + ")");
+        tag_num.setText("(" + select_sum + "/" + "4)");
     }
 
     private void set_shanchang_select_sum(List<TagBean> strings) {
