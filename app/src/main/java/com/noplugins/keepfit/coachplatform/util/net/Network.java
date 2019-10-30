@@ -278,7 +278,7 @@ public class Network {
     }
 
 
-    public Subscription putaway(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
+    public Subscription putaway(Map<String, Object> params, Subscriber<Bean<Object>> subscriber) {
         return service.putaway(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -302,7 +302,7 @@ public class Network {
                 .subscribe(subscriber);
     }
 
-    public Subscription agreeCourse(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
+    public Subscription agreeCourse(Map<String, Object> params, Subscriber<Bean<Object>> subscriber) {
         return service.agreeCourse(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())

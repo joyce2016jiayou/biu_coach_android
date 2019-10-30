@@ -180,8 +180,8 @@ class TeamInfoActivity : BaseActivity() {
         }
         val subscription = Network.getInstance("团课同意/拒绝", this)
             .agreeCourse(params,
-                ProgressSubscriber("团课同意/拒绝", object : SubscriberOnNextListener<Bean<String>> {
-                    override fun onNext(result: Bean<String>) {
+                ProgressSubscriber("团课同意/拒绝", object : SubscriberOnNextListener<Bean<Any>> {
+                    override fun onNext(result: Bean<Any>) {
                         requestData(courseNum)
                     }
 

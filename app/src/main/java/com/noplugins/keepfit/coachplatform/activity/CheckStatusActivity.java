@@ -48,6 +48,7 @@ public class CheckStatusActivity extends BaseActivity {
     int into_index = 0;
     public int into_status=0;
     Bundle bundle;
+    public int fragment_type = -1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,10 +58,8 @@ public class CheckStatusActivity extends BaseActivity {
     public void initBundle(Bundle parms) {
         if (parms != null) {
             bundle  = parms;
-            int fragment_type = parms.getInt("fragment_type", -1);
-            if (fragment_type == 2) {
-                viewpager_content.setCurrentItem(1);
-            }
+            fragment_type = parms.getInt("fragment_type", -1);
+            Log.d("fragment_type","fragment_type:"+fragment_type);
             into_index = parms.getInt("into_index", -1);
 
         }
@@ -71,6 +70,7 @@ public class CheckStatusActivity extends BaseActivity {
         setContentLayout(R.layout.activity_check_status);
         ButterKnife.bind(this);
         isShowTitle(false);
+
     }
 
     @Override
@@ -112,9 +112,18 @@ public class CheckStatusActivity extends BaseActivity {
             viewpager_content.setCurrentItem(0);
         }
 
+        if (fragment_type == 2 || fragment_type == 1) {
+            int step = step_view.getCurrentStep();
+            step_view.setCurrentStep((step + 1) % step_view.getStepNum());
+            viewpager_content.setCurrentItem(1);
+        }
         back_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (fragment_type == 2||fragment_type == 1) {
+                    finish();
+                    return;
+                }
                 Intent intent = new Intent(CheckStatusActivity.this, SelectRoleActivity.class);
                 Bundle bundle  = new Bundle();
                 bundle.putInt("back",1);

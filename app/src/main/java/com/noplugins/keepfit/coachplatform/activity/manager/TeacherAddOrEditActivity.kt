@@ -40,7 +40,7 @@ class TeacherAddOrEditActivity : BaseActivity() {
                     requestData(courseNum)
                 }
             }  else{
-                title_tv.text = "添加课程"
+                title_tv.text = "新增私教课程"
             }
         }
     }

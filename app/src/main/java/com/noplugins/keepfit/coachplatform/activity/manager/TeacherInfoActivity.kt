@@ -74,8 +74,8 @@ class TeacherInfoActivity : BaseActivity() {
         params["putaway"] = type
         val subscription = Network.getInstance("上架/下架 操作", this)
             .putaway(params,
-                ProgressSubscriber("上架/下架 操作", object : SubscriberOnNextListener<Bean<String>> {
-                    override fun onNext(result: Bean<String>) {
+                ProgressSubscriber("上架/下架 操作", object : SubscriberOnNextListener<Bean<Any>> {
+                    override fun onNext(result: Bean<Any>) {
                         //上架成功！
                         requestData(courseNum)
                     }
