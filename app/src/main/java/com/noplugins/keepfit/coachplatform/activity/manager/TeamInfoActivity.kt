@@ -127,7 +127,7 @@ class TeamInfoActivity : BaseActivity() {
     }
 
     private fun statusType(type: Int): String {
-        val listClass = arrayOf("邀请成功", "邀请失败", "邀请中", "已过期")
+        val listClass = arrayOf("邀请成功", "邀请失败", "邀请中", "已过期","邀请失败")
         return listClass[type - 1]
     }
 
