@@ -120,16 +120,8 @@ public class CheckStatusActivity extends BaseActivity {
         back_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (fragment_type == 2||fragment_type == 1) {
-                    finish();
-                    return;
-                }
-                Intent intent = new Intent(CheckStatusActivity.this, SelectRoleActivity.class);
-                Bundle bundle  = new Bundle();
-                bundle.putInt("back",1);
-                intent.putExtras(bundle);
-                startActivity(intent);
-                finish();
+                show_advice_pop();
+
             }
         });
 
@@ -145,6 +137,15 @@ public class CheckStatusActivity extends BaseActivity {
         PopWindowHelper.public_tishi_pop(CheckStatusActivity.this, "温馨提示", "是否退出资料提交？", "取消", "确定", new DialogCallBack() {
             @Override
             public void save() {
+                if (fragment_type == 2||fragment_type == 1) {
+                    finish();
+                    return;
+                }
+                Intent intent = new Intent(CheckStatusActivity.this, SelectRoleActivity.class);
+                Bundle bundle  = new Bundle();
+                bundle.putInt("back",1);
+                intent.putExtras(bundle);
+                startActivity(intent);
                 finish();
             }
 

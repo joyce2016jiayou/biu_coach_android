@@ -128,12 +128,19 @@ class SplashActivity : BaseActivity() {
                     finish()
                 } else {//未签约
                     if (result.data.lType == 1) {//通过的话就直接签约
-                        val intent = Intent(this@SplashActivity, CheckStatusActivity::class.java)
-                        val bundle = Bundle()
-                        bundle.putInt("into_index", 3)
-                        intent.putExtras(bundle)
-                        startActivity(intent)
-                        finish()
+                        if (result.data.sign == 1) {//已签约
+                            val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        } else {
+                            val intent = Intent(this@SplashActivity, CheckStatusActivity::class.java)
+                            val bundle = Bundle()
+                            bundle.putInt("into_index", 3)
+                            intent.putExtras(bundle)
+                            startActivity(intent)
+                            finish()
+                        }
+
                     } else if (result.data.lType == 3) {//审核中
                         val intent = Intent(this@SplashActivity, CheckStatusActivity::class.java)
                         val bundle = Bundle()
@@ -165,14 +172,22 @@ class SplashActivity : BaseActivity() {
                     startActivity(intent)
                     finish()
                 } else {//未签约
-                    if (result.data.lType == 1) {//通过的话就直接签约
-                        val intent = Intent(this@SplashActivity, CheckStatusActivity::class.java)
-                        val bundle = Bundle()
-                        bundle.putInt("into_index", 3)
-                        intent.putExtras(bundle)
-                        startActivity(intent)
-                        finish()
-                    } else if (result.data.lType == 3) {//审核中
+                    if (result.data.pType == 1) {//通过的话
+                        //再次判断是否签约
+                        if (result.data.sign == 1) {//已签约
+                            val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        } else {//未签约
+                            val intent = Intent(this@SplashActivity, CheckStatusActivity::class.java)
+                            val bundle = Bundle()
+                            bundle.putInt("into_index", 3)
+                            intent.putExtras(bundle)
+                            startActivity(intent)
+                            finish()
+                        }
+
+                    } else if (result.data.pType == 3) {//审核中
                         val intent = Intent(this@SplashActivity, CheckStatusActivity::class.java)
                         val bundle = Bundle()
                         bundle.putInt("into_index", 2)
@@ -180,7 +195,7 @@ class SplashActivity : BaseActivity() {
                         intent.putExtras(bundle)
                         startActivity(intent)
                         finish()
-                    } else if (result.data.lType == 2) {//拒绝
+                    } else if (result.data.pType == 2) {//拒绝
                         val intent = Intent(this@SplashActivity, CheckStatusActivity::class.java)
                         val bundle = Bundle()
                         bundle.putInt("into_index", 2)
@@ -188,7 +203,7 @@ class SplashActivity : BaseActivity() {
                         intent.putExtras(bundle)
                         startActivity(intent)
                         finish()
-                    } else {
+                    } else {//没有私教身份
                         val intent = Intent(this@SplashActivity, CheckStatusActivity::class.java)
                         startActivity(intent)
                         finish()

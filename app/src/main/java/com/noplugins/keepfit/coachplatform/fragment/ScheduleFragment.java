@@ -80,11 +80,15 @@ public class ScheduleFragment extends Fragment {
         if (classDateBeans.size() > 0) {
             classDateBeans.clear();
         }
-        List<SelectDateBean> list = DateUtils.getmoredate();
-        selectDateBeans.addAll(list);
-        SelectDateBean selectDateBean = selectDateBeans.get(0);
-        String current_date = selectDateBean.getCurrent_date();
-        select_date = current_date;
+        if (AppConstants.selectDateBeans.size() > 0) {
+            selectDateBeans.addAll(AppConstants.selectDateBeans);
+        } else {
+            selectDateBeans.addAll(DateUtils.getmoredate());
+        }
+        String current_date_str = selectDateBeans.get(0).getCurrent_date();
+        select_date = current_date_str;
+
+
         init_class_date_resource(select_date);
         //初始化日期数据
         init_date_resoure();

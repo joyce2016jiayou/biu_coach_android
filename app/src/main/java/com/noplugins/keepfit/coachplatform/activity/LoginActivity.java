@@ -171,8 +171,7 @@ public class LoginActivity extends BaseActivity {
                         Toast.makeText(getApplicationContext(), "密码不能为空！", Toast.LENGTH_SHORT).show();
                     }
                     return;
-                }
-                {
+                } else {
                     login_btn.startLoading();
                     if (is_yanzhengma_logon) {//如果是验证码登录，则让它设置密码
                         yanzheng_yanzhengma();
@@ -234,7 +233,6 @@ public class LoginActivity extends BaseActivity {
         Map<String, Object> params = new HashMap<>();
         params.put("phone", edit_phone_number.getText().toString());
         params.put("password", edit_password.getText().toString());
-
         Subscription subscription = Network.getInstance("密码登录", this)
                 .password_login(params,
                         new ProgressSubscriber<>("密码登录", new SubscriberOnNextListener<Bean<LoginBean>>() {
@@ -295,12 +293,19 @@ public class LoginActivity extends BaseActivity {
                     finish();
                 } else {//未签约
                     if (result.getData().getLType() == 1) {//通过的话就直接签约
-                        Intent intent = new Intent(LoginActivity.this, CheckStatusActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putInt("into_index", 3);
-                        intent.putExtras(bundle);
-                        startActivity(intent);
-                        finish();
+                        if (result.getData().getSign() == 1) {//已签约
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Intent intent = new Intent(LoginActivity.this, CheckStatusActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("into_index", 3);
+                            intent.putExtras(bundle);
+                            startActivity(intent);
+                            finish();
+                        }
+
                     } else if (result.getData().getLType() == 3) {//审核中
                         Intent intent = new Intent(LoginActivity.this, CheckStatusActivity.class);
                         Bundle bundle = new Bundle();
@@ -332,14 +337,22 @@ public class LoginActivity extends BaseActivity {
                     startActivity(intent);
                     finish();
                 } else {//未签约
-                    if (result.getData().getLType() == 1) {//通过的话就直接签约
-                        Intent intent = new Intent(LoginActivity.this, CheckStatusActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putInt("into_index", 3);
-                        intent.putExtras(bundle);
-                        startActivity(intent);
-                        finish();
-                    } else if (result.getData().getLType() == 3) {//审核中
+                    if (result.getData().getPType() == 1) {//通过的话
+                        //再次判断是否签约
+                        if (result.getData().getSign() == 1) {//已签约
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {//未签约
+                            Intent intent = new Intent(LoginActivity.this, CheckStatusActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("into_index", 3);
+                            intent.putExtras(bundle);
+                            startActivity(intent);
+                            finish();
+                        }
+
+                    } else if (result.getData().getPType() == 3) {//审核中
                         Intent intent = new Intent(LoginActivity.this, CheckStatusActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putInt("into_index", 2);
@@ -347,7 +360,7 @@ public class LoginActivity extends BaseActivity {
                         intent.putExtras(bundle);
                         startActivity(intent);
                         finish();
-                    } else if (result.getData().getLType() == 2) {//拒绝
+                    } else if (result.getData().getPType() == 2) {//拒绝
                         Intent intent = new Intent(LoginActivity.this, CheckStatusActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putInt("into_index", 2);

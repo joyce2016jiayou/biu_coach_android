@@ -189,11 +189,12 @@ public class StepOneFragment extends ViewPagerFragment {
         } else {
             return true;
         }
-
     }
 
 
     private void initView() {
+        //显示缓存好的手机号
+        phone_tv.setText(SpUtils.getString(getActivity(),AppConstants.PHONE));
         //解析城市数据
         initDate();
         //获取最高学历字典

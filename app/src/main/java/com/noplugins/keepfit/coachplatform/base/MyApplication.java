@@ -11,6 +11,8 @@ import androidx.multidex.MultiDex;
 import androidx.multidex.MultiDexApplication;
 import cn.jpush.android.api.JPushInterface;
 import com.noplugins.keepfit.coachplatform.R;
+import com.noplugins.keepfit.coachplatform.global.AppConstants;
+import com.noplugins.keepfit.coachplatform.util.data.DateUtils;
 import com.noplugins.keepfit.coachplatform.util.net.callback.ErrorCallback;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
@@ -176,6 +178,12 @@ public class MyApplication extends MultiDexApplication {
 
         /**方法负载过多解决*/
         MultiDex.install(this);
+
+        //加载当前日历后两周
+        if(AppConstants.selectDateBeans.size()>0){
+            AppConstants.selectDateBeans.clear();
+        }
+        AppConstants.selectDateBeans.addAll(DateUtils.getmoredate());
     }
 
 

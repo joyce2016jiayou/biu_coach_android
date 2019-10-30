@@ -156,14 +156,14 @@ public class StepTwoFragment extends ViewPagerFragment {
 
     private void initView() {
         if (SpUtils.getString(getActivity(), AppConstants.SELECT_TEACHER_TYPE).equals("1")
-            ||checkStatusActivity.fragment_type == 2) {//团课
+                || checkStatusActivity.fragment_type == 2) {//团课
             teacher_shanchang_class_layout.setVisibility(View.VISIBLE);
             tag_layout_view.setVisibility(View.GONE);
             zhengshu_layout.setVisibility(View.VISIBLE);
             shouke_layout.setVisibility(View.VISIBLE);
             init_tag_resource(6);
         } else if (SpUtils.getString(getActivity(), AppConstants.SELECT_TEACHER_TYPE).equals("2")
-            ||checkStatusActivity.fragment_type == 1) {//私教
+                || checkStatusActivity.fragment_type == 1) {//私教
             teacher_shanchang_class_layout.setVisibility(View.VISIBLE);
             tag_layout_view.setVisibility(View.VISIBLE);
             zhengshu_layout.setVisibility(View.VISIBLE);
@@ -294,7 +294,7 @@ public class StepTwoFragment extends ViewPagerFragment {
      * 提交数据
      */
     private void check_information_for_net() {
-        if (SpUtils.getString(getActivity(), AppConstants.SELECT_TEACHER_TYPE).equals("1")||
+        if (SpUtils.getString(getActivity(), AppConstants.SELECT_TEACHER_TYPE).equals("1") ||
                 checkStatusActivity.fragment_type == 2) {//团课
             if (shanchang_tagBeans.size() == 0) {//擅长课程
                 Toast.makeText(getActivity(), R.string.tv142, Toast.LENGTH_SHORT).show();
@@ -558,19 +558,20 @@ public class StepTwoFragment extends ViewPagerFragment {
 
         @Override
         public void onClickAddNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view, int position, ArrayList<String> models) {
-            /*if (AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE >= 40) {
-                Toast.makeText(getActivity(), "只能上传40张图片哦～", Toast.LENGTH_SHORT).show();
-            } else if (AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE < 40) {
-                select_zhengshu_max_num = 40 - AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE;
-                EasyPhotos.createAlbum(StepTwoFragment.this, true, GlideEngine.getInstance())
-                        .setFileProviderAuthority("com.noplugins.keepfit.android.fileprovider")
-                        .setPuzzleMenu(false)
-                        .setCount(select_zhengshu_max_num)
-                        .setOriginalMenu(false, true, null)
-                        .start(101);
-            }*/
-            Intent intent = new Intent(getActivity(), AddZhengshuActivity.class);
-            startActivity(intent);
+            if (AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE >= 20) {
+                Toast.makeText(getActivity(), "只能上传20张证书哦～", Toast.LENGTH_SHORT).show();
+            } else if (AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE < 20) {
+//                select_zhengshu_max_num = 40 - AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE;
+//                EasyPhotos.createAlbum(StepTwoFragment.this, true, GlideEngine.getInstance())
+//                        .setFileProviderAuthority("com.noplugins.keepfit.android.fileprovider")
+//                        .setPuzzleMenu(false)
+//                        .setCount(select_zhengshu_max_num)
+//                        .setOriginalMenu(false, true, null)
+//                        .start(101);
+                Intent intent = new Intent(getActivity(), AddZhengshuActivity.class);
+                startActivity(intent);
+            }
+
         }
 
         @Override

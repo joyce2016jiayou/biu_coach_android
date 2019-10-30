@@ -2,6 +2,7 @@ package com.noplugins.keepfit.coachplatform.global;
 
 import com.noplugins.keepfit.coachplatform.bean.AddPhotoBean;
 import com.noplugins.keepfit.coachplatform.bean.CheckInformationBean;
+import com.noplugins.keepfit.coachplatform.bean.SelectDateBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,7 @@ public class AppConstants {
     public static int SELECT_ZHENGSHU_IMAGE_SIZE_TWO = 0;//上证书图片的数量
     public static List<CheckInformationBean.CoachPicCertificatesBean> SELECT_PHOTO_NUM = new ArrayList<>();
     public static String UPDATE_SELECT_PHOTO="update_select_photo";
-
+    public static List<SelectDateBean> selectDateBeans = new ArrayList<>();//加载当前日期后两周
 
 
     //团课同意

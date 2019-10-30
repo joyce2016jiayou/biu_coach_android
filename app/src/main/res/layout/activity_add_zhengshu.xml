@@ -259,7 +259,7 @@
             android:id="@+id/continue_add"
             android:layout_width="@dimen/m140"
             android:background="@drawable/add_bg"
-            android:layout_marginTop="@dimen/m104"
+            android:layout_marginTop="@dimen/m50"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
             android:layout_height="@dimen/m44">
@@ -276,7 +276,7 @@
             android:id="@+id/done_btn"
             android:layout_width="@dimen/m140"
             android:background="@drawable/add_bg"
-            android:layout_marginTop="@dimen/m38"
+            android:layout_marginTop="@dimen/m30"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
             android:layout_height="@dimen/m44">

@@ -131,7 +131,7 @@ public class SelectRoleActivity extends BaseActivity {
             SpUtils.putString(getApplicationContext(), AppConstants.SELECT_TEACHER_TYPE, "2");//私教
         }
         startActivity(intent);
-        finish();
+        //finish();
     }
 
     private void get_teacher_status(boolean is_tuanke) {
@@ -155,7 +155,7 @@ public class SelectRoleActivity extends BaseActivity {
                                             bundle.putInt("into_index", 3);
                                             intent.putExtras(bundle);
                                             startActivity(intent);
-                                            finish();
+                                            //finish();
                                         } else if (result.getData().getLType() == 3) {//审核中
                                             Intent intent = new Intent(SelectRoleActivity.this, CheckStatusActivity.class);
                                             Bundle bundle = new Bundle();
@@ -163,7 +163,7 @@ public class SelectRoleActivity extends BaseActivity {
                                             bundle.putInt("status", 1);//审核中
                                             intent.putExtras(bundle);
                                             startActivity(intent);
-                                            finish();
+                                            //finish();
                                         } else if (result.getData().getLType() == 2) {//拒绝
                                             Intent intent = new Intent(SelectRoleActivity.this, CheckStatusActivity.class);
                                             Bundle bundle = new Bundle();
@@ -171,7 +171,7 @@ public class SelectRoleActivity extends BaseActivity {
                                             bundle.putInt("status", -1);//拒绝
                                             intent.putExtras(bundle);
                                             startActivity(intent);
-                                            finish();
+                                            //finish();
                                         }
                                     } else {
                                         go_to(true);
@@ -185,7 +185,7 @@ public class SelectRoleActivity extends BaseActivity {
                                             bundle.putInt("into_index", 3);
                                             intent.putExtras(bundle);
                                             startActivity(intent);
-                                            finish();
+                                            //finish();
                                         } else if (result.getData().getPType() == 3) {//审核中
                                             Intent intent = new Intent(SelectRoleActivity.this, CheckStatusActivity.class);
                                             Bundle bundle = new Bundle();
@@ -193,7 +193,7 @@ public class SelectRoleActivity extends BaseActivity {
                                             bundle.putInt("status", 1);//审核中
                                             intent.putExtras(bundle);
                                             startActivity(intent);
-                                            finish();
+                                            //finish();
                                         } else if (result.getData().getPType() == 2) {//拒绝
                                             Intent intent = new Intent(SelectRoleActivity.this, CheckStatusActivity.class);
                                             Bundle bundle = new Bundle();
@@ -201,7 +201,7 @@ public class SelectRoleActivity extends BaseActivity {
                                             bundle.putInt("status", -1);//拒绝
                                             intent.putExtras(bundle);
                                             startActivity(intent);
-                                            finish();
+                                            //finish();
                                         }
                                     } else {
                                         go_to(false);
