@@ -60,6 +60,7 @@ class InstructorTypeActivity : BaseActivity() {
                 tv_apply.visibility = View.VISIBLE
                 tv_apply.text ="申请私人教练"
                 toCheck = 1
+                SpUtils.putString(applicationContext,AppConstants.TEACHER_TYPE,"1")
             }
             2->{
                 iv_class_type.setImageResource(R.drawable.class_1)
@@ -67,6 +68,7 @@ class InstructorTypeActivity : BaseActivity() {
                 tv_apply.visibility = View.VISIBLE
                 tv_apply.text ="申请团课教练"
                 toCheck = 2
+                SpUtils.putString(applicationContext,AppConstants.TEACHER_TYPE,"2")
             }
             3->{
                 iv_class_type.setImageResource(R.drawable.class_2)
@@ -75,6 +77,8 @@ class InstructorTypeActivity : BaseActivity() {
                 iv_class_type_2.setImageResource(R.drawable.class_1)
                 tv_class_type_2.text = "私人教练"
                 tv_apply.visibility = View.GONE
+
+               SpUtils.putString(applicationContext,AppConstants.TEACHER_TYPE,"3")
             }
         }
 
