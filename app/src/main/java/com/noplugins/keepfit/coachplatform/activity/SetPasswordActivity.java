@@ -58,9 +58,7 @@ public class SetPasswordActivity extends BaseActivity {
         tiaoguo_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SetPasswordActivity.this, SelectRoleActivity.class);
-                startActivity(intent);
-                finish();
+                get_teacher_status();
             }
         });
         sure_btn.setBtnOnClickListener(new View.OnClickListener() {

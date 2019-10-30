@@ -175,19 +175,24 @@ class YaoqinFragment : BaseFragment() {
                 ProgressSubscriber("团课同意/拒绝", object : SubscriberOnNextListener<Bean<Any>> {
                     override fun onNext(result: Bean<Any>) {
                         //上架成功！
-                        datas.removeAt(position)//删除数据源,移除集合中当前下标的数据
-                        adapterManager.notifyItemRemoved(position)//刷新被删除的地方
-                        adapterManager.notifyItemRangeChanged(position, adapterManager.itemCount) //刷新被删除数据，以及其后面的数据
+                       if (result.code == 0){
+                           datas.removeAt(position)//删除数据源,移除集合中当前下标的数据
+                           adapterManager.notifyItemRemoved(position)//刷新被删除的地方
+                           adapterManager.notifyItemRangeChanged(position, adapterManager.itemCount) //刷新被删除数据，以及其后面的数据
 
-                        when (type) {
-                            1 -> {
-                                EventBus.getDefault().post(AppConstants.TEAM_YQ_AGREE)
-                            }
+                           when (type) {
+                               1 -> {
+                                   EventBus.getDefault().post(AppConstants.TEAM_YQ_AGREE)
+                               }
 
-                            0 -> {
-                                EventBus.getDefault().post(AppConstants.TEAM_YQ_REFUSE)
-                            }
-                        }
+                               0 -> {
+                                   EventBus.getDefault().post(AppConstants.TEAM_YQ_REFUSE)
+                               }
+                           }
+                       }
+
+                        SuperCustomToast.getInstance(activity)
+                            .show(result.message)
                     }
 
                     override fun onError(error: String) {
