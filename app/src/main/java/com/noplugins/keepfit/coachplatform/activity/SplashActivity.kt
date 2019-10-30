@@ -17,6 +17,7 @@ import com.noplugins.keepfit.coachplatform.util.net.Network
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
 import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
+import com.noplugins.keepfit.coachplatform.util.ui.toast.SuperCustomToast
 import java.util.HashMap
 
 class SplashActivity : BaseActivity() {
@@ -93,7 +94,7 @@ class SplashActivity : BaseActivity() {
     private fun get_teacher_status() {
         val params = HashMap<String, Any>()
         params["userNum"] = SpUtils.getString(applicationContext, AppConstants.SELECT_TEACHER_NUMBER)
-        val subscription = Network.getInstance("获取教练状态", this)
+        subscription = Network.getInstance("获取教练状态", this)
             .get_teacher_status(
                 params,
                 ProgressSubscriber("获取教练状态", object : SubscriberOnNextListener<Bean<TeacherStatusBean>> {
@@ -103,6 +104,8 @@ class SplashActivity : BaseActivity() {
                     }
 
                     override fun onError(error: String) {
+                        SuperCustomToast.getInstance(this@SplashActivity)
+                            .show(error)
                         val intent = Intent(this@SplashActivity, LoginActivity::class.java)
                         startActivity(intent)
                         finish()

@@ -26,6 +26,7 @@ import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
 import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
 import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow
+import com.noplugins.keepfit.coachplatform.util.ui.toast.SuperCustomToast
 import kotlinx.android.synthetic.main.activity_team_info.*
 import java.util.HashMap
 
@@ -70,8 +71,8 @@ class TeamInfoActivity : BaseActivity() {
                     }
 
                     override fun onError(error: String) {
-
-
+                        SuperCustomToast.getInstance(applicationContext)
+                            .show(error)
                     }
                 }, this, false)
             )
@@ -178,7 +179,7 @@ class TeamInfoActivity : BaseActivity() {
         if (type == 0){
             params["refuse"] = str
         }
-        val subscription = Network.getInstance("团课同意/拒绝", this)
+        subscription = Network.getInstance("团课同意/拒绝", this)
             .agreeCourse(params,
                 ProgressSubscriber("团课同意/拒绝", object : SubscriberOnNextListener<Bean<Any>> {
                     override fun onNext(result: Bean<Any>) {
@@ -186,8 +187,8 @@ class TeamInfoActivity : BaseActivity() {
                     }
 
                     override fun onError(error: String) {
-
-
+                        SuperCustomToast.getInstance(applicationContext)
+                            .show(error)
                     }
                 }, this, false)
             )

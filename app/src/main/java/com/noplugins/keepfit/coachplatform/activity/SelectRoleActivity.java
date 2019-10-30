@@ -137,7 +137,7 @@ public class SelectRoleActivity extends BaseActivity {
     private void get_teacher_status(boolean is_tuanke) {
         Map<String, Object> params = new HashMap<>();
         params.put("userNum", SpUtils.getString(getApplicationContext(), AppConstants.SELECT_TEACHER_NUMBER));
-        Subscription subscription = Network.getInstance("获取教练状态", this)
+        subscription = Network.getInstance("获取教练状态", this)
                 .get_teacher_status(params,
                         new ProgressSubscriber<>("获取教练状态", new SubscriberOnNextListener<Bean<TeacherStatusBean>>() {
                             @Override

@@ -81,7 +81,7 @@ class InformationActivity : BaseActivity() {
 
     private fun getToken() {
         val params = HashMap<String, Any>()
-        val subscription = Network.getInstance("获取七牛token", this)
+        subscription = Network.getInstance("获取七牛token", this)
             .get_qiniu_token(
                 params,
                 ProgressSubscriber("获取七牛token", object : SubscriberOnNextListener<Bean<QiNiuToken>> {

@@ -106,6 +106,7 @@ public class ProgressSubscriber<T> extends Subscriber<Bean<T>> implements Dialog
         if (t != null) {
             int code = t.getCode();
             Logger.e(Method_Tag + "返回的code:" + code);
+            Logger.e(Method_Tag + "请求Success:");
             if (code == 0) {
                 Logger.e(Method_Tag + "请求Success:");
                 if (null != t.getData()) {
@@ -145,20 +146,20 @@ public class ProgressSubscriber<T> extends Subscriber<Bean<T>> implements Dialog
 //
 //                    }
                 }
-            } else {
+            }
+            else {
                 Logger.e(Method_Tag + "请求Fail:" + t.getMessage());
-                if (t.getCode() == -1){
-                    mListener.onError(t.getMessage());
-                } else if(t.getCode() == -2){
-                    //没有授权
-                    mListener.onError("-2");
-                }
-                else if(t.getCode() == -3){
-                    //没有授权
-                    mListener.onError("-3");
-                }
+                mListener.onError(t.getMessage());
+//                    //没有授权
+//                    mListener.onError("-2");
+//                }
+//                else if(t.getCode() == -3){
+//                    //没有授权
+//                    mListener.onError("-3");
+//                }
 
             }
+
 
         }
 

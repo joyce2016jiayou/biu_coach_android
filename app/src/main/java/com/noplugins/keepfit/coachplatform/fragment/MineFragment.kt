@@ -104,7 +104,9 @@ class MineFragment : BaseFragment() {
                         startActivity(intent)
                     }
                     "授课场馆" -> {
-                        if (min.teacherType == 1) return@setOnItemClickListener
+                        if (min.teacherType == 1){
+                            return@setOnItemClickListener
+                        }
                         val intent = Intent(activity, ShoukeCgActivity::class.java)
                         startActivity(intent)
                     }

@@ -31,9 +31,9 @@
 
 
     <string-array name="team_class_room">
-        <item>单车操房</item>
-        <item>有氧操房</item>
-        <item>瑜伽操房</item>
+        <item>有氧</item>
+        <item>瑜伽</item>
+        <item>单车房</item>
     </string-array>
 
     <string-array name="user_bq_type">

@@ -103,7 +103,15 @@ public class ManagerBean {
          */
 
         private int min;
+        private double finalPrice;
 
+        public double getFinalPrice() {
+            return finalPrice;
+        }
+
+        public void setFinalPrice(double finalPrice) {
+            this.finalPrice = finalPrice;
+        }
 
         public int getLoopCycle() {
             return loopCycle;

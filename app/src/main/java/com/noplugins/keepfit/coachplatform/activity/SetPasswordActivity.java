@@ -58,9 +58,7 @@ public class SetPasswordActivity extends BaseActivity {
         tiaoguo_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SetPasswordActivity.this, SelectRoleActivity.class);
-                startActivity(intent);
-                finish();
+                get_teacher_status();
             }
         });
         sure_btn.setBtnOnClickListener(new View.OnClickListener() {
@@ -100,7 +98,7 @@ public class SetPasswordActivity extends BaseActivity {
             params.put("userNum", SpUtils.getString(getApplicationContext(), AppConstants.USER_NAME));
         }
         params.put("password", edit_password_again.getText().toString());
-        Subscription subscription = Network.getInstance("设置密码", this)
+        subscription = Network.getInstance("设置密码", this)
                 .set_password(params,
                         new ProgressSubscriber<>("设置密码", new SubscriberOnNextListener<Bean<SetPasswordBean>>() {
                             @Override
@@ -123,7 +121,7 @@ public class SetPasswordActivity extends BaseActivity {
     private void get_teacher_status() {
         Map<String, Object> params = new HashMap<>();
         params.put("userNum", SpUtils.getString(getApplicationContext(), AppConstants.SELECT_TEACHER_NUMBER));
-        Subscription subscription = Network.getInstance("获取教练状态", this)
+        subscription = Network.getInstance("获取教练状态", this)
                 .get_teacher_status(params,
                         new ProgressSubscriber<>("获取教练状态", new SubscriberOnNextListener<Bean<TeacherStatusBean>>() {
                             @Override
