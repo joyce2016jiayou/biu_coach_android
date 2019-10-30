@@ -20,6 +20,7 @@ import kotlinx.android.synthetic.main.activity_instructor_type.*
 import java.util.HashMap
 
 class InstructorTypeActivity : BaseActivity() {
+    private var toCheck = -1
     override fun initBundle(parms: Bundle?) {
 
     }
@@ -30,6 +31,11 @@ class InstructorTypeActivity : BaseActivity() {
         requsetData()
      }
 
+    override fun onResume() {
+        super.onResume()
+        requsetData()
+    }
+
     override fun doBusiness(mContext: Context?) {
         back_btn.clickWithTrigger {
             finish()
@@ -38,10 +44,10 @@ class InstructorTypeActivity : BaseActivity() {
             //申请操作 跳转到教练入住
             val intent = Intent(this@InstructorTypeActivity, CheckStatusActivity::class.java)
             val bundle = Bundle()
-            bundle.putInt("fragment_type",2)
+            bundle.putInt("fragment_type",toCheck)
             intent.putExtras(bundle)
             startActivity(intent)
-            finish()
+//            finish()
         }
     }
 
@@ -53,12 +59,14 @@ class InstructorTypeActivity : BaseActivity() {
                 tv_class_type.text = "团课教练"
                 tv_apply.visibility = View.VISIBLE
                 tv_apply.text ="申请私人教练"
+                toCheck = 1
             }
             2->{
                 iv_class_type.setImageResource(R.drawable.class_1)
                 tv_class_type.text = "私人教练"
                 tv_apply.visibility = View.VISIBLE
                 tv_apply.text ="申请团课教练"
+                toCheck = 2
             }
             3->{
                 iv_class_type.setImageResource(R.drawable.class_2)

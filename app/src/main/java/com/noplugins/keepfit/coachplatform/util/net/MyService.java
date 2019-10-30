@@ -110,7 +110,7 @@ public interface MyService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("putaway")
-    Observable<Bean<String>> putaway(@Body RequestBody json);
+    Observable<Bean<Object>> putaway(@Body RequestBody json);
 
     /**
      * 团课同意/拒绝
@@ -119,7 +119,7 @@ public interface MyService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("agreeCourse")
-    Observable<Bean<String>> agreeCourse(@Body RequestBody json);
+    Observable<Bean<Object>> agreeCourse(@Body RequestBody json);
 
     /**
      * 场馆详情

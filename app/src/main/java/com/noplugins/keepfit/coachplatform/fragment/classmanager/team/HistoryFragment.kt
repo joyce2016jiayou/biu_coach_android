@@ -20,6 +20,7 @@ import com.noplugins.keepfit.coachplatform.util.net.Network
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
 import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
+import com.noplugins.keepfit.coachplatform.util.ui.toast.SuperCustomToast
 import kotlinx.android.synthetic.main.fragment_manager_teacher_1.*
 import java.util.HashMap
 
@@ -106,7 +107,8 @@ class HistoryFragment : BaseFragment()  {
                     }
 
                     override fun onError(error: String) {
-
+                        SuperCustomToast.getInstance(activity)
+                            .show(error)
 
                     }
                 }, activity, false)

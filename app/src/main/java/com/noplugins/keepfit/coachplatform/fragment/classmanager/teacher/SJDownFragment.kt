@@ -26,6 +26,7 @@ import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
 import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
 import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow
+import com.noplugins.keepfit.coachplatform.util.ui.toast.SuperCustomToast
 import kotlinx.android.synthetic.main.fragment_manager_teacher_1.*
 import java.util.HashMap
 
@@ -124,7 +125,8 @@ class SJDownFragment : BaseFragment()  {
                     }
 
                     override fun onError(error: String) {
-
+                        SuperCustomToast.getInstance(activity)
+                            .show(error)
                     }
                 }, activity, false)
             )
@@ -138,8 +140,8 @@ class SJDownFragment : BaseFragment()  {
         params["putaway"] = 1
         val subscription = Network.getInstance("上架操作", activity)
             .putaway(params,
-                ProgressSubscriber("上架操作", object : SubscriberOnNextListener<Bean<String>> {
-                    override fun onNext(result: Bean<String>) {
+                ProgressSubscriber("上架操作", object : SubscriberOnNextListener<Bean<Any>> {
+                    override fun onNext(result: Bean<Any>) {
                         //上架成功！
                         datas.removeAt(position)//删除数据源,移除集合中当前下标的数据
                         adapterManager.notifyItemRemoved(position);//刷新被删除的地方
@@ -147,7 +149,8 @@ class SJDownFragment : BaseFragment()  {
                     }
 
                     override fun onError(error: String) {
-
+                        SuperCustomToast.getInstance(activity)
+                            .show(error)
 
                     }
                 }, activity, false)

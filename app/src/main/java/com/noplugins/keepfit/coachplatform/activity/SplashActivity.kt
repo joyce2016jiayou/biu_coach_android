@@ -103,7 +103,9 @@ class SplashActivity : BaseActivity() {
                     }
 
                     override fun onError(error: String) {
-
+                        val intent = Intent(this@SplashActivity, LoginActivity::class.java)
+                        startActivity(intent)
+                        finish()
                     }
                 }, this, false)
             )
