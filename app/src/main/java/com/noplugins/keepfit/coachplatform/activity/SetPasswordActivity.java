@@ -238,9 +238,18 @@ public class SetPasswordActivity extends BaseActivity {
                 }
             }
         } else {
-            Intent intent = new Intent(SetPasswordActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
+            if (result.getData().getSign() == 1) {//已签约
+                Intent intent = new Intent(SetPasswordActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            } else {
+                Intent intent = new Intent(SetPasswordActivity.this, CheckStatusActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("into_index", 3);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                finish();
+            }
         }
     }
 }

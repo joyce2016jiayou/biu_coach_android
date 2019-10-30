@@ -211,9 +211,18 @@ class SplashActivity : BaseActivity() {
                 }
             }
         } else {
-            val intent = Intent(this@SplashActivity, MainActivity::class.java)
-            startActivity(intent)
-            finish()
+            if (result.data.sign == 1) {//已签约
+                val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            } else {
+                val intent = Intent(this@SplashActivity, CheckStatusActivity::class.java)
+                val bundle = Bundle()
+                bundle.putInt("into_index", 3)
+                intent.putExtras(bundle)
+                startActivity(intent)
+                finish()
+            }
         }
     }
 
