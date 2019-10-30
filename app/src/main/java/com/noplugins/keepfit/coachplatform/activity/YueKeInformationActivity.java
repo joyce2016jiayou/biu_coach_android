@@ -120,7 +120,7 @@ public class YueKeInformationActivity extends BaseActivity {
         }
         params.put("teacherNum", SpUtils.getString(getApplicationContext(), AppConstants.SELECT_TEACHER_NUMBER));
 
-        Subscription subscription = Network.getInstance("约课信息", this)
+        subscription = Network.getInstance("约课信息", this)
                 .yuekeInformation(params,
                         new ProgressSubscriber<>("约课信息", new SubscriberOnNextListener<Bean<YueKeBean>>() {
                             @Override

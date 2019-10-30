@@ -28,6 +28,7 @@ import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
 import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
 import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow
+import com.noplugins.keepfit.coachplatform.util.ui.toast.SuperCustomToast
 import java.util.ArrayList
 import java.util.HashMap
 
@@ -134,7 +135,7 @@ class TeacherFragment : BaseFragment() {
             .courseManager(params,
                 ProgressSubscriber("课程管理", object : SubscriberOnNextListener<Bean<ManagerBean>> {
                     override fun onNext(result: Bean<ManagerBean>) {
-                        if (code == 10){
+                        if (result.code == 0 &&code == 10){
                             val intent = Intent(activity,TeacherAddOrEditActivity::class.java)
                             val bundle = Bundle()
                             bundle.putString("type","add")
@@ -143,15 +144,17 @@ class TeacherFragment : BaseFragment() {
                         } else{
                             initFragment()
                         }
+
+                        if (result.code == -2){
+                            toShouquan(iv_teacher_add)
+                        } else if(result.code == -3){
+                            toLoading(iv_teacher_add)
+                        }
                     }
 
                     override fun onError(error: String) {
-                        if (error == "-2"){
-                            toShouquan(iv_teacher_add)
-                        } else if(error == "-3"){
-                            toLoading(iv_teacher_add)
-                        }
-
+                        SuperCustomToast.getInstance(activity)
+                            .show(error)
                     }
                 }, activity, false)
             )

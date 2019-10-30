@@ -158,6 +158,7 @@ public class LoginActivity extends BaseActivity {
             public void onClick(View view) {
                 if (!is_check_fuwu) {
                     Toast.makeText(LoginActivity.this, "请先勾选用户协议！", Toast.LENGTH_SHORT).show();
+                    return;
                 } else if (TextUtils.isEmpty(edit_phone_number.getText())) {
                     Toast.makeText(getApplicationContext(), "电话号码不能为空！", Toast.LENGTH_SHORT).show();
                     return;
@@ -199,7 +200,7 @@ public class LoginActivity extends BaseActivity {
         params.put("messageId", message_id);
         params.put("code", edit_password.getText().toString());
         params.put("phone", edit_phone_number.getText().toString());
-        Subscription subscription = Network.getInstance("验证验证码和登录", this)
+        subscription = Network.getInstance("验证验证码和登录", this)
                 .yanzheng_yanzhengma(params,
                         new ProgressSubscriber<>("验证验证码和登录", new SubscriberOnNextListener<Bean<YanZhengMaBean>>() {
                             @Override
@@ -261,7 +262,7 @@ public class LoginActivity extends BaseActivity {
     private void get_teacher_status() {
         Map<String, Object> params = new HashMap<>();
         params.put("userNum", SpUtils.getString(getApplicationContext(), AppConstants.SELECT_TEACHER_NUMBER));
-        Subscription subscription = Network.getInstance("获取教练状态", this)
+        subscription = Network.getInstance("获取教练状态", this)
                 .get_teacher_status(params,
                         new ProgressSubscriber<>("获取教练状态", new SubscriberOnNextListener<Bean<TeacherStatusBean>>() {
                             @Override
