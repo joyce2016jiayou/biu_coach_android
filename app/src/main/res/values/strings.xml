@@ -86,7 +86,7 @@
     <string name="tv41">所在城市</string>
     <string name="tv42">请选择城市</string>
     <string name="tv43">入行时间</string>
-    <string name="tv44">毕业院校</string>
+    <string name="tv44">最高学历</string>
     <string name="tv45">请输入毕业院校</string>
     <string name="tv46">下一步</string>
     <string name="tv47">拍照</string>
@@ -185,6 +185,7 @@
     <string name="tv145">(默认)</string>
     <string name="tv146">这里空空如也～</string>
     <string name="tv147">教练技能</string>
+    <string name="tv148">请选择最高学历</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

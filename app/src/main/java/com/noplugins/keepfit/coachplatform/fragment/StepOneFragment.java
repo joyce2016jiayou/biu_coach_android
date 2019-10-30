@@ -1,6 +1,7 @@
 package com.noplugins.keepfit.coachplatform.fragment;
 
 import android.annotation.SuppressLint;
+import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -33,9 +34,17 @@ import com.huantansheng.easyphotos.models.album.entity.Photo;
 import com.noplugins.keepfit.coachplatform.R;
 import com.noplugins.keepfit.coachplatform.activity.CheckStatusActivity;
 import com.noplugins.keepfit.coachplatform.bean.JsonBean;
+import com.noplugins.keepfit.coachplatform.bean.TeacherStatusBean;
+import com.noplugins.keepfit.coachplatform.bean.ZiDIanBean;
+import com.noplugins.keepfit.coachplatform.global.AppConstants;
 import com.noplugins.keepfit.coachplatform.util.GlideEngine;
+import com.noplugins.keepfit.coachplatform.util.SpUtils;
 import com.noplugins.keepfit.coachplatform.util.data.DateHelper;
 import com.noplugins.keepfit.coachplatform.util.net.GetJsonDataUtil;
+import com.noplugins.keepfit.coachplatform.util.net.Network;
+import com.noplugins.keepfit.coachplatform.util.net.entity.Bean;
+import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber;
+import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener;
 import com.noplugins.keepfit.coachplatform.util.screen.KeyboardUtils;
 import com.noplugins.keepfit.coachplatform.util.ui.LoadingButton;
 import com.noplugins.keepfit.coachplatform.util.ui.NoScrollViewPager;
@@ -45,12 +54,10 @@ import com.noplugins.keepfit.coachplatform.util.ui.jiugongge.CCRSortableNinePhot
 import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow;
 import com.wildma.idcardcamera.camera.IDCardCamera;
 import org.json.JSONArray;
+import rx.Subscription;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
@@ -91,9 +98,11 @@ public class StepOneFragment extends ViewPagerFragment {
     @BindView(R.id.phone_tv)
     EditText phone_tv;
     @BindView(R.id.school_tv)
-    EditText school_tv;
+    TextView school_tv;
+    @BindView(R.id.select_school_btn)
+    RelativeLayout select_school_btn;
 
-    OptionsPickerView sex_select_pop, select_city_pop;
+    OptionsPickerView sex_select_pop, select_city_pop, select_xueli_pop;
     TimePickerView pvCustomTime;
     private ArrayList<String> sexs = new ArrayList<>();
     private static final int MSG_LOAD_DATA = 0x0001;
@@ -112,7 +121,8 @@ public class StepOneFragment extends ViewPagerFragment {
     private CheckStatusActivity checkStatusActivity;
     private NoScrollViewPager viewpager_content;
     private String select_time_tv = "";
-
+    List<ZiDIanBean> xuelis = new ArrayList<>();
+    private String select_school_str="";
     public static StepOneFragment homeInstance(String title) {
         StepOneFragment fragment = new StepOneFragment();
         Bundle args = new Bundle();
@@ -145,8 +155,6 @@ public class StepOneFragment extends ViewPagerFragment {
             checkStatusActivity = (CheckStatusActivity) activity;
             stepView = (StepView) checkStatusActivity.findViewById(R.id.step_view);
             viewpager_content = checkStatusActivity.findViewById(R.id.viewpager_content);
-
-
         }
     }
 
@@ -188,7 +196,8 @@ public class StepOneFragment extends ViewPagerFragment {
     private void initView() {
         //解析城市数据
         initDate();
-
+        //获取最高学历字典
+        get_zuigao_xueli();
         xiayibu_btn.setBtnOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -202,7 +211,7 @@ public class StepOneFragment extends ViewPagerFragment {
                     checkStatusActivity.sex = sex_tv.getText().toString();
                     checkStatusActivity.phone = phone_tv.getText().toString();
                     checkStatusActivity.city = address_tv.getText().toString();
-                    checkStatusActivity.school = school_tv.getText().toString();
+                    checkStatusActivity.school = select_school_str;
                     checkStatusActivity.ruhang_time = select_time_tv;
 
                     xiayibu_btn.startLoading();
@@ -250,7 +259,6 @@ public class StepOneFragment extends ViewPagerFragment {
                 is_set_card_zheng = true;
                 //camera_pop_window();
                 IDCardCamera.create(StepOneFragment.this).openCamera(IDCardCamera.TYPE_IDCARD_FRONT);
-
             }
         });
         select_card_fan.setOnClickListener(new View.OnClickListener() {
@@ -259,11 +267,83 @@ public class StepOneFragment extends ViewPagerFragment {
                 is_set_card_zheng = false;
                 //camera_pop_window();
                 IDCardCamera.create(StepOneFragment.this).openCamera(IDCardCamera.TYPE_IDCARD_BACK);
-
+            }
+        });
+        //选择最高学历
+        select_school_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                select_xueli_pop();
             }
         });
 
 
+    }
+
+    private void get_zuigao_xueli() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("object", 10);
+        Subscription subscription = Network.getInstance("选择最高学历", getActivity())
+                .get_zidian(params,
+                        new ProgressSubscriber<>("选择最高学历", new SubscriberOnNextListener<Bean<List<ZiDIanBean>>>() {
+                            @Override
+                            public void onNext(Bean<List<ZiDIanBean>> result) {
+                                xuelis = result.getData();
+                            }
+
+                            @Override
+                            public void onError(String error) {
+
+                            }
+                        }, getActivity(), false));
+    }
+
+    private void select_xueli_pop() {
+        List<String> xuelis_str = new ArrayList<>();
+        for (int i = 0; i < xuelis.size(); i++) {
+            xuelis_str.add(xuelis.get(i).getName());
+        }
+        select_xueli_pop = new OptionsPickerBuilder(getActivity(), new OnOptionsSelectListener() {
+            @Override
+            public void onOptionsSelect(int options1, int option2, int options3, View v) {
+                //返回的分别是三个级别的选中位置
+                String select_sex = xuelis.get(options1).getName();
+                select_school_str=xuelis.get(options1).getValue()+"";
+                school_tv.setText(select_sex);
+                Log.e("选中的学历", select_school_str);
+            }
+        })
+                .setLayoutRes(R.layout.sex_select_pop, new CustomListener() {
+                    @Override
+                    public void customLayout(View v) {
+                        TextView quxiao_btn = (TextView) v.findViewById(R.id.quxiao_btn);
+                        quxiao_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                select_xueli_pop.dismiss();
+                            }
+                        });
+                        TextView sure_btn = (TextView) v.findViewById(R.id.sure_btn);
+                        sure_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                select_xueli_pop.returnData();
+                                select_xueli_pop.dismiss();
+                            }
+                        });
+                    }
+                })
+                .isDialog(false)
+                .setBgColor(Color.parseColor("#00000000"))
+                .setDividerColor(Color.parseColor("#00000000"))
+                .setOutSideCancelable(true)
+                .build();
+
+        select_xueli_pop.setPicker(xuelis_str);//添加数据
+        select_xueli_pop.show();
+
+        //影藏键盘
+        KeyboardUtils.hideSoftKeyboard(getActivity());
     }
 
     private void camera_pop_window() {

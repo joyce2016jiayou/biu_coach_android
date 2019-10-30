@@ -179,6 +179,10 @@ public class SetPasswordActivity extends BaseActivity {
                         intent.putExtras(bundle);
                         startActivity(intent);
                         finish();
+                    }else{
+                        Intent intent = new Intent(SetPasswordActivity.this, CheckStatusActivity.class);
+                        startActivity(intent);
+                        finish();
                     }
                 }
             }
@@ -211,6 +215,10 @@ public class SetPasswordActivity extends BaseActivity {
                         bundle.putInt("into_index", 2);
                         bundle.putInt("status", -1);//拒绝
                         intent.putExtras(bundle);
+                        startActivity(intent);
+                        finish();
+                    }else{
+                        Intent intent = new Intent(SetPasswordActivity.this, CheckStatusActivity.class);
                         startActivity(intent);
                         finish();
                     }

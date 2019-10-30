@@ -294,7 +294,6 @@ public class LoginActivity extends BaseActivity {
                     startActivity(intent);
                     finish();
                 } else {//未签约
-
                     if (result.getData().getLType() == 1) {//通过的话就直接签约
                         Intent intent = new Intent(LoginActivity.this, CheckStatusActivity.class);
                         Bundle bundle = new Bundle();
@@ -316,6 +315,10 @@ public class LoginActivity extends BaseActivity {
                         bundle.putInt("into_index", 2);
                         bundle.putInt("status", -1);//拒绝
                         intent.putExtras(bundle);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Intent intent = new Intent(LoginActivity.this, CheckStatusActivity.class);
                         startActivity(intent);
                         finish();
                     }
@@ -350,6 +353,10 @@ public class LoginActivity extends BaseActivity {
                         bundle.putInt("into_index", 2);
                         bundle.putInt("status", -1);//拒绝
                         intent.putExtras(bundle);
+                        startActivity(intent);
+                        finish();
+                    } else {//没有私教身份
+                        Intent intent = new Intent(LoginActivity.this, CheckStatusActivity.class);
                         startActivity(intent);
                         finish();
                     }

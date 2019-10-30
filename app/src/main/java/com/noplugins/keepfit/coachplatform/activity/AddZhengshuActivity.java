@@ -163,7 +163,10 @@ public class AddZhengshuActivity extends BaseActivity {
                 } else if (TextUtils.isEmpty(time_tv.getText())) {
                     Toast.makeText(getApplicationContext(), "获证时间不能为空！", Toast.LENGTH_SHORT).show();
                     return;
-                } else {
+                } else if(null==upload_coachPicCertificatesBean){
+                    Toast.makeText(getApplicationContext(), "证书图片不能为空！", Toast.LENGTH_SHORT).show();
+                    return;
+                }else {
                     set_zhengshu_view();
                     AppConstants.SELECT_PHOTO_NUM.add(upload_coachPicCertificatesBean);
                     // 点击完成 通知上一个页面更新

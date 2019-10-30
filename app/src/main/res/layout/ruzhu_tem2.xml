@@ -265,7 +265,8 @@
                         android:textColor="@color/top_heiziti"
                         />
 
-                <LinearLayout
+                <RelativeLayout
+                        android:id="@+id/select_school_btn"
                         android:layout_alignParentLeft="true"
                         android:layout_width="match_parent"
                         android:layout_marginLeft="@dimen/m70"
@@ -273,17 +274,31 @@
                         android:layout_centerVertical="true"
                         android:layout_height="@dimen/m31">
 
-                    <EditText
+                    <TextView
                             android:id="@+id/school_tv"
-                            android:layout_width="match_parent"
-                            android:hint="@string/tv45"
+                            android:layout_width="wrap_content"
+                            android:hint="@string/tv148"
                             android:background="@null"
+                            android:enabled="false"
+                            android:gravity="center_vertical"
                             android:paddingLeft="@dimen/m20"
+                            android:layout_gravity="center_vertical"
                             android:textColorHint="@color/color_929292"
                             android:textColor="@color/top_heiziti"
                             android:textSize="15sp"
                             android:layout_height="match_parent"/>
-                </LinearLayout>
+                    <ImageView
+                            android:layout_width="@dimen/m14"
+                            android:layout_height="@dimen/m8"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="@dimen/m20"
+                            android:layout_gravity="right|center_vertical"
+                            android:src="@drawable/xiala"
+                            />
+
+                </RelativeLayout>
+
             </RelativeLayout>
 
             <RelativeLayout

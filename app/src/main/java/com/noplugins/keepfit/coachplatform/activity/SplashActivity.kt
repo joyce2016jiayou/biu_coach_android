@@ -148,6 +148,10 @@ class SplashActivity : BaseActivity() {
                         intent.putExtras(bundle)
                         startActivity(intent)
                         finish()
+                    } else {
+                        val intent = Intent(this@SplashActivity, CheckStatusActivity::class.java)
+                        startActivity(intent)
+                        finish()
                     }
                 }
             }
@@ -180,6 +184,10 @@ class SplashActivity : BaseActivity() {
                         bundle.putInt("into_index", 2)
                         bundle.putInt("status", -1)//拒绝
                         intent.putExtras(bundle)
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        val intent = Intent(this@SplashActivity, CheckStatusActivity::class.java)
                         startActivity(intent)
                         finish()
                     }
