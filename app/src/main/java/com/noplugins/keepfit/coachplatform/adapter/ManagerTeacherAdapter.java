@@ -32,12 +32,11 @@ public class ManagerTeacherAdapter extends BaseQuickAdapter<ManagerBean.CourseLi
         }
 
         helper.setText(R.id.tv_sales_num,"已售："+item.getBuynum());
-        helper.setText(R.id.tv_teacher_price,"¥"+item.getPrice());
+        helper.setText(R.id.tv_teacher_price,"¥"+item.getFinalPrice());
 
         helper.addOnClickListener(R.id.tv_up_down);
         helper.addOnClickListener(R.id.tv_edit);
         helper.addOnClickListener(R.id.rl_jump);
-
 
     }
 }

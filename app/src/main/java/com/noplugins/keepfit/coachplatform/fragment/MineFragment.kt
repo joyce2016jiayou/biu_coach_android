@@ -66,6 +66,7 @@ class MineFragment : BaseFragment() {
     }
 
     private fun setting(min: MineBean) {
+        SpUtils.putString(activity, AppConstants.TEACHER_TYPE, ""+min.teacherType)
         SpUtils.putString(activity, AppConstants.NAME, min.realname)
         if (min.lableList!=null){
             val tagAdapter = TeacherTagAdapter(activity, min.lableList)

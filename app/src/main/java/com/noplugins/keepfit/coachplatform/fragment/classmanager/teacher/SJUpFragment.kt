@@ -29,6 +29,9 @@ import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextLis
 import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow
 import com.noplugins.keepfit.coachplatform.util.ui.toast.SuperCustomToast
 import kotlinx.android.synthetic.main.fragment_manager_teacher_1.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import java.util.HashMap
 
 class SJUpFragment : BaseFragment()  {
@@ -49,10 +52,22 @@ class SJUpFragment : BaseFragment()  {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         if (newView == null) {
             newView = inflater.inflate(R.layout.fragment_manager_teacher_1, container, false)
+            EventBus.getDefault().register(this)
         }
         return newView
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public fun upadate(messageEvent:String ) {
+        if ("私教上架" == messageEvent){
+            requestData()
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        EventBus.getDefault().unregister(this)
+    }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initAdapter()

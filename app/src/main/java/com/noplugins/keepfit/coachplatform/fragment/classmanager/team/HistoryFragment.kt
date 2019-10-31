@@ -57,6 +57,11 @@ class HistoryFragment : BaseFragment()  {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        EventBus.getDefault().unregister(this)
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initAdapter()
@@ -126,8 +131,5 @@ class HistoryFragment : BaseFragment()  {
             )
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        EventBus.getDefault().unregister(this)
-    }
+
 }

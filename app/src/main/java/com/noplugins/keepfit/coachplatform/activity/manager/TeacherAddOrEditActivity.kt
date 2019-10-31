@@ -23,6 +23,7 @@ import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow
 import com.noplugins.keepfit.coachplatform.util.ui.pop.SpinnerPopWindow
 import com.noplugins.keepfit.coachplatform.util.ui.toast.SuperCustomToast
 import kotlinx.android.synthetic.main.activity_teacher_add_or_edit.*
+import org.greenrobot.eventbus.EventBus
 import java.util.HashMap
 
 class TeacherAddOrEditActivity : BaseActivity() {
@@ -178,6 +179,7 @@ class TeacherAddOrEditActivity : BaseActivity() {
             .addTeacherCourse(params,
                 ProgressSubscriber("添加课程", object : SubscriberOnNextListener<Bean<Any>> {
                     override fun onNext(result: Bean<Any>) {
+                        EventBus.getDefault().post("私教上架")
                         finish()
                     }
 
