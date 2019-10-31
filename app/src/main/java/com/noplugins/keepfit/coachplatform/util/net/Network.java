@@ -559,7 +559,7 @@ public class Network {
                 .subscribe(subscriber);
     }
 
-    public Subscription deleteMyBindingArea(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
+    public Subscription deleteMyBindingArea(Map<String, Object> params, Subscriber<Bean<Object>> subscriber) {
         return service.deleteMyBindingArea(retuen_json_object(params))
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -567,7 +567,7 @@ public class Network {
                 .subscribe(subscriber);
     }
 
-    public Subscription agreeBindingArea(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
+    public Subscription agreeBindingArea(Map<String, Object> params, Subscriber<Bean<Object>> subscriber) {
         return service.agreeBindingArea(retuen_json_object(params))
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())

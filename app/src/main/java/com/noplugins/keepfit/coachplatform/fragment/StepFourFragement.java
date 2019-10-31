@@ -89,7 +89,6 @@ public class StepFourFragement extends ViewPagerFragment {
         submit_btn.setBtnOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                submit_btn.startLoading();
                 submit_btn.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -97,6 +96,7 @@ public class StepFourFragement extends ViewPagerFragment {
                             submit_btn.startLoading();
                             agree_xieyi();
                         } else {
+
                             Toast.makeText(getActivity(), "请先勾选协议", Toast.LENGTH_SHORT).show();
                         }
 

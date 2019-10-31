@@ -30,6 +30,7 @@ import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextLis
 import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow
 import com.noplugins.keepfit.coachplatform.util.ui.toast.SuperCustomToast
 import kotlinx.android.synthetic.main.activity_chaungguan_detail.*
+import org.greenrobot.eventbus.EventBus
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
@@ -219,15 +220,17 @@ class ChaungguanDetailActivity : BaseActivity(), EasyPermissions.PermissionCallb
         val subscription = Network.getInstance("场馆列表", this)
             .deleteMyBindingArea(
                 params,
-                ProgressSubscriber("场馆列表", object : SubscriberOnNextListener<Bean<String>> {
-                    override fun onNext(result: Bean<String>) {
+                ProgressSubscriber("场馆列表", object : SubscriberOnNextListener<Bean<Any>> {
+                    override fun onNext(result: Bean<Any>) {
 //                        setting(result.data.areaList)
-                        agreeCourse()
-
+//                        agreeCourse()
+                        finish()
+                        EventBus.getDefault().post("接受邀请")
                     }
 
                     override fun onError(error: String) {
-
+                        SuperCustomToast.getInstance(applicationContext)
+                            .show(error)
                     }
                 }, this, false)
             )

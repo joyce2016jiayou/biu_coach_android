@@ -26,6 +26,7 @@ import com.noplugins.keepfit.coachplatform.util.net.Network;
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean;
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber;
 import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener;
+import com.noplugins.keepfit.coachplatform.util.ui.toast.SuperCustomToast;
 import de.hdodenhof.circleimageview.CircleImageView;
 import rx.Subscription;
 
@@ -134,7 +135,9 @@ public class ScheduleFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (BaseUtils.isFastClick()) {
-                    if (SpUtils.getString(getActivity(), AppConstants.TEACHER_TYPE).equals("2")) {
+                    if (SpUtils.getString(getActivity(), AppConstants.TEACHER_TYPE).equals("1")) {
+                        SuperCustomToast.getInstance(getActivity())
+                                .show("暂无私教身份");
                         return;
                     }
                     Intent intent = new Intent(getActivity(), ShoukeCgActivity.class);

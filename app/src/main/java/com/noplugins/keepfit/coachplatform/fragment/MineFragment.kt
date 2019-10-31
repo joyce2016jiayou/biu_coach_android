@@ -29,6 +29,7 @@ import com.noplugins.keepfit.coachplatform.util.net.Network
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
 import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
+import com.noplugins.keepfit.coachplatform.util.ui.toast.SuperCustomToast
 import kotlinx.android.synthetic.main.fragment_mine.*
 import java.util.HashMap
 
@@ -104,7 +105,9 @@ class MineFragment : BaseFragment() {
                         startActivity(intent)
                     }
                     "授课场馆" -> {
-                        if (min.teacherType == 1){
+                        if (SpUtils.getString(activity,AppConstants.TEACHER_TYPE) == "1"){
+                            SuperCustomToast.getInstance(activity)
+                                .show("暂无私教身份")
                             return@setOnItemClickListener
                         }
                         val intent = Intent(activity, ShoukeCgActivity::class.java)

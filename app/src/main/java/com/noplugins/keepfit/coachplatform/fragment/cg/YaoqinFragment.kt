@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
@@ -21,6 +22,7 @@ import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
 import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
 import kotlinx.android.synthetic.main.fragment_manager_teacher_1.*
+import org.greenrobot.eventbus.EventBus
 import java.util.HashMap
 
 class YaoqinFragment : BaseFragment()  {
@@ -80,13 +82,13 @@ class YaoqinFragment : BaseFragment()  {
                     if (datas[position].gymBindingNum == ""){
                         return@setOnItemChildClickListener
                     }
-                    agreeBinding(datas[position].gymBindingNum,1)
+                    agreeBinding(datas[position].gymBindingNum,1,position)
                 }
                 R.id.tv_jujue -> {
                     if (datas[position].gymBindingNum == ""){
                         return@setOnItemChildClickListener
                     }
-                    agreeBinding(datas[position].gymBindingNum,2)
+                    agreeBinding(datas[position].gymBindingNum,2,position)
                 }
 
             }
@@ -135,16 +137,33 @@ class YaoqinFragment : BaseFragment()  {
     }
 //
 
-    private fun agreeBinding(bindingNum:String,status:Int){
+    private fun agreeBinding(bindingNum:String,status:Int,position:Int){
         val params = HashMap<String, Any>()
         params["bindingNum"] = bindingNum
         params["status"] = status
-        val subscription = Network.getInstance("场馆列表", activity)
+        val subscription = Network.getInstance("接受/拒绝", activity)
             .agreeBindingArea(
                 params,
-                ProgressSubscriber("场馆列表", object : SubscriberOnNextListener<Bean<String>> {
-                    override fun onNext(result: Bean<String>) {
+                ProgressSubscriber("接受/拒绝", object : SubscriberOnNextListener<Bean<Any>> {
+                    override fun onNext(result: Bean<Any>) {
 //                        setting(result.data.areaList)
+                        Toast.makeText(activity,"操作成功！", Toast.LENGTH_SHORT).show()
+
+                        if (result.code == 0){
+                            datas.removeAt(position)//删除数据源,移除集合中当前下标的数据
+                            adapterManager.notifyItemRemoved(position)//刷新被删除的地方
+                            adapterManager.notifyItemRangeChanged(position, adapterManager.itemCount) //刷新被删除数据，以及其后面的数据
+
+                            when (status) {
+                                1 -> {
+                                    EventBus.getDefault().post("接受邀请")
+                                }
+
+                                2 -> {
+                                    EventBus.getDefault().post("拒绝邀请")
+                                }
+                            }
+                        }
                         requestData()
                     }
 

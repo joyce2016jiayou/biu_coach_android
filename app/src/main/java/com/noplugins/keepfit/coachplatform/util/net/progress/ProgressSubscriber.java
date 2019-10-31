@@ -107,7 +107,7 @@ public class ProgressSubscriber<T> extends Subscriber<Bean<T>> implements Dialog
             int code = t.getCode();
             Logger.e(Method_Tag + "返回的code:" + code);
             Logger.e(Method_Tag + "请求Success:");
-            if (code == 0) {
+            if (code == 0||code == -2 ||code == -3) {
                 Logger.e(Method_Tag + "请求Success:");
                 if (null != t.getData()) {
                     mListener.onNext(t);

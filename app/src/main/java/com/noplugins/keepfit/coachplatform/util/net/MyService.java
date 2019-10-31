@@ -402,7 +402,7 @@ public interface MyService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("deleteMyBindingArea")
-    Observable<Bean<String>> deleteMyBindingArea(@Body RequestBody json);
+    Observable<Bean<Object>> deleteMyBindingArea(@Body RequestBody json);
 
     /**
      * 教练同意/拒绝绑定
@@ -411,7 +411,7 @@ public interface MyService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("agreeBindingArea")
-    Observable<Bean<String>> agreeBindingArea(@Body RequestBody json);
+    Observable<Bean<Object>> agreeBindingArea(@Body RequestBody json);
 
     /**
      * 绑定银行卡列表
