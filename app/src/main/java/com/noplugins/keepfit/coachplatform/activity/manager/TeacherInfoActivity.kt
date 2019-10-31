@@ -4,6 +4,9 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.WindowManager
+import android.widget.LinearLayout
+import android.widget.TextView
 import com.noplugins.keepfit.coachplatform.R
 import com.noplugins.keepfit.coachplatform.base.BaseActivity
 import com.noplugins.keepfit.coachplatform.bean.manager.ManagerBean
@@ -16,8 +19,10 @@ import com.noplugins.keepfit.coachplatform.util.net.Network
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
 import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
+import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow
 import com.noplugins.keepfit.coachplatform.util.ui.toast.SuperCustomToast
 import kotlinx.android.synthetic.main.activity_teacher_info.*
+import org.greenrobot.eventbus.EventBus
 import java.util.HashMap
 
 class TeacherInfoActivity : BaseActivity() {
@@ -40,16 +45,16 @@ class TeacherInfoActivity : BaseActivity() {
         }
         tv_info_upOrDown.clickWithTrigger {
             //上架 or 下架
-            if (type == -1){
+            if (type == -1) {
                 SuperCustomToast.getInstance(this)
                     .show("数据有误！")
                 return@clickWithTrigger
             }
-            if (type == 0){
+            if (type == 0) {
                 //已下架
                 upAway(1)
-            } else{
-                upAway(0)
+            } else {
+                toDown(tv_info_upOrDown)
             }
 
         }
@@ -58,8 +63,8 @@ class TeacherInfoActivity : BaseActivity() {
             //编辑界面
             val toEdit = Intent(this, TeacherAddOrEditActivity::class.java)
             val bundle = Bundle()
-            bundle.putString("type","edit")
-            bundle.putString("courseNum",courseNum)
+            bundle.putString("type", "edit")
+            bundle.putString("courseNum", courseNum)
             toEdit.putExtras(bundle)
             startActivity(toEdit)
 
@@ -67,16 +72,47 @@ class TeacherInfoActivity : BaseActivity() {
 
     }
 
-    private fun upAway(type:Int){
+    private fun toDown(view: TextView) {
+        val popupWindow = CommonPopupWindow.Builder(this)
+            .setView(R.layout.dialog_to_down)
+            .setBackGroundLevel(0.5f)//0.5f
+            .setAnimationStyle(R.style.main_menu_animstyle)
+            .setWidthAndHeight(
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.MATCH_PARENT
+            )
+            .setOutSideTouchable(true).create()
+        popupWindow.showAsDropDown(view)
+
+        /**设置逻辑 */
+        val view1 = popupWindow.contentView
+        val cancel = view1.findViewById<LinearLayout>(R.id.cancel_layout)
+        val sure = view1.findViewById<LinearLayout>(R.id.sure_layout)
+
+        cancel.setOnClickListener {
+            popupWindow.dismiss()
+        }
+        sure.setOnClickListener {
+            popupWindow.dismiss()
+            upAway(0)
+        }
+    }
+
+    private fun upAway(type: Int) {
         val params = HashMap<String, Any>()
 //        params["teacherNum"] = SpUtils.getString(activity, AppConstants.USER_NAME)
         params["courseNum"] = courseNum
         params["putaway"] = type
         val subscription = Network.getInstance("上架/下架 操作", this)
-            .putaway(params,
+            .putaway(
+                params,
                 ProgressSubscriber("上架/下架 操作", object : SubscriberOnNextListener<Bean<Any>> {
                     override fun onNext(result: Bean<Any>) {
                         //上架成功！
+                        when (type) {
+                            0 -> EventBus.getDefault().post("私教下架")
+                            1 -> EventBus.getDefault().post("私教上架")
+                        }
                         requestData(courseNum)
                     }
 
@@ -88,14 +124,15 @@ class TeacherInfoActivity : BaseActivity() {
             )
     }
 
-    private fun requestData(courseNum:String){
+    private fun requestData(courseNum: String) {
         val params = HashMap<String, Any>()
         params["courseNum"] = courseNum
         params["custUserNum"] = SpUtils.getString(applicationContext, AppConstants.USER_NAME)
         subscription = Network.getInstance("私教课程管理", this)
-            .findCourseDetail(params,
-                ProgressSubscriber("私教课程管理", object : SubscriberOnNextListener<Bean<ManagerBean.CourseListBean >> {
-                    override fun onNext(result: Bean<ManagerBean.CourseListBean >) {
+            .findCourseDetail(
+                params,
+                ProgressSubscriber("私教课程管理", object : SubscriberOnNextListener<Bean<ManagerBean.CourseListBean>> {
+                    override fun onNext(result: Bean<ManagerBean.CourseListBean>) {
                         setting(result.data)
                     }
 
@@ -106,11 +143,12 @@ class TeacherInfoActivity : BaseActivity() {
                 }, this, false)
             )
     }
-    private fun setting(managerTeamBean: ManagerBean.CourseListBean){
-        title_tv.text =  managerTeamBean.courseName
+
+    private fun setting(managerTeamBean: ManagerBean.CourseListBean) {
+        title_tv.text = managerTeamBean.courseName
 
         type = managerTeamBean.putaway
-        if (managerTeamBean.putaway == 0){
+        if (managerTeamBean.putaway == 0) {
             //下架
             tv_info_upOrDown.text = "上架"
             tv_type.text = "已下架"
@@ -120,12 +158,12 @@ class TeacherInfoActivity : BaseActivity() {
         }
 
         edit_class_name.text = managerTeamBean.courseName
-        tv_select_type.text =classType(managerTeamBean.classType)
-        edit_price.text = "¥"+managerTeamBean.price
-        edit_jieshao.text = ""+managerTeamBean.courseDes
-        edit_shihe.text = ""+managerTeamBean.suitPerson
-        edit_zhuyi.text = ""+managerTeamBean.tips
-        tv_create_date.text = "创建时间："+managerTeamBean.createDate
+        tv_select_type.text = classType(managerTeamBean.classType)
+        edit_price.text = "¥" + managerTeamBean.finalPrice
+        edit_jieshao.text = "" + managerTeamBean.courseDes
+        edit_shihe.text = "" + managerTeamBean.suitPerson
+        edit_zhuyi.text = "" + managerTeamBean.tips
+        tv_create_date.text = "创建时间：" + managerTeamBean.createDate
     }
 
 
@@ -139,8 +177,8 @@ class TeacherInfoActivity : BaseActivity() {
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
                 //接受回来对数据的处理
-                val isUpdate = data1!!.getBooleanExtra("isUpdate",false)
-                if(isUpdate){
+                val isUpdate = data1!!.getBooleanExtra("isUpdate", false)
+                if (isUpdate) {
                     requestData(courseNum)
                 }
 

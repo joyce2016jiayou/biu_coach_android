@@ -102,7 +102,7 @@ public class WeijieshuTypeAdapter extends BaseAdapter implements EasyPermissions
             holder.button_bg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    camera_pop_window(holder.button_bg);
+                    camera_pop_window(holder.button_bg,noEndCourseBean.getCustOrderItemNum());
                     holder.button_tv.setText("已签");
                     holder.button_tv.setTextColor(scheduleFragment.getResources().getColor(R.color.color_929292));
                 }
@@ -202,7 +202,7 @@ public class WeijieshuTypeAdapter extends BaseAdapter implements EasyPermissions
      *
      * @param button_bg
      */
-    private void camera_pop_window(LinearLayout button_bg) {
+    private void camera_pop_window(LinearLayout button_bg,String num) {
         CommonPopupWindow popupWindow = new CommonPopupWindow.Builder(scheduleFragment.getContext())
                 .setView(R.layout.saoma_layout)
                 .setBackGroundLevel(0.5f)//0.5f
@@ -223,7 +223,8 @@ public class WeijieshuTypeAdapter extends BaseAdapter implements EasyPermissions
         });
         ImageView erweima_img = view.findViewById(R.id.erweima_img);
 
-        Bitmap bitmap = CodeCreator.createQRImage("哈哈哈哈", ScreenUtilsHelper.dip2px(scheduleFragment.getContext(), 200), ScreenUtilsHelper.dip2px(scheduleFragment.getContext(), 200), null);
+        String number = num+":2";
+        Bitmap bitmap = CodeCreator.createQRImage(number, ScreenUtilsHelper.dip2px(scheduleFragment.getContext(), 200), ScreenUtilsHelper.dip2px(scheduleFragment.getContext(), 200), null);
 //        erweima_code.setImageBitmap(bitmap);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);

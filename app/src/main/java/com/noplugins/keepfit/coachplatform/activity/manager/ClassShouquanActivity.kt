@@ -36,6 +36,7 @@ import com.noplugins.keepfit.coachplatform.bean.BindingListBean
 import com.noplugins.keepfit.coachplatform.bean.manager.CgListBean
 import com.noplugins.keepfit.coachplatform.global.AppConstants
 import com.noplugins.keepfit.coachplatform.global.clickWithTrigger
+import com.noplugins.keepfit.coachplatform.util.BaseUtils
 import com.noplugins.keepfit.coachplatform.util.SpUtils
 import com.noplugins.keepfit.coachplatform.util.net.Network
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
@@ -122,14 +123,15 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
             finish()
         }
         queren_btn.clickWithTrigger {
-
-            val gson = Gson().toJson(submitList)
-            Log.d("tag",gson)
-            if (submitList.size > 0){
-                submitData()
-            } else {
-                SuperCustomToast.getInstance(applicationContext)
-                    .show("请选择授课场馆")
+            if (BaseUtils.isFastClick()){
+                val gson = Gson().toJson(submitList)
+                Log.d("tag",gson)
+                if (submitList.size > 0){
+                    submitData()
+                } else {
+                    SuperCustomToast.getInstance(applicationContext)
+                        .show("请选择授课场馆")
+                }
             }
         }
         iv_delete_edit.clickWithTrigger {
