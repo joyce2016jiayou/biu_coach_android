@@ -183,7 +183,7 @@
 
                 <LinearLayout
                         android:id="@+id/select_date_bg"
-                        android:layout_width="@dimen/m98"
+                        android:layout_width="@dimen/m88"
                         android:background="@drawable/lv_bg"
                         android:orientation="horizontal"
                         android:gravity="center"
@@ -206,7 +206,7 @@
                 <LinearLayout
                         android:id="@+id/select_time_layout"
                         android:layout_toRightOf="@+id/select_date_bg"
-                        android:layout_width="@dimen/m126"
+                        android:layout_width="@dimen/m110"
                         android:background="@drawable/lv_bg"
                         android:orientation="horizontal"
                         android:gravity="center"
