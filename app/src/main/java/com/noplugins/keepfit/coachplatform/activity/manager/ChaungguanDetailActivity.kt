@@ -224,8 +224,8 @@ class ChaungguanDetailActivity : BaseActivity(), EasyPermissions.PermissionCallb
                     override fun onNext(result: Bean<Any>) {
 //                        setting(result.data.areaList)
 //                        agreeCourse()
-                        finish()
                         EventBus.getDefault().post("接受邀请")
+                        finish()
                     }
 
                     override fun onError(error: String) {
@@ -259,7 +259,6 @@ class ChaungguanDetailActivity : BaseActivity(), EasyPermissions.PermissionCallb
         sure.setOnClickListener {
             popupWindow.dismiss()
             quxiaoBinding()
-
         }
     }
 
