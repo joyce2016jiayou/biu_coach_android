@@ -292,7 +292,7 @@ public interface MyService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("saveCocahTeacherHaveRestTime")
-    Observable<Bean<String>> save_time(@Body RequestBody json);
+    Observable<Bean<Object>> save_time(@Body RequestBody json);
 
     /**
      * 忘记密码

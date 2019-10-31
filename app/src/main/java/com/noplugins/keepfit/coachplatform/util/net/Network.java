@@ -478,7 +478,7 @@ public class Network {
                 .subscribe(subscriber);
     }
 
-    public Subscription save_time(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
+    public Subscription save_time(Map<String, Object> params, Subscriber<Bean<Object>> subscriber) {
         return service.save_time(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())

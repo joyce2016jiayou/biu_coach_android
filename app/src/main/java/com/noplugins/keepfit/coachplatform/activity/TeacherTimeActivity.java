@@ -195,9 +195,9 @@ public class TeacherTimeActivity extends BaseActivity {
         params.put("restTime", strings);
         Subscription subscription = Network.getInstance("设置忙碌时间", this)
                 .save_time(params,
-                        new ProgressSubscriber<>("设置忙碌时间", new SubscriberOnNextListener<Bean<String>>() {
+                        new ProgressSubscriber<>("设置忙碌时间", new SubscriberOnNextListener<Bean<Object>>() {
                             @Override
-                            public void onNext(Bean<String> result) {
+                            public void onNext(Bean<Object> result) {
 
                             }
 
