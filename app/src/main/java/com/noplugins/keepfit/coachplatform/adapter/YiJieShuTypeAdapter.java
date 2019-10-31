@@ -77,19 +77,18 @@ public class YiJieShuTypeAdapter extends BaseAdapter {
 
         holder.changguan_name.setText(alreadyEndCourseBean.getAreaName());
         holder.time_tv.setText(alreadyEndCourseBean.getCourseTime());
-        holder.class_type.setText(alreadyEndCourseBean.getTeacherCourseType());
+        holder.class_type.setText(alreadyEndCourseBean.getCourseName());
         holder.status_img.setImageResource(R.drawable.yijieshu);
         //设置是否是团课
         if (alreadyEndCourseBean.getCourseType() == 1) {//团课
             holder.type_icon_tv.setText("团");
             holder.type_icon_bg.setBackgroundResource(R.drawable.tuan_bg);
-            holder.phone_or_name_tv.setVisibility(View.VISIBLE);
             holder.phone_or_name_tv.setText(alreadyEndCourseBean.getPersonNum() + "人");
             holder.phone_img.setVisibility(View.GONE);
         } else {//私教
             holder.type_icon_tv.setText("私");
             holder.type_icon_bg.setBackgroundResource(R.drawable.si_bg);
-            holder.phone_or_name_tv.setVisibility(View.GONE);
+            holder.phone_or_name_tv.setText(alreadyEndCourseBean.getUserName());
             holder.phone_img.setVisibility(View.GONE);
         }
         //判断是否显示日志

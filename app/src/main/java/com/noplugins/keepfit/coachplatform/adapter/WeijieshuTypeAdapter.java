@@ -79,6 +79,7 @@ public class WeijieshuTypeAdapter extends BaseAdapter implements EasyPermissions
             holder.button_tv = convertView.findViewById(R.id.button_tv);
             holder.button_bg = convertView.findViewById(R.id.button_bg);
             holder.phone_img = convertView.findViewById(R.id.phone_img);
+            holder.base_layout = convertView.findViewById(R.id.base_layout);
             convertView.setTag(holder);
         } else {
             holder = (viewHolder) convertView.getTag();
@@ -87,7 +88,7 @@ public class WeijieshuTypeAdapter extends BaseAdapter implements EasyPermissions
 
         holder.changguan_name.setText(noEndCourseBean.getAreaName());
         holder.time_tv.setText(noEndCourseBean.getCourseTime());
-        holder.class_type.setText(noEndCourseBean.getTeacherCourseType());
+        holder.class_type.setText(noEndCourseBean.getCourseName());
 
         //设置是否签到
         if (noEndCourseBean.getCheckIn() == 1) {//已签到
@@ -95,16 +96,19 @@ public class WeijieshuTypeAdapter extends BaseAdapter implements EasyPermissions
             holder.button_tv.setText("已签");
             holder.button_tv.setTextColor(scheduleFragment.getResources().getColor(R.color.color_929292));
         } else {//未签到
-            holder.status_img.setImageResource(R.drawable.yiqiandao);
+            holder.status_img.setImageResource(R.drawable.jingxingzhong_icon);
             holder.button_tv.setText("签到");
             holder.button_tv.setTextColor(scheduleFragment.getResources().getColor(R.color.color_lan));
             //点击签到
             holder.button_bg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    camera_pop_window(holder.button_bg);
-                    holder.button_tv.setText("已签");
-                    holder.button_tv.setTextColor(scheduleFragment.getResources().getColor(R.color.color_929292));
+                    if(holder.button_tv.getText().equals("签到")){
+                        camera_pop_window(holder.base_layout);
+                        //设置已签到的状态
+                        holder.button_tv.setText("已签");
+                        holder.button_tv.setTextColor(scheduleFragment.getResources().getColor(R.color.color_929292));
+                    }
                 }
             });
         }
@@ -113,16 +117,13 @@ public class WeijieshuTypeAdapter extends BaseAdapter implements EasyPermissions
         if (noEndCourseBean.getCourseType() == 1) {//团课
             holder.type_icon_tv.setText("团");
             holder.type_icon_bg.setBackgroundResource(R.drawable.tuan_bg);
-            holder.phone_or_name_tv.setVisibility(View.VISIBLE);
-            holder.phone_or_name_tv.setText(noEndCourseBean.getPersonNum()+"人");
+            holder.phone_or_name_tv.setText(noEndCourseBean.getPersonNum() + "人");
             holder.phone_img.setVisibility(View.GONE);
-
         } else {//私教
             holder.type_icon_tv.setText("私");
             holder.type_icon_bg.setBackgroundResource(R.drawable.si_bg);
-            holder.phone_or_name_tv.setVisibility(View.GONE);
+            holder.phone_or_name_tv.setText(noEndCourseBean.getUserName());
             holder.phone_img.setVisibility(View.VISIBLE);
-
         }
 
         //点击打电话
@@ -132,8 +133,6 @@ public class WeijieshuTypeAdapter extends BaseAdapter implements EasyPermissions
                 call_pop(holder.phone_img, noEndCourseBean.getUserPhone());
             }
         });
-
-
 
 
         return convertView;
@@ -208,7 +207,7 @@ public class WeijieshuTypeAdapter extends BaseAdapter implements EasyPermissions
                 .setBackGroundLevel(0.5f)//0.5f
                 .setAnimationStyle(R.style.main_menu_animstyle)
                 .setWidthAndHeight(WindowManager.LayoutParams.MATCH_PARENT,
-                        WindowManager.LayoutParams.WRAP_CONTENT)
+                        WindowManager.LayoutParams.MATCH_PARENT)
                 .setOutSideTouchable(true).create();
         popupWindow.showAsDropDown(button_bg);
 
@@ -260,7 +259,7 @@ public class WeijieshuTypeAdapter extends BaseAdapter implements EasyPermissions
     private class viewHolder {
         public TextView changguan_name, time_tv, class_type, type_icon_tv, phone_or_name_tv, button_tv;
         public ImageView status_img, phone_img;
-        public LinearLayout button_bg, type_icon_bg;
+        public LinearLayout button_bg, type_icon_bg,base_layout;
     }
 
 

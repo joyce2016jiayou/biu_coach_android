@@ -190,7 +190,7 @@ public class ClassDetailActivity extends BaseActivity implements EasyPermissions
             top_view.setVisibility(View.GONE);
             //设置数据
             if (data.getCheckInStatus() == 0) {//未签到
-                status_tv.setText("未结束(未签到)" );
+                status_tv.setText("未结束(未签到)");
             } else {//已签到
                 status_tv.setText("未结束(已签到)");
             }
@@ -240,8 +240,7 @@ public class ClassDetailActivity extends BaseActivity implements EasyPermissions
                 } else {//已签到
                     status_tv.setText("未结束(已签到)");
                 }
-            }
-            {//已结束
+            }else{//已结束
                 status_tv.setText("已结束");
             }
             phone_umber = data.getPhone();

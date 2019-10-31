@@ -268,9 +268,9 @@ public class CourseTableLayoutView extends LinearLayout {
                         status_tv.setText(courseFlag.course.getCourseStatus());
                         time_tv.setText(courseFlag.course.getCourseTime());
                         if (courseFlag.course.getCourseType() == 1) {//团课
-                            cource_layout.setBackgroundResource(BG_COURSE[0]);
-                        } else if (courseFlag.course.getCourseType() == 2) {//私教
                             cource_layout.setBackgroundResource(BG_COURSE[1]);
+                        } else if (courseFlag.course.getCourseType() == 2) {//私教
+                            cource_layout.setBackgroundResource(BG_COURSE[0]);
                         }
                         //cource_layout.setBackgroundResource(BG_COURSE[mDataTempPosition % BG_COURSE.length]);
                         //设置点击事件的监听

@@ -8,7 +8,7 @@
             android:layout_width="match_parent"
             android:background="@drawable/saoma_bg"
             android:layout_alignParentBottom="true"
-            android:layout_height="400dp">
+            android:layout_height="@dimen/m360">
         <LinearLayout
                 android:layout_width="wrap_content"
                 android:orientation="vertical"
@@ -18,10 +18,9 @@
                 android:layout_height="wrap_content">
             <ImageView
                     android:id="@+id/erweima_img"
-                    android:layout_width="@dimen/m200"
+                    android:layout_width="@dimen/m180"
                     android:background="@drawable/eriweima"
-
-                    android:layout_height="@dimen/m200"/>
+                    android:layout_height="@dimen/m180"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_centerHorizontal="true"

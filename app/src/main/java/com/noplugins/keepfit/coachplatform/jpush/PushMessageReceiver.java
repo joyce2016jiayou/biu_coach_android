@@ -56,8 +56,11 @@ public class PushMessageReceiver extends JPushMessageReceiver {
             jsonObject = new JSONObject(message.notificationExtras);
             type_id = jsonObject.getString("type");
             Log.e("极光返回的页面跳转的ID:", type_id);
-
-            switch (type_id) {
+            Intent intent = new Intent(context, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            context.startActivity(intent);
+       /*     switch (type_id) {
                 case "LogMessage"://跳转到消息第一项
                     MyApplication.destoryActivity("KeepFitActivity");//首先得销毁
 
@@ -101,7 +104,7 @@ public class PushMessageReceiver extends JPushMessageReceiver {
 //                    i4.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //                    context.startActivity(i4);
                     break;
-            }
+            }*/
         } catch (JSONException e) {
             e.printStackTrace();
         }

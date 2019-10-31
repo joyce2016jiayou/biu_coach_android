@@ -1,6 +1,7 @@
 package com.noplugins.keepfit.coachplatform.util.data;
 
 import android.util.Log;
+import com.noplugins.keepfit.coachplatform.activity.LoginActivity;
 import com.noplugins.keepfit.coachplatform.bean.SelectDateBean;
 
 import java.text.ParseException;
@@ -14,7 +15,6 @@ public class DateUtils {
     private static String mDay;
     private static String mWay;
 
-    private static int get_max_day = 14;
 
     /**
      * 获取当前日期几月几号
@@ -113,45 +113,50 @@ public class DateUtils {
      * 获取今天往后一段时间日期（几月几号）
      */
     public static List<SelectDateBean> getmoredate() {
+        int get_max_day = 14;
         List<SelectDateBean> dates = new ArrayList<SelectDateBean>();
         final Calendar calendar = Calendar.getInstance();
         calendar.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
         List<String> weeksList = get7week();
-        mYear = String.valueOf(calendar.get(Calendar.YEAR));// 获取当前年份
-        mMonth = String.valueOf(calendar.get(Calendar.MONTH) + 1);// 获取当前月份
-        int max_date_of_month = MaxDayFromDay_OF_MONTH(Integer.parseInt(mYear), Integer.parseInt(mMonth));
+        int current_Year = calendar.get(Calendar.YEAR);// 获取当前年份
+        int current_mMonth = calendar.get(Calendar.MONTH) + 1;// 获取当前月份
+        int max_date_of_month = MaxDayFromDay_OF_MONTH(current_Year, current_mMonth);
         int next_max_month = (get_max_day - max_date_of_month) / 31; //获取往后可能有几个月
+
         for (int k = 0; k <= next_max_month; k++) {//需要循环设置几个月
             for (int i = 0; i < get_max_day; i++) {
                 SelectDateBean selectDateBean = new SelectDateBean();
-                mDay = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH) + i);// 获取当前日份的日期号码
-                if (Integer.parseInt(mDay) > max_date_of_month) {
-                    mMonth = String.valueOf(calendar.get(Calendar.MONTH) + (k + 1));// 获取当前月份
-                    int day = Integer.valueOf(mDay) - max_date_of_month;
-                    mDay = String.valueOf(day);// 获取当前日份的日期号码
+                int date_str = calendar.get(Calendar.DAY_OF_MONTH) + i;// 获取当前日份的日期号码
+                if (date_str > max_date_of_month) {
+                    if (current_mMonth < 12) {
+                        current_mMonth = calendar.get(Calendar.MONTH) + (k + 2);//获取当前月份
+                    } else {//如果是刚好12月份就变成1月份开始
+                        current_mMonth = 1;//获取当前月份
+                    }
+                    date_str = date_str - max_date_of_month;// 获取当前日份的日期号码
                 }
-                selectDateBean.setYear(mYear);
-                selectDateBean.setMonth(mMonth);
-                selectDateBean.setDate(mDay);
+                selectDateBean.setYear(current_Year + "");
+                selectDateBean.setMonth(current_mMonth + "");
+                selectDateBean.setDate(date_str + "");
                 if (weeksList.get(i).equals("今天")) {
                     selectDateBean.setIs_check(true);
                 }
                 selectDateBean.setWeek_str(weeksList.get(i));
-//                Log.e("获取到的往后的时间", mMonth + "/" + mDay);
+                Log.e("获取到的往后的时间", current_mMonth + "/" + date_str);
 //                Log.e("获取到的往后星期", weeksList.get(i));
                 String current_month = "";
                 String current_date = "";
-                if (Integer.valueOf(mMonth) <= 9) {
-                    current_month = "0" + Integer.valueOf(mMonth);
+                if (current_mMonth <= 9) {
+                    current_month = "0" + current_mMonth;
                 } else {
-                    current_month = "" + Integer.valueOf(mMonth);
+                    current_month = "" + current_mMonth;
                 }
-                if (Integer.valueOf(mDay) <= 9) {
-                    current_date = "0" + Integer.valueOf(mDay);
+                if (date_str <= 9) {
+                    current_date = "0" + date_str;
                 } else {
-                    current_date = "" + Integer.valueOf(mDay);
+                    current_date = "" + date_str;
                 }
-                selectDateBean.setCurrent_date(mYear + "-" + current_month + "-" + current_date);
+                selectDateBean.setCurrent_date(current_Year + "-" + current_month + "-" + current_date);
 
                 dates.add(selectDateBean);
             }
@@ -183,6 +188,7 @@ public class DateUtils {
 
 
     public static List<String> get7date() {
+        int get_max_day = 14;
         List<String> dates = new ArrayList<String>();
         final Calendar c = Calendar.getInstance();
         c.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
