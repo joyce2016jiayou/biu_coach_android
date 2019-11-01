@@ -447,23 +447,27 @@ public class StepTwoFragment extends ViewPagerFragment {
         coachPicCardBean.setCardFrontKey("cardfan");
         checkInformationBean.setCoachPicCard(coachPicCardBean);
         CheckInformationBean.CoachUserBean coachUserBean = new CheckInformationBean.CoachUserBean();
-        if (SpUtils.getString(getActivity(), AppConstants.SELECT_TEACHER_TYPE).equals("1")) {//团课
+        if (SpUtils.getString(getActivity(), AppConstants.SELECT_TEACHER_TYPE).equals("1")
+        ||checkStatusActivity.fragment_type == 2) {//团课
             coachUserBean.setTeacherType(1);
-        } else if (SpUtils.getString(getActivity(), AppConstants.SELECT_TEACHER_TYPE).equals("2")) {//私教
+        } else if (SpUtils.getString(getActivity(), AppConstants.SELECT_TEACHER_TYPE).equals("2")
+                ||checkStatusActivity.fragment_type == 1) {//私教
             coachUserBean.setTeacherType(2);
         }
-        coachUserBean.setRealname(checkStatusActivity.user_name);
-        coachUserBean.setCard(checkStatusActivity.card_id);
-        if (checkStatusActivity.sex.equals("男")) {
-            coachUserBean.setSex(1);//性别
-        } else {
-            coachUserBean.setSex(0);//性别
+        if (checkStatusActivity.fragment_type != 2 && checkStatusActivity.fragment_type != 1){
+            coachUserBean.setRealname(checkStatusActivity.user_name);
+            coachUserBean.setCard(checkStatusActivity.card_id);
+            if (checkStatusActivity.sex.equals("男")) {
+                coachUserBean.setSex(1);//性别
+            } else {
+                coachUserBean.setSex(0);//性别
+            }
+            coachUserBean.setPhone(checkStatusActivity.phone);
+            coachUserBean.setProvince(checkStatusActivity.city);//省份
+            coachUserBean.setCity(checkStatusActivity.city);//城市
+            coachUserBean.setUniversity(checkStatusActivity.school);
+            coachUserBean.setProfessiondate(checkStatusActivity.ruhang_time);
         }
-        coachUserBean.setPhone(checkStatusActivity.phone);
-        coachUserBean.setProvince(checkStatusActivity.city);//省份
-        coachUserBean.setCity(checkStatusActivity.city);//城市
-        coachUserBean.setUniversity(checkStatusActivity.school);
-        coachUserBean.setProfessiondate(checkStatusActivity.ruhang_time);
         if (null != SpUtils.getString(getActivity(), AppConstants.SELECT_TEACHER_NUMBER)) {
             coachUserBean.setUserNum(SpUtils.getString(getActivity(), AppConstants.SELECT_TEACHER_NUMBER));//教练编号,登录的时候会返回
         }
