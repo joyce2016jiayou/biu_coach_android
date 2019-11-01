@@ -189,11 +189,7 @@ public class ClassDetailActivity extends BaseActivity implements EasyPermissions
             yiyueyue_layout.setVisibility(View.GONE);
             top_view.setVisibility(View.GONE);
             //设置数据
-            if (data.getCheckInStatus() == 0) {//未签到
-                status_tv.setText("未结束(未签到)");
-            } else {//已签到
-                status_tv.setText("未结束(已签到)");
-            }
+            status_tv.setText(data.getCheckInStatus());
             w_room_name.setText(data.getCourseHome());
             w_class_name.setText(data.getCourseName());
             w_class_type.setText(data.getClassType());
@@ -201,16 +197,6 @@ public class ClassDetailActivity extends BaseActivity implements EasyPermissions
             w_class_time.setText(data.getTime());
             w_class_duration_tv.setText(data.getMin());
             w_class_renshu_zhanbi.setText(data.getPerson());
-            if (data.getEnd() == 0) {//未结束
-                if (data.getCheckInStatus() == 0) {//未签到
-                    status_tv.setText("未结束(未签到)");
-                } else {//已签到
-                    status_tv.setText("未结束(已签到)");
-                }
-            }
-            {//已结束
-                status_tv.setText("已结束");
-            }
         } else {//私教
             yiqiandao_layout.setVisibility(View.GONE);
             yiyueyue_layout.setVisibility(View.VISIBLE);
@@ -234,15 +220,7 @@ public class ClassDetailActivity extends BaseActivity implements EasyPermissions
             y_class_duration_time.setText(data.getMin());
             y_user_name.setText(data.getNickName());
             //判断是否签到
-            if (data.getEnd() == 0) {//未结束
-                if (data.getCheckInStatus() == 0) {//未签到
-                    status_tv.setText("未结束(未签到)");
-                } else {//已签到
-                    status_tv.setText("未结束(已签到)");
-                }
-            }else{//已结束
-                status_tv.setText("已结束");
-            }
+            status_tv.setText(data.getCheckInStatus());
             phone_umber = data.getPhone();
             changguan_id = data.getAreaNum();
         }

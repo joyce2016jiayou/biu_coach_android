@@ -142,7 +142,7 @@ public class DateUtils {
                     selectDateBean.setIs_check(true);
                 }
                 selectDateBean.setWeek_str(weeksList.get(i));
-                Log.e("获取到的往后的时间", current_mMonth + "/" + date_str);
+//                Log.e("获取到的往后的时间", current_mMonth + "/" + date_str);
 //                Log.e("获取到的往后星期", weeksList.get(i));
                 String current_month = "";
                 String current_date = "";

@@ -29,12 +29,21 @@ public class ClassDetailBean {
     private String phone;
     private String person;
     private int sportLog;
-    private int checkInStatus;
+    private String checkInStatus;
     private String areaNum;
     private int end;
     private String time;
     private String classType;
 
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    private String price;
     public String getNickName() {
         return nickName;
     }
@@ -107,11 +116,11 @@ public class ClassDetailBean {
         this.sportLog = sportLog;
     }
 
-    public int getCheckInStatus() {
+    public String getCheckInStatus() {
         return checkInStatus;
     }
 
-    public void setCheckInStatus(int checkInStatus) {
+    public void setCheckInStatus(String checkInStatus) {
         this.checkInStatus = checkInStatus;
     }
 

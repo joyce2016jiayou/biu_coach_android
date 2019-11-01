@@ -27,6 +27,8 @@ public class DateHelper {
         return hours > 0 ? String.format("%02d:%02d:%02d", hours, minutes, seconds) : String.format("%02d:%02d", minutes, seconds);
     }
 
+
+
     /**
      * 根据long毫秒数，获得时分秒
      **/

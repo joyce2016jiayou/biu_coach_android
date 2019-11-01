@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +20,12 @@ import com.noplugins.keepfit.coachplatform.bean.ClassDateBean;
 import com.noplugins.keepfit.coachplatform.bean.ScheduleBean;
 import com.noplugins.keepfit.coachplatform.fragment.ScheduleFragment;
 import com.noplugins.keepfit.coachplatform.fragment.StepOneFragment;
+import com.noplugins.keepfit.coachplatform.util.BaseUtils;
 import com.noplugins.keepfit.coachplatform.util.GlideEngine;
 import com.noplugins.keepfit.coachplatform.util.screen.ScreenUtilsHelper;
 import com.noplugins.keepfit.coachplatform.util.ui.erweima.encode.CodeCreator;
 import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow;
+import com.umeng.socialize.media.Base;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -90,25 +94,38 @@ public class WeijieshuTypeAdapter extends BaseAdapter implements EasyPermissions
         holder.time_tv.setText(noEndCourseBean.getCourseTime());
         holder.class_type.setText(noEndCourseBean.getCourseName());
 
+        if(null!=noEndCourseBean.getStartStatus()){
+            if(noEndCourseBean.getStartStatus().equals("未开始")){
+                holder.status_img.setImageResource(R.drawable.weikaishi_icon);
+            }else if(noEndCourseBean.getStartStatus().equals("进行中")){
+                holder.status_img.setImageResource(R.drawable.jingxingzhong_icon);
+            }else if(noEndCourseBean.getStartStatus().equals("已结束")){
+                holder.status_img.setImageResource(R.drawable.yijieshu);
+            }else  if(noEndCourseBean.getStartStatus().equals("已取消")){
+                holder.status_img.setImageResource(R.drawable.yiquxiao_icon);
+            }
+        }
+
         //设置是否签到
         if (noEndCourseBean.getCheckIn() == 1) {//已签到
-            holder.status_img.setImageResource(R.drawable.weikaishi_icon);
             holder.button_tv.setText("已签");
             holder.button_tv.setTextColor(scheduleFragment.getResources().getColor(R.color.color_929292));
         } else {//未签到
-            holder.status_img.setImageResource(R.drawable.jingxingzhong_icon);
             holder.button_tv.setText("签到");
             holder.button_tv.setTextColor(scheduleFragment.getResources().getColor(R.color.color_lan));
             //点击签到
             holder.button_bg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(holder.button_tv.getText().equals("签到")){
-                        camera_pop_window(holder.base_layout,noEndCourseBean.getCustOrderItemNum());
-                        //设置已签到的状态
-                        holder.button_tv.setText("已签");
-                        holder.button_tv.setTextColor(scheduleFragment.getResources().getColor(R.color.color_929292));
+                    if(BaseUtils.isFastClick()){
+                        if(holder.button_tv.getText().equals("签到")){
+                            camera_pop_window(holder.base_layout,noEndCourseBean.getCustOrderItemNum());
+                            //设置已签到的状态
+//                        holder.button_tv.setText("已签");
+//                        holder.button_tv.setTextColor(scheduleFragment.getResources().getColor(R.color.color_929292));
+                        }
                     }
+
                 }
             });
         }
@@ -122,7 +139,11 @@ public class WeijieshuTypeAdapter extends BaseAdapter implements EasyPermissions
         } else {//私教
             holder.type_icon_tv.setText("私");
             holder.type_icon_bg.setBackgroundResource(R.drawable.si_bg);
-            holder.phone_or_name_tv.setText(noEndCourseBean.getUserName());
+            if(TextUtils.isEmpty(noEndCourseBean.getUserName())){
+                holder.phone_or_name_tv.setText(noEndCourseBean.getCustUserNum());
+            }else{
+                holder.phone_or_name_tv.setText(noEndCourseBean.getUserName());
+            }
             holder.phone_img.setVisibility(View.VISIBLE);
         }
 
@@ -162,8 +183,10 @@ public class WeijieshuTypeAdapter extends BaseAdapter implements EasyPermissions
         sure_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                initSimple(phone_number);
-                popupWindow.dismiss();
+                if(BaseUtils.isFastClick()){
+                    initSimple(phone_number);
+                    popupWindow.dismiss();
+                }
             }
         });
 

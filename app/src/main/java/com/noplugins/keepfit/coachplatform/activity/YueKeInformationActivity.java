@@ -119,7 +119,6 @@ public class YueKeInformationActivity extends BaseActivity {
             params.put("date", current_select_year + "-" + Integer.valueOf(current_select_month));
         }
         params.put("teacherNum", SpUtils.getString(getApplicationContext(), AppConstants.SELECT_TEACHER_NUMBER));
-
         subscription = Network.getInstance("约课信息", this)
                 .yuekeInformation(params,
                         new ProgressSubscriber<>("约课信息", new SubscriberOnNextListener<Bean<YueKeBean>>() {
@@ -176,28 +175,7 @@ public class YueKeInformationActivity extends BaseActivity {
                 }
             }
         });
-
-
-        /*for (int i = 0; i < 2; i++) {//根据上方的日期排序
-            CourseModel model = new CourseModel();
-            model.setWeek((i + 1));
-            model.setName("课程名字" + (i + 1));
-            model.setStart((i + 1));
-            model.setStep((i + 2));
-            model.setClass_status(2);
-            if (i == 0) {
-                model.setTime_left(10);
-                model.setDate_top("9/28");
-            } else {
-                model.setTime_left(8);
-                model.setDate_top("9/30");
-            }
-            mList.add(model);
-        }*/
-
         mCourseTableTestLayout.setData(courseListBeans);//设置课程布局
-
-
     }
 
     private void init_left_time() {
@@ -243,7 +221,7 @@ public class YueKeInformationActivity extends BaseActivity {
             @Override
             public void onTimeSelect(Date date, View v) {//选中事件回调
 
-                Log.e("选择的时间", date.toString());
+                //Log.e("选择的时间", date.toString());
                 int select_year = date.getYear() + 1900;
                 String select_month = date.getMonth() + "";
                 if (Integer.valueOf(select_month) < 9) {
@@ -253,7 +231,7 @@ public class YueKeInformationActivity extends BaseActivity {
                 }
                 current_select_month = select_month;
                 current_select_year = select_year + "";
-                Log.e("选择的时间参数打印", current_select_year + "-" + current_select_month);
+                //Log.e("选择的时间参数打印", current_select_year + "-" + current_select_month);
                 time_tv.setText(select_year + "年" + select_month + "月");
                 pvCustomTime.dismiss();
 

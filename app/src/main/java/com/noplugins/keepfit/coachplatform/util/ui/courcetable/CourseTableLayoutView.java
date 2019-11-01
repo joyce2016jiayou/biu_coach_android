@@ -16,10 +16,9 @@ import com.noplugins.keepfit.coachplatform.bean.SelectDateBean;
 import com.noplugins.keepfit.coachplatform.bean.YueKeBean;
 import com.noplugins.keepfit.coachplatform.util.data.DateHelper;
 import com.noplugins.keepfit.coachplatform.util.screen.ScreenUtilsHelper;
-
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class CourseTableLayoutView extends LinearLayout {
@@ -179,6 +178,7 @@ public class CourseTableLayoutView extends LinearLayout {
      */
     public void setData(List<YueKeBean.CourseListBean> list) {
         mCourseList.addAll(list);
+        //Log.e("几点开始减肥", "多岁的" + mCourseList.size());
         if (!mIsFirst) {
             notifyDataSetChanged();
         }
@@ -219,8 +219,8 @@ public class CourseTableLayoutView extends LinearLayout {
                     mCourseTableHeight * (mTimeCount - 6)));//从7点开始
 
             for (int time = 0; time < mTimeCount; time++) {
-                Log.e("打印出来的时间", mTimeCount + "");
-                Log.e("打印出来的日期", top_dates.get(day).getMonth() + "/" + top_dates.get(day).getDate() + "");
+//                Log.e("打印出来的时间", mTimeCount + "");
+//                Log.e("打印出来的日期", top_dates.get(day).getMonth() + "/" + top_dates.get(day).getDate() + "");
 
                 CourseFlag courseFlag = getCourse(day, time);
 
@@ -231,7 +231,6 @@ public class CourseTableLayoutView extends LinearLayout {
                         //绘制格子
                         gezi_layout_bg.setBackgroundResource(mEmptyTableBgRes);//设置格子
                         gezi_view.setLayoutParams(new ViewGroup.LayoutParams(mDayTableWidth, mDayTableHeight));
-
                         //显示空白布局
                         time_tv.setVisibility(INVISIBLE);
                         status_tv.setVisibility(INVISIBLE);
@@ -243,7 +242,6 @@ public class CourseTableLayoutView extends LinearLayout {
                         //绘制格子
                         gezi_layout_bg.setBackgroundResource(mEmptyTableBgRes);//设置格子
                         gezi_view.setLayoutParams(new ViewGroup.LayoutParams(mDayTableWidth, mDayTableHeight));
-
                         //显示数据
                         time_tv.setVisibility(VISIBLE);
                         status_tv.setVisibility(VISIBLE);
@@ -253,8 +251,10 @@ public class CourseTableLayoutView extends LinearLayout {
                         //LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(mDayTableWidth, (mDayTableHeight * courseFlag.course.getStep()));
                         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(mDayTableWidth, mDayTableHeight);
                         //根据分钟来判断移动的距离
-                        int minute = DateHelper.get_minite(courseFlag.course.getStartTimeStamp());
+                        Date date = DateHelper.string2date(courseFlag.course.getStartTime());
+                        int minute = date.getMinutes();
                         DecimalFormat df = new DecimalFormat("0.00");//设置保留位数
+                        //Log.e("移动的",df.format((float) minute / 60));
                         Double aDouble = Double.valueOf(df.format((float) minute / 60));
                         //Log.e("分钟", aDouble * +mDayTableHeight + "");
                         int move_height = new Double(aDouble * +mDayTableHeight).intValue();
@@ -405,16 +405,28 @@ public class CourseTableLayoutView extends LinearLayout {
     protected boolean[] compareToCourse(YueKeBean.CourseListBean course, int dayPosition, int timePosition) {
         boolean[] result = new boolean[2];
         String date_str = top_dates.get(dayPosition).getMonth() + "/" + top_dates.get(dayPosition).getDate();
-        String year = DateHelper.get_year(course.getStartTimeStamp());
-        String month = DateHelper.get_month(course.getStartTimeStamp());
-        String date = DateHelper.get_date(course.getStartTimeStamp());
-        int hour = DateHelper.get_hour(course.getStartTimeStamp());
-        int minute = DateHelper.get_minite(course.getStartTimeStamp());
-        String item_date = month + "/" + date;
-        //Log.e("开始日期", year + month + date + "-" + hour + ":" + minute);
+        Date date = DateHelper.string2date(course.getStartTime());
+        String month = "";
+        if(date.getMonth()<9){
+            month = "0"+(date.getMonth()+1);
+        }else{
+            month = ""+(date.getMonth()+1);
+        }
+        String m_date="";
+        if(date.getDate()<9){
+            m_date = "0"+date.getDate();
+        }else{
+            m_date = ""+date.getDate();
+        }
+        int hour = date.getHours();
+        int minute = date.getMinutes();
+        String item_date = month + "/" + m_date;
+//        Log.e("开始日期", item_date);
+//        Log.e("111开始日期", date_str);
+
         if (item_date.equals(date_str)) {//如果日期相同
-            //Log.e("上方的时间", item_date + "");
-            //Log.e("左边的时间", hour + "");
+//            Log.e("上方的时间", item_date + "");
+//            Log.e("左边的时间", hour + "");
             if ((hour - 6) == (timePosition + 1)) {//定位纵坐标
                 result[0] = true;
                 result[1] = false;

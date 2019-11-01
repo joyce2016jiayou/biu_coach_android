@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,7 +89,11 @@ public class YiJieShuTypeAdapter extends BaseAdapter {
         } else {//私教
             holder.type_icon_tv.setText("私");
             holder.type_icon_bg.setBackgroundResource(R.drawable.si_bg);
-            holder.phone_or_name_tv.setText(alreadyEndCourseBean.getUserName());
+            if (TextUtils.isEmpty(alreadyEndCourseBean.getUserName())) {
+                holder.phone_or_name_tv.setText(alreadyEndCourseBean.getCustUserNum());
+            } else {
+                holder.phone_or_name_tv.setText(alreadyEndCourseBean.getUserName());
+            }
             holder.phone_img.setVisibility(View.GONE);
         }
         //判断是否显示日志

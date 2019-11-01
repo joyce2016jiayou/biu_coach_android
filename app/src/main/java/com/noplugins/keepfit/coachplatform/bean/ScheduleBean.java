@@ -88,6 +88,18 @@ public class ScheduleBean {
         private int checkOut;
         private int status;
         private String courseTime;
+        private String startStatus;
+        private String personNum;
+
+        public String getStartStatus() {
+            return startStatus;
+        }
+
+        public void setStartStatus(String startStatus) {
+            this.startStatus = startStatus;
+        }
+
+
 
         public String getPersonNum() {
             return personNum;
@@ -97,7 +109,6 @@ public class ScheduleBean {
             this.personNum = personNum;
         }
 
-        private String personNum;
 
         public int getCourseType() {
             return courseType;
@@ -406,6 +417,15 @@ public class ScheduleBean {
         private String courseTime;
         private int sportLog;
 
+        public String getStartStatus() {
+            return startStatus;
+        }
+
+        public void setStartStatus(String startStatus) {
+            this.startStatus = startStatus;
+        }
+
+        private String startStatus;
         public int getSportLog() {
             return sportLog;
         }

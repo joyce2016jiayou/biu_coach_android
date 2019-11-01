@@ -212,7 +212,7 @@ public class ScheduleFragment extends Fragment {
                             public void onError(String error) {
 
                             }
-                        }, getActivity(), false));
+                        }, getActivity(), true));
 
 
     }
@@ -226,20 +226,21 @@ public class ScheduleFragment extends Fragment {
         dateSelectAdapter.setOnItemClickListener(new DateSelectAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                for (int i = 0; i < selectDateBeans.size(); i++) {
-                    selectDateBeans.get(i).setIs_check(false);
-                }
-                if (!selectDateBeans.get(position).isIs_check()) {
-                    selectDateBeans.get(position).setIs_check(true);
-                }
+                if (BaseUtils.isFastClick()) {
+                    for (int i = 0; i < selectDateBeans.size(); i++) {
+                        selectDateBeans.get(i).setIs_check(false);
+                    }
+                    if (!selectDateBeans.get(position).isIs_check()) {
+                        selectDateBeans.get(position).setIs_check(true);
+                    }
 
-                dateSelectAdapter.notifyDataSetChanged();
-                if (classDateBeans.size() > 0) {
-                    classDateBeans.clear();
+                    dateSelectAdapter.notifyDataSetChanged();
+                    if (classDateBeans.size() > 0) {
+                        classDateBeans.clear();
+                    }
+                    select_date = selectDateBeans.get(position).getCurrent_date();
+                    init_class_date_resource(select_date);
                 }
-                select_date = selectDateBeans.get(position).getCurrent_date();
-                init_class_date_resource(select_date);
-
             }
         });
 
