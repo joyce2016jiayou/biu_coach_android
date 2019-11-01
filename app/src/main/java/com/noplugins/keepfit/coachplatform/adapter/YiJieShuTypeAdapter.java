@@ -8,10 +8,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.*;
 import com.noplugins.keepfit.coachplatform.R;
 import com.noplugins.keepfit.coachplatform.activity.WriteDailryActivity;
 import com.noplugins.keepfit.coachplatform.bean.CheckInformationBean;
@@ -108,11 +105,17 @@ public class YiJieShuTypeAdapter extends BaseAdapter {
         holder.button_bg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(scheduleFragment.getActivity(), WriteDailryActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("order_key", alreadyEndCourseBean.getCustOrderItemNum());
-                intent.putExtras(bundle);
-                scheduleFragment.getActivity().startActivity(intent);
+                if (alreadyEndCourseBean.getCheckIn() == 0) {//没签到
+                    Toast.makeText(scheduleFragment.getActivity(), "该用户尚未签到哦~", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(scheduleFragment.getActivity(), WriteDailryActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("order_key", alreadyEndCourseBean.getCustOrderItemNum());
+                    intent.putExtras(bundle);
+                    scheduleFragment.getActivity().startActivity(intent);
+                }
+
+
             }
         });
         return convertView;

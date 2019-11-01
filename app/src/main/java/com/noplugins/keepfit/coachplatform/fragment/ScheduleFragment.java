@@ -177,6 +177,9 @@ public class ScheduleFragment extends Fragment {
                         new ProgressSubscriber<>("首页接口", new SubscriberOnNextListener<Bean<ScheduleBean>>() {
                             @Override
                             public void onNext(Bean<ScheduleBean> result) {
+                                if(classDateBeans.size()>0){
+                                    classDateBeans.clear();
+                                }
                                 for (int i = 0; i < 2; i++) {
                                     if (i == 0) {
                                         ClassDateBean selectDateBean = new ClassDateBean();

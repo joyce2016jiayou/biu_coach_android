@@ -46,7 +46,7 @@
                 android:id="@+id/title_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="小马快死的运动日志"
+                android:text=""
                 android:layout_marginTop="@dimen/m24"
                 android:layout_marginLeft="@dimen/m20"
                 android:textColor="@color/color_181818"
@@ -94,7 +94,7 @@
                             android:textSize="15sp"
                             android:layout_marginLeft="@dimen/m94"
                             android:layout_centerVertical="true"
-                            android:text="塑形-瑜伽"
+                            android:text=""
                             />
                 </RelativeLayout>
 
@@ -122,7 +122,6 @@
                             android:textSize="15sp"
                             android:layout_marginLeft="@dimen/m94"
                             android:layout_centerVertical="true"
-                            android:text="13:00-14:00"
                             />
                 </RelativeLayout>
 
@@ -151,7 +150,7 @@
                             android:textSize="15sp"
                             android:layout_marginLeft="@dimen/m94"
                             android:layout_centerVertical="true"
-                            android:text="一二三健身馆"
+                            android:text=""
                             />
                 </RelativeLayout>
 
@@ -197,7 +196,7 @@
                             android:id="@+id/ruchang_time"
                             android:layout_width="@dimen/m53"
                             android:layout_height="@dimen/m16"
-                            android:text="12:50入场"
+                            android:text=""
                             android:background="@drawable/time_bg"
                             android:textSize="10sp"
                             android:layout_marginTop="@dimen/m5"
@@ -211,7 +210,6 @@
                         android:layout_toRightOf="@+id/lin1"
                         android:layout_width="@dimen/m20"
                         android:layout_marginLeft="@dimen/m19"
-                        android:src="@drawable/xiaolian1"
                         android:layout_marginTop="@dimen/m24"
                         android:layout_height="@dimen/m20"/>
 
@@ -237,7 +235,7 @@
                             android:id="@+id/lichang_time"
                             android:layout_width="@dimen/m53"
                             android:layout_height="@dimen/m16"
-                            android:text="12:50离场"
+                            android:text=""
                             android:background="@drawable/time_bg"
                             android:textSize="10sp"
                             android:layout_marginTop="@dimen/m5"
@@ -253,7 +251,6 @@
                         android:layout_width="@dimen/m20"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="@dimen/m50"
-                        android:src="@drawable/xiaolian1"
                         android:layout_marginTop="@dimen/m24"
                         android:layout_height="@dimen/m20"/>
 

@@ -9,10 +9,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -97,7 +94,8 @@ public class ClassDetailActivity extends BaseActivity implements EasyPermissions
     private String order_number = "";
     private String user_number = "";
     private String phone_umber = "";
-    private String changguan_id="";
+    private String changguan_id = "";
+    private ClassDetailBean classDetailBea = new ClassDetailBean();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,11 +125,21 @@ public class ClassDetailActivity extends BaseActivity implements EasyPermissions
                 if (button.getText().equals("签到")) {
                     camera_pop_window();
                 } else if (button.getText().equals("写日志")) {
+//                    if(classDetailBea.getCheckInStatus()){
+//                        Toast.makeText(getApplicationContext(), "该用户尚未签到哦~", Toast.LENGTH_SHORT).show();
+//                    }else{
+//                        Intent intent = new Intent(ClassDetailActivity.this, WriteDailryActivity.class);
+//                        Bundle bundle = new Bundle();
+//                        bundle.putString("order_key", order_number);
+//                        intent.putExtras(bundle);
+//                        startActivity(intent);
+//                    }
                     Intent intent = new Intent(ClassDetailActivity.this, WriteDailryActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("order_key", order_number);
                     intent.putExtras(bundle);
                     startActivity(intent);
+
                 }
             }
         });
@@ -157,7 +165,7 @@ public class ClassDetailActivity extends BaseActivity implements EasyPermissions
             public void onClick(View view) {
                 Intent intent = new Intent(ClassDetailActivity.this, ChaungguanDetailActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("cgNum",changguan_id);
+                bundle.putString("cgNum", changguan_id);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -173,6 +181,7 @@ public class ClassDetailActivity extends BaseActivity implements EasyPermissions
                         new ProgressSubscriber<>("约课信息详情", new SubscriberOnNextListener<Bean<ClassDetailBean>>() {
                             @Override
                             public void onNext(Bean<ClassDetailBean> result) {
+                                classDetailBea = result.getData();
                                 set_value(result.getData());
                             }
 

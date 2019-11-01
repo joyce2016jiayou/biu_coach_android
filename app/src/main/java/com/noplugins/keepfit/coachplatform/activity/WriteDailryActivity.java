@@ -215,31 +215,37 @@ public class WriteDailryActivity extends BaseActivity {
         cource_area.setText(getDailryBean.getAreaName());
         //设置入场表情
         int ruchang_img_id = getDailryBean.getBeforeFace();
-        if (ruchang_img_id == 1) {
-            ruchang_biaoqing_img.setImageResource(R.drawable.xiaolian1);
-        } else if (ruchang_img_id == 2) {
-            ruchang_biaoqing_img.setImageResource(R.drawable.xiaolian2);
-        } else if (ruchang_img_id == 3) {
-            ruchang_biaoqing_img.setImageResource(R.drawable.xiaolian3);
-        } else if (ruchang_img_id == 4) {
-            ruchang_biaoqing_img.setImageResource(R.drawable.xiaolian4);
-        } else if (ruchang_img_id == 5) {
-            ruchang_biaoqing_img.setImageResource(R.drawable.xiaolian5);
+        if (ruchang_img_id != -1) {//没有表情
+            if (ruchang_img_id == 1) {
+                ruchang_biaoqing_img.setImageResource(R.drawable.xiaolian1);
+            } else if (ruchang_img_id == 2) {
+                ruchang_biaoqing_img.setImageResource(R.drawable.xiaolian2);
+            } else if (ruchang_img_id == 3) {
+                ruchang_biaoqing_img.setImageResource(R.drawable.xiaolian3);
+            } else if (ruchang_img_id == 4) {
+                ruchang_biaoqing_img.setImageResource(R.drawable.xiaolian4);
+            } else if (ruchang_img_id == 5) {
+                ruchang_biaoqing_img.setImageResource(R.drawable.xiaolian5);
+            }
         }
         ruchang_time.setText(getDailryBean.getCheckIn());
         //设置出场表情
         int chuchang_img_id = getDailryBean.getAfterFace();
-        if (chuchang_img_id == 1) {
-            chuchang_biaoqing_img.setImageResource(R.drawable.xiaolian1);
-        } else if (chuchang_img_id == 2) {
-            chuchang_biaoqing_img.setImageResource(R.drawable.xiaolian2);
-        } else if (chuchang_img_id == 3) {
-            chuchang_biaoqing_img.setImageResource(R.drawable.xiaolian3);
-        } else if (chuchang_img_id == 4) {
-            chuchang_biaoqing_img.setImageResource(R.drawable.xiaolian4);
-        } else if (chuchang_img_id == 5) {
-            chuchang_biaoqing_img.setImageResource(R.drawable.xiaolian5);
+        if (chuchang_img_id != -1) {
+            if (chuchang_img_id == 1) {
+                chuchang_biaoqing_img.setImageResource(R.drawable.xiaolian1);
+            } else if (chuchang_img_id == 2) {
+                chuchang_biaoqing_img.setImageResource(R.drawable.xiaolian2);
+            } else if (chuchang_img_id == 3) {
+                chuchang_biaoqing_img.setImageResource(R.drawable.xiaolian3);
+            } else if (chuchang_img_id == 4) {
+                chuchang_biaoqing_img.setImageResource(R.drawable.xiaolian4);
+            } else if (chuchang_img_id == 5) {
+                chuchang_biaoqing_img.setImageResource(R.drawable.xiaolian5);
+            }
         }
+
+
         lichang_time.setText(getDailryBean.getCheckOut());
         //设置标签
         lableListBeans = getDailryBean.getLableList();

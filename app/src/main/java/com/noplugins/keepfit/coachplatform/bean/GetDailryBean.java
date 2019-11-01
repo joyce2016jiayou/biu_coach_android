@@ -19,6 +19,23 @@ public class GetDailryBean {
     private String courseName;
     private String biuTime;
     private String checkIn;
+
+    public int getAfterFace() {
+        return afterFace;
+    }
+
+    public void setAfterFace(int afterFace) {
+        this.afterFace = afterFace;
+    }
+
+    public int getBeforeFace() {
+        return beforeFace;
+    }
+
+    public void setBeforeFace(int beforeFace) {
+        this.beforeFace = beforeFace;
+    }
+
     private int afterFace;
     private String areaName;
     private String userName;
@@ -50,13 +67,6 @@ public class GetDailryBean {
         this.checkIn = checkIn;
     }
 
-    public int getAfterFace() {
-        return afterFace;
-    }
-
-    public void setAfterFace(int afterFace) {
-        this.afterFace = afterFace;
-    }
 
     public String getAreaName() {
         return areaName;
@@ -82,13 +92,6 @@ public class GetDailryBean {
         this.checkOut = checkOut;
     }
 
-    public int getBeforeFace() {
-        return beforeFace;
-    }
-
-    public void setBeforeFace(int beforeFace) {
-        this.beforeFace = beforeFace;
-    }
 
     public List<LableListBean> getLableList() {
         return lableList;
