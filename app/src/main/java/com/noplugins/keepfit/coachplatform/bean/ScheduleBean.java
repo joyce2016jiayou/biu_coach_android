@@ -91,6 +91,15 @@ public class ScheduleBean {
         private String startStatus;
         private String personNum;
 
+        public int getTeacherCheckIn() {
+            return teacherCheckIn;
+        }
+
+        public void setTeacherCheckIn(int teacherCheckIn) {
+            this.teacherCheckIn = teacherCheckIn;
+        }
+
+        private int teacherCheckIn;
         public String getStartStatus() {
             return startStatus;
         }
@@ -416,6 +425,15 @@ public class ScheduleBean {
         private int status;
         private String courseTime;
         private int sportLog;
+        private int teacherCheckIn;
+
+        public int getTeacherCheckIn() {
+            return teacherCheckIn;
+        }
+
+        public void setTeacherCheckIn(int teacherCheckIn) {
+            this.teacherCheckIn = teacherCheckIn;
+        }
 
         public String getStartStatus() {
             return startStatus;

@@ -107,7 +107,7 @@ public class WeijieshuTypeAdapter extends BaseAdapter implements EasyPermissions
         }
 
         //设置是否签到
-        if (noEndCourseBean.getCheckIn() == 1) {//已签到
+        if (noEndCourseBean.getTeacherCheckIn() == 1) {//已签到
             holder.button_tv.setText("已签");
             holder.button_tv.setTextColor(scheduleFragment.getResources().getColor(R.color.color_929292));
         } else {//未签到
