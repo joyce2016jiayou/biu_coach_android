@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,8 @@ import androidx.annotation.NonNull;
 import com.bumptech.glide.Glide;
 import com.huantansheng.easyphotos.EasyPhotos;
 import com.noplugins.keepfit.coachplatform.R;
+import com.noplugins.keepfit.coachplatform.activity.ClassDetailActivity;
+import com.noplugins.keepfit.coachplatform.activity.YueKeInformationActivity;
 import com.noplugins.keepfit.coachplatform.bean.ClassDateBean;
 import com.noplugins.keepfit.coachplatform.bean.ScheduleBean;
 import com.noplugins.keepfit.coachplatform.fragment.ScheduleFragment;
@@ -94,14 +97,14 @@ public class WeijieshuTypeAdapter extends BaseAdapter implements EasyPermissions
         holder.time_tv.setText(noEndCourseBean.getCourseTime());
         holder.class_type.setText(noEndCourseBean.getCourseName());
 
-        if(null!=noEndCourseBean.getStartStatus()){
-            if(noEndCourseBean.getStartStatus().equals("未开始")){
+        if (null != noEndCourseBean.getStartStatus()) {
+            if (noEndCourseBean.getStartStatus().equals("未开始")) {
                 holder.status_img.setImageResource(R.drawable.weikaishi_icon);
-            }else if(noEndCourseBean.getStartStatus().equals("进行中")){
+            } else if (noEndCourseBean.getStartStatus().equals("进行中")) {
                 holder.status_img.setImageResource(R.drawable.jingxingzhong_icon);
-            }else if(noEndCourseBean.getStartStatus().equals("已结束")){
+            } else if (noEndCourseBean.getStartStatus().equals("已结束")) {
                 holder.status_img.setImageResource(R.drawable.yijieshu);
-            }else  if(noEndCourseBean.getStartStatus().equals("已取消")){
+            } else if (noEndCourseBean.getStartStatus().equals("已取消")) {
                 holder.status_img.setImageResource(R.drawable.yiquxiao_icon);
             }
         }
@@ -117,9 +120,9 @@ public class WeijieshuTypeAdapter extends BaseAdapter implements EasyPermissions
             holder.button_bg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(BaseUtils.isFastClick()){
-                        if(holder.button_tv.getText().equals("签到")){
-                            camera_pop_window(holder.base_layout,noEndCourseBean.getCustOrderItemNum());
+                    if (BaseUtils.isFastClick()) {
+                        if (holder.button_tv.getText().equals("签到")) {
+                            camera_pop_window(holder.base_layout, noEndCourseBean.getCustOrderItemNum());
                             //设置已签到的状态
 //                        holder.button_tv.setText("已签");
 //                        holder.button_tv.setTextColor(scheduleFragment.getResources().getColor(R.color.color_929292));
@@ -139,9 +142,9 @@ public class WeijieshuTypeAdapter extends BaseAdapter implements EasyPermissions
         } else {//私教
             holder.type_icon_tv.setText("私");
             holder.type_icon_bg.setBackgroundResource(R.drawable.si_bg);
-            if(TextUtils.isEmpty(noEndCourseBean.getUserName())){
+            if (TextUtils.isEmpty(noEndCourseBean.getUserName())) {
                 holder.phone_or_name_tv.setText(noEndCourseBean.getCustUserNum());
-            }else{
+            } else {
                 holder.phone_or_name_tv.setText(noEndCourseBean.getUserName());
             }
             holder.phone_img.setVisibility(View.VISIBLE);
@@ -155,6 +158,30 @@ public class WeijieshuTypeAdapter extends BaseAdapter implements EasyPermissions
             }
         });
 
+        holder.base_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (noEndCourseBean.getCourseType() == 1) {//团课
+                    Intent intent = new Intent(scheduleFragment.getActivity(), ClassDetailActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("cource_type", "1");
+                    bundle.putString("courseNum", noEndCourseBean.getCourseNum());
+                    bundle.putString("order_number", noEndCourseBean.getCustOrderItemNum());
+                    bundle.putString("user_number", noEndCourseBean.getCustUserNum());
+                    intent.putExtras(bundle);
+                    scheduleFragment.startActivity(intent);
+                } else {
+                    Intent intent = new Intent(scheduleFragment.getActivity(), ClassDetailActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("cource_type", "2");
+                    bundle.putString("courseNum", noEndCourseBean.getCourseNum());
+                    bundle.putString("order_number", noEndCourseBean.getCustOrderItemNum());
+                    bundle.putString("user_number", noEndCourseBean.getCustUserNum());
+                    intent.putExtras(bundle);
+                    scheduleFragment.startActivity(intent);
+                }
+            }
+        });
 
         return convertView;
     }
@@ -183,7 +210,7 @@ public class WeijieshuTypeAdapter extends BaseAdapter implements EasyPermissions
         sure_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(BaseUtils.isFastClick()){
+                if (BaseUtils.isFastClick()) {
                     initSimple(phone_number);
                     popupWindow.dismiss();
                 }
@@ -224,7 +251,7 @@ public class WeijieshuTypeAdapter extends BaseAdapter implements EasyPermissions
      *
      * @param button_bg
      */
-    private void camera_pop_window(LinearLayout button_bg,String num) {
+    private void camera_pop_window(LinearLayout button_bg, String num) {
         CommonPopupWindow popupWindow = new CommonPopupWindow.Builder(scheduleFragment.getContext())
                 .setView(R.layout.saoma_layout)
                 .setBackGroundLevel(0.5f)//0.5f
@@ -245,7 +272,7 @@ public class WeijieshuTypeAdapter extends BaseAdapter implements EasyPermissions
         });
         ImageView erweima_img = view.findViewById(R.id.erweima_img);
 
-        String number = num+":2";
+        String number = num + ":2";
         Bitmap bitmap = CodeCreator.createQRImage(number, ScreenUtilsHelper.dip2px(scheduleFragment.getContext(), 200), ScreenUtilsHelper.dip2px(scheduleFragment.getContext(), 200), null);
 //        erweima_code.setImageBitmap(bitmap);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -283,7 +310,7 @@ public class WeijieshuTypeAdapter extends BaseAdapter implements EasyPermissions
     private class viewHolder {
         public TextView changguan_name, time_tv, class_type, type_icon_tv, phone_or_name_tv, button_tv;
         public ImageView status_img, phone_img;
-        public LinearLayout button_bg, type_icon_bg,base_layout;
+        public LinearLayout button_bg, type_icon_bg, base_layout;
     }
 
 

@@ -2,6 +2,7 @@ package com.noplugins.keepfit.coachplatform.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.LinearLayout;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
@@ -202,12 +203,7 @@ public class ScheduleFragment extends Fragment {
                                 }
                                 ClassAdapter classAdapter = new ClassAdapter(classDateBeans, ScheduleFragment.this);
                                 class_recycler_view.setAdapter(classAdapter);
-                                classAdapter.setOnItemClickListener(new ClassAdapter.OnItemClickListener() {
-                                    @Override
-                                    public void onItemClick(View view, int position) {
 
-                                    }
-                                });
 
                             }
 

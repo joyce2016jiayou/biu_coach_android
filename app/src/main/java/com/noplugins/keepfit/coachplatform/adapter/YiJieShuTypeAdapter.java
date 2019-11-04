@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import com.noplugins.keepfit.coachplatform.R;
+import com.noplugins.keepfit.coachplatform.activity.ClassDetailActivity;
 import com.noplugins.keepfit.coachplatform.activity.WriteDailryActivity;
 import com.noplugins.keepfit.coachplatform.bean.CheckInformationBean;
 import com.noplugins.keepfit.coachplatform.bean.ClassDateBean;
@@ -67,6 +68,7 @@ public class YiJieShuTypeAdapter extends BaseAdapter {
             holder.button_bg = convertView.findViewById(R.id.button_bg);
             holder.phone_or_name_tv = convertView.findViewById(R.id.phone_or_name_tv);
             holder.phone_img = convertView.findViewById(R.id.phone_img);
+            holder.base_layout = convertView.findViewById(R.id.base_layout);
             convertView.setTag(holder);
         } else {
             holder = (viewHolder) convertView.getTag();
@@ -114,8 +116,30 @@ public class YiJieShuTypeAdapter extends BaseAdapter {
                     intent.putExtras(bundle);
                     scheduleFragment.getActivity().startActivity(intent);
                 }
-
-
+            }
+        });
+        holder.base_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (alreadyEndCourseBean.getCourseType() == 1) {//团课
+                    Intent intent = new Intent(scheduleFragment.getActivity(), ClassDetailActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("cource_type", "1");
+                    bundle.putString("courseNum", alreadyEndCourseBean.getCourseNum());
+                    bundle.putString("order_number", alreadyEndCourseBean.getCustOrderItemNum());
+                    bundle.putString("user_number", alreadyEndCourseBean.getCustUserNum());
+                    intent.putExtras(bundle);
+                    scheduleFragment.startActivity(intent);
+                } else {
+                    Intent intent = new Intent(scheduleFragment.getActivity(), ClassDetailActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("cource_type", "2");
+                    bundle.putString("courseNum", alreadyEndCourseBean.getCourseNum());
+                    bundle.putString("order_number", alreadyEndCourseBean.getCustOrderItemNum());
+                    bundle.putString("user_number", alreadyEndCourseBean.getCustUserNum());
+                    intent.putExtras(bundle);
+                    scheduleFragment.startActivity(intent);
+                }
             }
         });
         return convertView;
@@ -125,6 +149,6 @@ public class YiJieShuTypeAdapter extends BaseAdapter {
     private class viewHolder {
         public TextView status_tv, changguan_name, time_tv, class_type, type_icon_tv, people_number_tv, button_tv, phone_or_name_tv;
         public ImageView status_img, phone_img;
-        public LinearLayout button_bg, type_icon_bg;
+        public LinearLayout button_bg, type_icon_bg, base_layout;
     }
 }

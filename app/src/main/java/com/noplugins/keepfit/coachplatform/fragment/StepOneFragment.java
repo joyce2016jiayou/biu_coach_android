@@ -122,7 +122,8 @@ public class StepOneFragment extends ViewPagerFragment {
     private NoScrollViewPager viewpager_content;
     private String select_time_tv = "";
     List<ZiDIanBean> xuelis = new ArrayList<>();
-    private String select_school_str="";
+    private String select_school_str = "";
+    public TextView top_title_tv;
     public static StepOneFragment homeInstance(String title) {
         StepOneFragment fragment = new StepOneFragment();
         Bundle args = new Bundle();
@@ -153,6 +154,7 @@ public class StepOneFragment extends ViewPagerFragment {
         super.onAttach(activity);
         if (activity instanceof CheckStatusActivity) {
             checkStatusActivity = (CheckStatusActivity) activity;
+            top_title_tv = checkStatusActivity.findViewById(R.id.top_title_tv);
             stepView = (StepView) checkStatusActivity.findViewById(R.id.step_view);
             viewpager_content = checkStatusActivity.findViewById(R.id.viewpager_content);
         }
@@ -194,7 +196,7 @@ public class StepOneFragment extends ViewPagerFragment {
 
     private void initView() {
         //显示缓存好的手机号
-        phone_tv.setText(SpUtils.getString(getActivity(),AppConstants.PHONE));
+        phone_tv.setText(SpUtils.getString(getActivity(), AppConstants.PHONE));
         //解析城市数据
         initDate();
         //获取最高学历字典
@@ -225,6 +227,8 @@ public class StepOneFragment extends ViewPagerFragment {
 
                     //跳转下一个页面
                     viewpager_content.setCurrentItem(1);
+                    checkStatusActivity.select_index=1;
+                    top_title_tv.setText("教练入驻");
                     int step = stepView.getCurrentStep();//设置进度条
                     stepView.setCurrentStep((step + 1) % stepView.getStepNum());
                 }
@@ -258,16 +262,16 @@ public class StepOneFragment extends ViewPagerFragment {
             @Override
             public void onClick(View view) {
                 is_set_card_zheng = true;
-                //camera_pop_window();
-                IDCardCamera.create(StepOneFragment.this).openCamera(IDCardCamera.TYPE_IDCARD_FRONT);
+                camera_pop_window();
+                //IDCardCamera.create(StepOneFragment.this).openCamera(IDCardCamera.TYPE_IDCARD_FRONT);
             }
         });
         select_card_fan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 is_set_card_zheng = false;
-                //camera_pop_window();
-                IDCardCamera.create(StepOneFragment.this).openCamera(IDCardCamera.TYPE_IDCARD_BACK);
+                camera_pop_window();
+                //IDCardCamera.create(StepOneFragment.this).openCamera(IDCardCamera.TYPE_IDCARD_BACK);
             }
         });
         //选择最高学历
@@ -309,7 +313,7 @@ public class StepOneFragment extends ViewPagerFragment {
             public void onOptionsSelect(int options1, int option2, int options3, View v) {
                 //返回的分别是三个级别的选中位置
                 String select_sex = xuelis.get(options1).getName();
-                select_school_str=xuelis.get(options1).getValue()+"";
+                select_school_str = xuelis.get(options1).getValue() + "";
                 school_tv.setText(select_sex);
                 Log.e("选中的学历", select_school_str);
             }
@@ -725,7 +729,7 @@ public class StepOneFragment extends ViewPagerFragment {
     public void onActivityResult(int requestCode, int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == IDCardCamera.RESULT_CODE) {
+        /*if (resultCode == IDCardCamera.RESULT_CODE) {
             //获取图片路径，显示图片
             String path = IDCardCamera.getImagePath(data);
             Log.e("拍照的地址：", path);
@@ -766,9 +770,8 @@ public class StepOneFragment extends ViewPagerFragment {
 
                 }
             }
-        }
-
-        /*if (RESULT_OK == resultCode) {
+        }*/
+        if (RESULT_OK == resultCode) {
             //相机或相册回调
             if (requestCode == 101) {
                 //返回对象集合：如果你需要了解图片的宽、高、大小、用户是否选中原图选项等信息，可以用这个
@@ -801,7 +804,6 @@ public class StepOneFragment extends ViewPagerFragment {
                         card_fan_view.setVisibility(View.GONE);
                         card_fan_img.setVisibility(View.VISIBLE);
                         Glide.with(getActivity()).load(icon_iamge_file).into(card_fan_img);
-
                     }
 
                 }
@@ -811,7 +813,7 @@ public class StepOneFragment extends ViewPagerFragment {
 
         } else if (RESULT_CANCELED == resultCode) {
             //Toast.makeText(this, "cancel", Toast.LENGTH_SHORT).show();
-        }*/
+        }
     }
 
 

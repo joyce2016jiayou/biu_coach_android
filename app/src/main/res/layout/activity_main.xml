@@ -40,7 +40,7 @@
                     android:layout_width="30dp"
                     android:gravity="center"
                     android:textSize="9sp"
-                    android:textColor="@color/btn_text_color"
+                    android:textColor="@color/color_181818"
                     android:text="@string/find"/>
 
 
@@ -61,7 +61,7 @@
                     android:layout_width="30dp"
                     android:layout_height="31dp"
                     android:layout_marginTop="@dimen/m6"
-                    android:src="@drawable/icon_issue_off"/>
+                    android:src="@drawable/icon_discover_off"/>
 
             <TextView
                     android:id="@+id/movie_name"
@@ -70,7 +70,7 @@
                     android:layout_width="30dp"
                     android:gravity="center"
                     android:textSize="9sp"
-                    android:textColor="@color/contents_text"
+                    android:textColor="@color/color_4A4A4A"
                     android:text="@string/message"/>
 
 
@@ -115,7 +115,7 @@
 
             <TextView
                     android:id="@+id/mine_name"
-                    android:textColor="@color/contents_text"
+                    android:textColor="@color/color_4A4A4A"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/mine_img"
                     android:layout_width="30dp"

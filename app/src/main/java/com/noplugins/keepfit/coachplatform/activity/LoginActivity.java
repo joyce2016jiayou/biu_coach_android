@@ -10,6 +10,8 @@ import android.text.method.DigitsKeyListener;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -438,6 +440,12 @@ public class LoginActivity extends BaseActivity {
                 popupWindow.dismiss();
             }
         });
+        WebView webView = view.findViewById(R.id.webView);
+        //自适应屏幕
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setUseWideViewPort(true);//设置此属性，可任意比例缩放
+        webSettings.setLoadWithOverviewMode(true);
+        webView.loadUrl("file:///android_asset/jiaolian_xieyi.html");
     }
 
     private void save_resource(String token, String user_number, String teacher_type, String teacher_number) {
