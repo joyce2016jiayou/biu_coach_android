@@ -56,6 +56,7 @@ public class ManagerTeamClassAdapter extends BaseQuickAdapter<ManagerBean.Course
                 helper.getView(R.id.tv_agin).setVisibility(View.GONE);
                 break;
             case 2: //邀请中
+                helper.getView(R.id.tv_team_time).setVisibility(View.GONE);
                 helper.setText(R.id.tv_item, "邀请中");
                 helper.getView(R.id.ll_yaoqin).setVisibility(View.VISIBLE);
                 helper.getView(R.id.tv_cg_name).setVisibility(View.GONE);
@@ -63,6 +64,7 @@ public class ManagerTeamClassAdapter extends BaseQuickAdapter<ManagerBean.Course
 //                helper.getView(R.id.tv_team_price).setVisibility(View.GONE);
                 break;
             case 3: //历史
+                helper.getView(R.id.tv_team_time).setVisibility(View.GONE);
                 helper.setText(R.id.tv_item, statusType(item.getStatus()));
                 helper.setText(R.id.tv_team_date_history, item.getMin()+"min");
                 helper.getView(R.id.tv_team_date_history).setVisibility(View.VISIBLE);

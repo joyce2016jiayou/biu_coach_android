@@ -526,7 +526,7 @@ public class Network {
                 .subscribe(subscriber);
     }
 
-    public Subscription submit_tice(DairyBean params, Subscriber<Bean<String>> subscriber) {
+    public Subscription submit_tice(DairyBean params, Subscriber<Bean<Object>> subscriber) {
         return service.submit_tice(retuen_json_object(params))
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())

@@ -198,8 +198,8 @@ class TeacherAddOrEditActivity : BaseActivity() {
         params["course_name"] = edit_class_name.text.toString()
         params["class_type"] = skillType
         params["course_des"] = edit_jieshao.text.toString()
-        params["tips"] = edit_shihe.text.toString()
-        params["edit_zhuyi"] = edit_jieshao.text.toString()
+        params["tips"] = edit_zhuyi.text.toString()
+        params["suit_person"] = edit_shihe.text.toString()
         subscription = Network.getInstance("修改课程", this)
             .updateCourse(params,
                 ProgressSubscriber("修改课程", object : SubscriberOnNextListener<Bean<Any>> {
@@ -241,7 +241,7 @@ class TeacherAddOrEditActivity : BaseActivity() {
         edit_class_name.setText(managerTeamBean.courseName)
         tv_select_type.text =classType(managerTeamBean.classType)
         skillType = managerTeamBean.classType
-        edit_price.setText(""+managerTeamBean.price)
+        edit_price.setText(""+managerTeamBean.finalPrice)
         edit_jieshao.setText(""+managerTeamBean.courseDes)
         edit_shihe.setText(""+managerTeamBean.suitPerson)
         edit_zhuyi.setText(""+managerTeamBean.tips)
