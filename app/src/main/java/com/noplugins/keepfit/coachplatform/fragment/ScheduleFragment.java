@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.bumptech.glide.Glide;
 import com.noplugins.keepfit.coachplatform.R;
 import com.noplugins.keepfit.coachplatform.activity.*;
 import com.noplugins.keepfit.coachplatform.adapter.ClassAdapter;
@@ -79,6 +80,9 @@ public class ScheduleFragment extends Fragment {
 
 
     private void initView() {
+        Glide.with(getActivity())
+                .load(SpUtils.getString(getActivity(),AppConstants.LOGO))
+                .into(touxiang_image);
         if (classDateBeans.size() > 0) {
             classDateBeans.clear();
         }
