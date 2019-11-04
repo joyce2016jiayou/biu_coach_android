@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,11 +29,10 @@ public class StepThreeFragment extends ViewPagerFragment {
     LinearLayout success_layout;
     @BindView(R.id.fail_layout)
     LinearLayout fail_layout;
-
-
     private CheckStatusActivity checkStatusActivity;
     private StepView stepView;
     private NoScrollViewPager viewpager_content;
+    public TextView top_title_tv;
 
     public static StepThreeFragment homeInstance(String title) {
         StepThreeFragment fragment = new StepThreeFragment();
@@ -79,6 +79,8 @@ public class StepThreeFragment extends ViewPagerFragment {
 //                        stepView.setCurrentStep(Math.max((step - 2) % stepView.getStepNum(), 0));
                         //跳转到下一个页面
                         viewpager_content.setCurrentItem(3);
+                        checkStatusActivity.select_index = 3;
+                        top_title_tv.setText("签约上架");
                         int step = stepView.getCurrentStep();//设置进度条
                         stepView.setCurrentStep(Math.max((step + 1) % stepView.getStepNum(), 0));
 
@@ -94,6 +96,7 @@ public class StepThreeFragment extends ViewPagerFragment {
         super.onAttach(activity);
         if (activity instanceof CheckStatusActivity) {
             checkStatusActivity = (CheckStatusActivity) activity;
+            top_title_tv = checkStatusActivity.findViewById(R.id.top_title_tv);
             stepView = (StepView) checkStatusActivity.findViewById(R.id.step_view);
             viewpager_content = checkStatusActivity.findViewById(R.id.viewpager_content);
         }

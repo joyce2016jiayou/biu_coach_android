@@ -148,18 +148,26 @@ public class TeacherTimeActivity extends BaseActivity {
                         String startHour_str = "";
                         if (startHour <= 9) {
                             startHour_str = "0" + startHour;
+                        }else{
+                            startHour_str =""+ startHour;
                         }
                         String startMinute_str = "";
                         if (startMinute <= 9) {
                             startMinute_str = "0" + startMinute;
+                        }else{
+                            startMinute_str = ""+startMinute;
                         }
                         String endHour_str = "";
                         if (endHour <= 9) {
                             endHour_str = "0" + endHour;
+                        }else{
+                            endHour_str = ""+endHour;
                         }
                         String endMinute_str = "";
                         if (endMinute <= 9) {
                             endMinute_str = "0" + endMinute;
+                        }else{
+                            endMinute_str = "" +endMinute;
                         }
                         select_start_time.setText(startHour_str + ":" + startMinute_str);
                         select_end_time.setText(endHour_str + ":" + endMinute_str);

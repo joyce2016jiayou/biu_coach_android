@@ -176,6 +176,7 @@ public class ClassDetailActivity extends BaseActivity implements EasyPermissions
         Map<String, Object> params = new HashMap<>();
         params.put("courseNum", courseNum);
         params.put("custUserNum", user_number);
+        params.put("orderItemNum", order_number);
         Subscription subscription = Network.getInstance("约课信息详情", this)
                 .class_detail(params,
                         new ProgressSubscriber<>("约课信息详情", new SubscriberOnNextListener<Bean<ClassDetailBean>>() {
@@ -187,6 +188,7 @@ public class ClassDetailActivity extends BaseActivity implements EasyPermissions
 
                             @Override
                             public void onError(String error) {
+
                             }
                         }, this, true));
     }
@@ -198,7 +200,7 @@ public class ClassDetailActivity extends BaseActivity implements EasyPermissions
             yiyueyue_layout.setVisibility(View.GONE);
             top_view.setVisibility(View.GONE);
             //设置数据
-            status_tv.setText(data.getCheckInStatus());
+            status_tv.setText(data.getCourseStart());
             w_room_name.setText(data.getCourseHome());
             w_class_name.setText(data.getCourseName());
             w_class_type.setText(data.getClassType());
@@ -206,22 +208,23 @@ public class ClassDetailActivity extends BaseActivity implements EasyPermissions
             w_class_time.setText(data.getTime());
             w_class_duration_tv.setText(data.getMin());
             w_class_renshu_zhanbi.setText(data.getPerson());
+
         } else {//私教
             yiqiandao_layout.setVisibility(View.GONE);
             yiyueyue_layout.setVisibility(View.VISIBLE);
             top_view.setVisibility(View.VISIBLE);
             button.setText("签到");
             //判断是否写过日志
-            if (data.getSportLog() == 0) {//没写过日志
-                yiqiandao_layout.setVisibility(View.GONE);
-                yiyueyue_layout.setVisibility(View.VISIBLE);
-                top_view.setVisibility(View.VISIBLE);
-                button.setText("写日志");
-            } else {
-                yiqiandao_layout.setVisibility(View.GONE);
-                yiyueyue_layout.setVisibility(View.VISIBLE);
-                top_view.setVisibility(View.GONE);
-            }
+//            if (data.getSportLog() == 0) {//没写过日志
+//                yiqiandao_layout.setVisibility(View.GONE);
+//                yiyueyue_layout.setVisibility(View.VISIBLE);
+//                top_view.setVisibility(View.VISIBLE);
+//                button.setText("写日志");
+//            } else {
+//                yiqiandao_layout.setVisibility(View.GONE);
+//                yiyueyue_layout.setVisibility(View.VISIBLE);
+//                top_view.setVisibility(View.GONE);
+//            }
             //设置数据
             y_class_name.setText(data.getCourseName());
             y_class_time.setText(data.getTime());
@@ -229,7 +232,7 @@ public class ClassDetailActivity extends BaseActivity implements EasyPermissions
             y_class_duration_time.setText(data.getMin());
             y_user_name.setText(data.getNickName());
             //判断是否签到
-            status_tv.setText(data.getCheckInStatus());
+            status_tv.setText(data.getCourseStart());
             phone_umber = data.getPhone();
             changguan_id = data.getAreaNum();
         }

@@ -355,7 +355,12 @@ public class AddZhengshuActivity extends BaseActivity {
         @Override
         public void onClickDeleteNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view, int position, String model, ArrayList<String> models) {
             add_zhengshu_photos_view.removeItem(position);
+
             AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE_TWO = AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE_TWO - 1;
+            Log.e("的实际发抗衰老的",AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE_TWO+"");
+            if(AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE_TWO==0){//代表图片删完了
+                upload_coachPicCertificatesBean=null;
+            }
         }
 
         @Override

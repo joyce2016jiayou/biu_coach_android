@@ -93,7 +93,7 @@ public class StepTwoFragment extends ViewPagerFragment {
     List<TagBean> shanchang_tagBeans = new ArrayList<>();
     List<TagBean> jineng_tagBeans = new ArrayList<>();
     private NoScrollViewPager viewpager_content;
-
+    public TextView top_title_tv;
 
     public static StepTwoFragment homeInstance(String title) {
         StepTwoFragment fragment = new StepTwoFragment();
@@ -490,7 +490,10 @@ public class StepTwoFragment extends ViewPagerFragment {
                         new ProgressSubscriber<>("提交审核资料", new SubscriberOnNextListener<Bean<Object>>() {
                             @Override
                             public void onNext(Bean<Object> result) {
+                                checkStatusActivity.is_upload=true;
                                 viewpager_content.setCurrentItem(2);
+                                checkStatusActivity.select_index=2;
+                                top_title_tv.setText("等待审核");
                                 int step = stepView.getCurrentStep();//设置进度条
                                 stepView.setCurrentStep((step + 1) % stepView.getStepNum());
                             }
@@ -669,6 +672,7 @@ public class StepTwoFragment extends ViewPagerFragment {
         super.onAttach(activity);
         if (activity instanceof CheckStatusActivity) {
             checkStatusActivity = (CheckStatusActivity) activity;
+            top_title_tv = checkStatusActivity.findViewById(R.id.top_title_tv);
             stepView = (StepView) checkStatusActivity.findViewById(R.id.step_view);
             viewpager_content = checkStatusActivity.findViewById(R.id.viewpager_content);
         }

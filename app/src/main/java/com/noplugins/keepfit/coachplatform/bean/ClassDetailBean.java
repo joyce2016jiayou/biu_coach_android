@@ -2,48 +2,48 @@ package com.noplugins.keepfit.coachplatform.bean;
 
 public class ClassDetailBean {
 
-
     /**
-     * nickName : 来来来辣鸡把
-     * finalPrice : 0.0
-     * courseHome : 瑜伽
-     * courseName : 专业单车训练
+     * courseStart : 已结束
+     * nickName : 范范biu~
+     * finalPrice : 0.01
+     * courseHome :
+     * courseName : 测试新增团课
+     * checkIn : 0
      * min : 1h/节
-     * areaName : 超级新新
-     * phone : 18380583083
+     * areaName : 星之云健身馆
+     * phone : 18245992093
      * person :
-     * sportLog : 0
-     * checkInStatus : 0
-     * areaNum : GYM19091236750176
-     * end : 1
-     * time : 2019-09-18 17:00-18:00
+     * price : 1
+     * checkInStatus :
+     * areaNum :
+     * time : 2019-11-04 16:30-17:30
      * classType :
      */
 
+    private String courseStart;
     private String nickName;
     private double finalPrice;
     private String courseHome;
     private String courseName;
+    private int checkIn;
     private String min;
     private String areaName;
     private String phone;
     private String person;
-    private int sportLog;
+    private int price;
     private String checkInStatus;
     private String areaNum;
-    private int end;
     private String time;
     private String classType;
 
-    public String getPrice() {
-        return price;
+    public String getCourseStart() {
+        return courseStart;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
+    public void setCourseStart(String courseStart) {
+        this.courseStart = courseStart;
     }
 
-    private String price;
     public String getNickName() {
         return nickName;
     }
@@ -74,6 +74,14 @@ public class ClassDetailBean {
 
     public void setCourseName(String courseName) {
         this.courseName = courseName;
+    }
+
+    public int getCheckIn() {
+        return checkIn;
+    }
+
+    public void setCheckIn(int checkIn) {
+        this.checkIn = checkIn;
     }
 
     public String getMin() {
@@ -108,12 +116,12 @@ public class ClassDetailBean {
         this.person = person;
     }
 
-    public int getSportLog() {
-        return sportLog;
+    public int getPrice() {
+        return price;
     }
 
-    public void setSportLog(int sportLog) {
-        this.sportLog = sportLog;
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     public String getCheckInStatus() {
@@ -130,14 +138,6 @@ public class ClassDetailBean {
 
     public void setAreaNum(String areaNum) {
         this.areaNum = areaNum;
-    }
-
-    public int getEnd() {
-        return end;
-    }
-
-    public void setEnd(int end) {
-        this.end = end;
     }
 
     public String getTime() {

@@ -151,24 +151,24 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             R.id.btn_home -> {
                 viewpager_content.currentItem = 0
                 xianshi_one()
-                home_name.setTextColor(resources.getColor(R.color.btn_text_color))
-                movie_name.setTextColor(resources.getColor(R.color.contents_text))
-                mine_name.setTextColor(resources.getColor(R.color.contents_text))
+                home_name.setTextColor(resources.getColor(R.color.color_181818))
+                movie_name.setTextColor(resources.getColor(R.color.color_4A4A4A))
+                mine_name.setTextColor(resources.getColor(R.color.color_4A4A4A))
             }
 
             R.id.btn_movie -> {
                 viewpager_content.currentItem = 1
                 xianshi_two()
-                home_name.setTextColor(resources.getColor(R.color.contents_text))
-                movie_name.setTextColor(resources.getColor(R.color.btn_text_color))
-                mine_name.setTextColor(resources.getColor(R.color.contents_text))
+                home_name.setTextColor(resources.getColor(R.color.color_4A4A4A))
+                movie_name.setTextColor(resources.getColor(R.color.color_181818))
+                mine_name.setTextColor(resources.getColor(R.color.color_4A4A4A))
             }
             R.id.btn_mine -> {
                 viewpager_content.currentItem = 2
                 xianshi_three()
-                home_name.setTextColor(resources.getColor(R.color.contents_text))
-                movie_name.setTextColor(resources.getColor(R.color.contents_text))
-                mine_name.setTextColor(resources.getColor(R.color.btn_text_color))
+                home_name.setTextColor(resources.getColor(R.color.color_4A4A4A))
+                movie_name.setTextColor(resources.getColor(R.color.color_4A4A4A))
+                mine_name.setTextColor(resources.getColor(R.color.color_181818))
             }
         }
     }
@@ -194,7 +194,6 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     }
 
 
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun upadate(messageEvent: MessageEvent) {
         if (messageEvent.message == "update_message_num") {//获取消息总数，设置消息总数
@@ -210,9 +209,10 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
     private fun get_message_all() {
         val params = HashMap<String, Any>()
-        params["userNum"]  = SpUtils.getString(applicationContext, AppConstants.USER_NAME)
+        params["userNum"] = SpUtils.getString(applicationContext, AppConstants.USER_NAME)
         subscription = Network.getInstance("获取消息总数", applicationContext)
-            .messageTotalCount(params,
+            .messageTotalCount(
+                params,
                 ProgressSubscriber("读消息", object : SubscriberOnNextListener<Bean<MaxMessageEntity>> {
                     override fun onNext(result: Bean<MaxMessageEntity>) {
                         Log.e(TAG, "获取消息总数成功：" + result.data.noRead)
