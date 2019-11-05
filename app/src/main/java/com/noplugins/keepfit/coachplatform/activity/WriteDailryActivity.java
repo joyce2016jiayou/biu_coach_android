@@ -150,9 +150,9 @@ public class WriteDailryActivity extends BaseActivity {
         dairyBean.setKcal(daixie_edit.getText().toString());
         Subscription subscription = Network.getInstance("提交详情数据", this)
                 .submit_tice(dairyBean,
-                        new ProgressSubscriber<>("提交详情数据", new SubscriberOnNextListener<Bean<String>>() {
+                        new ProgressSubscriber<>("提交详情数据", new SubscriberOnNextListener<Bean<Object>>() {
                             @Override
-                            public void onNext(Bean<String> result) {
+                            public void onNext(Bean<Object> result) {
                                 add_btn.loadingComplete();
                                 Toast.makeText(getApplicationContext(), "新增日志成功~", Toast.LENGTH_SHORT).show();
                                 finish();
@@ -160,6 +160,7 @@ public class WriteDailryActivity extends BaseActivity {
 
                             @Override
                             public void onError(String error) {
+                                Toast.makeText(getApplicationContext(), error, Toast.LENGTH_SHORT).show();
                                 add_btn.loadingComplete();
 
                             }

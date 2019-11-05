@@ -99,8 +99,14 @@ class TeamInfoActivity : BaseActivity() {
         edit_class_name.text = managerTeamBean.courseList.courseName
         tv_select_type.text =classType(managerTeamBean.courseList.classType)
         tv_team_length.text = "${managerTeamBean.courseList.min}min"
-        edit_price.text = "¥"+managerTeamBean.courseList.price
-        edit_cycle.text = ""+managerTeamBean.courseList.loopCycle+"周"
+        edit_price.text = "¥"+managerTeamBean.courseList.finalPrice
+
+        if (managerTeamBean.courseList.isLoop){
+            edit_cycle.text = ""+managerTeamBean.courseList.loopCycle+"周"
+        } else {
+            edit_cycle.text = "单次"
+        }
+
 
         val startHour = DateHelper.getDateByLong(managerTeamBean.courseList.startTime)
         val startDay  = DateHelper.getDateDayByLong(managerTeamBean.courseList.startTime)

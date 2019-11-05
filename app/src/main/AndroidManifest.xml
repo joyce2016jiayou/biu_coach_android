@@ -149,6 +149,7 @@
         </activity>
         <activity
                 android:name=".MainActivity"
+                android:hardwareAccelerated="false"
                 android:launchMode="singleTask">
 
         </activity>
@@ -285,6 +286,7 @@
         <activity android:name=".activity.manager.TeamInfoActivity"/>
         <activity android:name=".activity.info.ProductAdviceActivity"/>
         <activity android:name=".activity.info.UpdatePasswordActivity"/>
+        <activity android:name=".activity.info.AboutActivity"/>
 
         <meta-data
                 android:name="JPUSH_CHANNEL"

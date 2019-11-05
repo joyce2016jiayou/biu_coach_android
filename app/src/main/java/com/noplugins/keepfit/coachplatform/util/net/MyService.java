@@ -383,7 +383,7 @@ public interface MyService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("updateCoachSportLog")
-    Observable<Bean<String>> submit_tice(@Body RequestBody json);
+    Observable<Bean<Object>> submit_tice(@Body RequestBody json);
 
 
     /**

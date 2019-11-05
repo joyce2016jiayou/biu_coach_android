@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.gson.Gson
 import com.noplugins.keepfit.coachplatform.adapter.ContentPagerAdapterMy
@@ -33,6 +34,7 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.util.*
+import kotlin.system.exitProcess
 
 class MainActivity : BaseActivity(), View.OnClickListener {
     internal var bottom_iamge_views: MutableList<ImageView> = ArrayList()
@@ -237,5 +239,17 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             )
     }
 
+    //退出时的时间
+    private var mExitTime: Long = 0
+    override fun onBackPressed() {
+        if ((System.currentTimeMillis() - mExitTime) > 2000) {
+            Toast.makeText(applicationContext, "再按一次退出", Toast.LENGTH_SHORT).show()
+            mExitTime = System.currentTimeMillis()
+        } else {
+            finish()
+            exitProcess(0)
+        }
+
+    }
 
 }

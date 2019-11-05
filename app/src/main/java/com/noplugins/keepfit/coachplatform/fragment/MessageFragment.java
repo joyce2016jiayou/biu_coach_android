@@ -11,14 +11,18 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.bumptech.glide.Glide;
 import com.noplugins.keepfit.coachplatform.R;
 import com.noplugins.keepfit.coachplatform.adapter.TabItemAdapter;
 import com.noplugins.keepfit.coachplatform.fragment.message.MessageCgFragment;
 import com.noplugins.keepfit.coachplatform.fragment.message.MessageClassFragment;
 import com.noplugins.keepfit.coachplatform.fragment.message.MessageQianbaoFragment;
 import com.noplugins.keepfit.coachplatform.fragment.message.MessageSystemFragment;
+import com.noplugins.keepfit.coachplatform.global.AppConstants;
 import com.noplugins.keepfit.coachplatform.util.MessageEvent;
+import com.noplugins.keepfit.coachplatform.util.SpUtils;
 import com.noplugins.keepfit.coachplatform.util.ui.ViewPagerFragment;
+import de.hdodenhof.circleimageview.CircleImageView;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -53,6 +57,8 @@ public class MessageFragment extends ViewPagerFragment {
     TextView tv3;
     @BindView(R.id.tv4)
     TextView tv4;
+    @BindView(R.id.touxiang_image)
+    CircleImageView touxiang_image;
 
     private ArrayList<Fragment> mFragments;
 
@@ -99,6 +105,9 @@ public class MessageFragment extends ViewPagerFragment {
     }
 
     private void initView() {
+        Glide.with(getActivity())
+                .load(SpUtils.getString(getActivity(), AppConstants.LOGO))
+                .into(touxiang_image);
         mFragments = new ArrayList<>();
         mFragments.add(MessageClassFragment.Companion.newInstance("课程"));
         mFragments.add(MessageCgFragment.Companion.newInstance("场馆"));

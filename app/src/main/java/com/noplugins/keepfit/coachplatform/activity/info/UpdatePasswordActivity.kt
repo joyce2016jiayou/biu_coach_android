@@ -45,10 +45,10 @@ class UpdatePasswordActivity : BaseActivity() {
     }
 
     private fun updatePassword() {
-        if (!PwdCheckUtil.isLetterDigit(edit_new_password1.getText().toString())) {
-            Toast.makeText(this, "密码不符合规则！", Toast.LENGTH_SHORT).show()
-            return
-        }
+//        if (!PwdCheckUtil.isLetterDigit(edit_new_password1.getText().toString())) {
+//            Toast.makeText(this, "密码不符合规则！", Toast.LENGTH_SHORT).show()
+//            return
+//        }
         if (TextUtils.isEmpty(edit_new_password1.getText().toString())) {
             Toast.makeText(this, "密码不能为空！", Toast.LENGTH_SHORT).show()
             return
@@ -65,6 +65,7 @@ class UpdatePasswordActivity : BaseActivity() {
                 ProgressSubscriber("设置提现密码", object : SubscriberOnNextListener<Bean<Any>> {
                     override fun onNext(result: Bean<Any>) {
 //                        toLogin()
+                        SpUtils.putInt(getApplicationContext(), AppConstants.IS_TX,1)
                         finish()
                     }
 

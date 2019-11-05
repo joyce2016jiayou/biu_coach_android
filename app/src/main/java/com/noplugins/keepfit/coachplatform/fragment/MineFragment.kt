@@ -31,6 +31,9 @@ import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
 import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
 import com.noplugins.keepfit.coachplatform.util.ui.toast.SuperCustomToast
 import kotlinx.android.synthetic.main.fragment_mine.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import java.util.HashMap
 
 class MineFragment : BaseFragment() {
@@ -51,10 +54,21 @@ class MineFragment : BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         if (newView == null) {
             newView = inflater.inflate(R.layout.fragment_mine, container, false)
+            EventBus.getDefault().register(this)
         }
         return newView
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public fun onEvent(data1: String) {
+        if (data1 == "修改了资料"){
+            requestData()
+        }
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         onClick()
@@ -64,6 +78,8 @@ class MineFragment : BaseFragment() {
         super.onFragmentFirstVisible()
         requestData()
     }
+
+
 
     private fun setting(min: MineBean) {
         SpUtils.putString(activity, AppConstants.TEACHER_TYPE, ""+min.teacherType)
@@ -136,6 +152,7 @@ class MineFragment : BaseFragment() {
         tv_service_time.text = "${min.serviceDur}h"
         tv_team_num.text = "${min.classTotal}"
         tv_teacher_num.text = "${min.privateTotal}"
+        SpUtils.putString(activity,AppConstants.LOGO,min.logoUrl)
         Glide.with(activity)
             .load(min.logoUrl)
             .into(iv_logo)

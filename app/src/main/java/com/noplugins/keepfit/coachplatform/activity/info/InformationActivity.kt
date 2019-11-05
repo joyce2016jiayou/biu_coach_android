@@ -69,8 +69,8 @@ class InformationActivity : BaseActivity() {
 
     override fun initView() {
         setContentView(R.layout.activity_information)
-        Glide.with(this).load(SpUtils.getString(applicationContext, AppConstants.LOGO))
-            .into(iv_logo)
+//        Glide.with(this).load(SpUtils.getString(applicationContext, AppConstants.LOGO))
+//            .into(iv_logo)
         /**七牛云**/
         uploadManager = MyApplication.uploadManager
         sdf = SimpleDateFormat("yyyyMMddHHmmss")

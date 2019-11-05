@@ -80,6 +80,9 @@ public class ScheduleFragment extends Fragment {
 
 
     private void initView() {
+        Glide.with(getActivity())
+                .load(SpUtils.getString(getActivity(),AppConstants.LOGO))
+                .into(touxiang_image);
         if (classDateBeans.size() > 0) {
             classDateBeans.clear();
         }
