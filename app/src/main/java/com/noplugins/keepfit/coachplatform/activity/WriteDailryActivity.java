@@ -130,7 +130,7 @@ public class WriteDailryActivity extends BaseActivity {
         List<String> ids = new ArrayList<>();
         for (int i = 0; i < lableListBeans.size(); i++) {
             if (lableListBeans.get(i).isCheck()) {
-                ids.add(lableListBeans.get(i).getId() + "");
+                ids.add(lableListBeans.get(i).getValue() + "");
             }
         }
         for (int i = 0; i < ids.size(); i++) {
