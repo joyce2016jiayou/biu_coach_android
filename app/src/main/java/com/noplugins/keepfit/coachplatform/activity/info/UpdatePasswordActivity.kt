@@ -59,7 +59,7 @@ class UpdatePasswordActivity : BaseActivity() {
         }
         val params = HashMap<String, Any>()
         params["userNum"] = SpUtils.getString(applicationContext, AppConstants.USER_NAME)
-        params["password"] = edit_new_password1.text.toString()
+        params["paypassword"] = edit_new_password1.text.toString()
         subscription = Network.getInstance("设置提现密码", this)
             .settingPayPassword(params,
                 ProgressSubscriber("设置提现密码", object : SubscriberOnNextListener<Bean<Any>> {

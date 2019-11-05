@@ -238,6 +238,8 @@ class WithdrawActivity : BaseActivity() {
         val sure = view.findViewById<LinearLayout>(R.id.sure_layout)
         val etPwd = view.findViewById<CodeEditText>(R.id.et_password)
         val tvWjPwd = view.findViewById<TextView>(R.id.tv_wj_pwd)
+        val tv_money = view.findViewById<TextView>(R.id.tv_money)
+        tv_money.text = "¥${et_withdraw_money.text.toString().trim()}"
 
         cancel.setOnClickListener {
             popupWindow.dismiss()
@@ -267,14 +269,14 @@ class WithdrawActivity : BaseActivity() {
         val subscription = Network.getInstance("提现", this)
             .withdrawDeposit(
                 params,
-                ProgressSubscriber("提现", object : SubscriberOnNextListener<Bean<String>> {
-                    override fun onNext(result: Bean<String>) {
+                ProgressSubscriber("提现", object : SubscriberOnNextListener<Bean<Any>> {
+                    override fun onNext(result: Bean<Any>) {
                         toComplete()
                     }
 
                     override fun onError(error: String) {
-
-
+                        SuperCustomToast.getInstance(applicationContext)
+                            .show(error)
                     }
                 }, this, false)
             )

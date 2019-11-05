@@ -301,7 +301,7 @@ public interface MyService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("forgetPassword")
-    Observable<Bean<String>> forgetPassword(@Body RequestBody json);
+    Observable<Bean<Object>> forgetPassword(@Body RequestBody json);
 
     /**
      * 修改手机号
@@ -439,7 +439,7 @@ public interface MyService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("withdrawDeposit")
-    Observable<Bean<String>> withdrawDeposit(@Body RequestBody json);
+    Observable<Bean<Object>> withdrawDeposit(@Body RequestBody json);
 
     /**
      * 数据字典

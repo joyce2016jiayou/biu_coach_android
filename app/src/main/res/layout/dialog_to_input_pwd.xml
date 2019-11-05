@@ -31,7 +31,7 @@
                 android:id="@+id/tv_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="¥3000"
+                tools:text="¥3000"
                 android:textSize="20sp"
                 android:layout_marginTop="@dimen/m20"
                 android:textStyle="bold"
@@ -116,7 +116,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textStyle="normal"
-                        android:text="去设置"
+                        android:text="确定"
                         android:textSize="18sp"
                         android:textColor="@color/white"
                         />
