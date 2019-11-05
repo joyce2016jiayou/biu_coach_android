@@ -1,7 +1,10 @@
 package com.noplugins.keepfit.coachplatform.activity.info
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
@@ -17,8 +20,10 @@ import com.noplugins.keepfit.coachplatform.util.ActivityCollectorUtil
 import com.noplugins.keepfit.coachplatform.util.SpUtils
 import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow
 import kotlinx.android.synthetic.main.activity_setting.*
+import pub.devrel.easypermissions.AppSettingsDialog
+import pub.devrel.easypermissions.EasyPermissions
 
-class SettingActivity : BaseActivity() {
+class SettingActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
     override fun initBundle(parms: Bundle?) {
 
     }
@@ -60,6 +65,9 @@ class SettingActivity : BaseActivity() {
             val intent = Intent(this, InstructorTypeActivity::class.java)
             startActivity(intent)
         }
+        rl_call.setOnClickListener {
+            call_pop()
+        }
 
     }
 
@@ -98,4 +106,80 @@ class SettingActivity : BaseActivity() {
     }
 
 
+    companion object {
+
+        private const val PERMISSION_STORAGE_CODE = 10001
+        private const val PERMISSION_STORAGE_MSG = "需要电话权限才能联系客服哦"
+    }
+
+    val PERMISSION_STORAGE = arrayOf(Manifest.permission.CALL_PHONE)
+
+    private fun call_pop() {
+        val popupWindow = CommonPopupWindow.Builder(this)
+            .setView(R.layout.call_pop)
+            .setBackGroundLevel(0.5f)//0.5f
+            .setAnimationStyle(R.style.main_menu_animstyle)
+            .setWidthAndHeight(WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.MATCH_PARENT)
+            .setOutSideTouchable(true).create()
+        popupWindow.showAsDropDown(rl_call)
+
+        /**设置逻辑 */
+        val view = popupWindow.contentView
+        val cancel_layout = view.findViewById<LinearLayout>(R.id.cancel_layout)
+        val sure_layout = view.findViewById<LinearLayout>(R.id.sure_layout)
+        cancel_layout.setOnClickListener { popupWindow.dismiss() }
+        sure_layout.setOnClickListener {
+            initSimple()
+            popupWindow.dismiss()
+        }
+
+
+    }
+
+    //@AfterPermissionGranted(PERMISSION_STORAGE_CODE)
+    private fun initSimple() {
+        if (hasStoragePermission()) {
+            //有权限
+            callPhone("4006836895")
+        } else {
+            //申请权限
+            EasyPermissions.requestPermissions(this, PERMISSION_STORAGE_MSG, PERMISSION_STORAGE_CODE, *PERMISSION_STORAGE)
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    fun callPhone(phoneNum: String) {
+        val intent1 = Intent(Intent.ACTION_CALL)
+        val data = Uri.parse("tel:$phoneNum")
+        intent1.data = data
+        this!!.startActivity(intent1)
+    }
+
+    fun hasPermissions( vararg permissions: String): Boolean {
+        return EasyPermissions.hasPermissions(this, *permissions)
+    }
+
+    fun hasStoragePermission(): Boolean {
+        return hasPermissions( *PERMISSION_STORAGE)
+    }
+
+    override fun onPermissionsGranted(requestCode: Int, perms: List<String>) {
+
+    }
+
+    override fun onPermissionsDenied(requestCode: Int, perms: List<String>) {
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            AppSettingsDialog.Builder(this)
+                .setTitle("提醒")
+                .setRationale("需要电话权限才能联系客服哦")
+                .build()
+                .show()
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
+
+    }
 }

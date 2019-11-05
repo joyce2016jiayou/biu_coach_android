@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -49,16 +50,18 @@ class WalletActivity : BaseActivity() {
             finish()
         }
         btn_tixian.clickWithTrigger(1000) {
-            if (SpUtils.getInt(applicationContext,AppConstants.IS_TX) == 0){
+            Log.d("LOGO", "当先："+SpUtils.getInt(applicationContext,AppConstants.IS_TX))
+            if (SpUtils.getInt(applicationContext,AppConstants.IS_TX) == 1){
                 val intent = Intent(this, WithdrawActivity::class.java)
                 val bundle = Bundle()
                 bundle.putDouble("finalCanWithdraw",finalCanWithdraw)
                 intent.putExtras(bundle)
                 startActivity(intent)
-            } else {
-                //跳转到提现
-                toQueren(btn_tixian)
+                return@clickWithTrigger
             }
+
+            //跳转到提现
+            toQueren(btn_tixian)
         }
      }
 

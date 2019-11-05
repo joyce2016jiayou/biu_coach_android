@@ -247,6 +247,9 @@ public class LoginActivity extends BaseActivity {
                                         result.getData().getUserNum(),
                                         result.getData().getTeacherType(),
                                         result.getData().getUserNum());
+
+                                Log.d("LOGO","hh:"+SpUtils.getInt(getApplicationContext(),AppConstants.IS_TX));
+                                Log.d("LOGO","ww:"+result.getData().getHavePayPassWord());
                                 //获取教练状态
                                 get_teacher_status();
 

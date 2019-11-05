@@ -36,7 +36,7 @@
                     android:textColor="@color/top_heiziti"
                     android:textSize="18sp"
                     android:layout_marginTop="@dimen/m24"
-                    android:text="(021）67254325"
+                    android:text="4006-836-895"
                     android:textStyle="bold"
                     />
             <TextView

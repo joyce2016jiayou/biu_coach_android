@@ -2,14 +2,17 @@ package com.noplugins.keepfit.coachplatform.activity.info
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.widget.Toast
 import com.noplugins.keepfit.coachplatform.R
+import com.noplugins.keepfit.coachplatform.activity.LoginActivity
 import com.noplugins.keepfit.coachplatform.base.BaseActivity
 import com.noplugins.keepfit.coachplatform.global.AppConstants
 import com.noplugins.keepfit.coachplatform.global.clickWithTrigger
+import com.noplugins.keepfit.coachplatform.util.ActivityCollectorUtil
 import com.noplugins.keepfit.coachplatform.util.SpUtils
 import com.noplugins.keepfit.coachplatform.util.data.PwdCheckUtil
 import com.noplugins.keepfit.coachplatform.util.data.StringsHelper
@@ -96,7 +99,7 @@ class SettingPwdActivity : BaseActivity() {
             .forgetPassword(params,
                 ProgressSubscriber("设置密码", object : SubscriberOnNextListener<Bean<Any>> {
                     override fun onNext(result: Bean<Any>) {
-                        finish()
+                        toLogin()
                     }
 
                     override fun onError(error: String) {
@@ -105,6 +108,17 @@ class SettingPwdActivity : BaseActivity() {
                     }
                 }, this, false)
             )
+    }
+
+    private fun toLogin() {
+        val intent = Intent(this, LoginActivity::class.java)
+        //退出
+        SpUtils.putString(applicationContext, AppConstants.TOKEN, "")
+        SpUtils.putString(applicationContext, AppConstants.PHONE, "")
+        SpUtils.putString(applicationContext, AppConstants.USER_NAME, "")
+        startActivity(intent)
+        ActivityCollectorUtil.finishAllActivity()
+
     }
 
     private fun send() {

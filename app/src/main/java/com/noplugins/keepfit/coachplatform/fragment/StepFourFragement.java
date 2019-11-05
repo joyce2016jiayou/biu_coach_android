@@ -110,7 +110,7 @@ public class StepFourFragement extends ViewPagerFragment {
 
     private void agree_xieyi() {
         Map<String, Object> params = new HashMap<>();
-        params.put("userNum", SpUtils.getString(getActivity(), AppConstants.SELECT_TEACHER_NUMBER));
+        params.put("userNum", SpUtils.getString(getActivity(), AppConstants.USER_NAME));
         params.put("sign", "1");
         Subscription subscription = Network.getInstance("同意协议", getActivity())
                 .agree_xieyi(params,
