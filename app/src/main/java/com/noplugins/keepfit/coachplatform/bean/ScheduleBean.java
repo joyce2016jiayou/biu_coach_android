@@ -4,6 +4,15 @@ import java.util.List;
 
 public class ScheduleBean {
 
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
+    private String logo;
 
     private List<NoEndCourseBean> noEndCourse;
     private List<AlreadyEndCourseBean> alreadyEndCourse;
@@ -23,6 +32,7 @@ public class ScheduleBean {
     public void setAlreadyEndCourse(List<AlreadyEndCourseBean> alreadyEndCourse) {
         this.alreadyEndCourse = alreadyEndCourse;
     }
+
 
     public static class NoEndCourseBean {
         /**
@@ -100,6 +110,7 @@ public class ScheduleBean {
         }
 
         private int teacherCheckIn;
+
         public String getStartStatus() {
             return startStatus;
         }
@@ -107,7 +118,6 @@ public class ScheduleBean {
         public void setStartStatus(String startStatus) {
             this.startStatus = startStatus;
         }
-
 
 
         public String getPersonNum() {
@@ -444,6 +454,7 @@ public class ScheduleBean {
         }
 
         private String startStatus;
+
         public int getSportLog() {
             return sportLog;
         }

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.bumptech.glide.Glide;
 import com.noplugins.keepfit.coachplatform.R;
 import com.noplugins.keepfit.coachplatform.activity.*;
 import com.noplugins.keepfit.coachplatform.adapter.ClassAdapter;
@@ -96,12 +97,13 @@ public class ScheduleFragment extends Fragment {
         init_date_resoure();
 
 
-        touxiang_image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+//        touxiang_image.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
 
-            }
-        });
         teacher_time_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -109,7 +111,6 @@ public class ScheduleFragment extends Fragment {
                     Intent intent = new Intent(getActivity(), TeacherTimeActivity.class);
                     startActivity(intent);
                 }
-
             }
         });
         more_btn.setOnClickListener(new View.OnClickListener() {
@@ -178,7 +179,10 @@ public class ScheduleFragment extends Fragment {
                         new ProgressSubscriber<>("首页接口", new SubscriberOnNextListener<Bean<ScheduleBean>>() {
                             @Override
                             public void onNext(Bean<ScheduleBean> result) {
-                                if(classDateBeans.size()>0){
+                                //设置上方图片
+                                Glide.with(getActivity()).load(result.getData().getLogo())
+                                        .into(touxiang_image);
+                                if (classDateBeans.size() > 0) {
                                     classDateBeans.clear();
                                 }
                                 for (int i = 0; i < 2; i++) {
