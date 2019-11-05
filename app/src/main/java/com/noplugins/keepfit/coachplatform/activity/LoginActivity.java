@@ -212,7 +212,7 @@ public class LoginActivity extends BaseActivity {
                                         result.getData().getUserNum(),
                                         result.getData().getTeacherType(),
                                         result.getData().getUserNum());
-                                SpUtils.putInt(getApplicationContext(), AppConstants.IS_TX, result.getData().getHavePayPassWord());
+                                SpUtils.putInt(getApplicationContext(), AppConstants.IS_TX, result.getData().getHavePayPassword());
 
                                 if (result.getData().getHavePassword() == 0) {//没有设置过密码
                                     Intent intent = new Intent(LoginActivity.this, SetPasswordActivity.class);
@@ -242,14 +242,12 @@ public class LoginActivity extends BaseActivity {
                             @Override
                             public void onNext(Bean<LoginBean> result) {
                                 login_btn.loadingComplete();
-                                SpUtils.putInt(getApplicationContext(), AppConstants.IS_TX, result.getData().getHavePayPassWord());
+                                SpUtils.putInt(getApplicationContext(), AppConstants.IS_TX, result.getData().getHavePayPassword());
+
                                 save_resource(result.getData().getToken(),
                                         result.getData().getUserNum(),
                                         result.getData().getTeacherType(),
                                         result.getData().getUserNum());
-
-                                Log.d("LOGO","hh:"+SpUtils.getInt(getApplicationContext(),AppConstants.IS_TX));
-                                Log.d("LOGO","ww:"+result.getData().getHavePayPassWord());
                                 //获取教练状态
                                 get_teacher_status();
 
