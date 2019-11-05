@@ -21,6 +21,9 @@ import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
 import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
 import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow
 import kotlinx.android.synthetic.main.activity_wallet.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import java.util.HashMap
 
 class WalletActivity : BaseActivity() {
@@ -31,6 +34,7 @@ class WalletActivity : BaseActivity() {
 
     override fun initView() {
         setContentView(R.layout.activity_wallet)
+        EventBus.getDefault().register(this)
         requestData()
     }
 
@@ -45,7 +49,7 @@ class WalletActivity : BaseActivity() {
             finish()
         }
         btn_tixian.clickWithTrigger(1000) {
-            if (SpUtils.getInt(applicationContext,AppConstants.IS_TX) == 1){
+            if (SpUtils.getInt(applicationContext,AppConstants.IS_TX) == 0){
                 val intent = Intent(this, WithdrawActivity::class.java)
                 val bundle = Bundle()
                 bundle.putDouble("finalCanWithdraw",finalCanWithdraw)
@@ -57,6 +61,18 @@ class WalletActivity : BaseActivity() {
             }
         }
      }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public fun upadate(messageEvent:String ) {
+        if ("提现了金额" == messageEvent){
+            requestData()
+        }
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
+
 
     private fun toQueren(view1: TextView) {
         val popupWindow = CommonPopupWindow.Builder(this)

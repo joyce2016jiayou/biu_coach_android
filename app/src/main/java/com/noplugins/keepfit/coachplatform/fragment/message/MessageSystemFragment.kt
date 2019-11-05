@@ -84,7 +84,7 @@ class MessageSystemFragment : BaseFragment(){
         val params = HashMap<String, Any>()
         params["userNum"] = SpUtils.getString(activity, AppConstants.USER_NAME)
         params["page"] = page
-        params["type"] = 1
+        params["type"] = 4
         val subscription = Network.getInstance("消息列表", activity)
             .coachMessageList(params,
                 ProgressSubscriber("消息列表", object : SubscriberOnNextListener<Bean<MessageListBean>> {

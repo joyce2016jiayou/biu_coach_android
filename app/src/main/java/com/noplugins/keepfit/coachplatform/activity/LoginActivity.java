@@ -93,7 +93,7 @@ public class LoginActivity extends BaseActivity {
                     Log.e("登录方式", "密码登录");
                     is_yanzhengma_logon = false;
                     yanzhengma_tv.setText("验证码登录");
-                    edit_password.setInputType(InputType.TYPE_CLASS_NUMBER);
+                    edit_password.setInputType(0x00000081);
                     edit_password.setFilters(new InputFilter[]{new InputFilter.LengthFilter(18)}); //最大输入长度
 
                     SpannableString s = new SpannableString("请输入密码");//这里输入自己想要的提示文字
@@ -109,7 +109,7 @@ public class LoginActivity extends BaseActivity {
 
                     is_yanzhengma_logon = true;
                     yanzhengma_tv.setText("密码登录");
-                    edit_password.setInputType(0x00000081);
+                    edit_password.setInputType(InputType.TYPE_CLASS_NUMBER);
                     edit_password.setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)}); //最大输入长度
 
                     SpannableString s = new SpannableString("请输入验证码");//这里输入自己想要的提示文字

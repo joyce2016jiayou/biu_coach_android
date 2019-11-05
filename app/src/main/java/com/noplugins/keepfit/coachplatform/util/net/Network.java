@@ -430,7 +430,7 @@ public class Network {
                 .subscribe(subscriber);
     }
 
-    public Subscription forgetPassword(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
+    public Subscription forgetPassword(Map<String, Object> params, Subscriber<Bean<Object>> subscriber) {
         return service.forgetPassword(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -592,7 +592,7 @@ public class Network {
                 .subscribe(subscriber);
     }
 
-    public Subscription withdrawDeposit(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
+    public Subscription withdrawDeposit(Map<String, Object> params, Subscriber<Bean<Object>> subscriber) {
         return service.withdrawDeposit(retuen_json_object(params))
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
