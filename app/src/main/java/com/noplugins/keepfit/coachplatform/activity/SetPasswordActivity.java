@@ -51,6 +51,8 @@ public class SetPasswordActivity extends BaseActivity {
         setContentLayout(R.layout.activity_set_password);
         ButterKnife.bind(this);
         isShowTitle(false);
+        edit_password_number.setInputType(0x00000081);
+        edit_password_again.setInputType(0x00000081);
     }
 
     @Override

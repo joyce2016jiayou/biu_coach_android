@@ -212,7 +212,7 @@ public class LoginActivity extends BaseActivity {
                                         result.getData().getUserNum(),
                                         result.getData().getTeacherType(),
                                         result.getData().getUserNum());
-                                SpUtils.putInt(getApplicationContext(), AppConstants.IS_TX, result.getData().getHavePayPassword());
+                                SpUtils.putInt(getApplicationContext(), AppConstants.IS_TX, result.getData().getHavePassword());
 
                                 if (result.getData().getHavePassword() == 0) {//没有设置过密码
                                     Intent intent = new Intent(LoginActivity.this, SetPasswordActivity.class);
@@ -242,6 +242,7 @@ public class LoginActivity extends BaseActivity {
                             @Override
                             public void onNext(Bean<LoginBean> result) {
                                 login_btn.loadingComplete();
+                                Log.d("tag",":"+result.getData().getHavePayPassword());
                                 SpUtils.putInt(getApplicationContext(), AppConstants.IS_TX, result.getData().getHavePayPassword());
 
                                 save_resource(result.getData().getToken(),

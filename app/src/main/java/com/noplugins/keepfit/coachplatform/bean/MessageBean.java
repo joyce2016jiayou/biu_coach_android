@@ -35,6 +35,8 @@ public class MessageBean {
     private String updateDate;
     private String remark;
     private int deleted;
+    private double finalwithdrawMoney;
+    private double finalwithdrawBalance;
 
     public String getPkname() {
         return pkname;
