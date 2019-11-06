@@ -12,6 +12,7 @@ import com.google.gson.Gson
 import com.noplugins.keepfit.coachplatform.R
 import com.noplugins.keepfit.coachplatform.activity.LoginActivity
 import com.noplugins.keepfit.coachplatform.base.BaseActivity
+import com.noplugins.keepfit.coachplatform.bean.YanZhengMaBean
 import com.noplugins.keepfit.coachplatform.global.AppConstants
 import com.noplugins.keepfit.coachplatform.global.clickWithTrigger
 import com.noplugins.keepfit.coachplatform.util.ActivityCollectorUtil
@@ -61,15 +62,38 @@ class VerificationPhoneActivity : BaseActivity() {
             if (intent.getBooleanExtra("update", false)) {
                 updatePhone()
             } else {
-                val intent = Intent(this, UpdatePasswordActivity::class.java)
-                startActivity(intent)
-                finish()
+                verficationCode()
             }
 
         }
         back_btn.clickWithTrigger {
             finish()
         }
+    }
+
+    private fun verficationCode() {
+        val params = HashMap<String, Any>()
+        params["messageId"] = messageId
+        params["code"] = edit_yzm.text.toString()
+        params["phone"] = tv_phone.text.toString()
+        subscription = Network.getInstance("验证验证码和登录", this)
+            .yanzheng_yanzhengma(params, ProgressSubscriber("验证验证码和登录",
+                object : SubscriberOnNextListener<Bean<YanZhengMaBean>> {
+                    override fun onNext(t: Bean<YanZhengMaBean>?) {
+                        val intent = Intent(this@VerificationPhoneActivity, UpdatePasswordActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+
+                    override fun onError(error: String) {
+                        Log.e(TAG, "修改失败：$error")
+                        Toast.makeText(applicationContext, error, Toast.LENGTH_SHORT).show()
+                    }
+                },
+                this,
+                false
+            )
+            )
     }
 
     private fun send() {

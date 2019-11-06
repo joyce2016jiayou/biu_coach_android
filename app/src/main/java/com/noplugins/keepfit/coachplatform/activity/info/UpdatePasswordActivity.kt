@@ -23,6 +23,7 @@ import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
 import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
 import kotlinx.android.synthetic.main.activity_update_password.*
 import okhttp3.RequestBody
+import org.greenrobot.eventbus.EventBus
 
 import java.util.HashMap
 
@@ -45,16 +46,20 @@ class UpdatePasswordActivity : BaseActivity() {
     }
 
     private fun updatePassword() {
-//        if (!PwdCheckUtil.isLetterDigit(edit_new_password1.getText().toString())) {
-//            Toast.makeText(this, "密码不符合规则！", Toast.LENGTH_SHORT).show()
-//            return
-//        }
+        if (edit_new_password1.text.length != 6) {
+            Toast.makeText(this, "密码不符合规则！", Toast.LENGTH_SHORT).show()
+            return
+        }
         if (TextUtils.isEmpty(edit_new_password1.getText().toString())) {
             Toast.makeText(this, "密码不能为空！", Toast.LENGTH_SHORT).show()
             return
         }
         if (TextUtils.isEmpty(edit_password2.getText().toString())) {
             Toast.makeText(this, "确认密码不能为空！", Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (edit_new_password1.getText().toString() != edit_password2.getText().toString()){
+            Toast.makeText(this, "两次输入的密码不一致！", Toast.LENGTH_SHORT).show()
             return
         }
         val params = HashMap<String, Any>()
@@ -66,6 +71,7 @@ class UpdatePasswordActivity : BaseActivity() {
                     override fun onNext(result: Bean<Any>) {
 //                        toLogin()
                         SpUtils.putInt(getApplicationContext(), AppConstants.IS_TX,1)
+                        EventBus.getDefault().post("提现了金额")
                         finish()
                     }
 
