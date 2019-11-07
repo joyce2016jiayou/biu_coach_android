@@ -25,7 +25,7 @@ public class ClassDetailBean {
     private double finalPrice;
     private String courseHome;
     private String courseName;
-    private int checkIn;
+    private int checkIn;//需要后台返回同类型
     private String min;
     private String areaName;
     private String phone;
@@ -36,6 +36,24 @@ public class ClassDetailBean {
     private String time;
     private String classType;
 
+    public int getSportLog() {
+        return sportLog;
+    }
+
+    public void setSportLog(int sportLog) {
+        this.sportLog = sportLog;
+    }
+
+    private int sportLog;
+    public int getEnd() {
+        return end;
+    }
+
+    public void setEnd(int end) {
+        this.end = end;
+    }
+
+    private int end;
     public String getCourseStart() {
         return courseStart;
     }

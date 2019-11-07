@@ -463,7 +463,7 @@ public class Network {
                 .subscribe(subscriber);
     }
 
-    public Subscription set_shouke_time(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
+    public Subscription set_shouke_time(Map<String, Object> params, Subscriber<Bean<Object>> subscriber) {
         return service.set_shouke_time(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())

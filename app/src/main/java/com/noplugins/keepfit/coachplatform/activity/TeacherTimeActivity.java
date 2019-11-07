@@ -148,26 +148,26 @@ public class TeacherTimeActivity extends BaseActivity {
                         String startHour_str = "";
                         if (startHour <= 9) {
                             startHour_str = "0" + startHour;
-                        }else{
-                            startHour_str =""+ startHour;
+                        } else {
+                            startHour_str = "" + startHour;
                         }
                         String startMinute_str = "";
                         if (startMinute <= 9) {
                             startMinute_str = "0" + startMinute;
-                        }else{
-                            startMinute_str = ""+startMinute;
+                        } else {
+                            startMinute_str = "" + startMinute;
                         }
                         String endHour_str = "";
                         if (endHour <= 9) {
                             endHour_str = "0" + endHour;
-                        }else{
-                            endHour_str = ""+endHour;
+                        } else {
+                            endHour_str = "" + endHour;
                         }
                         String endMinute_str = "";
                         if (endMinute <= 9) {
                             endMinute_str = "0" + endMinute;
-                        }else{
-                            endMinute_str = "" +endMinute;
+                        } else {
+                            endMinute_str = "" + endMinute;
                         }
                         select_start_time.setText(startHour_str + ":" + startMinute_str);
                         select_end_time.setText(endHour_str + ":" + endMinute_str);
@@ -181,7 +181,6 @@ public class TeacherTimeActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 select_time_pop();
-
             }
         });
 
@@ -314,9 +313,9 @@ public class TeacherTimeActivity extends BaseActivity {
         params.put("endTime", "23:00:00");
         Subscription subscription = Network.getInstance("设置授课时间", this)
                 .set_shouke_time(params,
-                        new ProgressSubscriber<>("设置授课时间", new SubscriberOnNextListener<Bean<String>>() {
+                        new ProgressSubscriber<>("设置授课时间", new SubscriberOnNextListener<Bean<Object>>() {
                             @Override
-                            public void onNext(Bean<String> result) {
+                            public void onNext(Bean<Object> result) {
                                 get_shouke_time();
                             }
 

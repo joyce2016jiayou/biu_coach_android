@@ -56,8 +56,8 @@ public class NetWorkChangReceiver extends BroadcastReceiver {
                     }
                 } else {
                     //
-                    Toast.makeText(context,"网络开小差了，请检查网络是否连接成功",Toast.LENGTH_SHORT)
-                            .show();
+//                    Toast.makeText(context,"网络开小差了，请检查网络是否连接成功",Toast.LENGTH_SHORT)
+//                            .show();
                 }
             }
         }

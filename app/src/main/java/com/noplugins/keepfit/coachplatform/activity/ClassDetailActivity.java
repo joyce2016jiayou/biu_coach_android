@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.*;
@@ -89,7 +90,7 @@ public class ClassDetailActivity extends BaseActivity implements EasyPermissions
     public static final int PERMISSION_STORAGE_CODE = 10001;
     public static final String PERMISSION_STORAGE_MSG = "需要电话权限才能拨打电话哦";
     public static final String[] PERMISSION_STORAGE = new String[]{Manifest.permission.CALL_PHONE};
-    private String cource_type = "";
+    private int cource_type = 0;
     private String courseNum = "";
     private String order_number = "";
     private String user_number = "";
@@ -104,10 +105,13 @@ public class ClassDetailActivity extends BaseActivity implements EasyPermissions
 
     @Override
     public void initBundle(Bundle parms) {
-        cource_type = parms.getString("cource_type");
-        courseNum = parms.getString("courseNum");
-        order_number = parms.getString("order_number");
-        user_number = parms.getString("user_number");
+        if (null != parms) {
+            cource_type = parms.getInt("cource_type");
+            courseNum = parms.getString("courseNum");
+            order_number = parms.getString("order_number");
+            user_number = parms.getString("user_number");
+        }
+
     }
 
     @Override
@@ -195,7 +199,7 @@ public class ClassDetailActivity extends BaseActivity implements EasyPermissions
 
     private void set_value(ClassDetailBean data) {
         changguan_name_tv.setText(data.getAreaName());
-        if (cource_type.equals("1")) {//团课
+        if (cource_type == 1) {//团课
             yiqiandao_layout.setVisibility(View.VISIBLE);
             yiyueyue_layout.setVisibility(View.GONE);
             top_view.setVisibility(View.GONE);
@@ -208,31 +212,40 @@ public class ClassDetailActivity extends BaseActivity implements EasyPermissions
             w_class_time.setText(data.getTime());
             w_class_duration_tv.setText(data.getMin());
             w_class_renshu_zhanbi.setText(data.getPerson());
+            changguan_id = data.getAreaNum();
 
         } else {//私教
             yiqiandao_layout.setVisibility(View.GONE);
             yiyueyue_layout.setVisibility(View.VISIBLE);
             top_view.setVisibility(View.VISIBLE);
-            button.setText("签到");
-            //判断是否写过日志
-//            if (data.getSportLog() == 0) {//没写过日志
-//                yiqiandao_layout.setVisibility(View.GONE);
-//                yiyueyue_layout.setVisibility(View.VISIBLE);
-//                top_view.setVisibility(View.VISIBLE);
-//                button.setText("写日志");
-//            } else {
-//                yiqiandao_layout.setVisibility(View.GONE);
-//                yiyueyue_layout.setVisibility(View.VISIBLE);
-//                top_view.setVisibility(View.GONE);
-//            }
-            //设置数据
+            status_tv.setText(data.getCourseStart());
+            if (data.getCourseStart().equals("未开始")) {
+                if (data.getCheckIn() == 0) {//未签到
+                    button.setVisibility(View.VISIBLE);
+                    button.setText("签到");
+                } else if (data.getCheckIn() == 1) {//已签到
+                    button.setVisibility(View.GONE);
+                }
+            } else {//已结束
+                //判断是否写过日志
+                if (data.getSportLog() == 0) {//没写过日志
+                    yiqiandao_layout.setVisibility(View.GONE);
+                    yiyueyue_layout.setVisibility(View.VISIBLE);
+                    top_view.setVisibility(View.VISIBLE);
+                    button.setText("写日志");
+                    button.setVisibility(View.VISIBLE);
+                } else {
+                    yiqiandao_layout.setVisibility(View.GONE);
+                    yiyueyue_layout.setVisibility(View.VISIBLE);
+                    top_view.setVisibility(View.GONE);
+                    button.setVisibility(View.GONE);
+                }
+            }
             y_class_name.setText(data.getCourseName());
             y_class_time.setText(data.getTime());
             y_class_price.setText("¥" + data.getFinalPrice());
             y_class_duration_time.setText(data.getMin());
             y_user_name.setText(data.getNickName());
-            //判断是否签到
-            status_tv.setText(data.getCourseStart());
             phone_umber = data.getPhone();
             changguan_id = data.getAreaNum();
         }

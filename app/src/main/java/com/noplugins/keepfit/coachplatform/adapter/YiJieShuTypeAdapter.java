@@ -124,16 +124,16 @@ public class YiJieShuTypeAdapter extends BaseAdapter {
                 if (alreadyEndCourseBean.getCourseType() == 1) {//团课
                     Intent intent = new Intent(scheduleFragment.getActivity(), ClassDetailActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putString("cource_type", "1");
+                    bundle.putInt("cource_type", alreadyEndCourseBean.getCourseType());
                     bundle.putString("courseNum", alreadyEndCourseBean.getCourseNum());
                     bundle.putString("order_number", alreadyEndCourseBean.getCustOrderItemNum());
                     bundle.putString("user_number", alreadyEndCourseBean.getCustUserNum());
                     intent.putExtras(bundle);
                     scheduleFragment.startActivity(intent);
-                } else {
+                } else if (alreadyEndCourseBean.getCourseType() == 2) {
                     Intent intent = new Intent(scheduleFragment.getActivity(), ClassDetailActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putString("cource_type", "2");
+                    bundle.putInt("cource_type", alreadyEndCourseBean.getCourseType());
                     bundle.putString("courseNum", alreadyEndCourseBean.getCourseNum());
                     bundle.putString("order_number", alreadyEndCourseBean.getCustOrderItemNum());
                     bundle.putString("user_number", alreadyEndCourseBean.getCustUserNum());

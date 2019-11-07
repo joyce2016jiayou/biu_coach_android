@@ -164,16 +164,16 @@ public class WeijieshuTypeAdapter extends BaseAdapter implements EasyPermissions
                 if (noEndCourseBean.getCourseType() == 1) {//团课
                     Intent intent = new Intent(scheduleFragment.getActivity(), ClassDetailActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putString("cource_type", "1");
+                    bundle.putInt("cource_type", noEndCourseBean.getCourseType());
                     bundle.putString("courseNum", noEndCourseBean.getCourseNum());
                     bundle.putString("order_number", noEndCourseBean.getCustOrderItemNum());
                     bundle.putString("user_number", noEndCourseBean.getCustUserNum());
                     intent.putExtras(bundle);
                     scheduleFragment.startActivity(intent);
-                } else {
+                } else if(noEndCourseBean.getCourseType() == 2){
                     Intent intent = new Intent(scheduleFragment.getActivity(), ClassDetailActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putString("cource_type", "2");
+                    bundle.putInt("cource_type", noEndCourseBean.getCourseType());
                     bundle.putString("courseNum", noEndCourseBean.getCourseNum());
                     bundle.putString("order_number", noEndCourseBean.getCustOrderItemNum());
                     bundle.putString("user_number", noEndCourseBean.getCustUserNum());

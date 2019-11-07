@@ -153,11 +153,11 @@ public class YueKeInformationActivity extends BaseActivity {
         mCourseTableTestLayout.set_click_item_listen(new CourseTableLayoutView.Click_item() {
             @Override
             public void onClickCourse(View view, YueKeBean.CourseListBean course, int dataPosition, int dayPosition, int timePosition) {
-                Log.e("选择了", dataPosition + "");
-                if (course.getCourseType() == 1) {//1.团课
+                Log.e("111选择了", course.getCourseType() + "");
+                if (course.getCourseType() == 1) {  //1.团课
                     Intent intent = new Intent(YueKeInformationActivity.this, ClassDetailActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putString("cource_type", "1");
+                    bundle.putInt("cource_type", course.getCourseType());
                     bundle.putString("courseNum", course.getCourseNum());
                     bundle.putString("order_number", course.getCustOrderItemNum());
                     bundle.putString("user_number", course.getCustUserNum());
@@ -166,7 +166,7 @@ public class YueKeInformationActivity extends BaseActivity {
                 } else {//2.私教
                     Intent intent = new Intent(YueKeInformationActivity.this, ClassDetailActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putString("cource_type", "2");
+                    bundle.putInt("cource_type", course.getCourseType());
                     bundle.putString("courseNum", course.getCourseNum());
                     bundle.putString("order_number", course.getCustOrderItemNum());
                     bundle.putString("user_number", course.getCustUserNum());
