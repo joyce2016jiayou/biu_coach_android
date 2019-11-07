@@ -186,6 +186,15 @@ public class LoginActivity extends BaseActivity {
 
             }
         });
+        xieyi_check_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (xieyi_check_btn.isChecked()){
+                    xieyi_pop();
+                }
+
+            }
+        });
         xieyi_check_btn.setOnCheckedChangeListener(onCheckedChangeListener);
 
         //忘记密码
@@ -439,6 +448,7 @@ public class LoginActivity extends BaseActivity {
         no_agree_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                xieyi_check_btn.setChecked(false);
                 popupWindow.dismiss();
             }
         });

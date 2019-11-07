@@ -40,7 +40,7 @@
                 <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@drawable/baidu"
                         />
             </LinearLayout>
 
@@ -55,7 +55,7 @@
 
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@drawable/gaode"
                         />
             </LinearLayout>
 
@@ -70,7 +70,7 @@
 
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@drawable/tencent"
                         />
             </LinearLayout>
         </LinearLayout>

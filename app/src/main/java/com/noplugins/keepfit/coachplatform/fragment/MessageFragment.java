@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
@@ -81,6 +83,19 @@ public class MessageFragment extends ViewPagerFragment {
         return view;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Glide.with(getActivity())
+                .load(SpUtils.getString(getActivity(),AppConstants.LOGO))
+                .into(touxiang_image);
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void upadate(MessageEvent messageEvent) {
         if (messageEvent.getMessage().equals("jpush_main_enter1")) {//获取消息总数，设置消息总数
@@ -97,6 +112,7 @@ public class MessageFragment extends ViewPagerFragment {
             setTabTextColorAndImageView(3);
         }
     }
+
 
     @Override
     public void onDestroyView() {

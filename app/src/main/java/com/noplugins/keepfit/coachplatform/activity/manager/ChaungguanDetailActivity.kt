@@ -44,6 +44,7 @@ class ChaungguanDetailActivity : BaseActivity(), EasyPermissions.PermissionCallb
     private var listItem = -1
     private var cgNum = ""
     private var type = -1
+    private var phone = ""
     override fun initBundle(parms: Bundle?) {
         if (parms != null) {
             listItem = parms.getInt("listItem",-1)
@@ -123,6 +124,8 @@ class ChaungguanDetailActivity : BaseActivity(), EasyPermissions.PermissionCallb
         adapter!!.notifyDataSetChanged()
 
         tv_teacher_tip.text = "暂无"
+
+        phone = code.areaDetail.phone
     }
 
     private fun agreeCourse() {
@@ -224,7 +227,7 @@ class ChaungguanDetailActivity : BaseActivity(), EasyPermissions.PermissionCallb
                     override fun onNext(result: Bean<Any>) {
 //                        setting(result.data.areaList)
 //                        agreeCourse()
-                        EventBus.getDefault().post("接受邀请")
+                        EventBus.getDefault().post("解除绑定")
                         finish()
                     }
 
@@ -278,6 +281,8 @@ class ChaungguanDetailActivity : BaseActivity(), EasyPermissions.PermissionCallb
         val view = popupWindow.contentView
         val cancel = view.findViewById<LinearLayout>(R.id.cancel_layout)
         val sure = view.findViewById<LinearLayout>(R.id.sure_layout)
+        val tv_content = view.findViewById<TextView>(R.id.tv_content)
+        tv_content.text = phone
 
         cancel.setOnClickListener {
             popupWindow.dismiss()
@@ -297,7 +302,7 @@ class ChaungguanDetailActivity : BaseActivity(), EasyPermissions.PermissionCallb
     fun initSimple() {
         if (hasStoragePermission(this)) {
             //有权限
-            callPhone("110")
+            callPhone(phone)
         } else {
             //申请权限
             EasyPermissions.requestPermissions(

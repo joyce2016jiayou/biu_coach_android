@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.LinearLayout;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -80,9 +82,7 @@ public class ScheduleFragment extends Fragment {
 
 
     private void initView() {
-        Glide.with(getActivity())
-                .load(SpUtils.getString(getActivity(),AppConstants.LOGO))
-                .into(touxiang_image);
+
         if (classDateBeans.size() > 0) {
             classDateBeans.clear();
         }
@@ -171,6 +171,14 @@ public class ScheduleFragment extends Fragment {
         super.onResume();
 
 
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Glide.with(getActivity())
+                .load(SpUtils.getString(getActivity(),AppConstants.LOGO))
+                .into(touxiang_image);
     }
 
     private void init_class_date_resource(String select_date) {
