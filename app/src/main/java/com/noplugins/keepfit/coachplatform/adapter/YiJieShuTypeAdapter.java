@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -96,11 +97,12 @@ public class YiJieShuTypeAdapter extends BaseAdapter {
             holder.phone_img.setVisibility(View.GONE);
         }
         //判断是否显示日志
-        if (alreadyEndCourseBean.getSportLog() == 0) {//没写过
+        if (alreadyEndCourseBean.getSprotLog() == 0) {//没写过
             holder.button_bg.setVisibility(View.VISIBLE);
             holder.button_tv.setText("写日志");
             holder.button_tv.setTextColor(Color.parseColor("#00BABB"));
         } else {//写过
+            Log.e("圣诞节疯狂了坚实的", "防守打法发送到");
             holder.button_bg.setVisibility(View.GONE);
 
         }

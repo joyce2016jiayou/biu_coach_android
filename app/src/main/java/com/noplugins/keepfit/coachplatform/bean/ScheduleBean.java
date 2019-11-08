@@ -434,7 +434,16 @@ public class ScheduleBean {
         private int checkOut;
         private int status;
         private String courseTime;
-        private int sportLog;
+
+        public int getSprotLog() {
+            return sprotLog;
+        }
+
+        public void setSprotLog(int sprotLog) {
+            this.sprotLog = sprotLog;
+        }
+
+        private int sprotLog;
         private int teacherCheckIn;
 
         public int getTeacherCheckIn() {
@@ -455,13 +464,7 @@ public class ScheduleBean {
 
         private String startStatus;
 
-        public int getSportLog() {
-            return sportLog;
-        }
 
-        public void setSportLog(int sportLog) {
-            this.sportLog = sportLog;
-        }
 
         public String getPersonNum() {
             return personNum;
