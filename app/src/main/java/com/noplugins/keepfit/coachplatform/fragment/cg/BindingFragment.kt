@@ -54,15 +54,17 @@ class BindingFragment : BaseFragment()  {
         if ("接受邀请" == messageEvent){
             requestData()
         }
+        if("解除绑定" == messageEvent){
+            requestData()
+        }
     }
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onDestroy() {
+        super.onDestroy()
         EventBus.getDefault().unregister(this)
     }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initAdapter()
-
     }
 
     override fun onFragmentVisibleChange(isVisible: Boolean) {
@@ -93,10 +95,11 @@ class BindingFragment : BaseFragment()  {
             }
         }
         refresh_layout.setEnableLoadMore(false)
-        refresh_layout.setEnableRefresh(false)
+//        refresh_layout.setEnableRefresh(false)
         refresh_layout.setOnRefreshListener {
             //下拉刷新
-            refresh_layout.finishRefresh(2000/*,false*/)
+            requestData()
+            refresh_layout.finishRefresh(1000/*,false*/)
         }
         refresh_layout.setOnLoadMoreListener {
             //上拉加载

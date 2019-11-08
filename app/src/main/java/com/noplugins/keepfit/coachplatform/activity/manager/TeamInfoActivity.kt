@@ -95,7 +95,7 @@ class TeamInfoActivity : BaseActivity() {
         title_tv.text = managerTeamBean.courseList.courseName
         tv_cg_name.text = managerTeamBean.courseList.areaName
         edit_class_room.text = roomType(managerTeamBean.courseList.type.toInt())+
-                "|"+managerTeamBean.courseList.applyNum
+                "|"+managerTeamBean.courseList.maxNum+"人"
         edit_class_name.text = managerTeamBean.courseList.courseName
         tv_select_type.text =classType(managerTeamBean.courseList.classType)
         tv_team_length.text = "${managerTeamBean.courseList.min}min"

@@ -186,6 +186,8 @@ class MineFragment : BaseFragment() {
     private fun onClick() {
         iv_logo.clickWithTrigger(1000) {
             //跳转个人信息
+            val intent = Intent(activity, InformationActivity::class.java)
+            startActivity(intent)
         }
 //        ll_qianbao.clickWithTrigger(1000) {
 //

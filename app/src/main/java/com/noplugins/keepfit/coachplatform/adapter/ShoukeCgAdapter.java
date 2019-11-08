@@ -41,7 +41,7 @@ public class ShoukeCgAdapter extends BaseQuickAdapter<ChangguanBean, BaseViewHol
 
         if (item.getStatus() == 1){
             helper.setText(R.id.tv_item,"已绑定");
-        } else if(item.getStatus() == 2){
+        } else if(item.getStatus() == 2||item.getStatus() == 6){
             helper.setText(R.id.tv_item,"已拒绝");
         }else if(item.getStatus() == 4){
             helper.setText(R.id.tv_item,"申请中");

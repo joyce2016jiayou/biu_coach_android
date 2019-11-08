@@ -94,9 +94,10 @@ class YaoqinFragment : BaseFragment() {
                 }
             }
         }
-
+        refresh_layout.setEnableLoadMore(false)
         refresh_layout.setOnRefreshListener {
             //下拉刷新
+            requestData()
             refresh_layout.finishRefresh(2000/*,false*/)
         }
         refresh_layout.setOnLoadMoreListener {

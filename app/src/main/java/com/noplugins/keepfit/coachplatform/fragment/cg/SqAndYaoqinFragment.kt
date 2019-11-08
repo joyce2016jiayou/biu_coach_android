@@ -98,11 +98,12 @@ class SqAndYaoqinFragment : BaseFragment()  {
             }
         }
         refresh_layout.setEnableLoadMore(false)
-        refresh_layout.setEnableRefresh(false)
+//        refresh_layout.setEnableRefresh(false)
 
         refresh_layout.setOnRefreshListener {
             //下拉刷新
-            refresh_layout.finishRefresh(2000/*,false*/)
+            requestData()
+            refresh_layout.finishRefresh(1000/*,false*/)
         }
         refresh_layout.setOnLoadMoreListener {
             //上拉加载

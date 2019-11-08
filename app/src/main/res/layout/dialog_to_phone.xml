@@ -36,7 +36,6 @@
                 android:gravity="center"
                 android:layout_marginTop="@dimen/m10"
                 android:layout_gravity="center_horizontal"
-                android:text="110"
                 />
 
         <LinearLayout
