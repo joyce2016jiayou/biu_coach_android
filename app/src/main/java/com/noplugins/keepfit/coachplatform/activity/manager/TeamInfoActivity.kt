@@ -32,10 +32,12 @@ import java.util.HashMap
 
 class TeamInfoActivity : BaseActivity() {
     var courseNum = ""
+    var status = -1
     override fun initBundle(parms: Bundle?) {
         if (parms != null) {
 
             courseNum = parms.getString("courseNum").toString()
+            status = parms.getInt("status")
             requestData(courseNum)
         }
 
@@ -69,7 +71,6 @@ class TeamInfoActivity : BaseActivity() {
                     override fun onNext(result: Bean<ManagerTeamBean>) {
                         setting(result.data)
                     }
-
                     override fun onError(error: String) {
                         SuperCustomToast.getInstance(applicationContext)
                             .show(error)
@@ -83,11 +84,11 @@ class TeamInfoActivity : BaseActivity() {
         if (managerTeamBean.pic!=null){
             initAdapter(managerTeamBean.pic)
         }
-        tv_class_type.text = statusType(managerTeamBean.courseList.status)
-        if (managerTeamBean.courseList.status == 3){
+        tv_class_type.text = statusType(status)
+        if (status == 3){
             ll_caozuo.visibility = View.VISIBLE
         }
-        if (managerTeamBean.courseList.status == 2){
+        if (status == 2){
             tv_jujue.visibility = View.VISIBLE
             tv_jujue.text = "拒绝理由："
         }
@@ -133,7 +134,7 @@ class TeamInfoActivity : BaseActivity() {
     }
 
     private fun statusType(type: Int): String {
-        val listClass = arrayOf("邀请成功", "邀请失败", "邀请中", "已过期","邀请失败")
+        val listClass = arrayOf("邀请成功", "邀请失败", "邀请中", "已过期","邀请失败","邀请失败","邀请失败")
         return listClass[type - 1]
     }
 

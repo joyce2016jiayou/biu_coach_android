@@ -82,6 +82,7 @@ class YaoqinFragment : BaseFragment() {
                     val bundle = Bundle()
                     bundle.putInt("type", 2)
                     bundle.putString("courseNum", datas[position].courseNum)
+                    bundle.putInt("status",datas[position].status)
                     toInfo.putExtras(bundle)
                     startActivity(toInfo)
                 }

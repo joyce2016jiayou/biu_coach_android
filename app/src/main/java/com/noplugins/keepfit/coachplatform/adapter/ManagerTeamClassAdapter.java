@@ -91,7 +91,7 @@ public class ManagerTeamClassAdapter extends BaseQuickAdapter<ManagerBean.Course
     }
 
     private String statusType(int type){
-        String[] listClass = {"邀请成功","邀请失败","邀请中","已过期","邀请失败"};
+        String[] listClass = {"邀请成功","邀请失败","邀请中","已过期","邀请失败","邀请失败","邀请失败"};
         return listClass[type-1];
     }
 
