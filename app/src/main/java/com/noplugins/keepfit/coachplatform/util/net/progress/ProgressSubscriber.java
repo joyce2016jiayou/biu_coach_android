@@ -118,11 +118,10 @@ public class ProgressSubscriber<T> extends Subscriber<Bean<T>> implements Dialog
             } else {
                 Logger.e(Method_Tag + "请求Fail:" + t.getMessage());
                 mListener.onError(t.getMessage());
-                if (!TextUtils.isEmpty(t.getMessage())) {
-                    Toast.makeText(mContext, t.getMessage(), Toast.LENGTH_SHORT).show();
-                }
             }
-
+            if (!TextUtils.isEmpty(t.getMessage()) && !t.getMessage().equals("success")) {
+                Toast.makeText(mContext, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
         }
 
     }

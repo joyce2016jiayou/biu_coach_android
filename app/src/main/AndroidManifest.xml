@@ -74,6 +74,8 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:usesCleartextTraffic="true"
             tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".activity.info.XieYiActivity">
+        </activity>
         <activity android:name=".activity.mine.InstructorTypeActivity">
         </activity>
         <activity android:name=".activity.ShoukeCgActivity">
@@ -119,7 +121,6 @@
         <activity
                 android:name=".activity.YueKeInformationActivity"
                 android:hardwareAccelerated="true">
-
         </activity>
         <activity android:name=".activity.manager.TeacherInfoActivity">
         </activity>
@@ -128,7 +129,6 @@
         <activity android:name=".activity.AddZhengshuActivity">
         </activity>
         <activity android:name=".activity.CheckStatusActivity">
-
         </activity>
         <activity android:name=".activity.ClassManagerActivity">
         </activity>
@@ -151,7 +151,6 @@
                 android:name=".MainActivity"
                 android:hardwareAccelerated="false"
                 android:launchMode="singleTask">
-
         </activity>
         <activity android:name=".activity.LoginActivity">
         </activity>

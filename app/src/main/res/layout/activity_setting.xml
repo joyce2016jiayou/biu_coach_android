@@ -123,26 +123,26 @@
                         android:layout_marginRight="@dimen/m20"
                         android:layout_centerVertical="true"/>
             </RelativeLayout>
-            <RelativeLayout
-                    android:id="@+id/rl_risk"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/m40">
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/tv_risk"
-                        android:textColor="@color/color_4A4A4A"
-                        android:textSize="16sp"
-                        android:layout_marginLeft="@dimen/m20"
-                        android:layout_centerVertical="true"/>
-                <ImageView
-                        android:layout_width="@dimen/m16"
-                        android:layout_height="@dimen/m16"
-                        android:src="@drawable/right_jt"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="@dimen/m20"
-                        android:layout_centerVertical="true"/>
-            </RelativeLayout>
+            <!--<RelativeLayout-->
+                    <!--android:id="@+id/rl_risk"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="@dimen/m40">-->
+                <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="@string/tv_risk"-->
+                        <!--android:textColor="@color/color_4A4A4A"-->
+                        <!--android:textSize="16sp"-->
+                        <!--android:layout_marginLeft="@dimen/m20"-->
+                        <!--android:layout_centerVertical="true"/>-->
+                <!--<ImageView-->
+                        <!--android:layout_width="@dimen/m16"-->
+                        <!--android:layout_height="@dimen/m16"-->
+                        <!--android:src="@drawable/right_jt"-->
+                        <!--android:layout_alignParentRight="true"-->
+                        <!--android:layout_marginRight="@dimen/m20"-->
+                        <!--android:layout_centerVertical="true"/>-->
+            <!--</RelativeLayout>-->
             <RelativeLayout
                     android:id="@+id/rl_xieyi"
                     android:layout_width="match_parent"

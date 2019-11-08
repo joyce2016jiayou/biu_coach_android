@@ -51,9 +51,9 @@ class SettingActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
             startActivity(intent)
 
         }
-        rl_risk.clickWithTrigger(1000) {
-
-        }
+//        rl_risk.clickWithTrigger(1000) {
+//
+//        }
         rl_xieyi.clickWithTrigger(1000) {
 
         }

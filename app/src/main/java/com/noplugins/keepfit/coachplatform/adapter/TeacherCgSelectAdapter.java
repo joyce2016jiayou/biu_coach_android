@@ -29,8 +29,8 @@ public class TeacherCgSelectAdapter extends BaseQuickAdapter<CgListBean.AreaList
                 .addOnClickListener(R.id.ck_select);
         ((CheckBox)helper.getView(R.id.ck_select) ).setChecked(false);
         helper.setText(R.id.tv_cg_name,item.getAreaName());
-        helper.setText(R.id.tv_cg_ar,"面积:"+item.getArea());
-        helper.setText(R.id.tv_juli,item.getDistance()+"m");
+        helper.setText(R.id.tv_cg_ar,"面积:"+item.getArea()+"㎡");
+        helper.setText(R.id.tv_juli,item.getDistance()+"km");
         helper.setText(R.id.tv_address,item.getAddress());
     }
 }
