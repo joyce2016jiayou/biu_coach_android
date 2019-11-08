@@ -125,6 +125,7 @@ class SplashActivity : BaseActivity() {
             finish()
         } else if (result.data.teacherType == 1) {//团课
             if (result.data.lType == 1) {
+                SpUtils.putString(this@SplashActivity, AppConstants.IS_SUBMIT_TUANKE, "true")
                 if (result.data.sign == 1) {//已签约
                     val intent = Intent(this@SplashActivity, MainActivity::class.java)
                     startActivity(intent)
@@ -170,6 +171,7 @@ class SplashActivity : BaseActivity() {
 
         } else if (result.data.teacherType == 2) {//私教
             if (result.data.pType == 1) {
+                SpUtils.putString(this@SplashActivity, AppConstants.IS_SUBMIT_SIJIAO, "true")
                 if (result.data.sign == 1) {//已签约
                     val intent = Intent(this@SplashActivity, MainActivity::class.java)
                     startActivity(intent)

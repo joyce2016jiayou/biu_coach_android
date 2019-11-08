@@ -103,22 +103,26 @@ public class SelectRoleActivity extends BaseActivity {
         sijiao_sure_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (back_number == 0) {//正常状态进来的
-                    go_to(true);
-                } else {//返回状态进来的
-                    get_teacher_status(true);
-                }
+//                if (back_number == 0) {//正常状态进来的
+//                    go_to(true);
+//                } else {//返回状态进来的
+//                    get_teacher_status(true);
+//                }
+                get_teacher_status(true);
+
             }
         });
         //选择了团课
         tuanke_sure_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (back_number == 0) {
-                    go_to(false);
-                } else {//返回状态进来的
-                    get_teacher_status(false);
-                }
+//                if (back_number == 0) {
+//                    go_to(false);
+//                } else {//返回状态进来的
+//                    get_teacher_status(false);
+//                }
+                get_teacher_status(false);
+
             }
         });
     }
@@ -150,6 +154,8 @@ public class SelectRoleActivity extends BaseActivity {
                                     if (result.getData().getTeacherType() == 1) {
                                         //获取状态
                                         if (result.getData().getLType() == 1) {//通过的话就直接签约
+                                            SpUtils.putString(SelectRoleActivity.this, AppConstants.IS_SUBMIT_TUANKE, "true");
+
                                             Intent intent = new Intent(SelectRoleActivity.this, CheckStatusActivity.class);
                                             Bundle bundle = new Bundle();
                                             bundle.putInt("into_index", 3);
@@ -173,6 +179,19 @@ public class SelectRoleActivity extends BaseActivity {
                                             startActivity(intent);
                                             //finish();
                                         }
+                                    } else if (result.getData().getTeacherType() == 3) {
+                                        if (result.getData().getSign() == 1) {//已签约
+                                            Intent intent = new Intent(SelectRoleActivity.this, MainActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        } else {
+                                            Intent intent = new Intent(SelectRoleActivity.this, CheckStatusActivity.class);
+                                            Bundle bundle = new Bundle();
+                                            bundle.putInt("into_index", 3);
+                                            intent.putExtras(bundle);
+                                            startActivity(intent);
+                                            finish();
+                                        }
                                     } else {
                                         go_to(true);
                                     }
@@ -180,6 +199,7 @@ public class SelectRoleActivity extends BaseActivity {
                                     if (result.getData().getTeacherType() == 2) {
                                         //获取状态
                                         if (result.getData().getPType() == 1) {//通过的话就直接签约
+                                            SpUtils.putString(SelectRoleActivity.this, AppConstants.IS_SUBMIT_SIJIAO, "true");
                                             Intent intent = new Intent(SelectRoleActivity.this, CheckStatusActivity.class);
                                             Bundle bundle = new Bundle();
                                             bundle.putInt("into_index", 3);
@@ -202,6 +222,19 @@ public class SelectRoleActivity extends BaseActivity {
                                             intent.putExtras(bundle);
                                             startActivity(intent);
                                             //finish();
+                                        }
+                                    } else if (result.getData().getTeacherType() == 3) {
+                                        if (result.getData().getSign() == 1) {//已签约
+                                            Intent intent = new Intent(SelectRoleActivity.this, MainActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        } else {
+                                            Intent intent = new Intent(SelectRoleActivity.this, CheckStatusActivity.class);
+                                            Bundle bundle = new Bundle();
+                                            bundle.putInt("into_index", 3);
+                                            intent.putExtras(bundle);
+                                            startActivity(intent);
+                                            finish();
                                         }
                                     } else {
                                         go_to(false);

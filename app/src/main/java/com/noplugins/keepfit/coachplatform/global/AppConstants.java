@@ -32,6 +32,8 @@ public class AppConstants {
     public static List<CheckInformationBean.CoachPicCertificatesBean> SELECT_PHOTO_NUM = new ArrayList<>();
     public static String UPDATE_SELECT_PHOTO="update_select_photo";
     public static List<SelectDateBean> selectDateBeans = new ArrayList<>();//加载当前日期后两周
+    public static final String IS_SUBMIT_TUANKE="is_submit_tuanke";
+    public static final String IS_SUBMIT_SIJIAO="is_submit_sijiao";
 
 
     //团课同意

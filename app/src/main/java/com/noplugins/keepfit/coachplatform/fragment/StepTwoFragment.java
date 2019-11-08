@@ -448,13 +448,13 @@ public class StepTwoFragment extends ViewPagerFragment {
         checkInformationBean.setCoachPicCard(coachPicCardBean);
         CheckInformationBean.CoachUserBean coachUserBean = new CheckInformationBean.CoachUserBean();
         if (SpUtils.getString(getActivity(), AppConstants.SELECT_TEACHER_TYPE).equals("1")
-        ||checkStatusActivity.fragment_type == 2) {//团课
+                || checkStatusActivity.fragment_type == 2) {//团课
             coachUserBean.setTeacherType(1);
         } else if (SpUtils.getString(getActivity(), AppConstants.SELECT_TEACHER_TYPE).equals("2")
-                ||checkStatusActivity.fragment_type == 1) {//私教
+                || checkStatusActivity.fragment_type == 1) {//私教
             coachUserBean.setTeacherType(2);
         }
-        if (checkStatusActivity.fragment_type != 2 && checkStatusActivity.fragment_type != 1){
+        if (checkStatusActivity.fragment_type != 2 && checkStatusActivity.fragment_type != 1) {
             coachUserBean.setRealname(checkStatusActivity.user_name);
             coachUserBean.setCard(checkStatusActivity.card_id);
             if (checkStatusActivity.sex.equals("男")) {
@@ -490,9 +490,10 @@ public class StepTwoFragment extends ViewPagerFragment {
                         new ProgressSubscriber<>("提交审核资料", new SubscriberOnNextListener<Bean<Object>>() {
                             @Override
                             public void onNext(Bean<Object> result) {
-                                checkStatusActivity.is_upload=true;
+                                SpUtils.putString(getActivity(), AppConstants.IS_SUBMIT_TUANKE, "true");
+                                checkStatusActivity.is_upload = true;
                                 viewpager_content.setCurrentItem(2);
-                                checkStatusActivity.select_index=2;
+                                checkStatusActivity.select_index = 2;
                                 top_title_tv.setText("等待审核");
                                 int step = stepView.getCurrentStep();//设置进度条
                                 stepView.setCurrentStep((step + 1) % stepView.getStepNum());

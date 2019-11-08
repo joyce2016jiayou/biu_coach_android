@@ -189,7 +189,7 @@ public class LoginActivity extends BaseActivity {
         xieyi_check_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (xieyi_check_btn.isChecked()){
+                if (xieyi_check_btn.isChecked()) {
                     xieyi_pop();
                 }
 
@@ -251,7 +251,7 @@ public class LoginActivity extends BaseActivity {
                             @Override
                             public void onNext(Bean<LoginBean> result) {
                                 login_btn.loadingComplete();
-                                Log.d("tag",":"+result.getData().getHavePayPassword());
+                                Log.d("tag", ":" + result.getData().getHavePayPassword());
                                 SpUtils.putInt(getApplicationContext(), AppConstants.IS_TX, result.getData().getHavePayPassword());
 
                                 save_resource(result.getData().getToken(),
@@ -301,6 +301,7 @@ public class LoginActivity extends BaseActivity {
             finish();
         } else if (result.getData().getTeacherType() == 1) {//团课
             if (result.getData().getLType() == 1) {
+                SpUtils.putString(LoginActivity.this, AppConstants.IS_SUBMIT_TUANKE, "true");
                 if (result.getData().getSign() == 1) {//已签约
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
@@ -352,6 +353,7 @@ public class LoginActivity extends BaseActivity {
                     finish();
                 } else {//未签约
                     if (result.getData().getPType() == 1) {//通过的话
+                        SpUtils.putString(LoginActivity.this, AppConstants.IS_SUBMIT_SIJIAO, "true");
                         //再次判断是否签约
                         if (result.getData().getSign() == 1) {//已签约
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);

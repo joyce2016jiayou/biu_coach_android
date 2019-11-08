@@ -149,6 +149,7 @@ public class SetPasswordActivity extends BaseActivity {
             finish();
         } else if (result.getData().getTeacherType() == 1) {//团课
             if (result.getData().getLType() == 1) {
+                SpUtils.putString(SetPasswordActivity.this, AppConstants.IS_SUBMIT_TUANKE, "true");
                 if (result.getData().getSign() == 1) {//已签约
                     Intent intent = new Intent(SetPasswordActivity.this, MainActivity.class);
                     startActivity(intent);
@@ -194,6 +195,8 @@ public class SetPasswordActivity extends BaseActivity {
 
         } else if (result.getData().getTeacherType() == 2) {//私教
             if (result.getData().getPType() == 1) {
+                SpUtils.putString(SetPasswordActivity.this, AppConstants.IS_SUBMIT_SIJIAO, "true");
+
                 if (result.getData().getSign() == 1) {//已签约
                     Intent intent = new Intent(SetPasswordActivity.this, MainActivity.class);
                     startActivity(intent);

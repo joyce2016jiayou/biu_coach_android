@@ -20,6 +20,8 @@ import com.noplugins.keepfit.coachplatform.fragment.StepFourFragement;
 import com.noplugins.keepfit.coachplatform.fragment.StepOneFragment;
 import com.noplugins.keepfit.coachplatform.fragment.StepThreeFragment;
 import com.noplugins.keepfit.coachplatform.fragment.StepTwoFragment;
+import com.noplugins.keepfit.coachplatform.global.AppConstants;
+import com.noplugins.keepfit.coachplatform.util.SpUtils;
 import com.noplugins.keepfit.coachplatform.util.ui.LoadingButton;
 import com.noplugins.keepfit.coachplatform.util.ui.NoScrollViewPager;
 import com.noplugins.keepfit.coachplatform.util.ui.PopWindowHelper;
@@ -54,7 +56,7 @@ public class CheckStatusActivity extends BaseActivity {
     Bundle bundle;
     public int fragment_type = -1;
     public int select_index = 0;
-    public boolean is_upload = false;
+    public static boolean is_upload = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,12 +142,24 @@ public class CheckStatusActivity extends BaseActivity {
                 } else if (select_index == 1) {
                     go_to_last_step("教练入驻", 1);
                 } else if (select_index == 2) {
-                    //go_to_last_step("教练入驻", 2);
-
-                    if (is_upload) {//已经提交过了
-                        Intent intent = new Intent(CheckStatusActivity.this, SelectRoleActivity.class);
-                        startActivity(intent);
-                        finish();
+                    if (null != SpUtils.getString(getApplicationContext(), AppConstants.IS_SUBMIT_TUANKE)) {//已经提交过了
+                        String submit_str = SpUtils.getString(getApplicationContext(), AppConstants.IS_SUBMIT_TUANKE);
+                        //Log.e("福建省考虑对方", submit_str);
+                        if (submit_str.equals("true")) {
+                            Intent intent = new Intent(CheckStatusActivity.this, SelectRoleActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    } else if (null != SpUtils.getString(getApplicationContext(), AppConstants.IS_SUBMIT_SIJIAO)) {
+                        String submit_str = SpUtils.getString(getApplicationContext(), AppConstants.IS_SUBMIT_SIJIAO);
+                        //Log.e("1111福建省考虑对方", submit_str);
+                        if (submit_str.equals("true")) {
+                            Intent intent = new Intent(CheckStatusActivity.this, SelectRoleActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    } else {
+                        go_to_last_step("教练入驻", 2);
                     }
                 } else if (select_index == 3) {
                     go_to_last_step("等待审核", 3);
@@ -160,10 +174,10 @@ public class CheckStatusActivity extends BaseActivity {
             show_advice_pop();
         } else {
             top_title_tv.setText(title);
-            Log.e("就算会计分录斯柯达", mselect_index + "");
+            //Log.e("就算会计分录斯柯达", mselect_index + "");
             viewpager_content.setCurrentItem(mselect_index - 1);
             int step = step_view.getCurrentStep();
-            Log.e("进度条", step + "");
+            //Log.e("进度条", step + "");
             step_view.setCurrentStep(Math.max((step - 1) % step_view.getStepNum(), 0));
             select_index = select_index - 1;
 
@@ -178,10 +192,22 @@ public class CheckStatusActivity extends BaseActivity {
         } else if (select_index == 1) {
             go_to_last_step("教练入驻", 1);
         } else if (select_index == 2) {
-            if (is_upload) {//已经提交过了
-                Intent intent = new Intent(CheckStatusActivity.this, SelectRoleActivity.class);
-                startActivity(intent);
-                finish();
+            if (null != SpUtils.getString(getApplicationContext(), AppConstants.IS_SUBMIT_TUANKE)) {//已经提交过了
+                String submit_str = SpUtils.getString(getApplicationContext(), AppConstants.IS_SUBMIT_TUANKE);
+                if (submit_str.equals("true")) {
+                    Intent intent = new Intent(CheckStatusActivity.this, SelectRoleActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            } else if (null != SpUtils.getString(getApplicationContext(), AppConstants.IS_SUBMIT_SIJIAO)) {
+                String submit_str = SpUtils.getString(getApplicationContext(), AppConstants.IS_SUBMIT_SIJIAO);
+                if (submit_str.equals("true")) {
+                    Intent intent = new Intent(CheckStatusActivity.this, SelectRoleActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            } else {
+                go_to_last_step("教练入驻", 2);
             }
         } else if (select_index == 3) {
             go_to_last_step("等待审核", 3);
