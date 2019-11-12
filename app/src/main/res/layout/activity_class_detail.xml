@@ -72,7 +72,7 @@
                 android:id="@+id/status_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="已签到"
+                android:text=""
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/m20"
                 android:layout_centerVertical="true"

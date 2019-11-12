@@ -204,7 +204,6 @@ public class ClassDetailActivity extends BaseActivity implements EasyPermissions
             yiyueyue_layout.setVisibility(View.GONE);
             top_view.setVisibility(View.GONE);
             //设置数据
-            status_tv.setText(data.getCourseStart());
             w_room_name.setText(data.getCourseHome());
             w_class_name.setText(data.getCourseName());
             w_class_type.setText(data.getClassType());
@@ -214,19 +213,53 @@ public class ClassDetailActivity extends BaseActivity implements EasyPermissions
             w_class_renshu_zhanbi.setText(data.getPerson());
             changguan_id = data.getAreaNum();
 
-        } else {//私教
-            yiqiandao_layout.setVisibility(View.GONE);
-            yiyueyue_layout.setVisibility(View.VISIBLE);
-            top_view.setVisibility(View.VISIBLE);
-            status_tv.setText(data.getCourseStart());
             if (data.getCourseStart().equals("未开始")) {
                 if (data.getCheckIn() == 0) {//未签到
                     button.setVisibility(View.VISIBLE);
                     button.setText("签到");
+                    status_tv.setText("未开始(未签到)");
                 } else if (data.getCheckIn() == 1) {//已签到
                     button.setVisibility(View.GONE);
+                    status_tv.setText("未开始(已签到)");
+                }
+            } else if (data.getCourseStart().equals("进行中")) {
+                if (data.getCheckIn() == 0) {//未签到
+                    button.setVisibility(View.VISIBLE);
+                    button.setText("签到");
+                    status_tv.setText("进行中(未签到)");
+                } else if (data.getCheckIn() == 1) {//已签到
+                    button.setVisibility(View.GONE);
+                    status_tv.setText("进行中(已签到)");
                 }
             } else {//已结束
+                status_tv.setText(data.getCourseStart());
+            }
+
+
+        } else {//私教
+            yiqiandao_layout.setVisibility(View.GONE);
+            yiyueyue_layout.setVisibility(View.VISIBLE);
+            top_view.setVisibility(View.VISIBLE);
+            if (data.getCourseStart().equals("未开始")) {
+                if (data.getCheckIn() == 0) {//未签到
+                    button.setVisibility(View.VISIBLE);
+                    button.setText("签到");
+                    status_tv.setText("未开始(未签到)");
+                } else if (data.getCheckIn() == 1) {//已签到
+                    button.setVisibility(View.GONE);
+                    status_tv.setText("未开始(已签到)");
+                }
+            } else if (data.getCourseStart().equals("进行中")) {
+                if (data.getCheckIn() == 0) {//未签到
+                    button.setVisibility(View.VISIBLE);
+                    button.setText("签到");
+                    status_tv.setText("进行中(未签到)");
+                } else if (data.getCheckIn() == 1) {//已签到
+                    button.setVisibility(View.GONE);
+                    status_tv.setText("进行中(已签到)");
+                }
+            } else {//已结束
+                status_tv.setText(data.getCourseStart());
                 //判断是否写过日志
                 if (data.getSportLog() == 0) {//没写过日志
                     yiqiandao_layout.setVisibility(View.GONE);
