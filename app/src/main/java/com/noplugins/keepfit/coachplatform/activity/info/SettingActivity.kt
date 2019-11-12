@@ -56,6 +56,8 @@ class SettingActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 //        }
         rl_xieyi.clickWithTrigger(1000) {
 
+            val intent = Intent(this,XieYiActivity::class.java)
+            startActivity(intent)
         }
         rl_quit.clickWithTrigger(1000) {
             toQuit(rl_quit)

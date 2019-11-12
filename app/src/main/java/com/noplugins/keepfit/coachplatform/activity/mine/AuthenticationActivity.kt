@@ -13,6 +13,7 @@ import com.noplugins.keepfit.coachplatform.R
 import com.noplugins.keepfit.coachplatform.base.BaseActivity
 import com.noplugins.keepfit.coachplatform.global.AppConstants
 import com.noplugins.keepfit.coachplatform.global.clickWithTrigger
+import com.noplugins.keepfit.coachplatform.util.MD5Utils
 import com.noplugins.keepfit.coachplatform.util.SpUtils
 import com.noplugins.keepfit.coachplatform.util.data.StringsHelper
 import com.noplugins.keepfit.coachplatform.util.net.Network
@@ -64,6 +65,8 @@ class AuthenticationActivity : BaseActivity() {
     private fun Get_YanZhengMa() {
         val params = HashMap<String, Any>()
         params["phone"] = phone
+        params["sign"] = "MES${MD5Utils.stringToMD5(phone)}"
+        params["time"] = System.currentTimeMillis()
         subscription = Network.getInstance("获取验证码", this)
             .get_yanzhengma(params,
                 ProgressSubscriber("获取验证码", object : SubscriberOnNextListener<Bean<String>> {
