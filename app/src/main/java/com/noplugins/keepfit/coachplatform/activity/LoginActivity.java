@@ -24,6 +24,7 @@ import com.noplugins.keepfit.coachplatform.bean.LoginBean;
 import com.noplugins.keepfit.coachplatform.bean.TeacherStatusBean;
 import com.noplugins.keepfit.coachplatform.bean.YanZhengMaBean;
 import com.noplugins.keepfit.coachplatform.global.AppConstants;
+import com.noplugins.keepfit.coachplatform.util.MD5Utils;
 import com.noplugins.keepfit.coachplatform.util.SpUtils;
 import com.noplugins.keepfit.coachplatform.util.data.SharedPreferencesHelper;
 import com.noplugins.keepfit.coachplatform.util.data.StringsHelper;
@@ -409,7 +410,10 @@ public class LoginActivity extends BaseActivity {
 
     private void Get_YanZhengMa() {
         Map<String, Object> params = new HashMap<>();
+//        val params = HashMap<String, Any>()
         params.put("phone", edit_phone_number.getText().toString());
+        params.put("sign", "MES"+ MD5Utils.stringToMD5(edit_phone_number.getText().toString()));
+        params.put("time", System.currentTimeMillis());
         Subscription subscription = Network.getInstance("获取验证码", this)
                 .get_yanzhengma(params,
                         new ProgressSubscriber<>("获取验证码", new SubscriberOnNextListener<Bean<String>>() {
