@@ -170,7 +170,7 @@ public class WeijieshuTypeAdapter extends BaseAdapter implements EasyPermissions
                     bundle.putString("user_number", noEndCourseBean.getCustUserNum());
                     intent.putExtras(bundle);
                     scheduleFragment.startActivity(intent);
-                } else if(noEndCourseBean.getCourseType() == 2){
+                } else if (noEndCourseBean.getCourseType() == 2) {
                     Intent intent = new Intent(scheduleFragment.getActivity(), ClassDetailActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putInt("cource_type", noEndCourseBean.getCourseType());
@@ -200,7 +200,8 @@ public class WeijieshuTypeAdapter extends BaseAdapter implements EasyPermissions
         View view = popupWindow.getContentView();
         LinearLayout cancel_layout = view.findViewById(R.id.cancel_layout);
         LinearLayout sure_layout = view.findViewById(R.id.sure_layout);
-
+        TextView phone_number_tv = view.findViewById(R.id.phone_number_tv);
+        phone_number_tv.setText(phone_number);
         cancel_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
