@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.Toast;
 import androidx.multidex.MultiDex;
 import androidx.multidex.MultiDexApplication;
+import cn.jiguang.analytics.android.api.JAnalyticsInterface;
 import cn.jpush.android.api.JPushInterface;
 import com.noplugins.keepfit.coachplatform.R;
 import com.noplugins.keepfit.coachplatform.global.AppConstants;
@@ -175,12 +176,17 @@ public class MyApplication extends MultiDexApplication {
             Log.e("极光报错", "Get registration fail, JPush init failed!");
             //Toast.makeText(this, "Get registration fail, JPush init failed!", Toast.LENGTH_SHORT).show();
         }
+        //极光统计
+        JAnalyticsInterface.init(this);
+        JAnalyticsInterface.setDebugMode(true);
+        JAnalyticsInterface.initCrashHandler(this);//开启crashlog日志上报
+        JAnalyticsInterface.setChannel(this, null);
 
         /**方法负载过多解决*/
         MultiDex.install(this);
 
         //加载当前日历后两周
-        if(AppConstants.selectDateBeans.size()>0){
+        if (AppConstants.selectDateBeans.size() > 0) {
             AppConstants.selectDateBeans.clear();
         }
         AppConstants.selectDateBeans.addAll(DateUtils.getmoredate());

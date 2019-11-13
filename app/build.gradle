@@ -16,7 +16,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         manifestPlaceholders = [
-                JPUSH_APPKEY : "d13f71671f41e575cc2d39df",//值来自开发者平台取得的AppKey-极光 d13f71671f41e575cc2d39df
+                JPUSH_APPKEY : "79a95b004bcfc6a5f845f31a",//值来自开发者平台取得的AppKey-极光 d13f71671f41e575cc2d39df
                 JPUSH_CHANNEL: "default_developer",
         ]
     }
@@ -201,9 +201,7 @@ dependencies {
     //图表控件
     implementation 'com.openxu.viewlib:OXViewLib:1.0.2'
 
-    //极光集成
-    implementation files('libs/jcore-android-2.1.2.jar')
-    implementation files('libs/jpush-android-3.3.4.jar')
+
     //日历选择
     implementation project(':datepicker')
 
@@ -248,5 +246,8 @@ dependencies {
     //银行卡匹配
     implementation 'com.github.nanchen2251:BankCardUtils:1.0.2'
 
-
+    //极光集成
+    implementation files('libs/jpush-android-3.3.4.jar')
+    implementation files('libs/jcore-android-2.1.6.jar')
+    implementation files('libs/janalytics-android-2.1.0.jar')
 }

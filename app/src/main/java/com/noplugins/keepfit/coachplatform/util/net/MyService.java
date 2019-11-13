@@ -28,7 +28,7 @@ public interface MyService {
      * @return
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
-    @POST("sendCode")
+    @POST("getVerifyCodeNew")
     Observable<Bean<String>> get_yanzhengma(@Body RequestBody json);
 
     /**
