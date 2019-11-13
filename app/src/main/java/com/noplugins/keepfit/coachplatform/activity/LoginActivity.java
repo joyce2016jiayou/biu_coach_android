@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.*;
-import android.text.method.DigitsKeyListener;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -15,7 +14,6 @@ import android.webkit.WebView;
 import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.google.gson.Gson;
 
 import com.noplugins.keepfit.coachplatform.MainActivity;
 import com.noplugins.keepfit.coachplatform.R;
@@ -24,9 +22,8 @@ import com.noplugins.keepfit.coachplatform.bean.LoginBean;
 import com.noplugins.keepfit.coachplatform.bean.TeacherStatusBean;
 import com.noplugins.keepfit.coachplatform.bean.YanZhengMaBean;
 import com.noplugins.keepfit.coachplatform.global.AppConstants;
-import com.noplugins.keepfit.coachplatform.util.MD5Utils;
+import com.noplugins.keepfit.coachplatform.util.MD5;
 import com.noplugins.keepfit.coachplatform.util.SpUtils;
-import com.noplugins.keepfit.coachplatform.util.data.SharedPreferencesHelper;
 import com.noplugins.keepfit.coachplatform.util.data.StringsHelper;
 import com.noplugins.keepfit.coachplatform.util.net.Network;
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean;
@@ -34,7 +31,6 @@ import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber;
 import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener;
 import com.noplugins.keepfit.coachplatform.util.ui.LoadingButton;
 import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow;
-import okhttp3.RequestBody;
 import rx.Subscription;
 
 import java.util.HashMap;
@@ -412,7 +408,7 @@ public class LoginActivity extends BaseActivity {
         Map<String, Object> params = new HashMap<>();
 //        val params = HashMap<String, Any>()
         params.put("phone", edit_phone_number.getText().toString());
-        params.put("sign", "MES"+ MD5Utils.stringToMD5(edit_phone_number.getText().toString()));
+        params.put("sign", MD5.stringToMD5( "MES"+edit_phone_number.getText().toString()));
         params.put("time", System.currentTimeMillis());
         Subscription subscription = Network.getInstance("获取验证码", this)
                 .get_yanzhengma(params,

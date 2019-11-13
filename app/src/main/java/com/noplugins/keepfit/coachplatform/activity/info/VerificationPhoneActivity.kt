@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
 import android.widget.Toast
-import com.google.gson.Gson
 import com.noplugins.keepfit.coachplatform.R
 import com.noplugins.keepfit.coachplatform.activity.LoginActivity
 import com.noplugins.keepfit.coachplatform.base.BaseActivity
@@ -16,18 +15,14 @@ import com.noplugins.keepfit.coachplatform.bean.YanZhengMaBean
 import com.noplugins.keepfit.coachplatform.global.AppConstants
 import com.noplugins.keepfit.coachplatform.global.clickWithTrigger
 import com.noplugins.keepfit.coachplatform.util.ActivityCollectorUtil
-import com.noplugins.keepfit.coachplatform.util.MD5Utils
+import com.noplugins.keepfit.coachplatform.util.MD5
 import com.noplugins.keepfit.coachplatform.util.SpUtils
 import com.noplugins.keepfit.coachplatform.util.net.Network
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
-import com.noplugins.keepfit.coachplatform.util.net.progress.GsonSubscriberOnNextListener
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
-import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriberNew
 import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
 import com.noplugins.keepfit.coachplatform.util.ui.toast.SuperCustomToast
-import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_verification_phone.*
-import okhttp3.RequestBody
 import java.util.*
 
 class VerificationPhoneActivity : BaseActivity() {
@@ -100,7 +95,7 @@ class VerificationPhoneActivity : BaseActivity() {
     private fun send() {
         val params = HashMap<String, Any>()
         params["phone"] = tv_phone.text.toString()
-        params["sign"] = "MES${MD5Utils.stringToMD5(tv_phone.text.toString())}"
+        params["sign"] = "${MD5.stringToMD5("MES"+tv_phone.text.toString())}"
         params["time"] = System.currentTimeMillis()
         subscription = Network.getInstance("获取验证码", this)
             .get_yanzhengma(

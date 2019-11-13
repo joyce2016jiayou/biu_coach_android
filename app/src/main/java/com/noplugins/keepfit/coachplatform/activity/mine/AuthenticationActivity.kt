@@ -1,21 +1,16 @@
 package com.noplugins.keepfit.coachplatform.activity.mine
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.text.TextUtils
-import android.widget.Toast
 import com.nanchen.bankcardutil.BankInfoUtil
 import com.noplugins.keepfit.coachplatform.R
 import com.noplugins.keepfit.coachplatform.base.BaseActivity
 import com.noplugins.keepfit.coachplatform.global.AppConstants
 import com.noplugins.keepfit.coachplatform.global.clickWithTrigger
-import com.noplugins.keepfit.coachplatform.util.MD5Utils
+import com.noplugins.keepfit.coachplatform.util.MD5
 import com.noplugins.keepfit.coachplatform.util.SpUtils
-import com.noplugins.keepfit.coachplatform.util.data.StringsHelper
 import com.noplugins.keepfit.coachplatform.util.net.Network
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
@@ -65,7 +60,7 @@ class AuthenticationActivity : BaseActivity() {
     private fun Get_YanZhengMa() {
         val params = HashMap<String, Any>()
         params["phone"] = phone
-        params["sign"] = "MES${MD5Utils.stringToMD5(phone)}"
+        params["sign"] = "${"MES"+MD5.stringToMD5(phone)}"
         params["time"] = System.currentTimeMillis()
         subscription = Network.getInstance("获取验证码", this)
             .get_yanzhengma(params,
