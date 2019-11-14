@@ -186,6 +186,9 @@
     <string name="tv146">这里空空如也～</string>
     <string name="tv147">教练技能</string>
     <string name="tv148">请选择最高学历</string>
+    <string name="tv149">身体数据不能为空</string>
+    <string name="tv150">标签不能为空</string>
+    <string name="tv151">课程内容不能为空</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

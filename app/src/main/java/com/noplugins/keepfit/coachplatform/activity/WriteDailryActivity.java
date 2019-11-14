@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.Editable;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
@@ -115,24 +116,56 @@ public class WriteDailryActivity extends BaseActivity {
         add_btn.setBtnOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                add_btn.startLoading();
-                submit_resource();
+                if (check_value()) {
+                    add_btn.startLoading();
+                    submit_resource();
+                }
             }
         });
-
     }
 
+    private boolean check_value() {
+        if (TextUtils.isEmpty(bmi_edit.getText())) {
+            Toast.makeText(getApplicationContext(), R.string.tv149, Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (TextUtils.isEmpty(tizhi_edit.getText())) {
+            Toast.makeText(getApplicationContext(), R.string.tv149, Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (TextUtils.isEmpty(class_content.getText())) {
+            Toast.makeText(getApplicationContext(), R.string.tv151, Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (TextUtils.isEmpty(daixie_edit.getText())) {
+            Toast.makeText(getApplicationContext(), R.string.tv149, Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (null != stringBuffer && stringBuffer.toString().length() == 0) {
+            Toast.makeText(getApplicationContext(), R.string.tv150, Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (TextUtils.isEmpty(shengao_edit.getText())) {
+            Toast.makeText(getApplicationContext(), R.string.tv149, Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (TextUtils.isEmpty(yaotunbi_edit.getText())) {
+            Toast.makeText(getApplicationContext(), R.string.tv149, Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (TextUtils.isEmpty(tizhong_edit.getText())) {
+            Toast.makeText(getApplicationContext(), R.string.tv149, Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    StringBuffer stringBuffer;
     private void submit_resource() {
         DairyBean dairyBean = new DairyBean();
         dairyBean.setOrdItemNum(order_key);
         dairyBean.setCourseDes(class_content.getText().toString());
-        StringBuffer stringBuffer = new StringBuffer();
         List<String> ids = new ArrayList<>();
         for (int i = 0; i < lableListBeans.size(); i++) {
             if (lableListBeans.get(i).isCheck()) {
                 ids.add(lableListBeans.get(i).getValue() + "");
             }
         }
+        stringBuffer = new StringBuffer();
         for (int i = 0; i < ids.size(); i++) {
             if (i == ids.size() - 1) {
                 stringBuffer.append(ids.get(i));
@@ -140,7 +173,6 @@ public class WriteDailryActivity extends BaseActivity {
                 stringBuffer.append(ids.get(i)).append(",");
             }
         }
-        Log.e("呵呵", stringBuffer.toString() + "");
         dairyBean.setLabel(stringBuffer.toString());
         dairyBean.setStature(shengao_edit.getText().toString());
         dairyBean.setWeight(tizhong_edit.getText().toString());
