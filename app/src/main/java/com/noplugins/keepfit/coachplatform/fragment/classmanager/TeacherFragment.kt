@@ -17,11 +17,13 @@ import androidx.viewpager.widget.ViewPager
 import com.noplugins.keepfit.coachplatform.activity.manager.ClassShouquanActivity
 import com.noplugins.keepfit.coachplatform.activity.manager.TeacherAddOrEditActivity
 import com.noplugins.keepfit.coachplatform.adapter.TabItemAdapter
+import com.noplugins.keepfit.coachplatform.base.BaseActivity
 import com.noplugins.keepfit.coachplatform.bean.manager.ManagerBean
 import com.noplugins.keepfit.coachplatform.fragment.classmanager.teacher.SJDownFragment
 import com.noplugins.keepfit.coachplatform.fragment.classmanager.teacher.SJUpFragment
 import com.noplugins.keepfit.coachplatform.global.AppConstants
 import com.noplugins.keepfit.coachplatform.global.clickWithTrigger
+import com.noplugins.keepfit.coachplatform.util.BaseUtils
 import com.noplugins.keepfit.coachplatform.util.SpUtils
 import com.noplugins.keepfit.coachplatform.util.net.Network
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
@@ -88,8 +90,11 @@ class TeacherFragment : BaseFragment() {
 
         iv_teacher_add.clickWithTrigger {
             //如果登记没完成 则不能添加
-            code = 10
-            requestData()
+            if(BaseUtils.isFastClick()){
+                code = 10
+                requestData()
+            }
+
         }
 
     }

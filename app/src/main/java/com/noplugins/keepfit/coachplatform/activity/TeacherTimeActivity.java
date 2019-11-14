@@ -314,7 +314,7 @@ public class TeacherTimeActivity extends BaseActivity {
                         new ProgressSubscriber<>("设置授课时间", new SubscriberOnNextListener<Bean<Object>>() {
                             @Override
                             public void onNext(Bean<Object> result) {
-                                Toast.makeText(getApplicationContext(), "设置授课时间成功", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(getApplicationContext(), "设置授课时间成功", Toast.LENGTH_SHORT).show();
                                 switch_button.toogleOn();
                                 get_shouke_time();
                             }
@@ -366,7 +366,8 @@ public class TeacherTimeActivity extends BaseActivity {
                             }
 
                             @Override
-                            public void onError(String error) {}
+                            public void onError(String error) {
+                            }
                         }, this, true));
     }
 
