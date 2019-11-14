@@ -60,7 +60,7 @@ class AuthenticationActivity : BaseActivity() {
     private fun Get_YanZhengMa() {
         val params = HashMap<String, Any>()
         params["phone"] = phone
-        params["sign"] = "${"MES"+MD5.stringToMD5(phone)}"
+        params["sign"] = "${MD5.stringToMD5("MES"+phone)}"
         params["time"] = System.currentTimeMillis()
         subscription = Network.getInstance("获取验证码", this)
             .get_yanzhengma(params,
