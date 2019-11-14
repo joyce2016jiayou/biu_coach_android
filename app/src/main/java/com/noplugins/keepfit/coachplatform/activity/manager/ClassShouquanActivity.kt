@@ -15,6 +15,7 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.CheckBox
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import cn.jpush.android.cache.Sp
 import com.amap.api.location.AMapLocation
@@ -87,7 +88,10 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
                             + amapLocation.errorCode + ", errInfo:"
                             + amapLocation.errorInfo
                 )
-
+                SuperCustomToast.getInstance(this)
+                    .show("当前页面功能需要定位权限，请设置")
+                initAdapter()
+                agreeCourse()
 
             }
         }
