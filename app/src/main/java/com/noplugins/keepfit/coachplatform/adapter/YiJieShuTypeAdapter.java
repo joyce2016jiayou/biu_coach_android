@@ -1,14 +1,17 @@
 package com.noplugins.keepfit.coachplatform.adapter;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.*;
 import com.noplugins.keepfit.coachplatform.R;
 import com.noplugins.keepfit.coachplatform.activity.ClassDetailActivity;
@@ -17,6 +20,10 @@ import com.noplugins.keepfit.coachplatform.bean.CheckInformationBean;
 import com.noplugins.keepfit.coachplatform.bean.ClassDateBean;
 import com.noplugins.keepfit.coachplatform.bean.ScheduleBean;
 import com.noplugins.keepfit.coachplatform.fragment.ScheduleFragment;
+import com.noplugins.keepfit.coachplatform.util.BaseUtils;
+import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
 
 import java.util.List;
 
@@ -25,6 +32,9 @@ public class YiJieShuTypeAdapter extends BaseAdapter {
     private LayoutInflater inflater;
 
     private List<ScheduleBean.AlreadyEndCourseBean> list;
+    public static final int PERMISSION_STORAGE_CODE = 10001;
+    public static final String PERMISSION_STORAGE_MSG = "需要电话权限才能联系客服哦";
+    public static final String[] PERMISSION_STORAGE = new String[]{Manifest.permission.CALL_PHONE};
 
     public YiJieShuTypeAdapter(List<ScheduleBean.AlreadyEndCourseBean> mlist, ScheduleFragment m_scheduleFragment) {
         this.scheduleFragment = m_scheduleFragment;
@@ -94,7 +104,7 @@ public class YiJieShuTypeAdapter extends BaseAdapter {
             } else {
                 holder.phone_or_name_tv.setText(alreadyEndCourseBean.getUserName());
             }
-            holder.phone_img.setVisibility(View.GONE);
+            holder.phone_img.setVisibility(View.VISIBLE);
         }
         //判断是否显示日志
         if (alreadyEndCourseBean.getSprotLog() == 0) {//没写过
@@ -144,7 +154,73 @@ public class YiJieShuTypeAdapter extends BaseAdapter {
                 }
             }
         });
+        holder.phone_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                call_pop(holder.phone_img, alreadyEndCourseBean.getUserPhone());
+
+            }
+        });
         return convertView;
+    }
+
+    private void call_pop(ImageView phone_img, String phone_number) {
+        CommonPopupWindow popupWindow = new CommonPopupWindow.Builder(scheduleFragment.getContext())
+                .setView(R.layout.call_pop)
+                .setBackGroundLevel(0.5f)//0.5f
+                .setAnimationStyle(R.style.main_menu_animstyle)
+                .setWidthAndHeight(WindowManager.LayoutParams.MATCH_PARENT,
+                        WindowManager.LayoutParams.MATCH_PARENT)
+                .setOutSideTouchable(true).create();
+        popupWindow.showAsDropDown(phone_img);
+
+        /**设置逻辑*/
+        View view = popupWindow.getContentView();
+        LinearLayout cancel_layout = view.findViewById(R.id.cancel_layout);
+        LinearLayout sure_layout = view.findViewById(R.id.sure_layout);
+        TextView phone_number_tv = view.findViewById(R.id.phone_number_tv);
+        phone_number_tv.setText(phone_number);
+        cancel_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popupWindow.dismiss();
+            }
+        });
+        sure_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (BaseUtils.isFastClick()) {
+                    initSimple(phone_number);
+                    popupWindow.dismiss();
+                }
+            }
+        });
+    }
+
+    @AfterPermissionGranted(PERMISSION_STORAGE_CODE)
+    public void initSimple(String user_phone) {
+        if (hasStoragePermission(scheduleFragment.getContext())) {
+            //有权限
+            callPhone(user_phone);
+        } else {
+            //申请权限
+            EasyPermissions.requestPermissions(scheduleFragment, PERMISSION_STORAGE_MSG, PERMISSION_STORAGE_CODE, PERMISSION_STORAGE);
+        }
+    }
+
+    public void callPhone(String phoneNum) {
+        Intent intent1 = new Intent(Intent.ACTION_CALL);
+        Uri data = Uri.parse("tel:" + phoneNum);
+        intent1.setData(data);
+        scheduleFragment.startActivity(intent1);
+    }
+
+    public static boolean hasStoragePermission(Context context) {
+        return hasPermissions(context, PERMISSION_STORAGE);
+    }
+
+    public static boolean hasPermissions(Context context, String... permissions) {
+        return EasyPermissions.hasPermissions(context, permissions);
     }
 
 
