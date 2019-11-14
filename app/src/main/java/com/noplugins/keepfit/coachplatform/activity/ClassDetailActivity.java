@@ -391,8 +391,8 @@ public class ClassDetailActivity extends BaseActivity implements EasyPermissions
             }
         });
         ImageView erweima_img = view.findViewById(R.id.erweima_img);
-
-        Bitmap bitmap = CodeCreator.createQRImage(order_number, ScreenUtilsHelper.dip2px(ClassDetailActivity.this, 200), ScreenUtilsHelper.dip2px(ClassDetailActivity.this, 200), null);
+        String number = order_number + ":2";
+        Bitmap bitmap = CodeCreator.createQRImage(number, ScreenUtilsHelper.dip2px(ClassDetailActivity.this, 200), ScreenUtilsHelper.dip2px(ClassDetailActivity.this, 200), null);
 //        erweima_code.setImageBitmap(bitmap);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);

@@ -28,6 +28,7 @@ import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextLis
 import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow
 import com.noplugins.keepfit.coachplatform.util.ui.toast.SuperCustomToast
 import kotlinx.android.synthetic.main.activity_team_info.*
+import org.greenrobot.eventbus.EventBus
 import java.util.HashMap
 
 class TeamInfoActivity : BaseActivity() {
@@ -190,7 +191,13 @@ class TeamInfoActivity : BaseActivity() {
             .agreeCourse(params,
                 ProgressSubscriber("团课同意/拒绝", object : SubscriberOnNextListener<Bean<Any>> {
                     override fun onNext(result: Bean<Any>) {
-                        requestData(courseNum)
+//                        requestData(courseNum)
+                        if (type == 1){
+                            EventBus.getDefault().post(AppConstants.TEAM_YQ_AGREE)
+                        } else {
+                            EventBus.getDefault().post(AppConstants.TEAM_YQ_REFUSE)
+                        }
+                        finish()
                     }
 
                     override fun onError(error: String) {
