@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.*;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.*;
@@ -201,6 +203,32 @@ public class LoginActivity extends BaseActivity {
 
             }
         });
+
+        xieyi_check_btn.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                InputMethodManager inputMethodManager =
+                        (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                View decorView = getWindow().peekDecorView();
+                Boolean isBoolean = inputMethodManager.hideSoftInputFromWindow(decorView.getWindowToken(), 0);
+                edit_password.clearFocus();
+                edit_phone_number.clearFocus();
+                return isBoolean;
+            }
+        });
+
+        tv_user_protocol.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                InputMethodManager inputMethodManager =
+                        (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                View decorView = getWindow().peekDecorView();
+                Boolean isBoolean = inputMethodManager.hideSoftInputFromWindow(decorView.getWindowToken(), 0);
+                edit_password.clearFocus();
+                edit_phone_number.clearFocus();
+                return isBoolean;
+            }
+        });
     }
 
     private void yanzheng_yanzhengma() {
@@ -218,7 +246,7 @@ public class LoginActivity extends BaseActivity {
                                         result.getData().getUserNum(),
                                         result.getData().getTeacherType(),
                                         result.getData().getUserNum());
-                                SpUtils.putInt(getApplicationContext(), AppConstants.IS_TX, result.getData().getHavePassword());
+                                SpUtils.putInt(getApplicationContext(), AppConstants.IS_TX, result.getData().getHavePayPassword());
 
                                 if (result.getData().getHavePassword() == 0) {//没有设置过密码
                                     Intent intent = new Intent(LoginActivity.this, SetPasswordActivity.class);

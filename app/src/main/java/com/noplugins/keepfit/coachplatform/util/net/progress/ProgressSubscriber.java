@@ -120,7 +120,9 @@ public class ProgressSubscriber<T> extends Subscriber<Bean<T>> implements Dialog
                 mListener.onError(t.getMessage());
             }
             if (!TextUtils.isEmpty(t.getMessage()) && !t.getMessage().equals("success")) {
-                Toast.makeText(mContext, t.getMessage(), Toast.LENGTH_SHORT).show();
+                if(code != -2 && code !=-3){
+                    Toast.makeText(mContext, t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
         }
 

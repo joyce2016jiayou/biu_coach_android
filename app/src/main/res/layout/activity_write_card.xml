@@ -91,7 +91,6 @@
                 android:layout_marginRight="25dp"
                 android:gravity="center_vertical"
                 android:background="@null"
-                android:text="18380583083"
                 android:inputType="phone"
                 android:maxLength="11"
                 android:hint="@string/edit_hint1"
