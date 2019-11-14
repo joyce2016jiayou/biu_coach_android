@@ -131,7 +131,6 @@ public class TeacherTimeActivity extends BaseActivity {
             }
         });
 
-        switch_button.toogleOn();
         back_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -206,13 +205,11 @@ public class TeacherTimeActivity extends BaseActivity {
                             @Override
                             public void onNext(Bean<Object> result) {
                                 Toast.makeText(getApplicationContext(), "设置忙碌时间成功", Toast.LENGTH_SHORT).show();
-
                             }
 
                             @Override
                             public void onError(String error) {
                                 Toast.makeText(getApplicationContext(), error, Toast.LENGTH_SHORT).show();
-
                             }
                         }, this, false));
     }
@@ -318,7 +315,7 @@ public class TeacherTimeActivity extends BaseActivity {
                             @Override
                             public void onNext(Bean<Object> result) {
                                 Toast.makeText(getApplicationContext(), "设置授课时间成功", Toast.LENGTH_SHORT).show();
-
+                                switch_button.toogleOn();
                                 get_shouke_time();
                             }
 
@@ -338,12 +335,15 @@ public class TeacherTimeActivity extends BaseActivity {
                             @Override
                             public void onNext(Bean<ReturnTimeBean> result) {
                                 String begin_time = result.getData().getWorkTime().getData().getBegTime();
-
                                 String end_time = result.getData().getWorkTime().getData().getEndTime();
+
                                 shouke_tv.setText(begin_time.substring(0, begin_time.length() - 3) + "-" + end_time.substring(0, end_time.length() - 3));
-                                strings.addAll(result.getData().getRestTime().getData());
-                                addTimeAdapter = new AddTimeAdapter(strings, TeacherTimeActivity.this);
-                                recycler_time.setAdapter(addTimeAdapter);
+
+                                if (null != result.getData().getRestTime().getData()) {
+                                    strings.addAll(result.getData().getRestTime().getData());
+                                    addTimeAdapter = new AddTimeAdapter(strings, TeacherTimeActivity.this);
+                                    recycler_time.setAdapter(addTimeAdapter);
+                                }
 
                             }
 
@@ -359,16 +359,14 @@ public class TeacherTimeActivity extends BaseActivity {
         params.put("teacherNum", SpUtils.getString(getApplicationContext(), AppConstants.SELECT_TEACHER_NUMBER));
         Subscription subscription = Network.getInstance("关闭授课时间", this)
                 .close_shouke_time(params,
-                        new ProgressSubscriber<>("关闭授课时间", new SubscriberOnNextListener<Bean<String>>() {
+                        new ProgressSubscriber<>("关闭授课时间", new SubscriberOnNextListener<Bean<Object>>() {
                             @Override
-                            public void onNext(Bean<String> result) {
+                            public void onNext(Bean<Object> result) {
                                 Toast.makeText(getApplicationContext(), "关闭授课时间成功", Toast.LENGTH_SHORT).show();
                             }
 
                             @Override
-                            public void onError(String error) {
-
-                            }
+                            public void onError(String error) {}
                         }, this, true));
     }
 

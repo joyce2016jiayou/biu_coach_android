@@ -274,7 +274,7 @@ public interface MyService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("closedCocahTeacherWorkTime")
-    Observable<Bean<String>> close_shouke_time(@Body RequestBody json);
+    Observable<Bean<Object>> close_shouke_time(@Body RequestBody json);
 
     /**
      * 获取全部时间

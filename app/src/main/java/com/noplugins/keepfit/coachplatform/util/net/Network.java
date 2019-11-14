@@ -478,7 +478,7 @@ public class Network {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
-    public Subscription close_shouke_time(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
+    public Subscription close_shouke_time(Map<String, Object> params, Subscriber<Bean<Object>> subscriber) {
         return service.close_shouke_time(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
