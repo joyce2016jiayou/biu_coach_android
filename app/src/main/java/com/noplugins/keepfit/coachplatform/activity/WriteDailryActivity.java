@@ -75,7 +75,8 @@ public class WriteDailryActivity extends BaseActivity {
     @BindView(R.id.daixie_edit)
     EditText daixie_edit;
     String order_key = "";
-    List<GetDailryBean.LableListBean> lableListBeans = new ArrayList<>();
+    private List<GetDailryBean.LableListBean> lableListBeans = new ArrayList<>();
+    private String submit_labels = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +117,21 @@ public class WriteDailryActivity extends BaseActivity {
         add_btn.setBtnOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                List<String> ids = new ArrayList<>();
+                for (int i = 0; i < lableListBeans.size(); i++) {
+                    if (lableListBeans.get(i).isCheck()) {
+                        ids.add(lableListBeans.get(i).getValue() + "");
+                    }
+                }
+                StringBuffer stringBuffer = new StringBuffer();
+                for (int i = 0; i < ids.size(); i++) {
+                    if (i == ids.size() - 1) {
+                        stringBuffer.append(ids.get(i));
+                    } else {
+                        stringBuffer.append(ids.get(i)).append(",");
+                    }
+                }
+                submit_labels = stringBuffer.toString();
                 if (check_value()) {
                     add_btn.startLoading();
                     submit_resource();
@@ -137,7 +153,7 @@ public class WriteDailryActivity extends BaseActivity {
         } else if (TextUtils.isEmpty(daixie_edit.getText())) {
             Toast.makeText(getApplicationContext(), R.string.tv149, Toast.LENGTH_SHORT).show();
             return false;
-        } else if (null != stringBuffer && stringBuffer.toString().length() == 0) {
+        } else if (TextUtils.isEmpty(submit_labels)) {
             Toast.makeText(getApplicationContext(), R.string.tv150, Toast.LENGTH_SHORT).show();
             return false;
         } else if (TextUtils.isEmpty(shengao_edit.getText())) {
@@ -154,26 +170,11 @@ public class WriteDailryActivity extends BaseActivity {
         }
     }
 
-    StringBuffer stringBuffer;
     private void submit_resource() {
         DairyBean dairyBean = new DairyBean();
         dairyBean.setOrdItemNum(order_key);
         dairyBean.setCourseDes(class_content.getText().toString());
-        List<String> ids = new ArrayList<>();
-        for (int i = 0; i < lableListBeans.size(); i++) {
-            if (lableListBeans.get(i).isCheck()) {
-                ids.add(lableListBeans.get(i).getValue() + "");
-            }
-        }
-        stringBuffer = new StringBuffer();
-        for (int i = 0; i < ids.size(); i++) {
-            if (i == ids.size() - 1) {
-                stringBuffer.append(ids.get(i));
-            } else {
-                stringBuffer.append(ids.get(i)).append(",");
-            }
-        }
-        dairyBean.setLabel(stringBuffer.toString());
+        dairyBean.setLabel(submit_labels);
         dairyBean.setStature(shengao_edit.getText().toString());
         dairyBean.setWeight(tizhong_edit.getText().toString());
         dairyBean.setBodyfat(tizhi_edit.getText().toString());
@@ -186,12 +187,14 @@ public class WriteDailryActivity extends BaseActivity {
                             @Override
                             public void onNext(Bean<Object> result) {
                                 add_btn.loadingComplete();
+                                submit_labels = "";
                                 Toast.makeText(getApplicationContext(), "新增日志成功~", Toast.LENGTH_SHORT).show();
                                 finish();
                             }
 
                             @Override
                             public void onError(String error) {
+                                submit_labels = "";
                                 Toast.makeText(getApplicationContext(), error, Toast.LENGTH_SHORT).show();
                                 add_btn.loadingComplete();
 

@@ -82,31 +82,6 @@ public class ScheduleFragment extends Fragment {
 
 
     private void initView() {
-
-        if (classDateBeans.size() > 0) {
-            classDateBeans.clear();
-        }
-        if (AppConstants.selectDateBeans.size() > 0) {
-            selectDateBeans.addAll(AppConstants.selectDateBeans);
-        } else {
-            selectDateBeans.addAll(DateUtils.getmoredate());
-        }
-        String current_date_str = selectDateBeans.get(0).getCurrent_date();
-        select_date = current_date_str;
-
-
-        init_class_date_resource(select_date);
-        //初始化日期数据
-        init_date_resoure();
-
-
-//        touxiang_image.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
-
         teacher_time_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -169,7 +144,21 @@ public class ScheduleFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        if (classDateBeans.size() > 0) {
+            classDateBeans.clear();
+        }
+        if (AppConstants.selectDateBeans.size() > 0) {
+            selectDateBeans.addAll(AppConstants.selectDateBeans);
+        } else {
+            selectDateBeans.addAll(DateUtils.getmoredate());
+        }
+        String current_date_str = selectDateBeans.get(0).getCurrent_date();
+        select_date = current_date_str;
 
+
+        init_class_date_resource(select_date);
+        //初始化日期数据
+        init_date_resoure();
 
     }
 
@@ -177,7 +166,7 @@ public class ScheduleFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Glide.with(getActivity())
-                .load(SpUtils.getString(getActivity(),AppConstants.LOGO))
+                .load(SpUtils.getString(getActivity(), AppConstants.LOGO))
                 .into(touxiang_image);
     }
 
