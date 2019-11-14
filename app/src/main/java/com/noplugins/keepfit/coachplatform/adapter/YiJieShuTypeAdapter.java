@@ -96,6 +96,7 @@ public class YiJieShuTypeAdapter extends BaseAdapter {
             holder.type_icon_bg.setBackgroundResource(R.drawable.tuan_bg);
             holder.phone_or_name_tv.setText(alreadyEndCourseBean.getPersonNum() + "人");
             holder.phone_img.setVisibility(View.GONE);
+            holder.button_bg.setVisibility(View.GONE);
         } else {//私教
             holder.type_icon_tv.setText("私");
             holder.type_icon_bg.setBackgroundResource(R.drawable.si_bg);
@@ -105,17 +106,19 @@ public class YiJieShuTypeAdapter extends BaseAdapter {
                 holder.phone_or_name_tv.setText(alreadyEndCourseBean.getUserName());
             }
             holder.phone_img.setVisibility(View.VISIBLE);
-        }
-        //判断是否显示日志
-        if (alreadyEndCourseBean.getSprotLog() == 0) {//没写过
-            holder.button_bg.setVisibility(View.VISIBLE);
-            holder.button_tv.setText("写日志");
-            holder.button_tv.setTextColor(Color.parseColor("#00BABB"));
-        } else {//写过
-            Log.e("圣诞节疯狂了坚实的", "防守打法发送到");
-            holder.button_bg.setVisibility(View.GONE);
 
+            //判断是否显示日志
+            if (alreadyEndCourseBean.getSprotLog() == 0) {//没写过
+                holder.button_bg.setVisibility(View.VISIBLE);
+                holder.button_tv.setText("写日志");
+                holder.button_tv.setTextColor(Color.parseColor("#00BABB"));
+            } else {//写过
+                Log.e("圣诞节疯狂了坚实的", "防守打法发送到");
+                holder.button_bg.setVisibility(View.GONE);
+
+            }
         }
+
         holder.button_bg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

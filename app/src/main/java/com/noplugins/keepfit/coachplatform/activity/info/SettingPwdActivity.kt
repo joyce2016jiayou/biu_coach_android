@@ -93,8 +93,10 @@ class SettingPwdActivity : BaseActivity() {
         val params = HashMap<String, Any>()
         params["phone"] = edit_phone.text.toString()
         params["messageId"] = messageId
-        params["code"] = edit_yzm.text.toString()
+        params["verifyCode"] = edit_yzm.text.toString()
         params["password"] = edit_new_password.text.toString()
+        params["userNum"] = SpUtils.getString(applicationContext,AppConstants.USER_NAME)
+
         subscription = Network.getInstance("设置密码", this)
             .forgetPassword(params,
                 ProgressSubscriber("设置密码", object : SubscriberOnNextListener<Bean<Any>> {

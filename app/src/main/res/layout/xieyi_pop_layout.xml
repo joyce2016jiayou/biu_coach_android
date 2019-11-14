@@ -8,19 +8,12 @@
                 android:layout_marginBottom="@dimen/m51"
                 android:background="@drawable/xieyi_bg"
                 android:layout_height="match_parent">
-    <TextView
-            android:layout_width="wrap_content"
-            android:text="@string/tv5"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/m39"
-            android:textSize="15sp"
-            android:textColor="@color/top_heiziti"
-            android:layout_height="wrap_content"/>
+
 
     <ScrollView
             android:id="@+id/content_layout"
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/m65"
+            android:layout_marginTop="@dimen/m35"
             android:layout_marginBottom="@dimen/m61"
             android:layout_height="match_parent">
         <LinearLayout

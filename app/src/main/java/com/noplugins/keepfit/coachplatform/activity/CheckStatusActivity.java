@@ -137,6 +137,10 @@ public class CheckStatusActivity extends BaseActivity {
         back_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (fragment_type == 2||fragment_type == 1) {
+                    finish();
+                    return;
+                }
                 if (select_index == 0) {
                     go_to_last_step("教练入驻", 0);
                 } else if (select_index == 1) {
@@ -169,6 +173,10 @@ public class CheckStatusActivity extends BaseActivity {
     }
 
     private void go_to_last_step(String title, int mselect_index) {
+        if (fragment_type == 2||fragment_type == 1) {
+            finish();
+            return;
+        }
         if (mselect_index == 0) {
             top_title_tv.setText(title);
             show_advice_pop();
