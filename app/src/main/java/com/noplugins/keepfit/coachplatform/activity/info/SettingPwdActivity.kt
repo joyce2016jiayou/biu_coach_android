@@ -13,9 +13,8 @@ import com.noplugins.keepfit.coachplatform.base.BaseActivity
 import com.noplugins.keepfit.coachplatform.global.AppConstants
 import com.noplugins.keepfit.coachplatform.global.clickWithTrigger
 import com.noplugins.keepfit.coachplatform.util.ActivityCollectorUtil
-import com.noplugins.keepfit.coachplatform.util.MD5Utils
+import com.noplugins.keepfit.coachplatform.util.MD5
 import com.noplugins.keepfit.coachplatform.util.SpUtils
-import com.noplugins.keepfit.coachplatform.util.data.PwdCheckUtil
 import com.noplugins.keepfit.coachplatform.util.data.StringsHelper
 import com.noplugins.keepfit.coachplatform.util.net.Network
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
@@ -125,7 +124,7 @@ class SettingPwdActivity : BaseActivity() {
     private fun send() {
         val params = HashMap<String, Any>()
         params["phone"] = edit_phone.text.toString()
-        params["sign"] = "MES${MD5Utils.stringToMD5(edit_phone.text.toString())}"
+        params["sign"] = "${MD5.stringToMD5("MES"+edit_phone.text.toString())}"
         params["time"] = System.currentTimeMillis()
         subscription = Network.getInstance("获取验证码", this)
             .get_yanzhengma(params,
