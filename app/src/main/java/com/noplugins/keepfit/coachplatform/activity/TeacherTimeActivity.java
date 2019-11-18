@@ -92,7 +92,8 @@ public class TeacherTimeActivity extends BaseActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(TeacherTimeActivity.this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recycler_time.setLayoutManager(linearLayoutManager);
-
+        addTimeAdapter = new AddTimeAdapter(strings, TeacherTimeActivity.this);
+        recycler_time.setAdapter(addTimeAdapter);
 
         add_time_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -327,6 +328,7 @@ public class TeacherTimeActivity extends BaseActivity {
     }
 
     private void get_shouke_time() {
+        strings.clear();
         Map<String, Object> params = new HashMap<>();
         params.put("teacherNum", SpUtils.getString(getApplicationContext(), AppConstants.SELECT_TEACHER_NUMBER));
         Subscription subscription = Network.getInstance("获取全部时间", this)
@@ -341,8 +343,7 @@ public class TeacherTimeActivity extends BaseActivity {
 
                                 if (null != result.getData().getRestTime().getData()) {
                                     strings.addAll(result.getData().getRestTime().getData());
-                                    addTimeAdapter = new AddTimeAdapter(strings, TeacherTimeActivity.this);
-                                    recycler_time.setAdapter(addTimeAdapter);
+                                    addTimeAdapter.notifyDataSetChanged();
                                 }
 
                             }

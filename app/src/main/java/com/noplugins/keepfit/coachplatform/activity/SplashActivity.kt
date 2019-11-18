@@ -104,8 +104,8 @@ class SplashActivity : BaseActivity() {
                     }
 
                     override fun onError(error: String) {
-                        SuperCustomToast.getInstance(this@SplashActivity)
-                            .show(error)
+//                        SuperCustomToast.getInstance(this@SplashActivity)
+//                            .show(error)
                         val intent = Intent(this@SplashActivity, LoginActivity::class.java)
                         startActivity(intent)
                         finish()
