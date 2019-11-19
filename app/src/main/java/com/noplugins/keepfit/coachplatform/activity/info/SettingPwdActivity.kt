@@ -32,8 +32,8 @@ class SettingPwdActivity : BaseActivity() {
     override fun initView() {
         setContentView(R.layout.activity_setting_pwd)
         edit_phone.setText(SpUtils.getString(applicationContext,AppConstants.PHONE))
-        edit_phone.isFocusable = false
-        edit_phone.isFocusableInTouchMode = false
+//        edit_phone.isFocusable = false
+//        edit_phone.isFocusableInTouchMode = false
     }
 
     override fun doBusiness(mContext: Context?) {
@@ -93,7 +93,7 @@ class SettingPwdActivity : BaseActivity() {
         val params = HashMap<String, Any>()
         params["phone"] = edit_phone.text.toString()
         params["messageId"] = messageId
-        params["verifyCode"] = edit_yzm.text.toString()
+        params["code"] = edit_yzm.text.toString()
         params["password"] = edit_new_password.text.toString()
         params["userNum"] = SpUtils.getString(applicationContext,AppConstants.USER_NAME)
 

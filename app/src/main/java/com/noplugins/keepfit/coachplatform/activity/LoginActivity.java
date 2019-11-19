@@ -19,6 +19,7 @@ import butterknife.ButterKnife;
 
 import com.noplugins.keepfit.coachplatform.MainActivity;
 import com.noplugins.keepfit.coachplatform.R;
+import com.noplugins.keepfit.coachplatform.activity.info.SettingPwdActivity;
 import com.noplugins.keepfit.coachplatform.base.BaseActivity;
 import com.noplugins.keepfit.coachplatform.bean.LoginBean;
 import com.noplugins.keepfit.coachplatform.bean.TeacherStatusBean;
@@ -200,7 +201,8 @@ public class LoginActivity extends BaseActivity {
         forget_password_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(LoginActivity.this, SettingPwdActivity.class);
+                startActivity(intent);
             }
         });
 
