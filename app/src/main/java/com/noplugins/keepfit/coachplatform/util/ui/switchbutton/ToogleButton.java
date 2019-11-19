@@ -335,7 +335,9 @@ public class ToogleButton extends View {
      */
     public void toogleOn() {
         isAnimation = true;
+        checkState = UNCHECKED;
         valueAnimator.start();
+
     }
 
     /**
@@ -343,7 +345,9 @@ public class ToogleButton extends View {
      */
     public void toogleOff() {
         isAnimation = true;
+        checkState = CHECKED;
         valueAnimator.start();
+
     }
 
     /**

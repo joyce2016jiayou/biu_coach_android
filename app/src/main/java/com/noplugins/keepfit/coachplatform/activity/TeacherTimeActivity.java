@@ -185,7 +185,7 @@ public class TeacherTimeActivity extends BaseActivity {
         });
 
         /**设置授课时间段*/
-        set_shouke_time();
+        get_shouke_time();
 
         save_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -316,8 +316,6 @@ public class TeacherTimeActivity extends BaseActivity {
                             @Override
                             public void onNext(Bean<Object> result) {
                                 //Toast.makeText(getApplicationContext(), "设置授课时间成功", Toast.LENGTH_SHORT).show();
-                                switch_button.toogleOn();
-                                get_shouke_time();
                             }
 
                             @Override
@@ -336,15 +334,25 @@ public class TeacherTimeActivity extends BaseActivity {
                         new ProgressSubscriber<>("获取全部时间", new SubscriberOnNextListener<Bean<ReturnTimeBean>>() {
                             @Override
                             public void onNext(Bean<ReturnTimeBean> result) {
-                                String begin_time = result.getData().getWorkTime().getData().getBegTime();
-                                String end_time = result.getData().getWorkTime().getData().getEndTime();
+                                if (null != result.getData().getWorkTime().getData()) {
+                                    switch_button.toogleOn();
+                                    is_open_switch = true;
 
-                                shouke_tv.setText(begin_time.substring(0, begin_time.length() - 3) + "-" + end_time.substring(0, end_time.length() - 3));
+                                    String begin_time = result.getData().getWorkTime().getData().getBegTime();
+                                    String end_time = result.getData().getWorkTime().getData().getEndTime();
+                                    shouke_tv.setText(begin_time.substring(0, begin_time.length() - 3) + "-" + end_time.substring(0, end_time.length() - 3));
+                                } else {
+                                    Log.e("已经关闭授课时间了", "关闭授课时间");
+                                    switch_button.toogleOff();
+                                    is_open_switch = false;
+
+                                }
 
                                 if (null != result.getData().getRestTime().getData()) {
                                     strings.addAll(result.getData().getRestTime().getData());
                                     addTimeAdapter.notifyDataSetChanged();
                                 }
+
 
                             }
 
