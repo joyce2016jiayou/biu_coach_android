@@ -60,6 +60,7 @@
             </LinearLayout>
 
             <LinearLayout
+                    android:id="@+id/ll_info"
                     android:layout_width="wrap_content"
                     android:orientation="horizontal"
                     android:layout_alignParentBottom="true"
@@ -87,7 +88,7 @@
 
                 <TextView
                         android:id="@+id/phone_or_name_tv"
-                        android:layout_width="@dimen/m100"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="13sp"
                         android:ellipsize="end"
@@ -103,7 +104,7 @@
                         android:layout_height="@dimen/m16"
                         android:src="@drawable/phone_img"
                         android:layout_marginLeft="@dimen/m10"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         />
             </LinearLayout>
 

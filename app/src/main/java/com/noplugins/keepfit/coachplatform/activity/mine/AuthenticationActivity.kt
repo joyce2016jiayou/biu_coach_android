@@ -9,6 +9,7 @@ import com.noplugins.keepfit.coachplatform.R
 import com.noplugins.keepfit.coachplatform.base.BaseActivity
 import com.noplugins.keepfit.coachplatform.global.AppConstants
 import com.noplugins.keepfit.coachplatform.global.clickWithTrigger
+import com.noplugins.keepfit.coachplatform.util.BaseUtils
 import com.noplugins.keepfit.coachplatform.util.MD5
 import com.noplugins.keepfit.coachplatform.util.SpUtils
 import com.noplugins.keepfit.coachplatform.util.net.Network
@@ -42,8 +43,10 @@ class AuthenticationActivity : BaseActivity() {
     }
 
     override fun doBusiness(mContext: Context?) {
-        btn_complete.clickWithTrigger {
-            binding()
+        btn_complete.setOnClickListener {
+           if (BaseUtils.isFastClick()){
+               binding()
+           }
         }
         back_btn.clickWithTrigger {
             finish()
@@ -101,7 +104,7 @@ class AuthenticationActivity : BaseActivity() {
 
 
                     }
-                }, this, false)
+                }, this, true)
             )
     }
 

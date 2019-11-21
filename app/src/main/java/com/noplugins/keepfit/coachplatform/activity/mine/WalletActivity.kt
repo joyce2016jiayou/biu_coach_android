@@ -21,6 +21,7 @@ import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
 import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
 import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow
+import com.noplugins.keepfit.coachplatform.util.ui.toast.SuperCustomToast
 import kotlinx.android.synthetic.main.activity_wallet.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -52,6 +53,12 @@ class WalletActivity : BaseActivity() {
         btn_tixian.clickWithTrigger(1000) {
             Log.d("LOGO", "当先："+SpUtils.getInt(applicationContext,AppConstants.IS_TX))
             if (SpUtils.getInt(applicationContext,AppConstants.IS_TX) == 1){
+
+                if (finalCanWithdraw < 500){
+                    SuperCustomToast.getInstance(this)
+                        .show("当前可提现金额小于500，无法提现")
+                    return@clickWithTrigger
+                }
                 val intent = Intent(this, WithdrawActivity::class.java)
                 val bundle = Bundle()
                 bundle.putDouble("finalCanWithdraw",finalCanWithdraw)
