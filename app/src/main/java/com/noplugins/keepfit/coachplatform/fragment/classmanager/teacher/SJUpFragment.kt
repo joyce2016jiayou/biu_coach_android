@@ -60,7 +60,7 @@ class SJUpFragment : BaseFragment()  {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public fun upadate(messageEvent:String ) {
         if ("私教上架" == messageEvent){
-            requestData()
+//            requestData()
         }
     }
 
@@ -83,7 +83,7 @@ class SJUpFragment : BaseFragment()  {
 
     override fun onResume() {
         super.onResume()
-        if (datas.size > 0){
+        if (datas.size>=0){
             requestData()
         }
     }
