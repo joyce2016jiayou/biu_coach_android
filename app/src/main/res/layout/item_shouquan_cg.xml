@@ -11,13 +11,16 @@
         android:button="@null"
         android:layout_marginLeft="@dimen/m11"
         android:layout_marginRight="@dimen/m5"
+        android:layout_marginTop="@dimen/m10"
         android:background="@drawable/btn_checkbox"/>
 
     <RelativeLayout
             android:id="@+id/rl_detail"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/m146"
-            android:background="@drawable/juxing_item_bg"
+            android:minHeight="@dimen/m147"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_dialog_white"
+            android:layout_margin="@dimen/m10"
             android:padding="@dimen/m14">
         <ImageView
                 android:id="@+id/iv_cg_logo"
