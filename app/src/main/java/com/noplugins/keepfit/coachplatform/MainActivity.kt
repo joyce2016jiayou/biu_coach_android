@@ -103,7 +103,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         loginSuccess()
 
         //更新app
-        update_app()
+//        update_app()
 
     }
 

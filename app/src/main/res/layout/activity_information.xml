@@ -239,7 +239,7 @@
                                 android:padding="@dimen/m11"
                                 android:textColor="@color/color_929292"
                                 android:textSize="15sp"
-                                android:maxLength="120"
+                                android:maxLength="50"
                                 android:layout_marginLeft="@dimen/m20"
                                 android:layout_marginBottom="@dimen/m20"
                                 android:layout_marginRight="@dimen/m20"
@@ -255,7 +255,7 @@
                                 android:layout_marginRight="@dimen/m30"
                                 android:layout_gravity="right|bottom"
                                 android:layout_marginBottom="@dimen/m30"
-                                android:text="120字"/>
+                                android:text="50字"/>
                     </FrameLayout>
                 </LinearLayout>
             </www.linwg.org.lib.LCardView>

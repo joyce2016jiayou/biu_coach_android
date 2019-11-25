@@ -7,6 +7,8 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:id="@+id/ll_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         tools:context=".activity.manager.ClassShouquanActivity">
     <FrameLayout
             android:layout_width="match_parent"

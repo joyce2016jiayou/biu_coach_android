@@ -40,7 +40,7 @@ class BillDetailInfoActivity : BaseActivity() {
         if(bean.type == 1){
             lv_1.visibility = View.VISIBLE
             lv_2.visibility = View.GONE
-            tv_zcje.text ="¥${bean.money}"
+            tv_zcje.text ="¥${bean.finalmoney}"
             tv_sqsj.text= bean.createDate
             if (null != bean.cardName){
                 tv_txyh.text= bean.cardName
@@ -68,7 +68,7 @@ class BillDetailInfoActivity : BaseActivity() {
             .load(typeToDrawble(bean.type))
             .into(iv_logo)
 
-        tv_money.text = "-${bean.money}"
+        tv_money.text = "-${bean.finalmoney}"
     }
 
     private fun requestData() {
