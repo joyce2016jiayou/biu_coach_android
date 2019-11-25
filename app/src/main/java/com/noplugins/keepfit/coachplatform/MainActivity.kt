@@ -1,18 +1,30 @@
 package com.noplugins.keepfit.coachplatform
 
+import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.media.SoundPool
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.allenliu.versionchecklib.callback.OnCancelListener
+import com.allenliu.versionchecklib.v2.AllenVersionChecker
+import com.allenliu.versionchecklib.v2.builder.DownloadBuilder
+import com.allenliu.versionchecklib.v2.builder.UIData
+import com.allenliu.versionchecklib.v2.callback.CustomDownloadingDialogListener
+import com.allenliu.versionchecklib.v2.callback.CustomVersionDialogListener
 import com.google.gson.Gson
 import com.noplugins.keepfit.coachplatform.adapter.ContentPagerAdapterMy
 import com.noplugins.keepfit.coachplatform.base.BaseActivity
 import com.noplugins.keepfit.coachplatform.base.MyApplication
 import com.noplugins.keepfit.coachplatform.bean.MaxMessageEntity
+import com.noplugins.keepfit.coachplatform.bean.VersionEntity
 import com.noplugins.keepfit.coachplatform.fragment.MessageFragment
 import com.noplugins.keepfit.coachplatform.fragment.MineFragment
 import com.noplugins.keepfit.coachplatform.fragment.ScheduleFragment
@@ -20,6 +32,7 @@ import com.noplugins.keepfit.coachplatform.global.AppConstants
 import com.noplugins.keepfit.coachplatform.jpush.TagAliasOperatorHelper
 import com.noplugins.keepfit.coachplatform.util.MessageEvent
 import com.noplugins.keepfit.coachplatform.util.SpUtils
+import com.noplugins.keepfit.coachplatform.util.VersionUtils
 import com.noplugins.keepfit.coachplatform.util.data.SharedPreferencesHelper
 import com.noplugins.keepfit.coachplatform.util.net.Network
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
@@ -27,6 +40,7 @@ import com.noplugins.keepfit.coachplatform.util.net.progress.GsonSubscriberOnNex
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriberNew
 import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
+import com.noplugins.keepfit.coachplatform.util.ui.BaseDialog
 import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.RequestBody
@@ -41,7 +55,9 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     private var sp: SoundPool? = null//声明一个SoundPool
     private var music: Int = 0//定义一个整型用load（）；来设置suondID
     private val tabFragments = ArrayList<Fragment>()
-
+    private lateinit var builder: DownloadBuilder
+    private var is_qiangzhi_update = false
+    private var update_url = ""
     override fun initBundle(parms: Bundle?) {
 
     }
@@ -85,6 +101,121 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         get_message_all()
 
         loginSuccess()
+
+        //更新app
+        update_app()
+
+    }
+
+    private fun update_app() {
+        val params: MutableMap<String, Any> =
+            HashMap()
+        params["type"] = "coach"
+        params["code"] = VersionUtils.getAppVersionCode(applicationContext)
+        params["phoneType"] = "2"
+        val subscription = Network.getInstance("升级版本", this)
+            .update_version(
+                params,
+                ProgressSubscriber("升级版本", object : SubscriberOnNextListener<Bean<VersionEntity>> {
+                    override fun onNext(result: Bean<VersionEntity>) {
+                        update_url = result.data.url
+                        //是否需要强制升级1强制升级 2不升级 3可升级可不升级
+                        if (result.data.up === 1) {
+                            is_qiangzhi_update = true
+                            update_app_pop()
+                        } else {
+                            update_app_pop()
+                            is_qiangzhi_update = false
+                        }
+                    }
+
+                    override fun onError(error: String?) {}
+
+                }, this, false)
+            )
+    }
+
+    private fun update_app_pop() {
+        builder = AllenVersionChecker
+            .getInstance()
+            .downloadOnly(crateUIData())
+        builder.setCustomVersionDialogListener(createCustomDialogTwo()) //设置更新弹窗样式
+        builder.setCustomDownloadingDialogListener(createCustomDownloadingDialog()) //设置下载样式
+        builder.setForceRedownload(true) //强制重新下载apk（无论本地是否缓存）
+        builder.setShowNotification(true) //显示下载通知栏
+        builder.setShowDownloadingDialog(true) //显示下载中对话框
+        builder.setShowDownloadFailDialog(true) //显示下载失败对话框
+        builder.setDownloadAPKPath(Environment.getExternalStorageDirectory().toString() + "/noplugins/apkpath/") //自定义下载路径
+        builder.setOnCancelListener(OnCancelListener {
+            if (is_qiangzhi_update) {
+                val intent = Intent()
+                intent.action = "android.intent.action.MAIN"
+                intent.addCategory("android.intent.category.HOME")
+                startActivity(intent)
+                finish()
+            } else {
+                Toast.makeText(this@MainActivity, "已关闭更新", Toast.LENGTH_SHORT).show()
+            }
+        })
+        builder.executeMission(this)
+    }
+
+    /**
+     * 自定义下载中对话框，下载中会连续回调此方法 updateUI
+     * 务必用库传回来的context 实例化你的dialog
+     *
+     * @return
+     */
+    private fun createCustomDownloadingDialog(): CustomDownloadingDialogListener? {
+        return object : CustomDownloadingDialogListener {
+            override fun getCustomDownloadingDialog(
+                context: Context,
+                progress: Int,
+                versionBundle: UIData
+            ): Dialog {
+                return BaseDialog(context, R.style.BaseDialog, R.layout.custom_download_layout)
+            }
+
+            override fun updateUI(dialog: Dialog, progress: Int, versionBundle: UIData) {
+                val tvProgress = dialog.findViewById<TextView>(R.id.tv_progress)
+                val progressBar = dialog.findViewById<ProgressBar>(R.id.pb)
+                progressBar.progress = progress
+                tvProgress.text = getString(R.string.versionchecklib_progress, progress)
+            }
+        }
+    }
+
+    /**
+     * 更新弹窗样式
+     *
+     * @return
+     */
+    private fun createCustomDialogTwo(): CustomVersionDialogListener? {
+        return CustomVersionDialogListener { context: Context?, versionBundle: UIData ->
+            val baseDialog = BaseDialog(context, R.style.BaseDialog, R.layout.custom_dialog_two_layout)
+            val textView: TextView = baseDialog.findViewById(R.id.tv_msg)
+            textView.text = versionBundle.content
+            baseDialog.setCanceledOnTouchOutside(true)
+            baseDialog
+        }
+    }
+
+    /**
+     * @return
+     * @important 使用请求版本功能，可以在这里设置downloadUrl
+     * 这里可以构造UI需要显示的数据
+     * UIData 内部是一个Bundle
+     */
+    private fun crateUIData(): UIData? {
+        val uiData = UIData.create()
+        uiData.title = getString(R.string.update_title)
+        uiData.downloadUrl = update_url
+        if (is_qiangzhi_update) {
+            uiData.content = getString(R.string.updatecontent2)
+        } else {
+            uiData.content = getString(R.string.updatecontent)
+        }
+        return uiData
     }
 
     private fun loginSuccess() {

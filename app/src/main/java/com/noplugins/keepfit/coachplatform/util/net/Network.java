@@ -44,15 +44,7 @@ public class Network {
     public UserService userService;
 
     public static String token = "";
-    //测试服
-    private String test_main_url = "http://testapi.noplugins.com/api/coach-service";
-    private String main_url = "http://kft.ahcomg.com/api/coach-service";
     private static String MRTHOD_NAME = "";
-    private String test_get_tag_url = "http://testapi.noplugins.com/api/gym-service/";//获取字典
-    private String main_tag_url = "http://kft.ahcomg.com/api/gym-service/";//获取字典
-
-    private String user_url = "http://kft.ahcomg.com/api/cust-service/custuser/";
-    private String test_user_url = "http://testapi.noplugins.com/api/cust-service/custuser/";
     Gson gson;
     Retrofit retrofit;
     Retrofit get_tag_retrofit;
@@ -60,26 +52,27 @@ public class Network {
 
     OkHttpClient client;
 
-    public String get_main_url(String str) {
+    public String get_coach_url(String str) {
         if (str.equals("test")) {
-            return test_main_url + "/coachuser/";
+            return "http://testapi.noplugins.com/api/coach-service/coachuser/";
         } else {
-            return main_url + "/coachuser/";
+            return "http://kft.ahcomg.com/api/coach-service/coachuser/";
         }
     }
 
     public String get_changguang_url(String str) {
         if (str.equals("test")) {
-            return test_get_tag_url;
+            return "http://testapi.noplugins.com/api/gym-service/";
         } else {
-            return main_tag_url;
+            return "http://kft.ahcomg.com/api/gym-service/";
         }
     }
+
     public String user_url(String str) {
         if (str.equals("test")) {
-            return test_user_url;
+            return "http://testapi.noplugins.com/api/cust-service/custuser/";
         } else {
-            return user_url;
+            return "http://kft.ahcomg.com/api/cust-service/custuser/";
         }
     }
 
@@ -162,7 +155,7 @@ public class Network {
 
         retrofit = new Retrofit.Builder()
                 .client(client)
-                .baseUrl(get_main_url("test"))//设置请求网址根部
+                .baseUrl(get_coach_url("test"))//设置请求网址根部
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
@@ -185,6 +178,14 @@ public class Network {
         changGuanService = get_tag_retrofit.create(ChangGuanService.class);
         userService = get_user_retrofit.create(UserService.class);
 
+    }
+
+    public Subscription update_version(Map<String, Object> params, Subscriber<Bean<VersionEntity>> subscriber) {
+        return service.update_version(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
     }
 
     private RequestBody retuen_json_params(Map<String, Object> params) {
@@ -213,6 +214,7 @@ public class Network {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
+
     public Subscription get_teacher_status(Map<String, Object> params, Subscriber<Bean<TeacherStatusBean>> subscriber) {
         return service.get_teacher_status(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
@@ -478,6 +480,7 @@ public class Network {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
+
     public Subscription close_shouke_time(Map<String, Object> params, Subscriber<Bean<Object>> subscriber) {
         return service.close_shouke_time(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
