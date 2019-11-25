@@ -84,6 +84,11 @@ class WithdrawActivity : BaseActivity() {
         }
 
         tv_withdraw_ok.clickWithTrigger(2000) {
+            if (et_withdraw_money.text.toString().isEmpty()){
+                SuperCustomToast.getInstance(applicationContext)
+                    .show("提现金额不能小于500")
+                return@clickWithTrigger
+            }
             //提现操作
             if (et_withdraw_money.text.toString().toDouble() < 500){
                 SuperCustomToast.getInstance(applicationContext)

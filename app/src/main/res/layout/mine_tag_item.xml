@@ -7,7 +7,7 @@
 
     <LinearLayout
             android:id="@+id/tag_layout"
-            android:layout_width="72dp"
+            android:layout_width="@dimen/m72"
             android:background="@drawable/tag_bg"
             android:gravity="center"
             android:layout_height="28dp">
