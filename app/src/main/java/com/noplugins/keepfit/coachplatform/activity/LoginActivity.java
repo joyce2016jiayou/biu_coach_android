@@ -100,7 +100,7 @@ public class LoginActivity extends BaseActivity {
                     edit_password.setHint(s);
                     img_password.setImageResource(R.drawable.password_icon);
                     tv_send.setVisibility(View.GONE);
-
+                    edit_password.setText("");
                     forget_password_btn.setVisibility(View.VISIBLE);
 
 
@@ -114,6 +114,7 @@ public class LoginActivity extends BaseActivity {
 
                     SpannableString s = new SpannableString("请输入验证码");//这里输入自己想要的提示文字
                     edit_password.setHint(s);
+                    edit_password.setText("");
                     img_password.setImageResource(R.drawable.yanzhengma_icon);
                     tv_send.setVisibility(View.VISIBLE);
 
