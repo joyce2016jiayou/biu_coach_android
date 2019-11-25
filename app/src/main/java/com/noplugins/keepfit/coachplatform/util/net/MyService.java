@@ -450,4 +450,13 @@ public interface MyService {
     @POST("searchDict")
     Observable<Bean<List<DictionaryBean>>> searchDict(@Body RequestBody json);
 
+    /**
+     * 版本升级
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("versionsCheck")
+    Observable<Bean<VersionEntity>> update_version(@Body RequestBody map);
+
 }
