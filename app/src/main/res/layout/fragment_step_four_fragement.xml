@@ -23,6 +23,7 @@
             android:layout_marginTop="@dimen/m10"
             android:layout_marginRight="@dimen/m10"
             android:gravity="center_vertical"
+            android:visibility="gone"
             android:orientation="horizontal">
 
         <CheckBox

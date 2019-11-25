@@ -124,6 +124,7 @@ public class StepOneFragment extends ViewPagerFragment {
     List<ZiDIanBean> xuelis = new ArrayList<>();
     private String select_school_str = "";
     public TextView top_title_tv;
+
     public static StepOneFragment homeInstance(String title) {
         StepOneFragment fragment = new StepOneFragment();
         Bundle args = new Bundle();
@@ -227,7 +228,7 @@ public class StepOneFragment extends ViewPagerFragment {
 
                     //跳转下一个页面
                     viewpager_content.setCurrentItem(1);
-                    checkStatusActivity.select_index=1;
+                    checkStatusActivity.select_index = 1;
                     top_title_tv.setText("教练入驻");
                     int step = stepView.getCurrentStep();//设置进度条
                     stepView.setCurrentStep((step + 1) % stepView.getStepNum());
@@ -474,7 +475,13 @@ public class StepOneFragment extends ViewPagerFragment {
                         options3Items.get(options1).get(option2).get(options3) : "";
 
                 String tx = opt1tx + opt2tx + opt3tx;
-                address_tv.setText(opt1tx + opt2tx);
+                if (opt1tx.equals(opt2tx)) {
+                    address_tv.setText(opt1tx);
+
+                } else {
+                    address_tv.setText(opt1tx + opt2tx);
+
+                }
 
                 Log.e("选择的地址", tx);
             }

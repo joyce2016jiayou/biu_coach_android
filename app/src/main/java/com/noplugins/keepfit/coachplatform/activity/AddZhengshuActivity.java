@@ -27,6 +27,7 @@ import com.noplugins.keepfit.coachplatform.callback.ImageCompressCallBack;
 import com.noplugins.keepfit.coachplatform.global.AppConstants;
 import com.noplugins.keepfit.coachplatform.util.GlideEngine;
 import com.noplugins.keepfit.coachplatform.util.MessageEvent;
+import com.noplugins.keepfit.coachplatform.util.data.DateHelper;
 import com.noplugins.keepfit.coachplatform.util.data.FileSizeUtil;
 import com.noplugins.keepfit.coachplatform.util.net.Network;
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean;
@@ -163,10 +164,10 @@ public class AddZhengshuActivity extends BaseActivity {
                 } else if (TextUtils.isEmpty(time_tv.getText())) {
                     Toast.makeText(getApplicationContext(), "获证时间不能为空！", Toast.LENGTH_SHORT).show();
                     return;
-                } else if(null==upload_coachPicCertificatesBean){
+                } else if (null == upload_coachPicCertificatesBean) {
                     Toast.makeText(getApplicationContext(), "证书图片不能为空！", Toast.LENGTH_SHORT).show();
                     return;
-                }else {
+                } else {
                     set_zhengshu_view();
                     AppConstants.SELECT_PHOTO_NUM.add(upload_coachPicCertificatesBean);
                     // 点击完成 通知上一个页面更新
@@ -186,18 +187,39 @@ public class AddZhengshuActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 //先添加上次添加的进缓存
-                if (null != upload_coachPicCertificatesBean) {
+                if (TextUtils.isEmpty(zhengshu_type_tv.getText())) {
+                    Toast.makeText(getApplicationContext(), "证书选择不能为空！", Toast.LENGTH_SHORT).show();
+                    return;
+                } else if (TextUtils.isEmpty(zhengshu_tv.getText())) {
+                    Toast.makeText(getApplicationContext(), "证书名字不能为空！", Toast.LENGTH_SHORT).show();
+                    return;
+                } else if (TextUtils.isEmpty(time_tv.getText())) {
+                    Toast.makeText(getApplicationContext(), "获证时间不能为空！", Toast.LENGTH_SHORT).show();
+                    return;
+                } else if (AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE_TWO == 0) {
+                    Toast.makeText(getApplicationContext(), "证书图片不能为空！", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    //添加进上个页面
                     set_zhengshu_view();
+
                     AppConstants.SELECT_PHOTO_NUM.add(upload_coachPicCertificatesBean);
+                    MessageEvent messageEvent = new MessageEvent(AppConstants.UPDATE_SELECT_PHOTO);
+                    EventBus.getDefault().postSticky(messageEvent);
+                    if (progress_upload != null) {
+                        progress_upload.dismissProgressDialog();
+                    }
                     //清空页面数据
                     AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE_TWO = 0;
                     zhengshu_type_tv.setText("");
                     zhengshu_tv.setText("");
                     time_tv.setText("");
-                    upload_coachPicCertificatesBean = new CheckInformationBean.CoachPicCertificatesBean();//清空对象
                     List<String> iamges = new ArrayList<>();
                     add_zhengshu_photos_view.setData(iamges);//清空九宫格
+                    upload_coachPicCertificatesBean = null;//清空对象
+
                 }
+
             }
         });
 
@@ -217,9 +239,12 @@ public class AddZhengshuActivity extends BaseActivity {
          */
         Calendar selectedDate = Calendar.getInstance();//系统当前时间
         Calendar startDate = Calendar.getInstance();
-        startDate.set(2014, 1, 23);
+        startDate.set(2010, 1, 1);
         Calendar endDate = Calendar.getInstance();
-        endDate.set(2027, 2, 28);
+        int month = Integer.valueOf(DateHelper.getNowMonth());
+        int date = Integer.valueOf(DateHelper.getNowDay());
+        int year = Integer.valueOf(DateHelper.getNowYear());
+        endDate.set(year, month-1, date);
         //时间选择器 ，自定义布局
         pvCustomTime = new TimePickerBuilder(this, new OnTimeSelectListener() {
             @Override
@@ -357,9 +382,9 @@ public class AddZhengshuActivity extends BaseActivity {
             add_zhengshu_photos_view.removeItem(position);
 
             AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE_TWO = AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE_TWO - 1;
-            Log.e("的实际发抗衰老的",AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE_TWO+"");
-            if(AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE_TWO==0){//代表图片删完了
-                upload_coachPicCertificatesBean=null;
+            Log.e("的实际发抗衰老的", AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE_TWO + "");
+            if (AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE_TWO == 0) {//代表图片删完了
+                upload_coachPicCertificatesBean = null;
             }
         }
 
@@ -391,8 +416,8 @@ public class AddZhengshuActivity extends BaseActivity {
                     upload_coachPicCertificatesBean.setCertType(select_zhengshu_type_number + "");//证书类型,有字典
                     upload_coachPicCertificatesBean.setCertDate(select_time);//证书日期
                     upload_coachPicCertificatesBean.setCertName(zhengshu_tv.getText().toString());
-                }
 
+                }
                 if (resultPaths.size() == 1) {
                     if (null == upload_coachPicCertificatesBean.getZheng_local_img_path()) {
                         upload_coachPicCertificatesBean.setZheng_local_img_path(resultPaths.get(0));//设置正面的本地路径
@@ -402,9 +427,13 @@ public class AddZhengshuActivity extends BaseActivity {
 
 
                 } else if (resultPaths.size() == 2) {
-                    upload_coachPicCertificatesBean.setZheng_local_img_path(resultPaths.get(0));//设置正面的本地路径
-                    upload_coachPicCertificatesBean.setFan_local_img_path(resultPaths.get(1));//设置反面的本地路径
+                    if (null == upload_coachPicCertificatesBean.getFan_local_img_path()) {
+                        upload_coachPicCertificatesBean.setZheng_local_img_path(resultPaths.get(0));//设置正面的本地路径
+                        upload_coachPicCertificatesBean.setFan_local_img_path(resultPaths.get(1));//设置反面的本地路径
+                    }
+
                 }
+
                 set_jiugongge();//先设置九宫格
                 return;
             }
@@ -523,11 +552,12 @@ public class AddZhengshuActivity extends BaseActivity {
 
                         if (info.isOK()) {
                             String icon_net_path = key;
-
-                            if (is_zheng) {//设置正面
-                                upload_coachPicCertificatesBean.setCertFrontKey(icon_net_path);
-                            } else {
-                                upload_coachPicCertificatesBean.setCertBackKey(icon_net_path);
+                            if (null != upload_coachPicCertificatesBean) {
+                                if (is_zheng) {//设置正面
+                                    upload_coachPicCertificatesBean.setCertFrontKey(icon_net_path);
+                                } else {
+                                    upload_coachPicCertificatesBean.setCertBackKey(icon_net_path);
+                                }
                             }
 
                             Log.e("qiniu", "Upload Success");

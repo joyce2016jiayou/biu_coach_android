@@ -25,6 +25,7 @@ import com.noplugins.keepfit.coachplatform.bean.CheckInformationBean;
 import com.noplugins.keepfit.coachplatform.bean.LoginBean;
 import com.noplugins.keepfit.coachplatform.callback.DialogCallBack;
 import com.noplugins.keepfit.coachplatform.global.AppConstants;
+import com.noplugins.keepfit.coachplatform.util.BaseUtils;
 import com.noplugins.keepfit.coachplatform.util.SpUtils;
 import com.noplugins.keepfit.coachplatform.util.net.Network;
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean;
@@ -92,14 +93,17 @@ public class StepFourFragement extends ViewPagerFragment {
                 submit_btn.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if (is_check) {
+//                        if (is_check) {
+//                            submit_btn.startLoading();
+//                            agree_xieyi();
+//                        } else {
+//                            Toast.makeText(getActivity(), "请先勾选协议", Toast.LENGTH_SHORT).show();
+//                            submit_btn.loadingComplete();
+//                        }
+                        if (BaseUtils.isFastClick()) {
                             submit_btn.startLoading();
                             agree_xieyi();
-                        } else {
-                            Toast.makeText(getActivity(), "请先勾选协议", Toast.LENGTH_SHORT).show();
-                            submit_btn.loadingComplete();
                         }
-
                     }
                 }, 2000);
 
