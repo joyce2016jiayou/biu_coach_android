@@ -38,6 +38,7 @@ class BillDetailInfoActivity : BaseActivity() {
 
     private fun setting(bean:BalanceListBean.ListBean){
         if(bean.type == 1){
+            title_tv.text ="提现详情"
             lv_1.visibility = View.VISIBLE
             lv_2.visibility = View.GONE
             tv_zcje.text ="¥${bean.finalmoney}"
@@ -45,13 +46,15 @@ class BillDetailInfoActivity : BaseActivity() {
             if (null != bean.cardName){
                 tv_txyh.text= bean.cardName
             }
-            tv_operate.text = "提现-银行"
+            tv_operate.text = "提现-${bean.cardName}"
             tv_dqzt.text= statusToString(bean.status)
             tv_zclb.text = typeToString(bean.type)
+            tv_money.text = "-${bean.finalmoney}"
         } else {
+            title_tv.text = "收入详情"
             lv_1.visibility = View.GONE
             lv_2.visibility = View.VISIBLE
-            tv_srje.text = "¥${bean.money}"
+            tv_srje.text = "¥${bean.finalmoney}"
             tv_kcmc.text = bean.courseName
             tv_cgmc.text = bean.areaName
             tv_sksj.text = bean.createDate
@@ -61,6 +64,7 @@ class BillDetailInfoActivity : BaseActivity() {
                 tv_operate.text = "收入-团课服务"
             }
             tv_srlb.text = typeToString(bean.type)
+            tv_money.text = "+${bean.finalmoney}"
         }
 
 
@@ -68,7 +72,6 @@ class BillDetailInfoActivity : BaseActivity() {
             .load(typeToDrawble(bean.type))
             .into(iv_logo)
 
-        tv_money.text = "-${bean.finalmoney}"
     }
 
     private fun requestData() {
