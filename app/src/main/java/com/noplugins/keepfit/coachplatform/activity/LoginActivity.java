@@ -43,8 +43,6 @@ import java.util.Map;
  * login --
  */
 public class LoginActivity extends BaseActivity {
-
-
     @BindView(R.id.tv_user_protocol)
     TextView tv_user_protocol;
     @BindView(R.id.yanzhengma_tv)
@@ -160,7 +158,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 if (!is_check_fuwu) {
-                    Toast.makeText(LoginActivity.this, "请先勾选用户协议！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "请先勾选用户协议！", Toast.LENGTH_SHORT).show();
                     return;
                 } else if (TextUtils.isEmpty(edit_phone_number.getText())) {
                     Toast.makeText(getApplicationContext(), "电话号码不能为空！", Toast.LENGTH_SHORT).show();
@@ -204,6 +202,7 @@ public class LoginActivity extends BaseActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this, SettingPwdActivity.class);
                 startActivity(intent);
+
             }
         });
 
@@ -439,7 +438,7 @@ public class LoginActivity extends BaseActivity {
         Map<String, Object> params = new HashMap<>();
 //        val params = HashMap<String, Any>()
         params.put("phone", edit_phone_number.getText().toString());
-        params.put("sign", MD5.stringToMD5( "MES"+edit_phone_number.getText().toString()));
+        params.put("sign", MD5.stringToMD5("MES" + edit_phone_number.getText().toString()));
         params.put("time", System.currentTimeMillis());
         Subscription subscription = Network.getInstance("获取验证码", this)
                 .get_yanzhengma(params,
@@ -553,5 +552,16 @@ public class LoginActivity extends BaseActivity {
         }
     };
 
+    private long exitTime = 0;    //必须是long型
+    @Override
+    public void onBackPressed() {
+        System.out.println(System.currentTimeMillis());
 
+        if (System.currentTimeMillis() - exitTime < 2000) {
+            finish();
+        } else {
+            Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_LONG).show();
+            exitTime = System.currentTimeMillis();
+        }
+    }
 }

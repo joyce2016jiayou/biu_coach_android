@@ -40,6 +40,8 @@ import com.noplugins.keepfit.coachplatform.global.AppConstants;
 import com.noplugins.keepfit.coachplatform.util.GlideEngine;
 import com.noplugins.keepfit.coachplatform.util.SpUtils;
 import com.noplugins.keepfit.coachplatform.util.data.DateHelper;
+import com.noplugins.keepfit.coachplatform.util.data.IDCardValidate;
+import com.noplugins.keepfit.coachplatform.util.data.StringsHelper;
 import com.noplugins.keepfit.coachplatform.util.net.GetJsonDataUtil;
 import com.noplugins.keepfit.coachplatform.util.net.Network;
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean;
@@ -174,11 +176,17 @@ public class StepOneFragment extends ViewPagerFragment {
         } else if (TextUtils.isEmpty(card_id_tv.getText())) {
             Toast.makeText(getActivity(), R.string.tv133, Toast.LENGTH_SHORT).show();
             return false;
+        } else if (!IDCardValidate.validate_effective(card_id_tv.getText().toString())) {
+            Toast.makeText(getActivity(), R.string.tv152, Toast.LENGTH_SHORT).show();
+            return false;
         } else if (TextUtils.isEmpty(sex_tv.getText())) {
             Toast.makeText(getActivity(), R.string.tv134, Toast.LENGTH_SHORT).show();
             return false;
         } else if (TextUtils.isEmpty(phone_tv.getText())) {
             Toast.makeText(getActivity(), R.string.tv135, Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (!StringsHelper.isMobileOne(phone_tv.getText().toString())) {
+            Toast.makeText(getActivity(), "电话号码格式不正确！", Toast.LENGTH_SHORT).show();
             return false;
         } else if (TextUtils.isEmpty(address_tv.getText())) {
             Toast.makeText(getActivity(), R.string.tv136, Toast.LENGTH_SHORT).show();

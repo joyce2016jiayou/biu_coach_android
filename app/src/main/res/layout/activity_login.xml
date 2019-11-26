@@ -56,9 +56,9 @@
                         android:hint="@string/edit_hint1"
                         android:maxLength="11"
                         android:digits="0123456789"
-                        android:layout_marginRight="25dp"
                         android:inputType="phone"
                         android:singleLine="true"
+                        android:layout_marginRight="25dp"
                         android:textSize="15sp"/>
 
                 <ImageView

@@ -129,6 +129,7 @@
         <activity android:name=".activity.AddZhengshuActivity">
         </activity>
         <activity android:name=".activity.CheckStatusActivity">
+
         </activity>
         <activity android:name=".activity.ClassManagerActivity">
         </activity>

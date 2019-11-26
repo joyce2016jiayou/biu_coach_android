@@ -11,10 +11,7 @@ import android.net.ConnectivityManager;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
+import android.view.*;
 import android.widget.RelativeLayout;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -312,5 +309,18 @@ public abstract class BaseActivity extends AppCompatActivity implements EasyPerm
         EasyPermissions.checkDeniedPermissionsNeverAskAgain(this,
                 getString(R.string.perm_tip),
                 R.string.setting, R.string.cancel, null, perms);
+    }
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        //拦截返回键
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+            //判断触摸UP事件才会进行返回事件处理
+            if (event.getAction() == KeyEvent.ACTION_UP) {
+                onBackPressed();
+            }
+            //只要是返回事件，直接返回true，表示消费掉
+            return true;
+        }
+        return super.dispatchKeyEvent(event);
     }
 }
