@@ -71,7 +71,7 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
                 Log.d("LogInfo","district():"+amapLocation.district)
                 tv_location.text = amapLocation.district
                 val code = amapLocation.adCode.toString().substring(0,4)+"00"
-                province = amapLocation.adCode.toString().substring(0,3)+"000"
+                province = amapLocation.adCode.toString().substring(0,2)+"0000"
                 city = code
                 district = amapLocation.adCode
 
