@@ -71,7 +71,7 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
                 Log.d("LogInfo","district():"+amapLocation.district)
                 tv_location.text = amapLocation.district
                 val code = amapLocation.adCode.toString().substring(0,4)+"00"
-                province = amapLocation.adCode.toString().substring(0,3)+"00"
+                province = amapLocation.adCode.toString().substring(0,3)+"000"
                 city = code
                 district = amapLocation.adCode
 
@@ -329,9 +329,9 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
         params["page"] = page
         params["longitude"] = longitude
         params["latitude"] = latitude
-//        params["province"] = province
-//        params["city"] = city
-//        params["district"] = district
+        params["province"] = province
+        params["city"] = city
+        params["district"] = district
         if (skillSelect > -1){
             params["type"] = skillSelect
         }
