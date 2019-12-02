@@ -23,6 +23,7 @@ import butterknife.ButterKnife;
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.CustomListener;
+import com.bigkoo.pickerview.listener.OnOptionsSelectChangeListener;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
@@ -33,9 +34,7 @@ import com.huantansheng.easyphotos.EasyPhotos;
 import com.huantansheng.easyphotos.models.album.entity.Photo;
 import com.noplugins.keepfit.coachplatform.R;
 import com.noplugins.keepfit.coachplatform.activity.CheckStatusActivity;
-import com.noplugins.keepfit.coachplatform.bean.JsonBean;
-import com.noplugins.keepfit.coachplatform.bean.TeacherStatusBean;
-import com.noplugins.keepfit.coachplatform.bean.ZiDIanBean;
+import com.noplugins.keepfit.coachplatform.bean.*;
 import com.noplugins.keepfit.coachplatform.global.AppConstants;
 import com.noplugins.keepfit.coachplatform.util.GlideEngine;
 import com.noplugins.keepfit.coachplatform.util.SpUtils;
@@ -52,9 +51,7 @@ import com.noplugins.keepfit.coachplatform.util.ui.LoadingButton;
 import com.noplugins.keepfit.coachplatform.util.ui.NoScrollViewPager;
 import com.noplugins.keepfit.coachplatform.util.ui.StepView;
 import com.noplugins.keepfit.coachplatform.util.ui.ViewPagerFragment;
-import com.noplugins.keepfit.coachplatform.util.ui.jiugongge.CCRSortableNinePhotoLayout;
 import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow;
-import com.wildma.idcardcamera.camera.IDCardCamera;
 import org.json.JSONArray;
 import rx.Subscription;
 
@@ -111,8 +108,10 @@ public class StepOneFragment extends ViewPagerFragment {
     private static final int MSG_LOAD_SUCCESS = 0x0002;
     private static final int MSG_LOAD_FAILED = 0x0003;
     private List<JsonBean> options1Items = new ArrayList<>();
-    private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
-    private ArrayList<ArrayList<ArrayList<String>>> options3Items = new ArrayList<>();
+    private ArrayList<String> options2Items = new ArrayList<>();
+    private ArrayList<JsonBean.CityBean> options2Items_codes = new ArrayList<>();
+    private ArrayList<String> options3Items = new ArrayList<>();
+    private ArrayList<JsonBean.QuBean> options3Items_codes = new ArrayList<>();
     private Thread thread;
     private static boolean isLoaded = false;
     private List<String> strings = new ArrayList<>();
@@ -126,6 +125,12 @@ public class StepOneFragment extends ViewPagerFragment {
     List<ZiDIanBean> xuelis = new ArrayList<>();
     private String select_school_str = "";
     public TextView top_title_tv;
+    private String select_sheng_code = "";
+    private String select_shi_code = "";
+    private String select_qu_code = "";
+
+    private int select_province_position = 0;
+    private int select_city_position = 0;
 
     public static StepOneFragment homeInstance(String title) {
         StepOneFragment fragment = new StepOneFragment();
@@ -206,8 +211,6 @@ public class StepOneFragment extends ViewPagerFragment {
     private void initView() {
         //显示缓存好的手机号
         phone_tv.setText(SpUtils.getString(getActivity(), AppConstants.PHONE));
-        //解析城市数据
-        initDate();
         //获取最高学历字典
         get_zuigao_xueli();
         xiayibu_btn.setBtnOnClickListener(new View.OnClickListener() {
@@ -262,7 +265,7 @@ public class StepOneFragment extends ViewPagerFragment {
         select_address_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                select_address_pop();
+                initCityDate(true);
             }
         });
 
@@ -292,6 +295,69 @@ public class StepOneFragment extends ViewPagerFragment {
         });
 
 
+    }
+
+    private void initCityDate(boolean is_refresh_start) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("province", "1");
+        Subscription subscription = Network.getInstance("获取省", getActivity())
+                .get_province(params,
+                        new ProgressSubscriber<>("获取省", new SubscriberOnNextListener<Bean<CityCode>>() {
+                            @Override
+                            public void onNext(Bean<CityCode> result) {
+                                for (int i = 0; i < result.getData().getProvince().size(); i++) {
+                                    JsonBean jsonBean = new JsonBean();
+                                    jsonBean.setName(result.getData().getProvince().get(i).getPrvncnm());
+                                    jsonBean.setName_code(result.getData().getProvince().get(i).getPrvnccd());
+                                    options1Items.add(jsonBean);
+                                }
+                                select_sheng_code = options1Items.get(0).getName_code();
+                                initCityDate2(select_sheng_code, is_refresh_start);
+
+                            }
+
+                            @Override
+                            public void onError(String error) {
+
+                            }
+                        }, getActivity(), false));
+    }
+
+    private void initCityDate2(String select_sheng_code, boolean is_refresh_start) {
+        if (options2Items_codes.size() > 0) {
+            options2Items_codes.clear();
+        }
+        if (options2Items.size() > 0) {
+            options2Items.clear();
+        }
+        Map<String, Object> params = new HashMap<>();
+        params.put("prvnccd", select_sheng_code);
+        Subscription subscription = Network.getInstance("获取市", getActivity())
+                .get_city(params,
+                        new ProgressSubscriber<>("获取市", new SubscriberOnNextListener<Bean<GetCityCode>>() {
+                            @Override
+                            public void onNext(Bean<GetCityCode> result) {
+                                for (int i = 0; i < result.getData().getCity().size(); i++) {
+                                    JsonBean.CityBean jsonBean = new JsonBean.CityBean();
+                                    jsonBean.setName(result.getData().getCity().get(i).getCitynm());
+                                    jsonBean.setName_code(result.getData().getCity().get(i).getCitycd());
+                                    options2Items_codes.add(jsonBean);
+                                    options2Items.add(result.getData().getCity().get(i).getCitynm());
+                                }
+                                select_shi_code = options2Items_codes.get(0).getName_code();
+                                select_city_position = 0;
+                                if (null != select_city_pop) {
+                                    select_city_pop.setSelectOptions(select_province_position, select_city_position);
+                                    select_city_pop.setNPicker(options1Items, options2Items, options3Items);//二级选择器
+                                }
+                                initCityDate3(select_shi_code, is_refresh_start);
+                            }
+
+                            @Override
+                            public void onError(String error) {
+
+                            }
+                        }, getActivity(), false));
     }
 
     private void get_zuigao_xueli() {
@@ -414,56 +480,6 @@ public class StepOneFragment extends ViewPagerFragment {
 
     }
 
-    private void initDate() {
-        /**
-         * 注意：assets 目录下的Json文件仅供参考，实际使用可自行替换文件
-         * 关键逻辑在于循环体
-         */
-        String JsonData = new GetJsonDataUtil().getJson(getActivity(), "province.json");//获取assets目录下的json文件数据
-
-        ArrayList<JsonBean> jsonBean = parseData(JsonData);//用Gson 转成实体
-
-        /**
-         * 添加省份数据
-         *
-         * 注意：如果是添加的JavaBean实体，则实体类需要实现 IPickerViewData 接口，
-         * PickerView会通过getPickerViewText方法获取字符串显示出来。
-         */
-        options1Items = jsonBean;
-
-        for (int i = 0; i < jsonBean.size(); i++) {//遍历省份
-            ArrayList<String> cityList = new ArrayList<>();//该省的城市列表（第二级）
-            ArrayList<ArrayList<String>> province_AreaList = new ArrayList<>();//该省的所有地区列表（第三极）
-
-            for (int c = 0; c < jsonBean.get(i).getCityList().size(); c++) {//遍历该省份的所有城市
-                String cityName = jsonBean.get(i).getCityList().get(c).getName();
-                cityList.add(cityName);//添加城市
-                ArrayList<String> city_AreaList = new ArrayList<>();//该城市的所有地区列表
-                //如果无地区数据，建议添加空字符串，防止数据为null 导致三个选项长度不匹配造成崩溃
-                /*if (jsonBean.get(i).getCityList().get(c).getArea() == null
-                        || jsonBean.get(i).getCityList().get(c).getArea().size() == 0) {
-                    city_AreaList.add("");
-                } else {
-                    city_AreaList.addAll(jsonBean.get(i).getCityList().get(c).getArea());
-                }*/
-                city_AreaList.addAll(jsonBean.get(i).getCityList().get(c).getArea());
-                province_AreaList.add(city_AreaList);//添加该省所有地区数据
-            }
-
-            /**
-             * 添加城市数据
-             */
-            options2Items.add(cityList);
-
-            /**
-             * 添加地区数据
-             */
-            options3Items.add(province_AreaList);
-        }
-
-        mHandler.sendEmptyMessage(MSG_LOAD_SUCCESS);
-    }
-
 
     private void showPickerView() {
         select_city_pop = new OptionsPickerBuilder(getActivity(), new OnOptionsSelectListener() {
@@ -474,24 +490,27 @@ public class StepOneFragment extends ViewPagerFragment {
                         options1Items.get(options1).getPickerViewText() : "";
 
                 String opt2tx = options2Items.size() > 0
-                        && options2Items.get(options1).size() > 0 ?
-                        options2Items.get(options1).get(option2) : "";
+                        && options2Items.size() > 0 ?
+                        options2Items.get(option2) : "";
 
                 String opt3tx = options2Items.size() > 0
-                        && options3Items.get(options1).size() > 0
-                        && options3Items.get(options1).get(option2).size() > 0 ?
-                        options3Items.get(options1).get(option2).get(options3) : "";
+                        && options3Items.size() > 0
+                        && options3Items.size() > 0 ?
+                        options3Items.get(options3) : "";
+
 
                 String tx = opt1tx + opt2tx + opt3tx;
                 if (opt1tx.equals(opt2tx)) {
-                    address_tv.setText(opt1tx);
+                    address_tv.setText(opt1tx + opt3tx);
 
                 } else {
-                    address_tv.setText(opt1tx + opt2tx);
+                    address_tv.setText(opt1tx + opt2tx + opt3tx);
 
                 }
 
                 Log.e("选择的地址", tx);
+                Log.e("选择的地址编码", select_sheng_code + "-" + select_shi_code + "-" + select_qu_code);
+
             }
         })
                 .setLayoutRes(R.layout.select_city_pop, new CustomListener() {
@@ -519,57 +538,79 @@ public class StepOneFragment extends ViewPagerFragment {
                 .setContentTextSize(20)
                 .setOutSideCancelable(true)
                 .setLineSpacingMultiplier(2.0f)
-                .build();
+                .setOptionsSelectChangeListener(new OnOptionsSelectChangeListener() {
+                    @Override
+                    public void onOptionsSelectChanged(int options1) {
+                        select_province_position = options1;
+                        select_sheng_code = options1Items.get(options1).getName_code();
+                        initCityDate2(select_sheng_code, false);
 
-        select_city_pop.setPicker(options1Items, options2Items);//二级选择器
+
+                    }
+
+                    @Override
+                    public void onOptionsSelectChanged2(int options2) {
+                        select_city_position = options2;
+                        select_shi_code = options2Items_codes.get(options2).getName_code();
+                        initCityDate3(select_shi_code, false);
+                    }
+
+                    @Override
+                    public void onOptionsSelectChanged3(int options3) {
+                        select_qu_code = options3Items_codes.get(options3).getName_code();
+                    }
+
+                    @Override
+                    public void onOptionsSelectChanged3(int options1, int options2, int options3) {
+
+                    }
+
+                })
+                .build();
+        select_city_pop.setNPicker(options1Items, options2Items, options3Items);//二级选择器
         select_city_pop.show();
     }
 
-    public ArrayList<JsonBean> parseData(String result) {//Gson 解析
-        ArrayList<JsonBean> detail = new ArrayList<>();
-        try {
-            JSONArray data = new JSONArray(result);
-            Gson gson = new Gson();
-            for (int i = 0; i < data.length(); i++) {
-                JsonBean entity = gson.fromJson(data.optJSONObject(i).toString(), JsonBean.class);
-                detail.add(entity);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            mHandler.sendEmptyMessage(MSG_LOAD_FAILED);
+    private void initCityDate3(String select_shi_code, boolean is_refresh_start) {
+        if (options3Items.size() > 0) {
+            options3Items.clear();
         }
-        return detail;
+        if (options3Items_codes.size() > 0) {
+            options3Items_codes.clear();
+        }
+        Map<String, Object> params = new HashMap<>();
+        params.put("citycd", select_shi_code);
+        Subscription subscription = Network.getInstance("获取区", getActivity())
+                .get_qu(params,
+                        new ProgressSubscriber<>("获取区", new SubscriberOnNextListener<Bean<GetQuCode>>() {
+                            @Override
+                            public void onNext(Bean<GetQuCode> result) {
+
+                                for (int i = 0; i < result.getData().getArea().size(); i++) {
+                                    JsonBean.QuBean jsonBean = new JsonBean.QuBean();
+                                    jsonBean.setName(result.getData().getArea().get(i).getDistnm());
+                                    jsonBean.setName_code(result.getData().getArea().get(i).getDistcd());
+                                    options3Items.add(result.getData().getArea().get(i).getDistnm());
+                                    options3Items_codes.add(jsonBean);
+                                }
+                                if (null != select_city_pop) {
+                                    select_city_pop.setSelectOptions(select_province_position, select_city_position);
+                                    select_city_pop.setNPicker(options1Items, options2Items, options3Items);//二级选择器
+                                }
+                                if (is_refresh_start) {//如果是打开pop
+                                    select_address_pop();
+                                }
+
+
+                            }
+
+                            @Override
+                            public void onError(String error) {
+
+                            }
+                        }, getActivity(), false));
     }
 
-    @SuppressLint("HandlerLeak")
-    private Handler mHandler = new Handler() {
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case MSG_LOAD_DATA:
-                    if (thread == null) {//如果已创建就不再重新创建子线程了
-                        //Toast.makeText(getActivity(), "Begin Parse Data", Toast.LENGTH_SHORT).show();
-                        thread = new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                // 子线程中解析省市区数据
-                                initDate();
-                            }
-                        });
-                        thread.start();
-                    }
-                    break;
-
-                case MSG_LOAD_SUCCESS:
-                    //Toast.makeText(getActivity(), "Parse Succeed", Toast.LENGTH_SHORT).show();
-                    isLoaded = true;
-                    break;
-
-                case MSG_LOAD_FAILED:
-                    //Toast.makeText(getActivity(), "Parse Failed", Toast.LENGTH_SHORT).show();
-                    break;
-            }
-        }
-    };
 
     /**
      * 选择时间pop
@@ -709,12 +750,7 @@ public class StepOneFragment extends ViewPagerFragment {
      * 选择城市pop
      */
     private void select_address_pop() {
-        mHandler.sendEmptyMessage(MSG_LOAD_DATA);//加载城市json数据
-        if (isLoaded) {
-            showPickerView();
-        } else {
-            //Toast.makeText(getActivity(), "Please waiting until the data is parsed", Toast.LENGTH_SHORT).show();
-        }
+        showPickerView();
         //影藏键盘
         KeyboardUtils.hideSoftKeyboard(getActivity());
     }
