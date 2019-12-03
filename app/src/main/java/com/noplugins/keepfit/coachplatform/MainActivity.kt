@@ -102,8 +102,6 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
         loginSuccess()
 
-        //更新app
-//        update_app()
 
     }
 
@@ -248,6 +246,8 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
     override fun onResume() {
         super.onResume()
+        //更新app
+        update_app()
         if (null != intent.extras) {
             val parms = intent.extras
             if (parms!!.getString("jpush_enter") == "jpush_enter1") {
@@ -372,6 +372,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
     //退出时的时间
     private var mExitTime: Long = 0
+
     override fun onBackPressed() {
         if ((System.currentTimeMillis() - mExitTime) > 2000) {
             Toast.makeText(applicationContext, "再按一次退出", Toast.LENGTH_SHORT).show()
