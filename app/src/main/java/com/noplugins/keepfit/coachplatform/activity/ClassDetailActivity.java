@@ -395,6 +395,8 @@ public class ClassDetailActivity extends BaseActivity implements EasyPermissions
             @Override
             public void onClick(View view) {
                 popupWindow.dismiss();
+                initDate();
+
             }
         });
         ImageView erweima_img = view.findViewById(R.id.erweima_img);
