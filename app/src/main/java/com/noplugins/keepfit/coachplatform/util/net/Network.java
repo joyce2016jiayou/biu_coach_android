@@ -219,6 +219,7 @@ public class Network {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
+
     /**
      * 获取市
      *
@@ -246,6 +247,7 @@ public class Network {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
+
     public Subscription get_yanzhengma(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
         return service.get_yanzhengma(retuen_json_params(params))
                 .subscribeOn(Schedulers.io())
