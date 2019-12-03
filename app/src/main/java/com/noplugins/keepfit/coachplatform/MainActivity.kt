@@ -121,7 +121,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                         if (result.data.up === 1) {
                             is_qiangzhi_update = true
                             update_app_pop()
-                        } else {
+                        }else if(result.data.up === 3){
                             update_app_pop()
                             is_qiangzhi_update = false
                         }
