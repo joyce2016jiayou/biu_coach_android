@@ -329,8 +329,8 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
         params["page"] = page
         params["longitude"] = longitude
         params["latitude"] = latitude
-        params["province"] = province
-        params["city"] = city
+//        params["province"] = province
+//        params["city"] = city
         params["district"] = district
         if (skillSelect > -1){
             params["type"] = skillSelect
@@ -479,6 +479,10 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
                         val geocodeAddress = geocodeResult.getGeocodeAddressList().get(0)
                         latitude = geocodeAddress.latLonPoint.latitude//纬度
                         longitude = geocodeAddress.latLonPoint.longitude//经度
+                        val adcode = geocodeAddress.adcode//区域编码
+                        province = adcode.toString().substring(0,2)+"0000"
+                        city = adcode.toString().substring(0,4)+"00"
+                        district = adcode
                         agreeCourse()
 
                     }
