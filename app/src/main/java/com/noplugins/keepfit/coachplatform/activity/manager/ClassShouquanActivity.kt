@@ -278,9 +278,15 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
         popWindowArea = SpinnerPopWindow(this,
             list,
             PopUpAdapter.OnItemClickListener { _, _, position ->
+                page = 1
+                if (position == 0){
+                    district = ""
+                    agreeCourse()
+                } else {
+                    //
+                    getLatlon(list[position])
+                }
                 tv_location.text = list[position]
-               //
-                getLatlon(list[position])
                 popWindowArea!!.dismiss()
             })
         ll_location.setOnClickListener {
@@ -307,6 +313,7 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
                 ProgressSubscriber("获取所有三级城市列表", object : SubscriberOnNextListener<Bean<AddressBean>> {
                     override fun onNext(result: Bean<AddressBean>) {
                         val list:MutableList<String> = ArrayList()
+                        list.add("全部")
                         for (i in 0 until result.data.area.size){
                             list.add(result.data.area[i].distnm)
                         }
@@ -329,9 +336,11 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
         params["page"] = page
         params["longitude"] = longitude
         params["latitude"] = latitude
-        params["province"] = province
-        params["city"] = city
-        params["district"] = district
+//        params["province"] = province
+//        params["city"] = city
+        if (district != ""){
+            params["district"] = district
+        }
         if (skillSelect > -1){
             params["type"] = skillSelect
         }
@@ -461,7 +470,6 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
     }
 
     companion object {
-
         private const val PERMISSIONS = 100//请求码
     }
 
@@ -477,8 +485,13 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
                     if (geocodeResult?.geocodeAddressList != null &&
                         geocodeResult.geocodeAddressList.size>0){
                         val geocodeAddress = geocodeResult.getGeocodeAddressList().get(0)
-                        latitude = geocodeAddress.latLonPoint.latitude//纬度
-                        longitude = geocodeAddress.latLonPoint.longitude//经度
+//                        latitude = geocodeAddress.latLonPoint.latitude//纬度
+//                        longitude = geocodeAddress.latLonPoint.longitude//经度
+
+                        val adcode = geocodeAddress.adcode//区域编码
+                        province = adcode.toString().substring(0,2)+"0000"
+                        city = adcode.toString().substring(0,4)+"00"
+                        district = adcode
                         agreeCourse()
 
                     }
