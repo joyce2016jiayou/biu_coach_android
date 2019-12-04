@@ -24,6 +24,7 @@ import com.noplugins.keepfit.coachplatform.base.BaseActivity;
 import com.noplugins.keepfit.coachplatform.bean.ClassDetailBean;
 import com.noplugins.keepfit.coachplatform.bean.YueKeBean;
 import com.noplugins.keepfit.coachplatform.global.AppConstants;
+import com.noplugins.keepfit.coachplatform.util.MessageEvent;
 import com.noplugins.keepfit.coachplatform.util.SpUtils;
 import com.noplugins.keepfit.coachplatform.util.net.Network;
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean;
@@ -32,6 +33,7 @@ import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextLis
 import com.noplugins.keepfit.coachplatform.util.screen.ScreenUtilsHelper;
 import com.noplugins.keepfit.coachplatform.util.ui.erweima.encode.CodeCreator;
 import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow;
+import org.greenrobot.eventbus.EventBus;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -158,6 +160,8 @@ public class ClassDetailActivity extends BaseActivity implements EasyPermissions
         back_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                MessageEvent messageEvent = new MessageEvent("list_refresh");
+                EventBus.getDefault().post(messageEvent);
                 finish();
             }
         });
