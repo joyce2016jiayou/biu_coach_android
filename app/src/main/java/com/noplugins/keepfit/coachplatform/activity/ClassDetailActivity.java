@@ -399,6 +399,9 @@ public class ClassDetailActivity extends BaseActivity implements EasyPermissions
             @Override
             public void onClick(View view) {
                 popupWindow.dismiss();
+                MessageEvent messageEvent = new MessageEvent("list_refresh");
+                EventBus.getDefault().post(messageEvent);
+                finish();
                 initDate();
 
             }
