@@ -155,21 +155,21 @@ public class Network {
 
         retrofit = new Retrofit.Builder()
                 .client(client)
-                .baseUrl(get_coach_url("test"))//设置请求网址根部
+                .baseUrl(get_coach_url("main"))//设置请求网址根部
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
 
         get_tag_retrofit = new Retrofit.Builder()
                 .client(client)
-                .baseUrl(get_changguang_url("test"))//设置请求网址根部
+                .baseUrl(get_changguang_url("main"))//设置请求网址根部
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
 
         get_user_retrofit = new Retrofit.Builder()
                 .client(client)
-                .baseUrl(user_url("test"))//设置请求网址根部
+                .baseUrl(user_url("main"))//设置请求网址根部
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
@@ -206,6 +206,47 @@ public class Network {
         return requestBody;
     }
 
+    /**
+     * 获取省
+     *
+     * @param subscriber
+     * @return
+     */
+    public Subscription get_province(Map<String, Object> params, Subscriber<Bean<CityCode>> subscriber) {
+        return userService.get_province(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 获取市
+     *
+     * @param subscriber
+     * @return
+     */
+    public Subscription get_city(Map<String, Object> params, Subscriber<Bean<GetCityCode>> subscriber) {
+        return userService.get_city(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 获取区
+     *
+     * @param subscriber
+     * @return
+     */
+    public Subscription get_qu(Map<String, Object> params, Subscriber<Bean<GetQuCode>> subscriber) {
+        return userService.get_qu(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
 
     public Subscription get_yanzhengma(Map<String, Object> params, Subscriber<Bean<String>> subscriber) {
         return service.get_yanzhengma(retuen_json_params(params))

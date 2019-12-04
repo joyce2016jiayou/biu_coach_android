@@ -25,10 +25,12 @@ import com.noplugins.keepfit.coachplatform.fragment.ScheduleFragment;
 import com.noplugins.keepfit.coachplatform.fragment.StepOneFragment;
 import com.noplugins.keepfit.coachplatform.util.BaseUtils;
 import com.noplugins.keepfit.coachplatform.util.GlideEngine;
+import com.noplugins.keepfit.coachplatform.util.MessageEvent;
 import com.noplugins.keepfit.coachplatform.util.screen.ScreenUtilsHelper;
 import com.noplugins.keepfit.coachplatform.util.ui.erweima.encode.CodeCreator;
 import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow;
 import com.umeng.socialize.media.Base;
+import org.greenrobot.eventbus.EventBus;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -268,6 +270,8 @@ public class WeijieshuTypeAdapter extends BaseAdapter implements EasyPermissions
         dismiss_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                MessageEvent messageEvent = new MessageEvent("list_refresh");
+                EventBus.getDefault().post(messageEvent);
                 popupWindow.dismiss();
             }
         });

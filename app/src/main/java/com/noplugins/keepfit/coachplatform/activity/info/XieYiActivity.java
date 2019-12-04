@@ -49,7 +49,7 @@ public class XieYiActivity extends BaseActivity {
         WebSettings webSettings = webView.getSettings();
         webSettings.setUseWideViewPort(true);//设置此属性，可任意比例缩放
         webSettings.setLoadWithOverviewMode(true);
-        webView.loadUrl("file:///android_asset/jiaolian_xieyi.html");
+        webView.loadUrl("http://www.noplugins.com/doc/jiaolian_xieyi.html");
     }
 
 

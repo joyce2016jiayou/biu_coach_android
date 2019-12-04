@@ -111,7 +111,6 @@ public class ClassDetailActivity extends BaseActivity implements EasyPermissions
             order_number = parms.getString("order_number");
             user_number = parms.getString("user_number");
         }
-
     }
 
     @Override
@@ -215,20 +214,24 @@ public class ClassDetailActivity extends BaseActivity implements EasyPermissions
 
             if (data.getCourseStart().equals("未开始")) {
                 if (data.getCheckIn() == 0) {//未签到
+                    top_view.setVisibility(View.VISIBLE);
+                    status_tv.setText("未开始(未签到)");
                     button.setVisibility(View.VISIBLE);
                     button.setText("签到");
-                    status_tv.setText("未开始(未签到)");
                 } else if (data.getCheckIn() == 1) {//已签到
                     button.setVisibility(View.GONE);
+                    top_view.setVisibility(View.GONE);
                     status_tv.setText("未开始(已签到)");
                 }
             } else if (data.getCourseStart().equals("进行中")) {
                 if (data.getCheckIn() == 0) {//未签到
+                    top_view.setVisibility(View.VISIBLE);
                     button.setVisibility(View.VISIBLE);
                     button.setText("签到");
                     status_tv.setText("进行中(未签到)");
                 } else if (data.getCheckIn() == 1) {//已签到
                     button.setVisibility(View.GONE);
+                    top_view.setVisibility(View.GONE);
                     status_tv.setText("进行中(已签到)");
                 }
             } else {//已结束
@@ -392,6 +395,8 @@ public class ClassDetailActivity extends BaseActivity implements EasyPermissions
             @Override
             public void onClick(View view) {
                 popupWindow.dismiss();
+                initDate();
+
             }
         });
         ImageView erweima_img = view.findViewById(R.id.erweima_img);
