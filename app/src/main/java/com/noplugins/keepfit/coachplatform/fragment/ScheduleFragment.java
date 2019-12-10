@@ -126,11 +126,10 @@ public class ScheduleFragment extends Fragment {
         }
         String current_date_str = selectDateBeans.get(0).getCurrent_date();
         select_date = current_date_str;
-
-
         init_class_date_resource(select_date);
         //初始化日期数据
         init_date_resoure();
+
         teacher_time_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
