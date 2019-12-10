@@ -155,21 +155,21 @@ public class Network {
 
         retrofit = new Retrofit.Builder()
                 .client(client)
-                .baseUrl(get_coach_url("main"))//设置请求网址根部
+                .baseUrl(get_coach_url("test"))//设置请求网址根部
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
 
         get_tag_retrofit = new Retrofit.Builder()
                 .client(client)
-                .baseUrl(get_changguang_url("main"))//设置请求网址根部
+                .baseUrl(get_changguang_url("test"))//设置请求网址根部
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
 
         get_user_retrofit = new Retrofit.Builder()
                 .client(client)
-                .baseUrl(user_url("main"))//设置请求网址根部
+                .baseUrl(user_url("test"))//设置请求网址根部
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
