@@ -268,22 +268,18 @@ public class ClassDetailActivity extends BaseActivity implements EasyPermissions
             } else {//已结束
                 status_tv.setText(data.getCourseStart());
                 //判断是否写过日志
-                yiqiandao_layout.setVisibility(View.GONE);
-                yiyueyue_layout.setVisibility(View.VISIBLE);
-                top_view.setVisibility(View.GONE);
-                button.setVisibility(View.GONE);
-//                if (data.getSportLog() == 0) {//没写过日志
-//                    yiqiandao_layout.setVisibility(View.GONE);
-//                    yiyueyue_layout.setVisibility(View.VISIBLE);
-//                    top_view.setVisibility(View.VISIBLE);
-//                    button.setText("写日志");
-//                    button.setVisibility(View.VISIBLE);
-//                } else {
-//                    yiqiandao_layout.setVisibility(View.GONE);
-//                    yiyueyue_layout.setVisibility(View.VISIBLE);
-//                    top_view.setVisibility(View.GONE);
-//                    button.setVisibility(View.GONE);
-//                }
+                if (data.getSportLog() == 0) {//没写过日志
+                    yiqiandao_layout.setVisibility(View.GONE);
+                    yiyueyue_layout.setVisibility(View.VISIBLE);
+                    top_view.setVisibility(View.VISIBLE);
+                    button.setText("写日志");
+                    button.setVisibility(View.VISIBLE);
+                } else {
+                    yiqiandao_layout.setVisibility(View.GONE);
+                    yiyueyue_layout.setVisibility(View.VISIBLE);
+                    top_view.setVisibility(View.GONE);
+                    button.setVisibility(View.GONE);
+                }
             }
             y_class_name.setText(data.getCourseName());
             y_class_time.setText(data.getTime());
