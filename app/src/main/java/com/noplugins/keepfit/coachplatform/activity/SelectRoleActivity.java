@@ -108,8 +108,11 @@ public class SelectRoleActivity extends BaseActivity {
 //                } else {//返回状态进来的
 //                    get_teacher_status(true);
 //                }
+                //清空之前赋值的静态变量
+                AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE = 0;
+                AppConstants.SELECT_SHOUKE_IMAGE_SIZE = 0;
+                AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE_TWO = 0;
                 get_teacher_status(true);
-
             }
         });
         //选择了团课
@@ -121,6 +124,10 @@ public class SelectRoleActivity extends BaseActivity {
 //                } else {//返回状态进来的
 //                    get_teacher_status(false);
 //                }
+                //清空之前赋值的静态变量
+                AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE = 0;
+                AppConstants.SELECT_SHOUKE_IMAGE_SIZE = 0;
+                AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE_TWO = 0;
                 get_teacher_status(false);
 
             }
