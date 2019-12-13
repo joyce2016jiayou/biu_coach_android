@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+<resources>
     <string name="app_name">哔呦教练</string>
     <string name="setting">设置</string>
 
@@ -175,7 +175,7 @@
     <string name="tv135">手机号不能为空</string>
     <string name="tv136">地址不能为空</string>
     <string name="tv137">所在城市不能为空</string>
-    <string name="tv138">学校不能为空</string>
+    <string name="tv138">最高学历不能为空</string>
     <string name="tv139">入行时间不能为空</string>
     <string name="tv140">证书不能为空</string>
     <string name="tv141">授课不能为空</string>
@@ -190,6 +190,9 @@
     <string name="tv150">标签不能为空</string>
     <string name="tv151">课程内容不能为空</string>
     <string name="tv152">身份证格式不正确</string>
+    <string name="tv153">身份证格式不正确</string>
+    <string name="tv160"> 新版本正在努力的更新中，请稍等</string>
+
 
     <string name="update_title">更新提示</string>
     <string name="updatecontent">检测到有新版本，是否更新到最新版本。</string>
