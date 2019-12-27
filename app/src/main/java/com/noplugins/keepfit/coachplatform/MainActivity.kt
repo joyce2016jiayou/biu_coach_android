@@ -9,7 +9,6 @@ import android.os.Environment
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
-import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -19,7 +18,6 @@ import com.allenliu.versionchecklib.v2.builder.DownloadBuilder
 import com.allenliu.versionchecklib.v2.builder.UIData
 import com.allenliu.versionchecklib.v2.callback.CustomDownloadingDialogListener
 import com.allenliu.versionchecklib.v2.callback.CustomVersionDialogListener
-import com.google.gson.Gson
 import com.noplugins.keepfit.coachplatform.adapter.ContentPagerAdapterMy
 import com.noplugins.keepfit.coachplatform.base.BaseActivity
 import com.noplugins.keepfit.coachplatform.base.MyApplication
@@ -36,14 +34,11 @@ import com.noplugins.keepfit.coachplatform.util.VersionUtils
 import com.noplugins.keepfit.coachplatform.util.data.SharedPreferencesHelper
 import com.noplugins.keepfit.coachplatform.util.net.Network
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
-import com.noplugins.keepfit.coachplatform.util.net.progress.GsonSubscriberOnNextListener
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
-import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriberNew
 import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
 import com.noplugins.keepfit.coachplatform.util.ui.BaseDialog
-import com.orhanobut.logger.Logger
+import com.noplugins.keepfit.coachplatform.util.ui.progress.CustomHorizontalProgresWithNum
 import kotlinx.android.synthetic.main.activity_main.*
-import okhttp3.RequestBody
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -102,8 +97,6 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
         loginSuccess()
 
-        //更新app
-//        update_app()
 
     }
 
@@ -123,7 +116,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                         if (result.data.up === 1) {
                             is_qiangzhi_update = true
                             update_app_pop()
-                        } else {
+                        } else if (result.data.up === 3) {
                             update_app_pop()
                             is_qiangzhi_update = false
                         }
@@ -173,14 +166,15 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                 progress: Int,
                 versionBundle: UIData
             ): Dialog {
-                return BaseDialog(context, R.style.BaseDialog, R.layout.custom_download_layout)
+                val baseDialog = BaseDialog(context, R.style.BaseDialog, R.layout.custom_download_layout)
+                baseDialog.setCanceledOnTouchOutside(false)
+                return baseDialog
             }
 
             override fun updateUI(dialog: Dialog, progress: Int, versionBundle: UIData) {
-                val tvProgress = dialog.findViewById<TextView>(R.id.tv_progress)
-                val progressBar = dialog.findViewById<ProgressBar>(R.id.pb)
-                progressBar.progress = progress
-                tvProgress.text = getString(R.string.versionchecklib_progress, progress)
+                val pb: CustomHorizontalProgresWithNum = dialog.findViewById(R.id.pb)
+                pb.setProgress(progress)
+                pb.setMax(100)
             }
         }
     }
@@ -192,10 +186,10 @@ class MainActivity : BaseActivity(), View.OnClickListener {
      */
     private fun createCustomDialogTwo(): CustomVersionDialogListener? {
         return CustomVersionDialogListener { context: Context?, versionBundle: UIData ->
-            val baseDialog = BaseDialog(context, R.style.BaseDialog, R.layout.custom_dialog_two_layout)
+            val baseDialog = BaseDialog(context, R.style.BaseDialog, R.layout.shengji_pop_layout)
             val textView: TextView = baseDialog.findViewById(R.id.tv_msg)
             textView.text = versionBundle.content
-            baseDialog.setCanceledOnTouchOutside(true)
+            baseDialog.setCanceledOnTouchOutside(false)
             baseDialog
         }
     }
@@ -248,6 +242,8 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
     override fun onResume() {
         super.onResume()
+        //更新app
+        update_app()
         if (null != intent.extras) {
             val parms = intent.extras
             if (parms!!.getString("jpush_enter") == "jpush_enter1") {
@@ -372,6 +368,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
     //退出时的时间
     private var mExitTime: Long = 0
+
     override fun onBackPressed() {
         if ((System.currentTimeMillis() - mExitTime) > 2000) {
             Toast.makeText(applicationContext, "再按一次退出", Toast.LENGTH_SHORT).show()

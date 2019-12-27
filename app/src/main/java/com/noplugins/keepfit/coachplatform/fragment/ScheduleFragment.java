@@ -24,6 +24,7 @@ import com.noplugins.keepfit.coachplatform.bean.ScheduleBean;
 import com.noplugins.keepfit.coachplatform.bean.SelectDateBean;
 import com.noplugins.keepfit.coachplatform.global.AppConstants;
 import com.noplugins.keepfit.coachplatform.util.BaseUtils;
+import com.noplugins.keepfit.coachplatform.util.MessageEvent;
 import com.noplugins.keepfit.coachplatform.util.SpUtils;
 import com.noplugins.keepfit.coachplatform.util.data.DateUtils;
 import com.noplugins.keepfit.coachplatform.util.net.Network;
@@ -32,6 +33,9 @@ import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber;
 import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener;
 import com.noplugins.keepfit.coachplatform.util.ui.toast.SuperCustomToast;
 import de.hdodenhof.circleimageview.CircleImageView;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import rx.Subscription;
 
 import java.util.*;
@@ -76,12 +80,56 @@ public class ScheduleFragment extends Fragment {
             view = inflater.inflate(R.layout.fragment_schedule, container, false);
             ButterKnife.bind(this, view);//绑定黄牛刀
             initView();
+            EventBus.getDefault().register(this);
+
         }
         return view;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
+
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void upadate(MessageEvent messageEvent) {
+        if (messageEvent.getMessage().equals("list_refresh")) {//更新列表
+//            if (classDateBeans.size() > 0) {
+//                classDateBeans.clear();
+//            }
+//            if (AppConstants.selectDateBeans.size() > 0) {
+//                selectDateBeans.addAll(AppConstants.selectDateBeans);
+//            } else {
+//                selectDateBeans.addAll(DateUtils.getmoredate());
+//            }
+//            String current_date_str = selectDateBeans.get(0).getCurrent_date();
+//            select_date = current_date_str;
+
+
+            init_class_date_resource(select_date);
+            //初始化日期数据
+            init_date_resoure();
+        }
+
+    }
 
     private void initView() {
+        if (classDateBeans.size() > 0) {
+            classDateBeans.clear();
+        }
+        if (AppConstants.selectDateBeans.size() > 0) {
+            selectDateBeans.addAll(AppConstants.selectDateBeans);
+        } else {
+            selectDateBeans.addAll(DateUtils.getmoredate());
+        }
+        String current_date_str = selectDateBeans.get(0).getCurrent_date();
+        select_date = current_date_str;
+        init_class_date_resource(select_date);
+        //初始化日期数据
+        init_date_resoure();
+
         teacher_time_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -141,26 +189,7 @@ public class ScheduleFragment extends Fragment {
 //        });
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (classDateBeans.size() > 0) {
-            classDateBeans.clear();
-        }
-        if (AppConstants.selectDateBeans.size() > 0) {
-            selectDateBeans.addAll(AppConstants.selectDateBeans);
-        } else {
-            selectDateBeans.addAll(DateUtils.getmoredate());
-        }
-        String current_date_str = selectDateBeans.get(0).getCurrent_date();
-        select_date = current_date_str;
 
-
-        init_class_date_resource(select_date);
-        //初始化日期数据
-        init_date_resoure();
-
-    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

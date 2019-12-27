@@ -50,13 +50,15 @@
                 android:layout_marginLeft="@dimen/m20"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/m140"
                 android:layout_height="wrap_content">
 
             <TextView
                     android:id="@+id/changguan_name_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="X-park健身馆"
+                    android:maxLines="2"
+                    android:text="X-park健身馆X-park健身馆X-park健身馆X-park健身馆X-park健身馆X-park健身馆X-park健身馆X-park健身馆X-park健身馆X-park健身馆"
                     android:textColor="@color/top_heiziti"
                     android:textSize="15sp"
                     />

@@ -24,6 +24,7 @@ import com.noplugins.keepfit.coachplatform.base.BaseActivity;
 import com.noplugins.keepfit.coachplatform.bean.ClassDetailBean;
 import com.noplugins.keepfit.coachplatform.bean.YueKeBean;
 import com.noplugins.keepfit.coachplatform.global.AppConstants;
+import com.noplugins.keepfit.coachplatform.util.MessageEvent;
 import com.noplugins.keepfit.coachplatform.util.SpUtils;
 import com.noplugins.keepfit.coachplatform.util.net.Network;
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean;
@@ -32,6 +33,7 @@ import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextLis
 import com.noplugins.keepfit.coachplatform.util.screen.ScreenUtilsHelper;
 import com.noplugins.keepfit.coachplatform.util.ui.erweima.encode.CodeCreator;
 import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow;
+import org.greenrobot.eventbus.EventBus;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -111,7 +113,6 @@ public class ClassDetailActivity extends BaseActivity implements EasyPermissions
             order_number = parms.getString("order_number");
             user_number = parms.getString("user_number");
         }
-
     }
 
     @Override
@@ -159,6 +160,8 @@ public class ClassDetailActivity extends BaseActivity implements EasyPermissions
         back_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                MessageEvent messageEvent = new MessageEvent("list_refresh");
+                EventBus.getDefault().post(messageEvent);
                 finish();
             }
         });
@@ -215,20 +218,24 @@ public class ClassDetailActivity extends BaseActivity implements EasyPermissions
 
             if (data.getCourseStart().equals("未开始")) {
                 if (data.getCheckIn() == 0) {//未签到
+                    top_view.setVisibility(View.VISIBLE);
+                    status_tv.setText("未开始(未签到)");
                     button.setVisibility(View.VISIBLE);
                     button.setText("签到");
-                    status_tv.setText("未开始(未签到)");
                 } else if (data.getCheckIn() == 1) {//已签到
                     button.setVisibility(View.GONE);
+                    top_view.setVisibility(View.GONE);
                     status_tv.setText("未开始(已签到)");
                 }
             } else if (data.getCourseStart().equals("进行中")) {
                 if (data.getCheckIn() == 0) {//未签到
+                    top_view.setVisibility(View.VISIBLE);
                     button.setVisibility(View.VISIBLE);
                     button.setText("签到");
                     status_tv.setText("进行中(未签到)");
                 } else if (data.getCheckIn() == 1) {//已签到
                     button.setVisibility(View.GONE);
+                    top_view.setVisibility(View.GONE);
                     status_tv.setText("进行中(已签到)");
                 }
             } else {//已结束
@@ -261,22 +268,18 @@ public class ClassDetailActivity extends BaseActivity implements EasyPermissions
             } else {//已结束
                 status_tv.setText(data.getCourseStart());
                 //判断是否写过日志
-                yiqiandao_layout.setVisibility(View.GONE);
-                yiyueyue_layout.setVisibility(View.VISIBLE);
-                top_view.setVisibility(View.GONE);
-                button.setVisibility(View.GONE);
-//                if (data.getSportLog() == 0) {//没写过日志
-//                    yiqiandao_layout.setVisibility(View.GONE);
-//                    yiyueyue_layout.setVisibility(View.VISIBLE);
-//                    top_view.setVisibility(View.VISIBLE);
-//                    button.setText("写日志");
-//                    button.setVisibility(View.VISIBLE);
-//                } else {
-//                    yiqiandao_layout.setVisibility(View.GONE);
-//                    yiyueyue_layout.setVisibility(View.VISIBLE);
-//                    top_view.setVisibility(View.GONE);
-//                    button.setVisibility(View.GONE);
-//                }
+                if (data.getSportLog() == 0) {//没写过日志
+                    yiqiandao_layout.setVisibility(View.GONE);
+                    yiyueyue_layout.setVisibility(View.VISIBLE);
+                    top_view.setVisibility(View.VISIBLE);
+                    button.setText("写日志");
+                    button.setVisibility(View.VISIBLE);
+                } else {
+                    yiqiandao_layout.setVisibility(View.GONE);
+                    yiyueyue_layout.setVisibility(View.VISIBLE);
+                    top_view.setVisibility(View.GONE);
+                    button.setVisibility(View.GONE);
+                }
             }
             y_class_name.setText(data.getCourseName());
             y_class_time.setText(data.getTime());
@@ -392,6 +395,11 @@ public class ClassDetailActivity extends BaseActivity implements EasyPermissions
             @Override
             public void onClick(View view) {
                 popupWindow.dismiss();
+                MessageEvent messageEvent = new MessageEvent("list_refresh");
+                EventBus.getDefault().post(messageEvent);
+                finish();
+                initDate();
+
             }
         });
         ImageView erweima_img = view.findViewById(R.id.erweima_img);

@@ -15,6 +15,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/m39"
             android:textSize="15sp"
+            android:visibility="gone"
             android:textColor="@color/top_heiziti"
             android:layout_height="wrap_content"/>
 

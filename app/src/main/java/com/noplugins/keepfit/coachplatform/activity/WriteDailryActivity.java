@@ -22,6 +22,7 @@ import com.noplugins.keepfit.coachplatform.bean.GetDailryBean;
 import com.noplugins.keepfit.coachplatform.bean.LoginBean;
 import com.noplugins.keepfit.coachplatform.global.AppConstants;
 import com.noplugins.keepfit.coachplatform.util.BaseUtils;
+import com.noplugins.keepfit.coachplatform.util.MessageEvent;
 import com.noplugins.keepfit.coachplatform.util.SpUtils;
 import com.noplugins.keepfit.coachplatform.util.net.Network;
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean;
@@ -30,6 +31,7 @@ import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextLis
 import com.noplugins.keepfit.coachplatform.util.ui.GridViewForScrollView;
 import com.noplugins.keepfit.coachplatform.util.ui.LoadingButton;
 import com.umeng.socialize.media.Base;
+import org.greenrobot.eventbus.EventBus;
 import rx.Subscription;
 
 import java.util.ArrayList;
@@ -189,6 +191,8 @@ public class WriteDailryActivity extends BaseActivity {
                                 add_btn.loadingComplete();
                                 submit_labels = "";
                                 Toast.makeText(getApplicationContext(), "新增日志成功~", Toast.LENGTH_SHORT).show();
+                                MessageEvent messageEvent = new MessageEvent("list_refresh");
+                                EventBus.getDefault().post(messageEvent);
                                 finish();
                             }
 

@@ -1,8 +1,6 @@
 package com.noplugins.keepfit.coachplatform.util.net;
 
-import com.noplugins.keepfit.coachplatform.bean.AddressBean;
-import com.noplugins.keepfit.coachplatform.bean.QiNiuToken;
-import com.noplugins.keepfit.coachplatform.bean.TagBean;
+import com.noplugins.keepfit.coachplatform.bean.*;
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
@@ -21,4 +19,16 @@ public interface UserService {
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("findAllCity")
     Observable<Bean<AddressBean>> findAllCity(@Body RequestBody json);
+
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("findAllCity")
+    Observable<Bean<CityCode>> get_province(@Body RequestBody json);
+
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("findAllCity")
+    Observable<Bean<GetCityCode>> get_city(@Body RequestBody json);
+
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("findAllCity")
+    Observable<Bean<GetQuCode>> get_qu(@Body RequestBody json);
 }
