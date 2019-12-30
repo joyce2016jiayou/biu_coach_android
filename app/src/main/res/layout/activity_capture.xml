@@ -19,7 +19,7 @@
 
         <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/toolBarHeight"
+                android:layout_height="@dimen/m70"
                 android:layout_gravity="top"
                 android:background="#99000000">
 
