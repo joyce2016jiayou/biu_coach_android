@@ -185,6 +185,9 @@ public class SelectRoleActivity extends BaseActivity {
                                             intent.putExtras(bundle);
                                             startActivity(intent);
                                             //finish();
+                                        }else {
+                                            Intent intent = new Intent(SelectRoleActivity.this, CheckStatusActivity.class);
+                                            startActivity(intent);
                                         }
                                     } else if (result.getData().getTeacherType() == 3) {
                                         if (result.getData().getSign() == 1) {//已签约
@@ -229,6 +232,9 @@ public class SelectRoleActivity extends BaseActivity {
                                             intent.putExtras(bundle);
                                             startActivity(intent);
                                             //finish();
+                                        }else {
+                                            Intent intent = new Intent(SelectRoleActivity.this, CheckStatusActivity.class);
+                                            startActivity(intent);
                                         }
                                     } else if (result.getData().getTeacherType() == 3) {
                                         if (result.getData().getSign() == 1) {//已签约
