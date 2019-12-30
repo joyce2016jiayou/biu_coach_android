@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import butterknife.ButterKnife
 import com.noplugins.keepfit.coachplatform.MainActivity
 import com.noplugins.keepfit.coachplatform.R
@@ -17,8 +16,7 @@ import com.noplugins.keepfit.coachplatform.util.net.Network
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
 import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
-import com.noplugins.keepfit.coachplatform.util.ui.toast.SuperCustomToast
-import java.util.HashMap
+import java.util.*
 
 class SplashActivity : BaseActivity() {
     override fun doBusiness(mContext: Context?) {
@@ -73,6 +71,7 @@ class SplashActivity : BaseActivity() {
                 params,
                 ProgressSubscriber("获取教练状态", object : SubscriberOnNextListener<Bean<TeacherStatusBean>> {
                     override fun onNext(result: Bean<TeacherStatusBean>) {
+
                         set_status(result)
 
                     }
@@ -90,112 +89,140 @@ class SplashActivity : BaseActivity() {
 
     private fun set_status(result: Bean<TeacherStatusBean>) {
         //teacherType 1团课 2私教 3都有
-        //pType 私教 1 通过2拒绝3审核中
-        //lType 团课 1 通过2拒绝3审核中
-        // sign 是否签约上架 1 是 0 否
-        if (result.data.teacherType == -1) {//目前没有身份
-            val intent = Intent(this@SplashActivity, SelectRoleActivity::class.java)
+//pType 私教 1 通过2拒绝3审核中
+//lType 团课 1 通过2拒绝3审核中
+// sign 是否签约上架 1 是 0 否
+        if (result.data.teacherType == -1) { //目前没有身份
+            val intent =
+                Intent(this@SplashActivity, SelectRoleActivity::class.java)
             startActivity(intent)
             finish()
-        } else if (result.data.teacherType == 1) {//团课
+        } else if (result.data.teacherType == 1) { //团课
             if (result.data.lType == 1) {
                 SpUtils.putString(this@SplashActivity, AppConstants.IS_SUBMIT_TUANKE, "true")
-                if (result.data.sign == 1) {//已签约
-                    val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                if (result.data.sign == 1) { //已签约
+                    val intent =
+                        Intent(this@SplashActivity, MainActivity::class.java)
                     startActivity(intent)
                     finish()
-                } else {//未签约
-                    if (result.data.lType == 1) {//通过的话就直接签约
-                        if (result.data.sign == 1) {//已签约
-                            val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                } else { //未签约
+                    if (result.data.lType == 1) { //通过的话就直接签约
+                        if (result.data.sign == 1) { //已签约
+                            val intent =
+                                Intent(this@SplashActivity, MainActivity::class.java)
                             startActivity(intent)
                             finish()
                         } else {
-                            val intent = Intent(this@SplashActivity, CheckStatusActivity::class.java)
+                            val intent = Intent(
+                                this@SplashActivity,
+                                CheckStatusActivity::class.java
+                            )
                             val bundle = Bundle()
                             bundle.putInt("into_index", 3)
                             intent.putExtras(bundle)
                             startActivity(intent)
                             finish()
                         }
-
-                    } else if (result.data.lType == 3) {//审核中
-                        val intent = Intent(this@SplashActivity, CheckStatusActivity::class.java)
+                    } else if (result.data.lType == 3) { //审核中
+                        val intent =
+                            Intent(this@SplashActivity, CheckStatusActivity::class.java)
                         val bundle = Bundle()
                         bundle.putInt("into_index", 2)
-                        bundle.putInt("status", 1)//审核中
+                        bundle.putInt("status", 1) //审核中
                         intent.putExtras(bundle)
                         startActivity(intent)
                         finish()
-                    } else if (result.data.lType == 2) {//拒绝
-                        val intent = Intent(this@SplashActivity, CheckStatusActivity::class.java)
+                    } else if (result.data.lType == 2) { //拒绝
+                        val intent =
+                            Intent(this@SplashActivity, CheckStatusActivity::class.java)
                         val bundle = Bundle()
                         bundle.putInt("into_index", 2)
-                        bundle.putInt("status", -1)//拒绝
+                        bundle.putInt("status", -1) //拒绝
                         intent.putExtras(bundle)
                         startActivity(intent)
                         finish()
                     } else {
-                        val intent = Intent(this@SplashActivity, CheckStatusActivity::class.java)
+                        val intent = Intent(
+                            this@SplashActivity,
+                            CheckStatusActivity::class.java
+                        )
                         startActivity(intent)
                         finish()
                     }
                 }
+            } else {
+                val intent =
+                    Intent(this@SplashActivity, SelectRoleActivity::class.java)
+                startActivity(intent)
+                finish()
             }
-
-        } else if (result.data.teacherType == 2) {//私教
+        } else if (result.data.teacherType == 2) { //私教
             if (result.data.pType == 1) {
-                SpUtils.putString(this@SplashActivity, AppConstants.IS_SUBMIT_SIJIAO, "true")
-                if (result.data.sign == 1) {//已签约
-                    val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                if (result.data.sign == 1) { //已签约
+                    val intent =
+                        Intent(this@SplashActivity, MainActivity::class.java)
                     startActivity(intent)
                     finish()
-                } else {//未签约
-                    if (result.data.pType == 1) {//通过的话
+                } else { //未签约
+                    if (result.data.pType == 1) { //通过的话
+                        SpUtils.putString(this@SplashActivity, AppConstants.IS_SUBMIT_SIJIAO, "true")
                         //再次判断是否签约
-                        if (result.data.sign == 1) {//已签约
-                            val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                        if (result.data.sign == 1) { //已签约
+                            val intent =
+                                Intent(this@SplashActivity, MainActivity::class.java)
                             startActivity(intent)
                             finish()
-                        } else {//未签约
-                            val intent = Intent(this@SplashActivity, CheckStatusActivity::class.java)
+                        } else { //未签约
+                            val intent = Intent(
+                                this@SplashActivity,
+                                CheckStatusActivity::class.java
+                            )
                             val bundle = Bundle()
                             bundle.putInt("into_index", 3)
                             intent.putExtras(bundle)
                             startActivity(intent)
                             finish()
                         }
-
-                    } else if (result.data.pType == 3) {//审核中
-                        val intent = Intent(this@SplashActivity, CheckStatusActivity::class.java)
+                    } else if (result.data.pType == 3) { //审核中
+                        val intent =
+                            Intent(this@SplashActivity, CheckStatusActivity::class.java)
                         val bundle = Bundle()
                         bundle.putInt("into_index", 2)
-                        bundle.putInt("status", 1)//审核中
+                        bundle.putInt("status", 1) //审核中
                         intent.putExtras(bundle)
                         startActivity(intent)
                         finish()
-                    } else if (result.data.pType == 2) {//拒绝
-                        val intent = Intent(this@SplashActivity, CheckStatusActivity::class.java)
+                    } else if (result.data.pType == 2) { //拒绝
+                        val intent =
+                            Intent(this@SplashActivity, CheckStatusActivity::class.java)
                         val bundle = Bundle()
                         bundle.putInt("into_index", 2)
-                        bundle.putInt("status", -1)//拒绝
+                        bundle.putInt("status", -1) //拒绝
                         intent.putExtras(bundle)
                         startActivity(intent)
                         finish()
-                    } else {//没有私教身份
-                        val intent = Intent(this@SplashActivity, CheckStatusActivity::class.java)
+                    } else { //没有私教身份
+                        val intent =
+                            Intent(this@SplashActivity, CheckStatusActivity::class.java)
                         startActivity(intent)
                         finish()
                     }
                 }
+            }else {
+                val intent =
+                    Intent(this@SplashActivity, SelectRoleActivity::class.java)
+                startActivity(intent)
+                finish()
             }
         } else {
-            if (result.data.sign == 1) {//已签约
-                val intent = Intent(this@SplashActivity, MainActivity::class.java)
+            if (result.data.sign == 1) { //已签约
+                val intent =
+                    Intent(this@SplashActivity, MainActivity::class.java)
                 startActivity(intent)
                 finish()
             } else {
-                val intent = Intent(this@SplashActivity, CheckStatusActivity::class.java)
+                val intent =
+                    Intent(this@SplashActivity, CheckStatusActivity::class.java)
                 val bundle = Bundle()
                 bundle.putInt("into_index", 3)
                 intent.putExtras(bundle)

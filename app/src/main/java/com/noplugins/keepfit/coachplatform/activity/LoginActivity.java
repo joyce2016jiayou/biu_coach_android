@@ -370,6 +370,10 @@ public class LoginActivity extends BaseActivity {
                         finish();
                     }
                 }
+            }else {
+                Intent intent = new Intent(LoginActivity.this, SelectRoleActivity.class);
+                startActivity(intent);
+                finish();
             }
 
         } else if (result.getData().getTeacherType() == 2) {//私教
@@ -417,6 +421,10 @@ public class LoginActivity extends BaseActivity {
                         finish();
                     }
                 }
+            }else {
+                Intent intent = new Intent(LoginActivity.this, SelectRoleActivity.class);
+                startActivity(intent);
+                finish();
             }
         } else {
             if (result.getData().getSign() == 1) {//已签约
