@@ -39,226 +39,182 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-            <www.linwg.org.lib.LCardView
+            <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/m85"
-                    app:cornerRadius="@dimen/m5"
-                    app:leftShadowWidth="@dimen/m0"
-                    app:rightShadowWidth="@dimen/m0">
+                    android:layout_height="@dimen/m85">
 
-                <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="更改头像"
-                            android:textColor="@color/color_101010"
-                            android:textSize="@dimen/sp15"
-                            android:layout_marginLeft="@dimen/m20"
-                            android:layout_centerVertical="true"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="更改头像"
+                        android:textColor="@color/color_101010"
+                        android:textSize="@dimen/sp15"
+                        android:layout_marginLeft="@dimen/m20"
+                        android:layout_centerVertical="true"/>
 
 
-                    <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/iv_logo"
-                            android:layout_width="@dimen/m50"
-                            android:layout_height="@dimen/m50"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginRight="@dimen/m20"
-                            android:src="@mipmap/ic_launcher"
-                            android:layout_centerVertical="true"/>
-                </RelativeLayout>
-            </www.linwg.org.lib.LCardView>
+                <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/iv_logo"
+                        android:layout_width="@dimen/m50"
+                        android:layout_height="@dimen/m50"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/m20"
+                        android:src="@mipmap/ic_launcher"
+                        android:layout_centerVertical="true"/>
+            </RelativeLayout>
 
-            <www.linwg.org.lib.LCardView
+            <LinearLayout
+                    android:id="@+id/rl_user_name"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/m56"
-                    app:cornerRadius="@dimen/m5"
-                    app:leftShadowWidth="@dimen/m0"
-                    app:rightShadowWidth="@dimen/m0">
-                <LinearLayout
-                        android:id="@+id/rl_user_name"
+                    android:orientation="horizontal"
+                    android:layout_height="@dimen/m56">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="姓名"
+                        android:textColor="@color/color_101010"
+                        android:textSize="@dimen/sp15"
+                        android:layout_marginLeft="@dimen/m20"
+                        android:layout_centerVertical="true"/>
+                <TextView
+                        android:id="@+id/tv_user_name"
+                        android:layout_toLeftOf="@+id/iv_right"
                         android:layout_width="match_parent"
-                        android:orientation="horizontal"
-                        android:layout_height="match_parent">
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="姓名"
-                            android:textColor="@color/color_101010"
-                            android:textSize="@dimen/sp15"
-                            android:layout_marginLeft="@dimen/m20"
-                            android:layout_centerVertical="true"/>
-                    <TextView
-                            android:id="@+id/tv_user_name"
-                            android:layout_toLeftOf="@+id/iv_right"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/m50"
-                            android:layout_marginRight="@dimen/m20"
-                            android:gravity="center_vertical|right"
-                            android:textColor="@color/contents_text"
-                            android:background="@null"
-                            android:textSize="@dimen/sp15"
-                            android:layout_marginLeft="@dimen/m20"
-                            android:layout_centerVertical="true"/>
-                </LinearLayout>
-            </www.linwg.org.lib.LCardView>
+                        android:layout_height="@dimen/m50"
+                        android:layout_marginRight="@dimen/m20"
+                        android:gravity="center_vertical|right"
+                        android:textColor="@color/contents_text"
+                        android:background="@null"
+                        android:textSize="@dimen/sp15"
+                        android:layout_marginLeft="@dimen/m20"
+                        android:layout_centerVertical="true"/>
+            </LinearLayout>
 
-            <www.linwg.org.lib.LCardView
+            <LinearLayout
+                    android:id="@+id/rl_sex"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/m56"
-                    app:cornerRadius="@dimen/m5"
-                    app:leftShadowWidth="@dimen/m0"
-                    app:rightShadowWidth="@dimen/m0">
-                <LinearLayout
-                        android:id="@+id/rl_sex"
+                    android:orientation="horizontal"
+                    android:layout_height="@dimen/m56">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="性别"
+                        android:textColor="@color/color_101010"
+                        android:textSize="@dimen/sp15"
+                        android:layout_marginLeft="@dimen/m20"
+                        android:layout_centerVertical="true"/>
+                <TextView
+                        android:id="@+id/tv_sex"
                         android:layout_width="match_parent"
-                        android:orientation="horizontal"
-                        android:layout_height="match_parent">
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="性别"
-                            android:textColor="@color/color_101010"
-                            android:textSize="@dimen/sp15"
-                            android:layout_marginLeft="@dimen/m20"
-                            android:layout_centerVertical="true"/>
-                    <TextView
-                            android:id="@+id/tv_sex"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/m50"
-                            android:gravity="center_vertical|right"
-                            android:background="@null"
-                            android:textColor="@color/contents_text"
-                            android:textSize="@dimen/sp15"
-                            android:layout_marginLeft="@dimen/m20"
-                            android:layout_marginRight="@dimen/m20"
-                            android:layout_centerVertical="true"/>
+                        android:layout_height="@dimen/m50"
+                        android:gravity="center_vertical|right"
+                        android:background="@null"
+                        android:textColor="@color/contents_text"
+                        android:textSize="@dimen/sp15"
+                        android:layout_marginLeft="@dimen/m20"
+                        android:layout_marginRight="@dimen/m20"
+                        android:layout_centerVertical="true"/>
 
-                </LinearLayout>
-            </www.linwg.org.lib.LCardView>
-
-            <www.linwg.org.lib.LCardView
+            </LinearLayout>
+            <LinearLayout
+                    android:id="@+id/rl_birthday"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/m56"
-                    app:cornerRadius="@dimen/m5"
-                    app:leftShadowWidth="@dimen/m0"
-                    app:rightShadowWidth="@dimen/m0">
-                <LinearLayout
-                        android:id="@+id/rl_birthday"
+                    android:orientation="horizontal"
+                    android:layout_height="@dimen/m56">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="年龄"
+                        android:textColor="@color/color_101010"
+                        android:textSize="@dimen/sp15"
+                        android:layout_marginLeft="@dimen/m20"
+                        android:layout_centerVertical="true"/>
+                <TextView
+                        android:id="@+id/tv_birthday"
+
                         android:layout_width="match_parent"
-                        android:orientation="horizontal"
-                        android:layout_height="match_parent">
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="年龄"
-                            android:textColor="@color/color_101010"
-                            android:textSize="@dimen/sp15"
-                            android:layout_marginLeft="@dimen/m20"
-                            android:layout_centerVertical="true"/>
-                    <TextView
-                            android:id="@+id/tv_birthday"
+                        android:layout_height="@dimen/m50"
+                        android:gravity="center_vertical|right"
+                        android:background="@null"
+                        android:textColor="@color/contents_text"
+                        android:textSize="@dimen/sp15"
+                        android:layout_marginRight="@dimen/m20"
+                        android:layout_marginLeft="@dimen/m20"
+                        android:layout_centerVertical="true"/>
 
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/m50"
-                            android:gravity="center_vertical|right"
-                            android:background="@null"
-                            android:textColor="@color/contents_text"
-                            android:textSize="@dimen/sp15"
-                            android:layout_marginRight="@dimen/m20"
-                            android:layout_marginLeft="@dimen/m20"
-                            android:layout_centerVertical="true"/>
-
-                </LinearLayout>
-            </www.linwg.org.lib.LCardView>
-            <www.linwg.org.lib.LCardView
+            </LinearLayout>
+            <LinearLayout
+                    android:id="@+id/rl_city"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/m56"
-                    app:cornerRadius="@dimen/m5"
-                    app:leftShadowWidth="@dimen/m0"
-                    app:rightShadowWidth="@dimen/m0">
-                <LinearLayout
-                        android:id="@+id/rl_city"
+                    android:orientation="horizontal"
+                    android:layout_height="@dimen/m56">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="所在城市"
+                        android:textColor="@color/color_101010"
+                        android:textSize="@dimen/sp15"
+                        android:layout_marginLeft="@dimen/m20"
+                        android:layout_centerVertical="true"/>
+                <TextView
+                        android:id="@+id/tv_city"
+
                         android:layout_width="match_parent"
-                        android:orientation="horizontal"
-                        android:layout_height="match_parent">
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="所在城市"
-                            android:textColor="@color/color_101010"
-                            android:textSize="@dimen/sp15"
-                            android:layout_marginLeft="@dimen/m20"
-                            android:layout_centerVertical="true"/>
-                    <TextView
-                            android:id="@+id/tv_city"
+                        android:layout_height="@dimen/m50"
+                        android:gravity="center_vertical|right"
+                        android:background="@null"
+                        android:textColor="@color/contents_text"
+                        android:layout_marginRight="@dimen/m20"
+                        android:textSize="@dimen/sp15"
+                        android:layout_marginLeft="@dimen/m20"
+                        android:layout_centerVertical="true"/>
 
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/m50"
-                            android:gravity="center_vertical|right"
-                            android:background="@null"
-                            android:textColor="@color/contents_text"
-                            android:layout_marginRight="@dimen/m20"
-                            android:textSize="@dimen/sp15"
-                            android:layout_marginLeft="@dimen/m20"
-                            android:layout_centerVertical="true"/>
-
-                </LinearLayout>
-            </www.linwg.org.lib.LCardView>
-            <www.linwg.org.lib.LCardView
+            </LinearLayout>
+            <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cornerRadius="@dimen/m5"
-                    app:leftShadowWidth="@dimen/m0"
-                    app:rightShadowWidth="@dimen/m0">
-                <LinearLayout
+                    android:orientation="vertical">
+                <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
-                    <TextView
+                        android:text="@string/man_skill"
+                        android:textSize="@dimen/sp15"
+                        android:layout_marginTop="@dimen/m15"
+                        android:layout_marginLeft="@dimen/m20"
+                        android:textColor="@color/color_101010"/>
+
+                <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="@dimen/m10"
+                        android:layout_height="wrap_content">
+
+                    <EditText
+                            android:id="@+id/edit_shihe"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/man_skill"
+                            android:layout_height="@dimen/m100"
+                            android:gravity="left|top"
+                            android:padding="@dimen/m11"
+                            android:textColor="@color/color_929292"
                             android:textSize="@dimen/sp15"
-                            android:layout_marginTop="@dimen/m15"
+                            android:maxLength="50"
                             android:layout_marginLeft="@dimen/m20"
-                            android:textColor="@color/color_101010"/>
+                            android:layout_marginBottom="@dimen/m20"
+                            android:layout_marginRight="@dimen/m20"
+                            android:hint="这个人太低调啦，什么都没有留下来～"
+                            android:background="@drawable/shape_btn_bg_gray"/>
 
-                    <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_marginTop="@dimen/m10"
-                            android:layout_height="wrap_content">
-
-                        <EditText
-                                android:id="@+id/edit_shihe"
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/m100"
-                                android:gravity="left|top"
-                                android:padding="@dimen/m11"
-                                android:textColor="@color/color_929292"
-                                android:textSize="@dimen/sp15"
-                                android:maxLength="50"
-                                android:layout_marginLeft="@dimen/m20"
-                                android:layout_marginBottom="@dimen/m20"
-                                android:layout_marginRight="@dimen/m20"
-                                android:hint="这个人太低调啦，什么都没有留下来～"
-                                android:background="@drawable/shape_btn_bg_gray"/>
-
-                        <TextView
-                                android:id="@+id/tv_shihe_length"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/color_929292"
-                                android:textSize="@dimen/sp12"
-                                android:layout_marginRight="@dimen/m30"
-                                android:layout_gravity="right|bottom"
-                                android:layout_marginBottom="@dimen/m30"
-                                android:text="50字"/>
-                    </FrameLayout>
-                </LinearLayout>
-            </www.linwg.org.lib.LCardView>
+                    <TextView
+                            android:id="@+id/tv_shihe_length"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/color_929292"
+                            android:textSize="@dimen/sp12"
+                            android:layout_marginRight="@dimen/m30"
+                            android:layout_gravity="right|bottom"
+                            android:layout_marginBottom="@dimen/m30"
+                            android:text="50字"/>
+                </FrameLayout>
+            </LinearLayout>
 
             <TextView
                     android:id="@+id/tv_save"

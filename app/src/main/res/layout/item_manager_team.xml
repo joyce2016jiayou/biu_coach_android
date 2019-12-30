@@ -53,10 +53,10 @@
                 android:layout_width="@dimen/m59"
                 android:layout_height="@dimen/m24"
                 android:textSize="@dimen/sp13"
-                android:textColor="@color/white"
+                android:textColor="@color/color_929292"
                 android:gravity="center"
                 android:text="已上架"
-                android:background="@drawable/type_bg"
+                android:background="@mipmap/team_bg_gary"
                 android:layout_marginRight="@dimen/m10"
                 android:layout_marginTop="@dimen/m10"
                 android:layout_alignParentRight="true"/>
@@ -97,27 +97,17 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/color_4A4A4A"
                     android:textSize="@dimen/sp15"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:textStyle="bold"
                     android:layout_gravity="right"
-                    android:layout_marginRight="@dimen/m20"
+                    android:layout_marginRight="@dimen/m22"
                     tool:text="¥213"/>
-            <TextView
-                    android:id="@+id/tv_team_date_history"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/sp13"
-                    android:visibility="gone"
-                    android:layout_gravity="right"
-                    android:layout_marginRight="@dimen/m20"
-                    android:textColor="@color/color_4A4A4A"
-                    tool:text="45min"/>
         </FrameLayout>
 
 
         <LinearLayout
                 android:id="@+id/ll_rep"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:orientation="horizontal"
                 android:layout_below="@+id/rl_rep"
                 android:layout_marginLeft="@dimen/m10"
@@ -143,6 +133,33 @@
                     android:layout_marginLeft="@dimen/m15"
                     android:textColor="@color/color_4A4A4A"
                     tool:text="循环四周：每周一"/>
+            <FrameLayout
+                    android:id="@+id/fl_rep"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/m10"
+                    android:layout_marginRight="@dimen/m22">
+                <TextView
+                        android:id="@+id/tv_team_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/m24"
+                        android:textSize="@dimen/sp13"
+                        android:gravity="center"
+                        android:layout_gravity="center_vertical|right"
+                        android:textColor="@color/color_4A4A4A"
+                        tool:text="45min"/>
+                <TextView
+                        android:id="@+id/tv_agin"
+                        android:layout_width="@dimen/m72"
+                        android:layout_height="@dimen/m24"
+                        android:textSize="@dimen/sp13"
+                        android:visibility="gone"
+                        android:gravity="center"
+                        android:layout_gravity="center_vertical|right"
+                        android:textColor="@color/color_lan"
+                        android:background="@drawable/chongxin"
+                        android:text="重新申请"/>
+            </FrameLayout>
 
         </LinearLayout>
 
@@ -175,68 +192,74 @@
                     android:textColor="@color/color_4A4A4A"
                     android:layout_marginLeft="@dimen/m10"
                     tool:text="15人"/>
-            <FrameLayout
-                    android:id="@+id/fl_rep"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/m10"
-                    android:layout_marginRight="@dimen/m10">
-                <TextView
-                        android:id="@+id/tv_team_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/m24"
-                        android:textSize="@dimen/sp13"
-                        android:gravity="center"
-                        android:layout_gravity="center_vertical|right"
-                        android:textColor="@color/color_4A4A4A"
-                        tool:text="45min"/>
-                <TextView
-                        android:id="@+id/tv_agin"
-                        android:layout_width="@dimen/m72"
-                        android:layout_height="@dimen/m24"
-                        android:textSize="@dimen/sp13"
-                        android:visibility="gone"
-                        android:gravity="center"
-                        android:layout_gravity="center_vertical|right"
-                        android:textColor="@color/color_lan"
-                        android:background="@drawable/chongxin"
-                        android:text="重新申请"/>
-            </FrameLayout>
-
-
-
         </LinearLayout>
+
+
+        <FrameLayout
+                android:id="@+id/ll_shenqin_edit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/m46"
+                android:layout_below="@+id/ll_bottom"
+                android:background="@drawable/btn_shape_stroke"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+            <TextView
+                    android:id="@+id/tv_yaoqin_edit"
+                    android:layout_width="@dimen/m86"
+                    android:layout_height="@dimen/m28"
+                    android:layout_gravity="center"
+                    android:background="@drawable/shape_btn_bg_black"
+                    android:gravity="center"
+                    android:text="@string/cancel"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp13" />
+        </FrameLayout>
 
         <LinearLayout
                 android:id="@+id/ll_yaoqin"
-                android:layout_below="@+id/ll_bottom"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/m46"
+                android:layout_below="@+id/ll_bottom"
+                android:background="@drawable/btn_shape_stroke"
+                android:gravity="center"
                 android:orientation="horizontal"
-                android:visibility="visible"
-                android:background="@drawable/btn_shape_stroke">
-            <TextView
-                    android:id="@+id/tv_jujue"
+                android:visibility="visible">
+
+            <FrameLayout
                     android:layout_width="@dimen/m0"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/m10"
-                    android:paddingTop="@dimen/m10"
-                    android:textSize="@dimen/sp13"
-                    android:gravity="center"
-                    android:textColor="@color/color_6D7278"
-                    android:text="拒绝"/>
-            <TextView
-                    android:id="@+id/tv_jieshou"
+                    android:layout_weight="1">
+
+                <TextView
+                        android:id="@+id/tv_jujue"
+                        android:layout_width="@dimen/m58"
+                        android:layout_height="@dimen/m28"
+                        android:layout_gravity="center"
+                        android:background="@drawable/shape_btn_bg_black"
+                        android:gravity="center"
+                        android:text="拒绝"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp13" />
+            </FrameLayout>
+
+            <FrameLayout
                     android:layout_width="@dimen/m0"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/m10"
-                    android:paddingTop="@dimen/m10"
-                    android:textSize="@dimen/sp13"
-                    android:gravity="center"
-                    android:textColor="@color/color_6D7278"
-                    android:text="接受"/>
+                    android:layout_weight="1">
+
+                <TextView
+                        android:id="@+id/tv_jieshou"
+                        android:layout_width="@dimen/m58"
+                        android:layout_height="@dimen/m28"
+                        android:layout_gravity="center"
+                        android:background="@drawable/shape_btn_bg_black"
+                        android:gravity="center"
+                        android:text="接受"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp13" />
+            </FrameLayout>
         </LinearLayout>
     </RelativeLayout>
 </www.linwg.org.lib.LCardView>

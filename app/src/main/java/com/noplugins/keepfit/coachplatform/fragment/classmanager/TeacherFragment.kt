@@ -88,7 +88,7 @@ class TeacherFragment : BaseFragment() {
             view_pager.currentItem = 1
         }
 
-        iv_teacher_add.clickWithTrigger {
+        iv_teacher_add.setOnClickListener {
             //如果登记没完成 则不能添加
             if(BaseUtils.isFastClick()){
                 code = 10

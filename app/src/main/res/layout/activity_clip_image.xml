@@ -18,7 +18,7 @@
             android:layout_centerVertical="true"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/m20"
-            android:src="@drawable/icon_back" />
+            android:src="@drawable/picture_icon_back" />
 
         <TextView
             android:id="@+id/stock_name"
@@ -27,7 +27,7 @@
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:gravity="center"
-            android:text="@string/tv180"
+            android:text="@string/tv162"
             android:textColor="#ffffff"
             android:textSize="@dimen/sp20" />
 
@@ -38,7 +38,7 @@
         app:clipType="circle"         ： 裁剪框类型为圆形
         app:mHorizontalPadding="@dimen/m30" ：裁剪框距离左右边距为30dp
      -->
-    <com.noplugins.keepfit.android.util.ui.cropimg.ClipViewLayout
+    <com.noplugins.keepfit.coachplatform.util.ui.cropimg.ClipViewLayout
         android:id="@+id/clipViewLayout1"
         android:layout_width="match_parent"
         android:layout_height="@dimen/m0"
@@ -48,7 +48,7 @@
         app:mHorizontalPadding="@dimen/m30" />
 
     <!--矩形裁剪框示例 -->
-    <com.noplugins.keepfit.android.util.ui.cropimg.ClipViewLayout
+    <com.noplugins.keepfit.coachplatform.util.ui.cropimg.ClipViewLayout
         android:id="@+id/clipViewLayout2"
         android:layout_width="match_parent"
         android:layout_height="@dimen/m0"

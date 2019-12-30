@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.text.Editable
@@ -36,6 +37,8 @@ import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriberNew
 import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener
 import com.noplugins.keepfit.coachplatform.util.ui.ProgressUtil
+import com.noplugins.keepfit.coachplatform.util.ui.cropimg.ClipImageActivity
+import com.noplugins.keepfit.coachplatform.util.ui.cropimg.FileUtil
 import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow
 import com.noplugins.keepfit.coachplatform.util.ui.toast.SuperCustomToast
 import com.qiniu.android.storage.UpCompletionHandler
@@ -207,17 +210,26 @@ class InformationActivity : BaseActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 101) {
-
-        } else {
+        if (requestCode == 102) {
             //添加icon,上传icon
             if (data == null) return
             val resultPaths = data.getStringArrayListExtra(EasyPhotos.RESULT_PATHS)
             if (resultPaths!!.size > 0) {
 //                icon_image_path = resultPaths[0]
                 val icon_iamge_file = File(resultPaths[0])
-                withLs(icon_iamge_file)
+                gotoClipActivity(Uri.fromFile(icon_iamge_file))
             }
+        } else if (requestCode == 103) {
+            if (data == null){
+                return
+            }
+            val uri = data.data
+            val ivLogoPath = FileUtil.getRealFilePathFromUri(this, uri)
+            val icon_iamge_file = File(ivLogoPath)
+            //Bitmap bitMap = BitmapFactory.decodeFile(cropImagePath);
+            withLs(icon_iamge_file)
+
+//            Glide.with(this).load(icon_iamge_file).into(ivLogo)
         }
     }
 
@@ -311,6 +323,20 @@ class InformationActivity : BaseActivity() {
                     }
                 }, this, false)
             )
+    }
+
+    /**
+     * 打开截图界面
+     */
+    fun gotoClipActivity(uri: Uri?) {
+        if (uri == null) {
+            return
+        }
+        val intent = Intent()
+        intent.setClass(this, ClipImageActivity::class.java)
+        intent.putExtra("type", 2)//1:圆形 2:方形
+        intent.data = uri
+        startActivityForResult(intent, 103)
     }
 }
 

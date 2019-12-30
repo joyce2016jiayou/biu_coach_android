@@ -1,5 +1,6 @@
 package com.noplugins.keepfit.coachplatform.fragment.classmanager
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,13 +10,16 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
 import com.noplugins.keepfit.coachplatform.R
+import com.noplugins.keepfit.coachplatform.activity.manager.TeacherAddOrEditActivity
 import com.noplugins.keepfit.coachplatform.adapter.ManagerTeacherAdapter
 import com.noplugins.keepfit.coachplatform.adapter.ManagerTeamClassAdapter
 import com.noplugins.keepfit.coachplatform.adapter.TabItemAdapter
 import com.noplugins.keepfit.coachplatform.base.BaseFragment
 import com.noplugins.keepfit.coachplatform.fragment.classmanager.team.HistoryFragment
 import com.noplugins.keepfit.coachplatform.fragment.classmanager.team.ShangjiaFragment
+import com.noplugins.keepfit.coachplatform.fragment.classmanager.team.ShenqinFragment
 import com.noplugins.keepfit.coachplatform.fragment.classmanager.team.YaoqinFragment
+import com.noplugins.keepfit.coachplatform.util.BaseUtils
 import kotlinx.android.synthetic.main.fragment_manager_team.*
 import java.util.ArrayList
 
@@ -46,6 +50,7 @@ class TeamClassFragment:BaseFragment() {
         super.onFragmentFirstVisible()
         initFragment()
         rbOnClick()
+
     }
 
 
@@ -62,10 +67,25 @@ class TeamClassFragment:BaseFragment() {
             Log.d("单选","点击了3")
             view_pager.currentItem = 2
         }
+        rb_4.setOnClickListener {
+            Log.d("单选","点击了4")
+            view_pager.currentItem = 3
+        }
+        iv_team_add.setOnClickListener {
+            //如果登记没完成 则不能添加
+            if(BaseUtils.isFastClick()){
+                val intent = Intent(activity, TeacherAddOrEditActivity::class.java)
+                val bundle = Bundle()
+                bundle.putString("type","add")
+                intent.putExtras(bundle)
+                startActivity(intent)
+            }
+        }
     }
 
     private fun initFragment(){
         mFragments.add(ShangjiaFragment.newInstance("已上架"))
+        mFragments.add(ShenqinFragment.newInstance("已上架"))
         mFragments.add(YaoqinFragment.newInstance("邀请中"))
         mFragments.add(HistoryFragment.newInstance("历史"))
 
@@ -91,6 +111,7 @@ class TeamClassFragment:BaseFragment() {
             0 ->rb_1.isChecked = true
             1 ->rb_2.isChecked = true
             2 ->rb_3.isChecked = true
+            3 ->rb_4.isChecked = true
         }
     }
 

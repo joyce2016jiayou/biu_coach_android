@@ -105,6 +105,53 @@ public class ManagerBean {
         private int min;
         private double finalPrice;
 
+        private int isEdit;//表示是否可以编辑，1是0否
+        private int isFull;//详情是否显示邀请信息，1是0否
+
+        private int refuseType;//是否可以拒绝，1是0否
+        private String statusMsg;//团课状态中文
+        private int isShow;//详情是否显示邀请的场馆信息，1是0否
+
+        public int getRefuseType() {
+            return refuseType;
+        }
+
+        public void setRefuseType(int refuseType) {
+            this.refuseType = refuseType;
+        }
+
+        public String getStatusMsg() {
+            return statusMsg;
+        }
+
+        public void setStatusMsg(String statusMsg) {
+            this.statusMsg = statusMsg;
+        }
+
+        public int getIsShow() {
+            return isShow;
+        }
+
+        public void setIsShow(int isShow) {
+            this.isShow = isShow;
+        }
+
+        public int getIsEdit() {
+            return isEdit;
+        }
+
+        public void setIsEdit(int isEdit) {
+            this.isEdit = isEdit;
+        }
+
+        public int getIsFull() {
+            return isFull;
+        }
+
+        public void setIsFull(int isFull) {
+            this.isFull = isFull;
+        }
+
         public double getFinalPrice() {
             return finalPrice;
         }

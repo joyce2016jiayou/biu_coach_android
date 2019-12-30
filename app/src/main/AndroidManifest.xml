@@ -291,6 +291,7 @@
         <activity android:name=".activity.info.ProductAdviceActivity"/>
         <activity android:name=".activity.info.UpdatePasswordActivity"/>
         <activity android:name=".activity.info.AboutActivity"/>
+        <activity android:name=".util.ui.cropimg.ClipImageActivity"/>
 
         <meta-data
                 android:name="JPUSH_CHANNEL"

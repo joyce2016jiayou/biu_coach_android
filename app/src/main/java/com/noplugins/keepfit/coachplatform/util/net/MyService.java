@@ -486,4 +486,13 @@ public interface MyService {
     @POST("myArea")
     Observable<Bean<ChangguanBean>> myArea(@Body RequestBody json);
 
+    /**
+     * 教练取消团课申请
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("cancelInviteByTeacher")
+    Observable<Bean<Object>> cancelInviteByTeacher(@Body RequestBody json);
+
 }
