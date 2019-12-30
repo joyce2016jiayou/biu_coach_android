@@ -34,6 +34,7 @@ public class AppConstants {
     public static List<SelectDateBean> selectDateBeans = new ArrayList<>();//加载当前日期后两周
     public static final String IS_SUBMIT_TUANKE="is_submit_tuanke";
     public static final String IS_SUBMIT_SIJIAO="is_submit_sijiao";
+    public static int ADD_CLASS_SELECT_IMAGES_SIZE = 0;
 
 
     //团课同意

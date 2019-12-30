@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+    <www.linwg.org.lib.LCardView
+            android:id="@+id/clander_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:cornerRadius="@dimen/m8"
+            app:shadowSize="@dimen/m2"
+            app:shadowStartAlpha="10">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/m20"
+                android:layout_marginRight="@dimen/m20"
+                android:orientation="vertical">
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="@dimen/m10"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/team_type"
+                        android:textColor="@color/top_heiziti"
+                        android:textSize="@dimen/sp15"/>
+
+                <RelativeLayout
+                        android:id="@+id/select_tuanke_type_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/m31"
+                        android:layout_marginLeft="@dimen/m10"
+                        android:background="@drawable/edit_bg1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                    <TextView
+                            android:id="@+id/select_tuanke_type_tv"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/m31"
+                            android:background="@drawable/edit_bg1"
+                            android:gravity="center_vertical"
+                            android:hint="@string/tv167"
+                            android:paddingLeft="@dimen/m20"
+                            android:singleLine="true"
+                            android:textColor="@color/top_heiziti"
+                            android:textColorHint="@color/color_9B9B9B"
+                            android:textSize="@dimen/sp15"/>
+
+                    <ImageView
+                            android:layout_width="@dimen/m20"
+                            android:layout_height="@dimen/m20"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/m20"
+                            android:src="@drawable/icon_xiala"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/m10"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tv99"
+                        android:textColor="@color/top_heiziti"
+                        android:textSize="@dimen/sp15"/>
+
+                <EditText
+                        android:id="@+id/edit_class_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/m31"
+                        android:layout_marginLeft="@dimen/m10"
+                        android:background="@drawable/edit_bg1"
+                        android:hint="@string/edit_hint21"
+                        android:maxLength="15"
+                        android:paddingLeft="@dimen/m20"
+                        android:singleLine="true"
+                        android:textColor="@color/top_heiziti"
+                        android:textColorHint="@color/color_9B9B9B"
+                        android:textSize="@dimen/sp15"/>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/m10"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/class_price"
+                        android:textColor="@color/top_heiziti"
+                        android:textSize="@dimen/sp15"/>
+
+                <EditText
+                        android:id="@+id/edit_price_number"
+                        android:layout_width="@dimen/m0"
+                        android:layout_height="@dimen/m31"
+                        android:layout_marginLeft="@dimen/m10"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_bg1"
+                        android:hint="0"
+                        android:inputType="numberDecimal"
+                        android:maxLength="15"
+                        android:paddingLeft="@dimen/m20"
+                        android:singleLine="true"
+                        android:textColor="@color/top_heiziti"
+                        android:textColorHint="@color/color_9B9B9B"
+                        android:textSize="@dimen/sp15"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/m10"
+                        android:text="@string/tv168"
+                        android:textColor="#ff4a4a4a"
+                        android:textSize="@dimen/sp12"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/m10"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tv171"
+                        android:textColor="@color/top_heiziti"
+                        android:textSize="@dimen/sp15"/>
+
+                <RelativeLayout
+                        android:id="@+id/select_class_target_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/m31"
+                        android:layout_marginLeft="@dimen/m10"
+                        android:background="@drawable/edit_bg1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                    <TextView
+                            android:id="@+id/select_class_target_tv"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/m31"
+                            android:background="@drawable/edit_bg1"
+                            android:gravity="center_vertical"
+                            android:hint="@string/tv167"
+                            android:paddingLeft="@dimen/m20"
+                            android:singleLine="true"
+                            android:textColor="@color/top_heiziti"
+                            android:textColorHint="@color/color_9B9B9B"
+                            android:textSize="@dimen/sp15"/>
+
+                    <ImageView
+                            android:layout_width="@dimen/m20"
+                            android:layout_height="@dimen/m20"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/m20"
+                            android:src="@drawable/icon_xiala"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="@dimen/m10"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tv172"
+                        android:textColor="@color/top_heiziti"
+                        android:textSize="@dimen/sp15"/>
+
+                <RelativeLayout
+                        android:id="@+id/select_class_difficulty_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/m31"
+                        android:layout_marginLeft="@dimen/m10"
+                        android:background="@drawable/edit_bg1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                    <TextView
+                            android:id="@+id/select_class_difficulty_tv"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/m31"
+                            android:background="@drawable/edit_bg1"
+                            android:gravity="center_vertical"
+                            android:hint="@string/tv167"
+                            android:paddingLeft="@dimen/m20"
+                            android:singleLine="true"
+                            android:textColor="@color/top_heiziti"
+                            android:textColorHint="@color/color_9B9B9B"
+                            android:textSize="@dimen/sp15"/>
+
+                    <ImageView
+                            android:layout_width="@dimen/m20"
+                            android:layout_height="@dimen/m20"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/m20"
+                            android:src="@drawable/icon_xiala"/>
+
+                </RelativeLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/m10"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tv173"
+                        android:textColor="@color/top_heiziti"
+                        android:textSize="@dimen/sp15"/>
+
+                <LinearLayout
+                        android:id="@+id/select_date_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/m31"
+                        android:layout_marginLeft="@dimen/m10"
+                        android:background="@drawable/edit_bg1"
+                        android:gravity="center_vertical">
+
+                    <TextView
+                            android:id="@+id/year_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/m20"
+                            android:hint=""
+                            android:textColor="@color/top_heiziti"
+                            android:textSize="@dimen/sp15"/>
+
+                    <View
+                            android:layout_width="@dimen/m10"
+                            android:layout_height="@dimen/m0_5"
+                            android:layout_marginLeft="@dimen/m1"
+                            android:layout_marginRight="@dimen/m1"
+                            android:background="@color/color_4A4A4A"
+                            android:orientation="vertical"/>
+
+                    <TextView
+                            android:id="@+id/month_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint=""
+                            android:textColor="@color/top_heiziti"
+                            android:textSize="@dimen/sp15"/>
+
+                    <View
+                            android:layout_width="@dimen/m10"
+                            android:layout_height="@dimen/m0_5"
+                            android:layout_marginLeft="@dimen/m1"
+                            android:layout_marginRight="@dimen/m1"
+                            android:background="@color/color_4A4A4A"
+                            android:orientation="vertical"/>
+
+                    <TextView
+                            android:id="@+id/date_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint=""
+                            android:textColor="@color/top_heiziti"
+                            android:textSize="@dimen/sp15"/>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/m10"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tv72"
+                        android:textColor="@color/top_heiziti"
+                        android:textSize="@dimen/sp15"
+                        android:visibility="invisible"/>
+
+                <LinearLayout
+                        android:id="@+id/ll_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/m31"
+                        android:layout_marginLeft="@dimen/m10"
+                        android:background="@drawable/edit_bg1"
+                        android:gravity="center_vertical">
+
+                    <TextView
+                            android:id="@+id/time1_edit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/m20"
+                            android:gravity="center"
+                            android:hint="00:00"
+                            android:textColor="@color/top_heiziti"
+                            android:textColorHint="@color/color_9B9B9B"
+                            android:textSize="@dimen/sp15"/>
+
+                    <View
+                            android:layout_width="@dimen/m40"
+                            android:layout_height="@dimen/m0_5"
+                            android:background="@color/color_4A4A4A"/>
+
+                    <TextView
+                            android:id="@+id/time2_edit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:hint="24:00"
+                            android:textColor="@color/top_heiziti"
+                            android:textColorHint="@color/color_9B9B9B"
+                            android:textSize="@dimen/sp15"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/m31"
+                    android:layout_marginTop="@dimen/m10"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tv166"
+                        android:textColor="@color/top_heiziti"
+                        android:textSize="@dimen/sp16"/>
+
+                <TextView
+                        android:id="@+id/jisuan_time_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/m30"
+                        android:text="0h"
+                        android:textColor="@color/top_heiziti"
+                        android:textSize="@dimen/sp15"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/m10"
+                    android:layout_marginBottom="@dimen/m10"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tv176"
+                        android:textColor="@color/top_heiziti"
+                        android:textSize="@dimen/sp15" />
+
+                <RelativeLayout
+                        android:id="@+id/select_xunhuan_type_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/m31"
+                        android:layout_marginLeft="@dimen/m10"
+                        android:background="@drawable/edit_bg1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                    <TextView
+                            android:id="@+id/select_xunhuan_type_tv"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/m31"
+                            android:background="@drawable/edit_bg1"
+                            android:gravity="center_vertical"
+                            android:hint="@string/tv167"
+                            android:paddingLeft="@dimen/m20"
+                            android:singleLine="true"
+                            android:textColor="@color/top_heiziti"
+                            android:textColorHint="@color/color_9B9B9B"
+                            android:textSize="@dimen/sp15" />
+
+                    <ImageView
+                            android:layout_width="@dimen/m20"
+                            android:layout_height="@dimen/m20"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/m20"
+                            android:src="@drawable/icon_xiala" />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </www.linwg.org.lib.LCardView>
+
+</LinearLayout>

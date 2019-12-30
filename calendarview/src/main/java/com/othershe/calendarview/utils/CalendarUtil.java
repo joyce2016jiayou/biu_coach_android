@@ -177,4 +177,15 @@ public class CalendarUtil {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, size, context.getResources().getDisplayMetrics());
 
     }
+
+    /**
+     * 计算当前日期 后3天
+     *
+     * @return
+     */
+    public static int[] getCurrent3Date() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, 3);
+        return new int[]{calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH)};
+    }
 }

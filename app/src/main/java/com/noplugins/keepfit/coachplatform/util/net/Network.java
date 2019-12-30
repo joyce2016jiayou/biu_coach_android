@@ -666,5 +666,38 @@ public class Network {
                 .subscribe(subscriber);
     }
 
+    public Subscription get_class_type(Map<String, Object> params, Subscriber<Bean<List<ClassTypeEntity>>> subscriber) {
+        return changGuanService.get_class_type(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+    public Subscription add_class(Map<String, Object> params, Subscriber<Bean<AddClassEntity>> subscriber) {
+        return service.add_class(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public Subscription get_types(Map<String, Object> params, Subscriber<Bean<List<DictionaryeBean>>> subscriber) {
+        return service.get_types(retuen_json_params(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 我的场馆信息
+     */
+    public Subscription myArea(Map<String, Object> params, Subscriber<Bean<ChangguanBean>> subscriber) {
+        return service.myArea(retuen_json_object(params))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
 
 }

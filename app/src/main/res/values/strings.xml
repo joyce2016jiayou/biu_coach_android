@@ -37,12 +37,25 @@
     <string name="edit_hint3">请再次输入密码</string>
     <string name="edit_hint5">请输入验证码</string>
     <string name="edit_hint6">请输入新密码</string>
-
+    <string name="edit_hint24">让用户知道他/她是否适合这项运动，能够减轻你的工作量哦～</string>
     <string name="edit_hint7">请再次确认密码</string>
     <string name="edit_hint28">手机号</string>
     <string name="edit_hint31">请输入旧密码</string>
     <string name="edit_hint32">请输入新密码</string>
     <string name="edit_hint33">请再次确认密码</string>
+    <string name="edit_hint21">请输入课程名称</string>
+    <string name="edit_hint11">详细的课程简介能够吸引更多人来锻炼哦～</string>
+    <string name="edit_hint12">让用户知道他/她是否适合这项运动，能够减轻你的工作量哦～</string>
+    <string name="edit_hint25">锻炼也要保证安全哦～</string>
+    <string name="alert_dialog_tishi16">团课名称不能为空！</string>
+    <string name="alert_dialog_tishi18">课程介绍不能为空！</string>
+    <string name="alert_dialog_tishi19">适合人群不能为空！</string>
+    <string name="alert_dialog_tishi20">注意事项不能为空！</string>
+    <string name="alert_dialog_tishi36">logo不能为空！</string>
+    <string name="alert_dialog_tishi38">价格不能为空！</string>
+    <string name="alert_dialog_tishi39">开始时间不能为空！</string>
+    <string name="alert_dialog_tishi40">结束时间不能为空！</string>
+
     <string name="tv1">登 录</string>
     <string name="tv2">biu一下，遇见自己</string>
     <string name="tv3">密码登录</string>
@@ -152,7 +165,7 @@
     <string name="tv108">填写日志</string>
     <string name="tv109">选择问题类型(必填)</string>
     <string name="tv110">产品建议 (功能建议/新的想法)</string>
-    <string name="tv111">故障反馈 (功能不可用)</string>
+    <string name="tv111" translatable="false">故障反馈 (功能不可用)</string>
     <string name="tv112">其他问题</string>
     <string name="tv113">请输入问题描述 (必填，10个字以上)</string>
     <string name="tv114">biu time</string>
@@ -191,7 +204,25 @@
     <string name="tv151">课程内容不能为空</string>
     <string name="tv152">身份证格式不正确</string>
     <string name="tv153">身份证格式不正确</string>
-    <string name="tv160"> 新版本正在努力的更新中，请稍等</string>
+    <string name="tv160">新版本正在努力的更新中，请稍等</string>
+    <string name="tv167">选择</string>
+    <string name="tv168">（最低限价¥40）</string>
+    <string name="tv166">课程时长</string>
+    <string name="tv169">房间类型</string>
+    <string name="tv170">房间名称</string>
+    <string name="tv171">训练目标</string>
+    <string name="tv172">训练难度</string>
+    <string name="tv173">团课时间</string>
+    <string name="tv174">场馆</string>
+    <string name="tv175">去邀请</string>
+    <string name="tv176">团课循环</string>
+    <string name="tv178">选择教练</string>
+    <string name="tv179">您还未选择教练，课程信息将会保存在邀请状态中</string>
+    <string name="tv180">剪裁</string>
+    <string name="tv185">图片上传失败~</string>
+    <string name="tv186">确定退出创建团课吗？信息将不会保留</string>
+
+
 
 
     <string name="update_title">更新提示</string>
@@ -220,7 +251,9 @@
     <string name="jieshou">接受</string>
     <string name="chongxin">重新申请</string>
     <string name="tv_shenqin">申请授权</string>
-    <string name="tv_shouquan_tips">申请授权场馆说明：\n1. 私教课程需场馆授权，方可上架课程并在场馆授课，前端用户可选择已授权场馆进行上课。\n\n2. 授权后，可在我的-授课场馆中解除授权。\n\n3. 教练或场馆单方解除授权，则需重新申请。</string>
+    <string name="tv_shouquan_tips">申请授权场馆说明：\n1. 私教课程需场馆授权，方可上架课程并在场馆授课，前端用户可选择已授权场馆进行上课。\n\n2.
+        授权后，可在我的-授课场馆中解除授权。\n\n3. 教练或场馆单方解除授权，则需重新申请。
+    </string>
 
     <string name="tv_service">服务时长</string>
     <string name="tv_tk">团课</string>

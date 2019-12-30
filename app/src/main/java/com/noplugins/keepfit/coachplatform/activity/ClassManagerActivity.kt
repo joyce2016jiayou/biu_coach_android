@@ -35,30 +35,33 @@ class ClassManagerActivity : BaseActivity() {
         fragments = ArrayList()
 
 
-
-        val type = SpUtils.getString(applicationContext,AppConstants.TEACHER_TYPE)
-        when(type){
-            "1" ->{
+        val type = SpUtils.getString(applicationContext, AppConstants.TEACHER_TYPE)
+        when (type) {
+            "1" -> {
                 rl_team.visibility = View.VISIBLE
                 rl_private.visibility = View.GONE
                 teamClass = TeamClassFragment.newInstance("团课")
                 fragments.add(teamClass!!)
                 hideOthersFragment(teamClass!!, true)
             }
-            "2" ->{
+            "2" -> {
                 rl_team.visibility = View.GONE
                 rl_private.visibility = View.VISIBLE
                 teacher = TeacherFragment.newInstance("私教")
                 fragments.add(teacher!!)
                 hideOthersFragment(teacher!!, true)
             }
-            "3" ->{
+            "3" -> {
                 rl_team.visibility = View.VISIBLE
                 rl_private.visibility = View.VISIBLE
                 teamClass = TeamClassFragment.newInstance("团课")
                 fragments.add(teamClass!!)
                 hideOthersFragment(teamClass!!, true)
             }
+        }
+
+        title_tv.clickWithTrigger {
+
         }
 
     }
@@ -89,8 +92,8 @@ class ClassManagerActivity : BaseActivity() {
         }
     }
 
-    private fun changeBtn(select:Int){
-        when(select){
+    private fun changeBtn(select: Int) {
+        when (select) {
             1 -> {
                 tv1.setTextColor(Color.parseColor("#00BABB"))
                 lin1.visibility = View.VISIBLE

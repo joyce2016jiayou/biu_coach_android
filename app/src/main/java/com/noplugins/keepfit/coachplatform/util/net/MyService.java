@@ -459,4 +459,31 @@ public interface MyService {
     @POST("versionsCheck")
     Observable<Bean<VersionEntity>> update_version(@Body RequestBody map);
 
+    /**
+     * 添加团课
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("addClass")
+    Observable<Bean<AddClassEntity>> add_class(@Body RequestBody map);
+
+    /**
+     * 获取首页类型
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("searchDict")
+    Observable<Bean<List<DictionaryeBean>>> get_types(@Body RequestBody json);
+
+    /**
+     * 获取首页数据
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("myArea")
+    Observable<Bean<ChangguanBean>> myArea(@Body RequestBody json);
+
 }

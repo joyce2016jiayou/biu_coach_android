@@ -74,6 +74,10 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:usesCleartextTraffic="true"
             tools:ignore="GoogleAppIndexingWarning">
+        <activity
+                android:name=".activity.AddClassItemActivity"
+                android:hardwareAccelerated="true"
+                android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name=".activity.info.XieYiActivity">
         </activity>
         <activity android:name=".activity.mine.InstructorTypeActivity">

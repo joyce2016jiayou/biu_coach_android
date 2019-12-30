@@ -1,8 +1,6 @@
 package com.noplugins.keepfit.coachplatform.util.net;
 
-import com.noplugins.keepfit.coachplatform.bean.QiNiuToken;
-import com.noplugins.keepfit.coachplatform.bean.TagBean;
-import com.noplugins.keepfit.coachplatform.bean.ZiDIanBean;
+import com.noplugins.keepfit.coachplatform.bean.*;
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
@@ -39,4 +37,15 @@ public interface ChangGuanService {
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
     @POST("searchDict")
     Observable<Bean<List<ZiDIanBean>>> get_zidian(@Body RequestBody json);
+
+    /**
+     * 获取房间类型
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("findAreaPlace")
+    Observable<Bean<List<ClassTypeEntity>>> get_class_type(@Body RequestBody json);
+
+
 }
