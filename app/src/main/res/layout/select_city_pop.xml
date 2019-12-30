@@ -50,7 +50,7 @@
             <TextView
                     android:id="@+id/quxiao_btn"
                     android:text="@string/tv17"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/sp20"
                     android:background="@drawable/quxiao_bg2"
                     android:textColor="@color/white"
                     android:layout_width="@dimen/m140"
@@ -61,7 +61,7 @@
             <TextView
                     android:id="@+id/sure_btn"
                     android:text="@string/tv18"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/sp20"
                     android:background="@drawable/queding_bg2"
                     android:textColor="@color/white"
                     android:gravity="center"

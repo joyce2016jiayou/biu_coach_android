@@ -6,20 +6,20 @@
 
     <ImageView
         android:id="@+id/iamge_back"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
+        android:layout_width="@dimen/m18"
+        android:layout_height="@dimen/m18"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginLeft="@dimen/m15"
+        android:layout_marginTop="@dimen/m35"
         android:src="@drawable/back_image" />
 
     <LinearLayout
-            android:layout_width="70dp"
-        android:layout_height="50dp"
+            android:layout_width="@dimen/m70"
+        android:layout_height="@dimen/m50"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="@dimen/m15"
         android:background="@android:color/transparent"
         android:orientation="horizontal">
 
@@ -27,8 +27,8 @@
 
     <ImageView
         android:id="@+id/image_top"
-        android:layout_width="152dp"
-        android:layout_height="152dp"
+        android:layout_width="@dimen/m152"
+        android:layout_height="@dimen/m152"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:src="@drawable/net_error_icon" />
@@ -45,14 +45,14 @@
             android:layout_height="wrap_content"
             android:text="加载失败，点击"
             android:textColor="#565656"
-            android:textSize="14dp" />
+            android:textSize="@dimen/m12" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="重新加载"
             android:textColor="#2F72D5"
-            android:textSize="14dp" />
+            android:textSize="@dimen/m12" />
     </LinearLayout>
 
 </RelativeLayout>

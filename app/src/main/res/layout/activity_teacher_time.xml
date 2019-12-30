@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/tv83"
                 android:layout_centerHorizontal="true"
-                android:textSize="20sp"
+                android:textSize="@dimen/sp20"
                 android:textStyle="bold"
                 android:layout_centerVertical="true"
                 android:textColor="@color/top_heiziti"/>
@@ -65,7 +65,7 @@
                     android:textColor="@color/top_heiziti"
                     android:layout_marginLeft="@dimen/m7"
                     android:layout_centerVertical="true"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/sp15"
                     android:text="@string/tv84"
                     />
 
@@ -76,7 +76,7 @@
                     android:layout_height="@dimen/m24"
                     android:layout_marginRight="@dimen/m14"
                     android:layout_centerVertical="true"
-                    app:border_width="1dp"
+                    app:border_width="@dimen/m1"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -106,7 +106,7 @@
                     android:id="@+id/tv1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/sp15"
                     android:layout_marginLeft="@dimen/m14"
                     android:layout_centerVertical="true"
                     android:textColor="@color/top_heiziti"
@@ -117,7 +117,7 @@
                     android:layout_toRightOf="@+id/tv1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/sp13"
                     android:layout_marginLeft="@dimen/m10"
                     android:layout_centerVertical="true"
                     android:textColor="@color/top_heiziti"
@@ -132,7 +132,7 @@
                     android:layout_alignParentRight="true"
                     android:text="07:00-23:00"
                     android:layout_centerVertical="true"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/sp13"
                     android:layout_marginRight="@dimen/m14"
                     android:textColor="@color/color_lan"
                     />
@@ -163,7 +163,7 @@
                     android:layout_gravity="center_horizontal"
                     android:textColor="@color/top_heiziti"
                     android:layout_marginTop="@dimen/m10"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/sp15"
                     />
 
             <TextView
@@ -173,7 +173,7 @@
                     android:layout_marginLeft="@dimen/m10"
                     android:textColor="@color/color_4A4A4A"
                     android:layout_marginTop="@dimen/m10"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/sp13"
                     />
 
             <RelativeLayout
@@ -196,7 +196,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Y/M/D"
-                            android:textSize="13sp"
+                            android:textSize="@dimen/sp13"
                             android:textColor="@color/color_929292"
                             />
 
@@ -219,7 +219,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="时间"
-                            android:textSize="13sp"
+                            android:textSize="@dimen/sp13"
                             android:textColor="@color/color_929292"
                             />
 
@@ -235,7 +235,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="时间"
-                            android:textSize="13sp"
+                            android:textSize="@dimen/sp13"
                             android:textColor="@color/color_929292"
                             />
                 </LinearLayout>
@@ -255,7 +255,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="添加"
-                            android:textSize="13sp"
+                            android:textSize="@dimen/sp13"
                             android:textColor="@color/color_lan"
                             />
 
@@ -283,7 +283,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/tv87"
-                        android:textSize="13sp"
+                        android:textSize="@dimen/sp13"
                         android:textColor="@color/white"
                         />
 

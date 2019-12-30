@@ -12,7 +12,7 @@
             android:text="未结束"
             android:layout_marginTop="@dimen/m16"
             android:layout_marginLeft="@dimen/m30"
-            android:textSize="15sp"
+            android:textSize="@dimen/sp15"
             android:visibility="visible"
             android:textColor="@color/top_heiziti"/>
 

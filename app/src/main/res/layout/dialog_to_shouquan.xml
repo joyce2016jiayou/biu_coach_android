@@ -17,7 +17,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/color_4A4A4A"
-                android:textSize="18sp"
+                android:textSize="@dimen/sp18"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/m15"
                 android:layout_gravity="center_horizontal"
@@ -29,7 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/color_4A4A4A"
-                android:textSize="14sp"
+                android:textSize="@dimen/sp14"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/m15"
                 android:layout_marginLeft="@dimen/m18"
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/color_4A4A4A"
                 android:layout_centerHorizontal="true"
-                android:textSize="12sp"
+                android:textSize="@dimen/sp12"
                 android:lineSpacingExtra="@dimen/m10"
                 android:layout_marginTop="@dimen/m20"
                 android:layout_gravity="center_horizontal"
@@ -66,28 +66,28 @@
             <LinearLayout
                     android:id="@+id/cancel_layout"
                     android:layout_weight="1"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/m0"
                     android:orientation="vertical"
                     android:layout_marginRight="@dimen/m15"
                     android:gravity="center"
                     android:background="@drawable/sure_bg"
                     android:layout_height="@dimen/m39"
-                    android:layout_marginLeft="0dp"
-                    android:layout_marginStart="0dp">
+                    android:layout_marginLeft="@dimen/m0"
+                    android:layout_marginStart="@dimen/m0">
 
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textStyle="normal"
                         android:text="@string/cancel"
-                        android:textSize="18sp"
+                        android:textSize="@dimen/sp18"
                         android:textColor="@color/top_heiziti"
                         />
             </LinearLayout>
             <LinearLayout
                     android:id="@+id/shenqin_layout"
                     android:layout_weight="1"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/m0"
                     android:orientation="vertical"
                     android:gravity="center"
                     android:layout_marginLeft="@dimen/m15"
@@ -99,7 +99,7 @@
                         android:layout_height="wrap_content"
                         android:textStyle="normal"
                         android:text="@string/tv_shenqin"
-                        android:textSize="18sp"
+                        android:textSize="@dimen/sp18"
                         android:textColor="@color/white"
                         />
             </LinearLayout>

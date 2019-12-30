@@ -8,7 +8,7 @@
             android:id="@+id/tag_value"
             android:layout_width="@dimen/m60"
             android:layout_height="@dimen/m20"
-            android:textSize="14sp"
+            android:textSize="@dimen/sp14"
             android:text="#准时"
             android:gravity="center"
             android:background="@drawable/biaoqian_bg"

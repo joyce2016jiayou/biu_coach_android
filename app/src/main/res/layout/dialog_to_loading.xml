@@ -17,7 +17,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/color_4A4A4A"
-                android:textSize="18sp"
+                android:textSize="@dimen/sp18"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/m15"
                 android:layout_gravity="center_horizontal"
@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/color_4A4A4A"
                 android:layout_centerHorizontal="true"
-                android:textSize="15sp"
+                android:textSize="@dimen/sp15"
                 android:layout_marginTop="@dimen/m10"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/tv_loading_tips"
@@ -61,7 +61,7 @@
                         android:layout_height="wrap_content"
                         android:textStyle="normal"
                         android:text="确 认"
-                        android:textSize="18sp"
+                        android:textSize="@dimen/sp18"
                         android:textColor="@color/white"
                         />
             </LinearLayout>

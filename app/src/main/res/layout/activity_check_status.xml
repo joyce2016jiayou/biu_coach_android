@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/tv24"
                 android:layout_centerHorizontal="true"
-                android:textSize="20sp"
+                android:textSize="@dimen/sp20"
                 android:textStyle="bold"
                 android:layout_centerVertical="true"
                 android:textColor="@color/top_heiziti"

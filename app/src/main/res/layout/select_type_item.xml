@@ -10,7 +10,7 @@
                 android:textColor="@color/color_6D7278"
                 android:gravity="center"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
+                android:textSize="@dimen/sp15"
                 android:text="@string/tv1"
                 />
 </LinearLayout>

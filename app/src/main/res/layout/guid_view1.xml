@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:text="@string/tips_1"
             android:layout_below="@+id/iv_2"
-            android:textSize="12sp"
+            android:textSize="@dimen/sp12"
             android:layout_marginTop="@dimen/m10"
             android:layout_marginLeft="@dimen/m35"
             android:layout_marginRight="@dimen/m30"

@@ -31,7 +31,7 @@
                     android:layout_gravity="center"
                     android:text="@string/setting_sjh"
                     android:textColor="@color/color_181818"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/sp20"
                     android:layout_marginTop="@dimen/m20"
                     android:textStyle="bold"/>
         </FrameLayout>
@@ -42,7 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/m30"
                 android:text="xx"
-                android:textSize="12sp"
+                android:textSize="@dimen/sp12"
                 android:gravity="center_vertical"
                 android:layout_marginLeft="@dimen/m20"
                 android:textColor="@color/color_6D7278"/>
@@ -51,11 +51,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/m56"
                 app:leftTopCornerRadius="@dimen/m10"
-                app:rightBottomCornerRadius="@dimen/dp_10"
+                app:rightBottomCornerRadius="@dimen/m10"
                 app:leftBottomCornerRadius="@dimen/m10"
                 app:rightTopCornerRadius="@dimen/m10"
-                app:leftShadowWidth="0dp"
-                app:rightShadowWidth="0dp">
+                app:leftShadowWidth="@dimen/m0"
+                app:rightShadowWidth="@dimen/m0">
 
             <LinearLayout
                     android:layout_width="match_parent"
@@ -69,15 +69,15 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:text="新手机号"
-                        android:textSize="16sp"
+                        android:textSize="@dimen/sp16"
                         android:textColor="@color/color_4A4A4A"/>
 
                 <EditText
                         android:id="@+id/edit_phone"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="25dp"
+                        android:layout_marginLeft="@dimen/m5"
+                        android:layout_marginRight="@dimen/m25"
                         android:background="@null"
                         android:hint="@string/edit_hint1"
                         android:inputType="phone"
@@ -85,7 +85,7 @@
                         android:singleLine="true"
                         android:textColor="@color/color_ACACAC"
                         android:textColorHint="@color/color_ACACAC"
-                        android:textSize="15sp"/>
+                        android:textSize="@dimen/sp15"/>
             </LinearLayout>
         </www.linwg.org.lib.LCardView>
 
@@ -94,8 +94,8 @@
 
     <LinearLayout
             android:id="@+id/btn_next"
-            android:layout_width="209dp"
-            android:layout_height="54dp"
+            android:layout_width="@dimen/m209"
+            android:layout_height="@dimen/m54"
             android:layout_gravity="bottom|center_horizontal"
             android:layout_marginBottom="@dimen/m70"
             android:background="@drawable/btn_click"
@@ -107,7 +107,7 @@
                 android:gravity="center"
                 android:text="下一步"
                 android:textColor="@color/white"
-                android:textSize="20sp"/>
+                android:textSize="@dimen/sp20"/>
 
     </LinearLayout>
 </FrameLayout>

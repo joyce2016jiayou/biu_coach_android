@@ -18,7 +18,7 @@
                 android:text="选择提现银行卡"
                 android:layout_marginLeft="@dimen/m30"
                 android:layout_marginTop="@dimen/m20"
-                android:textSize="15sp"
+                android:textSize="@dimen/sp15"
                 android:textColor="@color/color_181818"/>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -42,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:text="添加银行卡"
                     android:layout_marginLeft="@dimen/m10"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/sp15"
                     android:textColor="@color/color_929292"/>
         </LinearLayout>
     </LinearLayout>

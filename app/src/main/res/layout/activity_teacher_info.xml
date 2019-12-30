@@ -27,7 +27,7 @@
                 android:layout_gravity="center"
                 tools:text="新增私教课程"
                 android:textColor="@color/color_181818"
-                android:textSize="20sp"
+                android:textSize="@dimen/sp20"
                 android:layout_marginTop="@dimen/m20"
                 android:textStyle="bold" />
     </FrameLayout>
@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:textColor="@color/color_4A4A4A"
-                android:textSize="15sp"
+                android:textSize="@dimen/sp15"
                 android:layout_centerVertical="true"
                 tools:text="已上架"/>
         <TextView
@@ -78,8 +78,8 @@
           <www.linwg.org.lib.LCardView
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  app:leftShadowWidth="0dp"
-                  app:rightShadowWidth="0dp">
+                  app:leftShadowWidth="@dimen/m0"
+                  app:rightShadowWidth="@dimen/m0">
               <LinearLayout
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
@@ -95,7 +95,7 @@
                               android:layout_width="wrap_content"
                               android:text="@string/class_name"
                               android:textColor="@color/color_181818"
-                              android:textSize="15sp"
+                              android:textSize="@dimen/sp15"
                               android:layout_height="wrap_content"/>
                       <TextView
                               android:id="@+id/edit_class_name"
@@ -106,7 +106,7 @@
                               tools:text="动感单车"
                               android:gravity="center_vertical"
                               android:textColor="@color/color_181818"
-                              android:textSize="15sp"/>
+                              android:textSize="@dimen/sp15"/>
                   </LinearLayout>
                   <LinearLayout
                           android:layout_width="match_parent"
@@ -119,7 +119,7 @@
                               android:layout_width="wrap_content"
                               android:text="@string/class_type"
                               android:textColor="@color/color_181818"
-                              android:textSize="15sp"
+                              android:textSize="@dimen/sp15"
                               android:layout_height="wrap_content"/>
                       <TextView
                               android:id="@+id/tv_select_type"
@@ -130,7 +130,7 @@
                               tools:text="动感单车"
                               android:gravity="center_vertical"
                               android:textColor="@color/color_181818"
-                              android:textSize="15sp"/>
+                              android:textSize="@dimen/sp15"/>
                   </LinearLayout>
                   <LinearLayout
                           android:layout_width="match_parent"
@@ -143,7 +143,7 @@
                               android:layout_width="wrap_content"
                               android:text="@string/class_price"
                               android:textColor="@color/color_181818"
-                              android:textSize="15sp"
+                              android:textSize="@dimen/sp15"
                               android:layout_height="wrap_content"/>
                       <TextView
                               android:id="@+id/edit_price"
@@ -154,7 +154,7 @@
                               tools:text="¥300"
                               android:gravity="center_vertical"
                               android:textColor="@color/color_181818"
-                              android:textSize="15sp"/>
+                              android:textSize="@dimen/sp15"/>
                   </LinearLayout>
                   <LinearLayout
                           android:layout_width="match_parent"
@@ -167,7 +167,7 @@
                               android:layout_width="wrap_content"
                               android:text="@string/class_time"
                               android:textColor="@color/color_181818"
-                              android:textSize="15sp"
+                              android:textSize="@dimen/sp15"
                               android:layout_height="wrap_content"/>
                       <TextView
                               android:layout_width="match_parent"
@@ -176,7 +176,7 @@
                               android:text="1h（默认）"
                               android:gravity="center_vertical"
                               android:textColor="@color/color_181818"
-                              android:textSize="15sp"/>
+                              android:textSize="@dimen/sp15"/>
                   </LinearLayout>
               </LinearLayout>
           </www.linwg.org.lib.LCardView>
@@ -184,8 +184,8 @@
             <www.linwg.org.lib.LCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:leftShadowWidth="0dp"
-                    app:rightShadowWidth="0dp">
+                    app:leftShadowWidth="@dimen/m0"
+                    app:rightShadowWidth="@dimen/m0">
                 <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -198,7 +198,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/class_jieshao"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:layout_marginTop="@dimen/m15"
                             android:textColor="@color/color_181818"/>
 
@@ -213,14 +213,14 @@
                                 android:gravity="left|top"
                                 android:textColor="@color/color_4A4A4A"
                                 android:layout_marginTop="@dimen/m10"
-                                android:textSize="12sp"/>
+                                android:textSize="@dimen/sp12"/>
                     </FrameLayout>
 
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/class_shihe"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:layout_marginTop="@dimen/m20"
                             android:textColor="@color/color_181818"/>
 
@@ -235,14 +235,14 @@
                                 android:gravity="left|top"
                                 android:layout_marginTop="@dimen/m10"
                                 android:textColor="@color/color_4A4A4A"
-                                android:textSize="12sp"/>
+                                android:textSize="@dimen/sp12"/>
                     </FrameLayout>
 
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/class_zhuyi"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:layout_marginTop="@dimen/m20"
                             android:textColor="@color/color_181818"/>
 
@@ -257,7 +257,7 @@
                                 android:gravity="left|top"
                                 android:layout_marginTop="@dimen/m10"
                                 android:textColor="@color/color_4A4A4A"
-                                android:textSize="12sp"/>
+                                android:textSize="@dimen/sp12"/>
                     </FrameLayout>
                 </LinearLayout>
             </www.linwg.org.lib.LCardView>
@@ -270,7 +270,7 @@
                     android:layout_marginTop="@dimen/m20"
                     tools:text="创建时间：2019-07-14  13:53:27"
                     android:gravity="center_vertical"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/sp12"
                     android:layout_marginLeft="@dimen/m20"
                     android:textColor="@color/color_4A4A4A"/>
         </LinearLayout>

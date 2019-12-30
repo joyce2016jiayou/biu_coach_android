@@ -27,7 +27,7 @@
                 android:layout_gravity="center"
                 android:text="@string/class_manager"
                 android:textColor="@color/color_181818"
-                android:textSize="20sp"
+                android:textSize="@dimen/sp20"
                 android:layout_marginTop="@dimen/m20"
                 android:textStyle="bold" />
     </FrameLayout>
@@ -37,7 +37,7 @@
             android:layout_height="@dimen/m45">
         <RelativeLayout
                 android:id="@+id/rl_team"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/m0"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
@@ -51,7 +51,7 @@
                     android:text="团课"
                     android:layout_centerInParent="true"
                     android:textColor="@color/color_lan"
-                    android:textSize="18sp"/>
+                    android:textSize="@dimen/sp18"/>
 
             <LinearLayout
                     android:id="@+id/lin1"
@@ -66,7 +66,7 @@
 
         <RelativeLayout
                 android:id="@+id/rl_private"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/m0"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
@@ -80,7 +80,7 @@
                     android:text="私教"
                     android:layout_centerInParent="true"
                     android:textColor="@color/color_181818"
-                    android:textSize="18sp" />
+                    android:textSize="@dimen/sp18" />
 
             <LinearLayout
                     android:id="@+id/lin2"
@@ -96,7 +96,7 @@
     <FrameLayout
             android:id="@+id/main_container_content"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/m0"
             android:layout_weight="1" />
 
 </LinearLayout>

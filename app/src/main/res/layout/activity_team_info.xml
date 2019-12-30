@@ -28,7 +28,7 @@
                 android:layout_gravity="center"
                 tools:text="新增私教课程"
                 android:textColor="@color/color_181818"
-                android:textSize="20sp"
+                android:textSize="@dimen/sp20"
                 android:layout_marginTop="@dimen/m20"
                 android:textStyle="bold"/>
     </FrameLayout>
@@ -48,10 +48,10 @@
 
             <TextView
                     android:id="@+id/tv_cg_name"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/m0"
                     tools:text="太阳的后裔场馆"
                     android:textColor="@color/color_181818"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/sp15"
                     android:layout_gravity="left"
                     android:layout_height="wrap_content"
                     app:layout_constraintWidth_percent="0.8"
@@ -63,7 +63,7 @@
                     android:layout_width="wrap_content"
                     tools:text="已上架"
                     android:textColor="@color/color_181818"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/sp15"
                     android:layout_gravity="right"
                     android:layout_height="wrap_content"
                     app:layout_constraintWidth_percent="0.2"
@@ -80,7 +80,7 @@
                 android:orientation="horizontal">
 
             <FrameLayout
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/m0"
                     android:layout_weight="1"
                     android:layout_height="wrap_content">
 
@@ -88,7 +88,7 @@
                         android:id="@+id/jujue"
                         android:layout_width="@dimen/m87"
                         android:layout_height="@dimen/m29"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/sp15"
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:text="@string/jujue"
@@ -97,7 +97,7 @@
             </FrameLayout>
 
             <FrameLayout
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/m0"
                     android:layout_weight="1"
                     android:layout_height="wrap_content">
 
@@ -105,7 +105,7 @@
                         android:id="@+id/jieshou"
                         android:layout_width="@dimen/m87"
                         android:layout_height="@dimen/m29"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/sp15"
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:text="@string/jieshou"
@@ -123,7 +123,7 @@
                     android:id="@+id/tv_shenqin"
                     android:layout_width="@dimen/m87"
                     android:layout_height="@dimen/m29"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/sp15"
                     android:layout_gravity="right"
                     android:gravity="center"
                     android:text="@string/chongxin"
@@ -145,8 +145,8 @@
            <www.linwg.org.lib.LCardView
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
-                   app:leftShadowWidth="0dp"
-                   app:rightShadowWidth="0dp">
+                   app:leftShadowWidth="@dimen/m0"
+                   app:rightShadowWidth="@dimen/m0">
                <LinearLayout
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
@@ -165,7 +165,7 @@
                                android:layout_width="wrap_content"
                                android:text="@string/team_room"
                                android:textColor="@color/color_181818"
-                               android:textSize="15sp"
+                               android:textSize="@dimen/sp15"
                                android:layout_height="wrap_content"/>
 
                        <TextView
@@ -176,7 +176,7 @@
                                tools:text="动感单车房|15人"
                                android:gravity="center_vertical"
                                android:textColor="@color/color_4A4A4A"
-                               android:textSize="15sp"/>
+                               android:textSize="@dimen/sp15"/>
                    </LinearLayout>
 
                    <LinearLayout
@@ -191,7 +191,7 @@
                                android:layout_width="wrap_content"
                                android:text="@string/team_name"
                                android:textColor="@color/color_181818"
-                               android:textSize="15sp"
+                               android:textSize="@dimen/sp15"
                                android:layout_height="wrap_content"/>
 
                        <TextView
@@ -202,7 +202,7 @@
                                tools:text="动感单车"
                                android:gravity="center_vertical"
                                android:textColor="@color/color_4A4A4A"
-                               android:textSize="15sp"/>
+                               android:textSize="@dimen/sp15"/>
                    </LinearLayout>
 
                    <LinearLayout
@@ -217,7 +217,7 @@
                                android:layout_width="wrap_content"
                                android:text="@string/team_type"
                                android:textColor="@color/color_181818"
-                               android:textSize="15sp"
+                               android:textSize="@dimen/sp15"
                                android:layout_height="wrap_content"/>
 
                        <TextView
@@ -229,7 +229,7 @@
                                tools:text="动感单车"
                                android:gravity="center_vertical"
                                android:textColor="@color/color_4A4A4A"
-                               android:textSize="15sp"/>
+                               android:textSize="@dimen/sp15"/>
                    </LinearLayout>
 
                    <LinearLayout
@@ -244,7 +244,7 @@
                                android:layout_width="wrap_content"
                                android:text="@string/class_time"
                                android:textColor="@color/color_181818"
-                               android:textSize="15sp"
+                               android:textSize="@dimen/sp15"
                                android:layout_height="wrap_content"/>
 
                        <TextView
@@ -255,7 +255,7 @@
                                tools:text="45min"
                                android:gravity="center_vertical"
                                android:textColor="@color/color_4A4A4A"
-                               android:textSize="15sp"/>
+                               android:textSize="@dimen/sp15"/>
                    </LinearLayout>
 
                    <LinearLayout
@@ -270,7 +270,7 @@
                                android:layout_width="wrap_content"
                                android:text="@string/class_price"
                                android:textColor="@color/color_181818"
-                               android:textSize="15sp"
+                               android:textSize="@dimen/sp15"
                                android:layout_height="wrap_content"/>
 
                        <TextView
@@ -282,7 +282,7 @@
                                tools:text="¥300"
                                android:gravity="center_vertical"
                                android:textColor="@color/color_4A4A4A"
-                               android:textSize="15sp"/>
+                               android:textSize="@dimen/sp15"/>
                    </LinearLayout>
 
                    <LinearLayout
@@ -297,7 +297,7 @@
                                android:layout_width="wrap_content"
                                android:text="@string/team_cycle"
                                android:textColor="@color/color_181818"
-                               android:textSize="15sp"
+                               android:textSize="@dimen/sp15"
                                android:layout_height="wrap_content"/>
 
                        <TextView
@@ -308,7 +308,7 @@
                                tools:text="四周"
                                android:gravity="center_vertical"
                                android:textColor="@color/color_4A4A4A"
-                               android:textSize="15sp"/>
+                               android:textSize="@dimen/sp15"/>
                    </LinearLayout>
 
                    <LinearLayout
@@ -323,7 +323,7 @@
                                android:layout_width="wrap_content"
                                android:text="@string/team_date"
                                android:textColor="@color/color_181818"
-                               android:textSize="15sp"
+                               android:textSize="@dimen/sp15"
                                android:layout_height="wrap_content"/>
 
                        <TextView
@@ -334,7 +334,7 @@
                                tools:text="2019-07-11  11:30-12:30"
                                android:gravity="center_vertical"
                                android:textColor="@color/color_4A4A4A"
-                               android:textSize="15sp"/>
+                               android:textSize="@dimen/sp15"/>
                    </LinearLayout>
 
                </LinearLayout>
@@ -343,8 +343,8 @@
             <www.linwg.org.lib.LCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:leftShadowWidth="0dp"
-                    app:rightShadowWidth="0dp">
+                    app:leftShadowWidth="@dimen/m0"
+                    app:rightShadowWidth="@dimen/m0">
                 <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -357,7 +357,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/class_jieshao"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:layout_marginTop="@dimen/m15"
                             android:textColor="@color/color_181818"/>
 
@@ -372,14 +372,14 @@
                                 android:gravity="left|top"
                                 android:textColor="@color/color_4A4A4A"
                                 android:layout_marginTop="@dimen/m10"
-                                android:textSize="12sp"/>
+                                android:textSize="@dimen/sp12"/>
                     </FrameLayout>
 
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/class_shihe"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:layout_marginTop="@dimen/m20"
                             android:textColor="@color/color_181818"/>
 
@@ -394,14 +394,14 @@
                                 android:gravity="left|top"
                                 android:layout_marginTop="@dimen/m10"
                                 android:textColor="@color/color_4A4A4A"
-                                android:textSize="12sp"/>
+                                android:textSize="@dimen/sp12"/>
                     </FrameLayout>
 
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/class_zhuyi"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:layout_marginTop="@dimen/m20"
                             android:textColor="@color/color_181818"/>
 
@@ -416,7 +416,7 @@
                                 android:gravity="left|top"
                                 android:layout_marginTop="@dimen/m10"
                                 android:textColor="@color/color_4A4A4A"
-                                android:textSize="12sp"/>
+                                android:textSize="@dimen/sp12"/>
                     </FrameLayout>
                 </LinearLayout>
             </www.linwg.org.lib.LCardView>
@@ -434,7 +434,7 @@
                         android:layout_width="wrap_content"
                         android:text="@string/team_logo"
                         android:textColor="@color/color_181818"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/sp15"
                         android:layout_height="wrap_content"/>
 
                 <ImageView
@@ -457,7 +457,7 @@
                         android:layout_width="wrap_content"
                         android:text="@string/team_class_img"
                         android:textColor="@color/color_181818"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/sp15"
                         android:layout_height="wrap_content"/>
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -474,7 +474,7 @@
                     android:layout_marginTop="@dimen/m20"
                     tools:text="您已拒绝此邀请：身体不舒服。"
                     android:gravity="center_vertical"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/sp12"
                     android:visibility="gone"
                     android:layout_marginLeft="@dimen/m20"
                     android:textColor="@color/color_4A4A4A"

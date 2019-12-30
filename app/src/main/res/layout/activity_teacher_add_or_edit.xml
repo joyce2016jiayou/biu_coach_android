@@ -28,7 +28,7 @@
                 android:layout_gravity="center"
                 tools:text="新增私教课程"
                 android:textColor="@color/color_181818"
-                android:textSize="20sp"
+                android:textSize="@dimen/sp20"
                 android:layout_marginTop="@dimen/m20"
                 android:textStyle="bold"/>
     </FrameLayout>
@@ -45,8 +45,8 @@
             <www.linwg.org.lib.LCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:leftShadowWidth="0dp"
-                    app:rightShadowWidth="0dp">
+                    app:leftShadowWidth="@dimen/m0"
+                    app:rightShadowWidth="@dimen/m0">
 
                 <LinearLayout
                         android:layout_width="match_parent"
@@ -65,7 +65,7 @@
                                 android:layout_width="wrap_content"
                                 android:text="@string/class_name"
                                 android:textColor="@color/color_181818"
-                                android:textSize="15sp"
+                                android:textSize="@dimen/sp15"
                                 android:layout_height="wrap_content"/>
 
                         <EditText
@@ -78,7 +78,7 @@
                                 android:hint="请输入课程名称"
                                 android:gravity="center_vertical"
                                 android:textColor="@color/color_929292"
-                                android:textSize="15sp"
+                                android:textSize="@dimen/sp15"
                                 android:maxLength="30"
                                 android:background="@drawable/shape_btn_bg_gray"/>
                     </LinearLayout>
@@ -95,7 +95,7 @@
                                 android:layout_width="wrap_content"
                                 android:text="@string/class_type"
                                 android:textColor="@color/color_181818"
-                                android:textSize="15sp"
+                                android:textSize="@dimen/sp15"
                                 android:layout_height="wrap_content"/>
 
                         <TextView
@@ -107,7 +107,7 @@
                                 android:text="请选择课程类型"
                                 android:gravity="center_vertical"
                                 android:textColor="@color/color_929292"
-                                android:textSize="15sp"
+                                android:textSize="@dimen/sp15"
                                 android:background="@drawable/shape_btn_bg_gray"/>
                     </LinearLayout>
 
@@ -124,11 +124,11 @@
                                 android:layout_width="wrap_content"
                                 android:text="@string/class_price"
                                 android:textColor="@color/color_181818"
-                                android:textSize="15sp"
+                                android:textSize="@dimen/sp15"
                                 android:layout_height="wrap_content"/>
 
                         <FrameLayout
-                                android:layout_width="0dp"
+                                android:layout_width="@dimen/m0"
                                 android:layout_weight="1"
                                 android:layout_height="@dimen/m31"
                                 android:layout_marginLeft="@dimen/m10">
@@ -144,13 +144,13 @@
                                     android:textColor="@color/color_929292"
                                     android:paddingLeft="@dimen/m30"
                                     android:background="@drawable/shape_btn_bg_gray"
-                                    android:textSize="15sp"/>
+                                    android:textSize="@dimen/sp15"/>
                             <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="@dimen/m31"
                                     android:gravity="center"
                                     android:layout_marginLeft="@dimen/m20"
-                                    android:textSize="16sp"
+                                    android:textSize="@dimen/sp16"
                                     android:text="¥"
                                     android:textColor="@color/color_181818"/>
                         </FrameLayout>
@@ -159,7 +159,7 @@
                                 android:layout_width="wrap_content"
                                 android:text="（最低限价¥200）"
                                 android:textColor="@color/color_4A4A4A"
-                                android:textSize="12sp"
+                                android:textSize="@dimen/sp12"
                                 android:layout_height="wrap_content"/>
                     </LinearLayout>
 
@@ -175,7 +175,7 @@
                                 android:layout_width="wrap_content"
                                 android:text="@string/class_time"
                                 android:textColor="@color/color_181818"
-                                android:textSize="15sp"
+                                android:textSize="@dimen/sp15"
                                 android:layout_height="wrap_content"/>
 
                         <TextView
@@ -185,7 +185,7 @@
                                 android:text="1h（默认）"
                                 android:gravity="center_vertical"
                                 android:textColor="@color/color_181818"
-                                android:textSize="15sp"/>
+                                android:textSize="@dimen/sp15"/>
                     </LinearLayout>
                 </LinearLayout>
             </www.linwg.org.lib.LCardView>
@@ -193,8 +193,8 @@
             <www.linwg.org.lib.LCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:leftShadowWidth="0dp"
-                    app:rightShadowWidth="0dp">
+                    app:leftShadowWidth="@dimen/m0"
+                    app:rightShadowWidth="@dimen/m0">
 
                 <LinearLayout
                         android:layout_width="match_parent"
@@ -208,7 +208,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/class_jieshao"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:layout_marginTop="@dimen/m15"
                             android:textColor="@color/color_181818"/>
 
@@ -223,7 +223,7 @@
                                 android:layout_height="@dimen/m200"
                                 android:gravity="left|top"
                                 android:textColor="@color/color_929292"
-                                android:textSize="15sp"
+                                android:textSize="@dimen/sp15"
                                 android:padding="@dimen/m11"
                                 android:background="@drawable/shape_btn_bg_gray"/>
 
@@ -232,7 +232,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/color_929292"
-                                android:textSize="12sp"
+                                android:textSize="@dimen/sp12"
                                 android:layout_marginRight="@dimen/m10"
                                 android:layout_gravity="right|bottom"
                                 android:layout_marginBottom="@dimen/m10"
@@ -243,7 +243,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/class_shihe"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:layout_marginTop="@dimen/m20"
                             android:textColor="@color/color_181818"/>
 
@@ -259,7 +259,7 @@
                                 android:gravity="left|top"
                                 android:padding="@dimen/m11"
                                 android:textColor="@color/color_929292"
-                                android:textSize="15sp"
+                                android:textSize="@dimen/sp15"
                                 android:background="@drawable/shape_btn_bg_gray"/>
 
                         <TextView
@@ -267,7 +267,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/color_929292"
-                                android:textSize="12sp"
+                                android:textSize="@dimen/sp12"
                                 android:layout_marginRight="@dimen/m10"
                                 android:layout_gravity="right|bottom"
                                 android:layout_marginBottom="@dimen/m10"
@@ -278,7 +278,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/class_zhuyi"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:layout_marginTop="@dimen/m20"
                             android:textColor="@color/color_181818"/>
 
@@ -294,7 +294,7 @@
                                 android:gravity="left|top"
                                 android:textColor="@color/color_929292"
                                 android:padding="@dimen/m11"
-                                android:textSize="15sp"
+                                android:textSize="@dimen/sp15"
                                 android:background="@drawable/shape_btn_bg_gray"/>
 
                         <TextView
@@ -302,7 +302,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/color_929292"
-                                android:textSize="12sp"
+                                android:textSize="@dimen/sp12"
                                 android:layout_marginRight="@dimen/m10"
                                 android:layout_gravity="right|bottom"
                                 android:layout_marginBottom="@dimen/m10"
@@ -322,7 +322,7 @@
                     android:layout_marginBottom="@dimen/m50"
                     android:text="提 交"
                     android:gravity="center"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/sp20"
                     android:textColor="@color/white"/>
         </LinearLayout>
     </ScrollView>

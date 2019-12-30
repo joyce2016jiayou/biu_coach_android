@@ -20,7 +20,7 @@
 
     <LinearLayout
             android:layout_weight="1"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/m0"
             android:layout_height="match_parent"
             android:gravity="center_vertical|left"
             android:orientation="vertical"
@@ -35,7 +35,7 @@
                     android:id="@+id/tv_bank_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/sp15"
                     android:textColor="@color/color_181818"
                     tools:text="招商银行"/>
 
@@ -44,7 +44,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/color_6D7278"
-                    android:textSize="10sp"
+                    android:textSize="@dimen/sp10"
                     tools:text="储蓄卡"/>
         </LinearLayout>
 
@@ -53,7 +53,7 @@
                 android:layout_marginTop="@dimen/m5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
+                android:textSize="@dimen/sp15"
                 android:textColor="@color/color_6D7278"
                 tools:text="3209********0588"/>
     </LinearLayout>

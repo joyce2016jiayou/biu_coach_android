@@ -25,7 +25,7 @@
                 android:layout_gravity="center"
                 android:text="@string/about"
                 android:textColor="@color/color_181818"
-                android:textSize="20sp"
+                android:textSize="@dimen/sp20"
                 android:layout_marginTop="@dimen/m20"
                 android:textStyle="bold"/>
     </FrameLayout>
@@ -33,19 +33,19 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/m180"
             app:leftTopCornerRadius="@dimen/m10"
-            app:rightBottomCornerRadius="@dimen/dp_10"
+            app:rightBottomCornerRadius="@dimen/m10"
             app:leftBottomCornerRadius="@dimen/m10"
             app:rightTopCornerRadius="@dimen/m10"
-            app:leftShadowWidth="0dp"
-            app:rightShadowWidth="0dp">
+            app:leftShadowWidth="@dimen/m0"
+            app:rightShadowWidth="@dimen/m0">
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
             <ImageView
-                    android:layout_width="279dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_height="130dp"
+                    android:layout_width="@dimen/m279"
+                    android:layout_marginTop="@dimen/m20"
+                    android:layout_height="@dimen/m130"
                     android:layout_gravity="center_horizontal"
                     android:src="@mipmap/ic_launcher"
                     />
@@ -53,21 +53,21 @@
                     android:id="@+id/tv_version"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/m10"
                     android:layout_gravity="center_horizontal"
                     android:text="版本号：v1.0"
                     android:textColor="@color/color_6D7278"
-                    android:textSize="10sp" />
+                    android:textSize="@dimen/sp10" />
         </LinearLayout>
     </www.linwg.org.lib.LCardView>
 
     <TextView
             android:layout_width="wrap_content"
-            android:layout_height="16dp"
-            android:layout_marginTop="52dp"
+            android:layout_height="@dimen/m16"
+            android:layout_marginTop="@dimen/m52"
             android:layout_gravity="center_horizontal"
             android:text="当前已经是最新版本啦~"
             android:textColor="@color/color_7E7E7E"
-            android:textSize="13sp"/>
+            android:textSize="@dimen/sp13"/>
 
 </LinearLayout>

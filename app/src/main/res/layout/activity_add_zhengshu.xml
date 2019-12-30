@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/tv57"
                 android:layout_centerHorizontal="true"
-                android:textSize="20sp"
+                android:textSize="@dimen/sp20"
                 android:textStyle="bold"
                 android:layout_centerVertical="true"
                 android:textColor="@color/top_heiziti"
@@ -63,7 +63,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/tv58"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/sp15"
                         android:layout_centerVertical="true"
                         android:textColor="@color/top_heiziti"
                         />
@@ -88,7 +88,7 @@
                             android:layout_gravity="center_vertical"
                             android:textColorHint="@color/color_929292"
                             android:textColor="@color/top_heiziti"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:layout_height="match_parent"/>
 
                     <ImageView
@@ -115,7 +115,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/tv59"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/sp15"
                         android:layout_centerVertical="true"
                         android:textColor="@color/top_heiziti"
                         />
@@ -136,7 +136,7 @@
                             android:paddingLeft="@dimen/m20"
                             android:textColorHint="@color/color_929292"
                             android:textColor="@color/top_heiziti"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:layout_height="match_parent"/>
                 </LinearLayout>
             </RelativeLayout>
@@ -152,7 +152,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/tv61"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/sp15"
                         android:layout_centerVertical="true"
                         android:textColor="@color/top_heiziti"
                         />
@@ -177,7 +177,7 @@
                             android:layout_gravity="center_vertical"
                             android:textColorHint="@color/color_929292"
                             android:textColor="@color/top_heiziti"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:layout_height="match_parent"/>
 
                     <ImageView
@@ -207,7 +207,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tv62"
-                android:textSize="15sp"
+                android:textSize="@dimen/sp15"
                 android:layout_centerVertical="true"
                 android:textColor="@color/top_heiziti"
                 />
@@ -220,7 +220,7 @@
                 android:textColor="@color/color_4A4A4A"
                 android:layout_marginLeft="@dimen/m8"
                 android:layout_alignParentBottom="true"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp13"
                 android:text="(1/2)"
                 />
 
@@ -229,7 +229,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/color_4A4A4A"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp13"
                 android:layout_marginLeft="@dimen/m8"
                 android:layout_alignParentBottom="true"
                 android:text="@string/tv63"
@@ -243,12 +243,12 @@
             app:bga_snpl_deleteDrawable="@drawable/delete_image"
             app:bga_snpl_deleteDrawableOverlapQuarter="false"
             app:bga_snpl_editable="true"
-            app:bga_snpl_itemCornerRadius="0dp"
+            app:bga_snpl_itemCornerRadius="@dimen/m0"
             app:bga_snpl_itemSpanCount="3"
-            app:bga_snpl_itemWhiteSpacing="0dp"
+            app:bga_snpl_itemWhiteSpacing="@dimen/m0"
             android:layout_marginLeft="@dimen/m20"
             android:layout_marginRight="@dimen/m20"
-            app:bga_snpl_itemWidth="0dp"
+            app:bga_snpl_itemWidth="@dimen/m0"
             app:bga_snpl_maxItemCount="2"
             app:bga_snpl_placeholderDrawable="@drawable/bga_pp_ic_holder_dark"
             app:bga_snpl_plusDrawable="@drawable/add_image_moren"
@@ -267,7 +267,7 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
+                android:textSize="@dimen/sp20"
                 android:textColor="@color/color_lan"
                 android:text="@string/tv64"
                 />
@@ -284,7 +284,7 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
+                android:textSize="@dimen/sp20"
                 android:textColor="@color/white"
                 android:text="@string/tv65"
                 />

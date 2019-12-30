@@ -31,7 +31,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/tv33"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/sp15"
                         android:layout_centerVertical="true"
                         android:textColor="@color/top_heiziti"
                         />
@@ -52,7 +52,7 @@
                             android:paddingLeft="@dimen/m20"
                             android:textColorHint="@color/color_929292"
                             android:textColor="@color/top_heiziti"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:layout_height="match_parent"/>
                 </LinearLayout>
             </RelativeLayout>
@@ -67,7 +67,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/tv35"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/sp15"
                         android:layout_centerVertical="true"
                         android:textColor="@color/top_heiziti"
                         />
@@ -89,7 +89,7 @@
                             android:maxLength="18"
                             android:textColorHint="@color/color_929292"
                             android:textColor="@color/top_heiziti"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:layout_height="match_parent"/>
                 </LinearLayout>
             </RelativeLayout>
@@ -105,7 +105,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/tv37"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/sp15"
                         android:layout_centerVertical="true"
                         android:textColor="@color/top_heiziti"
                         />
@@ -130,7 +130,7 @@
                             android:layout_gravity="center_vertical"
                             android:textColorHint="@color/color_929292"
                             android:textColor="@color/top_heiziti"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:layout_height="match_parent"/>
                     <ImageView
                             android:layout_width="@dimen/m14"
@@ -175,7 +175,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/tv39"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/sp15"
                         android:layout_centerVertical="true"
                         android:textColor="@color/top_heiziti"
                         />
@@ -200,7 +200,7 @@
                             android:singleLine="true"
                             android:textColorHint="@color/color_929292"
                             android:textColor="@color/top_heiziti"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:layout_height="match_parent"/>
                 </LinearLayout>
             </RelativeLayout>
@@ -215,7 +215,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/tv41"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/sp15"
                         android:layout_centerVertical="true"
                         android:textColor="@color/top_heiziti"
                         />
@@ -240,7 +240,7 @@
                             android:layout_gravity="center_vertical"
                             android:textColorHint="@color/color_929292"
                             android:textColor="@color/top_heiziti"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:layout_height="match_parent"/>
                     <ImageView
                             android:layout_width="@dimen/m14"
@@ -265,7 +265,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/tv44"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/sp15"
                         android:layout_centerVertical="true"
                         android:textColor="@color/top_heiziti"
                         />
@@ -290,7 +290,7 @@
                             android:layout_gravity="center_vertical"
                             android:textColorHint="@color/color_929292"
                             android:textColor="@color/top_heiziti"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:layout_height="match_parent"/>
                     <ImageView
                             android:layout_width="@dimen/m14"
@@ -317,7 +317,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/tv43"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/sp15"
                         android:layout_centerVertical="true"
                         android:textColor="@color/top_heiziti"
                         />
@@ -342,7 +342,7 @@
                             android:layout_gravity="center_vertical"
                             android:textColorHint="@color/color_929292"
                             android:textColor="@color/top_heiziti"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:layout_height="match_parent"/>
                     <ImageView
                             android:layout_width="@dimen/m14"

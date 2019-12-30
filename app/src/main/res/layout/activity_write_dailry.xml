@@ -35,7 +35,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/tv108"
                     android:layout_centerHorizontal="true"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/sp20"
                     android:textStyle="bold"
                     android:layout_centerVertical="true"
                     android:textColor="@color/top_heiziti"
@@ -50,7 +50,7 @@
                 android:layout_marginTop="@dimen/m24"
                 android:layout_marginLeft="@dimen/m20"
                 android:textColor="@color/color_181818"
-                android:textSize="12sp"
+                android:textSize="@dimen/sp12"
                 />
 
         <www.linwg.org.lib.LCardView
@@ -78,7 +78,7 @@
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:layout_centerVertical="true"
                             android:layout_alignParentLeft="true"
                             android:textColor="@color/color_181818"
@@ -91,7 +91,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/color_181818"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:layout_marginLeft="@dimen/m94"
                             android:layout_centerVertical="true"
                             android:text=""
@@ -106,7 +106,7 @@
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:layout_centerVertical="true"
                             android:layout_alignParentLeft="true"
                             android:textColor="@color/color_181818"
@@ -119,7 +119,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/color_181818"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:layout_marginLeft="@dimen/m94"
                             android:layout_centerVertical="true"
                             />
@@ -134,7 +134,7 @@
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:layout_centerVertical="true"
                             android:layout_alignParentLeft="true"
                             android:textColor="@color/color_181818"
@@ -147,7 +147,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/color_181818"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:layout_marginLeft="@dimen/m94"
                             android:layout_centerVertical="true"
                             android:text=""
@@ -186,7 +186,7 @@
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:textColor="@color/color_181818"
                             android:text="@string/tv120"
                             />
@@ -198,7 +198,7 @@
                             android:layout_height="@dimen/m16"
                             android:text=""
                             android:background="@drawable/time_bg"
-                            android:textSize="10sp"
+                            android:textSize="@dimen/sp10"
                             android:layout_marginTop="@dimen/m5"
                             android:gravity="center"
                             android:textColor="@color/color_929292"
@@ -225,7 +225,7 @@
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:textColor="@color/color_181818"
                             android:text="@string/tv121"
                             />
@@ -237,7 +237,7 @@
                             android:layout_height="@dimen/m16"
                             android:text=""
                             android:background="@drawable/time_bg"
-                            android:textSize="10sp"
+                            android:textSize="@dimen/sp10"
                             android:layout_marginTop="@dimen/m5"
                             android:gravity="center"
                             android:textColor="@color/color_929292"
@@ -265,7 +265,7 @@
                 android:layout_marginTop="@dimen/m10"
                 android:layout_marginLeft="@dimen/m20"
                 android:textColor="@color/color_181818"
-                android:textSize="12sp"
+                android:textSize="@dimen/sp12"
                 />
 
         <include
@@ -279,7 +279,7 @@
                 android:layout_marginTop="@dimen/m10"
                 android:layout_marginLeft="@dimen/m20"
                 android:textColor="@color/color_181818"
-                android:textSize="12sp"
+                android:textSize="@dimen/sp12"
                 />
 
         <www.linwg.org.lib.LCardView
@@ -303,7 +303,7 @@
                         android:layout_width="match_parent"
                         android:background="@null"
                         android:hint="@string/tv126"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/sp12"
                         android:paddingLeft="@dimen/m10"
                         android:gravity="left|top"
                         android:layout_alignParentLeft="true"
@@ -314,7 +314,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/sp12"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentRight="true"
                         android:maxLength="300"
@@ -340,7 +340,7 @@
                     android:text="@string/tv127"
                     android:layout_marginLeft="@dimen/m20"
                     android:textColor="@color/color_181818"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/sp12"
                     />
 
             <TextView
@@ -349,7 +349,7 @@
                     android:text="@string/tv128"
                     android:layout_marginLeft="@dimen/m15"
                     android:textColor="@color/color_929292"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/sp12"
                     />
         </LinearLayout>
 

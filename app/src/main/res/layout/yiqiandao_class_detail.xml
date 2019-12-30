@@ -32,7 +32,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/tv101"
                         android:textColor="@color/top_heiziti"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/sp15"
                         />
 
                 <TextView
@@ -42,7 +42,7 @@
                         android:text="动感单车房"
                         android:layout_marginLeft="@dimen/m30"
                         android:textColor="@color/color_4A4A4A"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/sp15"
                         />
 
 
@@ -61,7 +61,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/tv99"
                         android:textColor="@color/top_heiziti"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/sp15"
                         />
 
                 <TextView
@@ -71,7 +71,7 @@
                         android:text="动感单车"
                         android:layout_marginLeft="@dimen/m30"
                         android:textColor="@color/color_181818"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/sp15"
                         />
 
             </LinearLayout>
@@ -89,7 +89,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/tv100"
                         android:textColor="@color/top_heiziti"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/sp15"
                         />
 
                 <TextView
@@ -99,7 +99,7 @@
                         android:text="动感单车"
                         android:layout_marginLeft="@dimen/m30"
                         android:textColor="@color/color_181818"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/sp15"
                         />
 
             </LinearLayout>
@@ -117,7 +117,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/tv102"
                         android:textColor="@color/top_heiziti"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/sp15"
                         />
 
                 <TextView
@@ -127,7 +127,7 @@
                         android:text="¥ 235"
                         android:layout_marginLeft="@dimen/m30"
                         android:textColor="@color/color_181818"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/sp15"
                         />
 
             </LinearLayout>
@@ -145,7 +145,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/tv103"
                         android:textColor="@color/top_heiziti"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/sp15"
                         />
 
                 <TextView
@@ -155,7 +155,7 @@
                         android:text="2019-08-09 13:00-13:45"
                         android:layout_marginLeft="@dimen/m30"
                         android:textColor="@color/color_181818"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/sp15"
                         />
 
             </LinearLayout>
@@ -173,7 +173,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/tv104"
                         android:textColor="@color/top_heiziti"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/sp15"
                         />
 
                 <TextView
@@ -183,7 +183,7 @@
                         android:text="45min/节"
                         android:layout_marginLeft="@dimen/m30"
                         android:textColor="@color/color_181818"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/sp15"
                         />
 
             </LinearLayout>
@@ -202,7 +202,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/tv105"
                         android:textColor="@color/top_heiziti"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/sp15"
                         />
 
                 <TextView
@@ -212,7 +212,7 @@
                         android:text="11/23"
                         android:layout_marginLeft="@dimen/m30"
                         android:textColor="@color/color_181818"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/sp15"
                         />
 
             </LinearLayout>

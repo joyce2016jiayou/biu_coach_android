@@ -18,7 +18,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:textSize="26sp"
+                android:textSize="@dimen/sp25"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:textColor="@color/top_heiziti"
@@ -63,7 +63,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
+                    android:textSize="@dimen/sp18"
                     android:layout_marginTop="@dimen/m3"
                     android:textColor="@color/color_4A4A4A"
                     android:text="@string/tv77"
@@ -88,7 +88,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
+                    android:textSize="@dimen/sp18"
                     android:layout_marginTop="@dimen/m3"
                     android:textColor="@color/color_4A4A4A"
                     android:text="@string/tv78"
@@ -113,7 +113,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
+                    android:textSize="@dimen/sp18"
                     android:layout_marginTop="@dimen/m3"
                     android:textColor="@color/color_4A4A4A"
                     android:text="@string/tv79"
@@ -131,7 +131,7 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
+                android:textSize="@dimen/sp15"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:textColor="@color/top_heiziti"
@@ -149,7 +149,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/sp15"
                     android:textColor="@color/top_heiziti"
                     android:text="@string/tv81"/>
 
