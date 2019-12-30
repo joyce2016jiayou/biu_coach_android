@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:text="约课详情"
                 android:layout_centerHorizontal="true"
-                android:textSize="20sp"
+                android:textSize="@dimen/sp20"
                 android:textStyle="bold"
                 android:layout_centerVertical="true"
                 android:textColor="@color/top_heiziti"
@@ -60,14 +60,14 @@
                     android:maxLines="2"
                     android:text="X-park健身馆X-park健身馆X-park健身馆X-park健身馆X-park健身馆X-park健身馆X-park健身馆X-park健身馆X-park健身馆X-park健身馆"
                     android:textColor="@color/top_heiziti"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/sp15"
                     />
 
             <ImageView
-                    android:layout_width="14dp"
+                    android:layout_width="@dimen/m12"
                     android:src="@drawable/youjiantou"
                     android:layout_marginLeft="@dimen/m10"
-                    android:layout_height="15dp"/>
+                    android:layout_height="@dimen/m15"/>
         </LinearLayout>
 
         <TextView
@@ -79,7 +79,7 @@
                 android:layout_marginRight="@dimen/m20"
                 android:layout_centerVertical="true"
                 android:textColor="@color/color_4A4A4A"
-                android:textSize="15sp"
+                android:textSize="@dimen/sp15"
                 />
     </RelativeLayout>
     <RelativeLayout
@@ -95,7 +95,7 @@
                     android:layout_marginRight="@dimen/m20"
                     android:text="签到"
                     android:textColor="@color/color_lan"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/sp13"
                     android:gravity="center"
                     android:layout_height="@dimen/m24"
                     />

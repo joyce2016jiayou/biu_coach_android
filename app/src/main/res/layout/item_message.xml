@@ -21,7 +21,7 @@
                     android:layout_height="wrap_content"
                     tools:text="【私教预约】"
                     android:textColor="@color/color_181818"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/sp15"
                     android:layout_marginTop="@dimen/m10"
                     android:layout_gravity="left"/>
             <TextView
@@ -30,7 +30,7 @@
                     android:layout_height="wrap_content"
                     tools:text="2019-9-10"
                     android:textColor="@color/color_9b9b9b"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/sp12"
                     android:layout_marginTop="@dimen/m12"
                     android:layout_marginRight="@dimen/m10"
                     android:layout_gravity="right"/>
@@ -40,7 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/color_4A4A4A"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp13"
                 android:layout_margin="@dimen/m10"
                 android:text="用户***预约了2019-09-12   13:00- 14:00在一二三场馆的六瑜伽课程。"/>
        <FrameLayout
@@ -55,7 +55,7 @@
                    android:text="立即查看"
                    android:gravity="center"
                    android:textColor="@color/color_lan"
-                   android:textSize="13sp"
+                   android:textSize="@dimen/sp13"
                    android:visibility="gone"
                    android:layout_marginBottom="@dimen/m10"
                    android:layout_marginRight="@dimen/m10"

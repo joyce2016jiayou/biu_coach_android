@@ -4,8 +4,8 @@
               android:layout_height="wrap_content"
               android:layout_gravity="center_horizontal"
               android:orientation="vertical"
-              android:paddingBottom="5dp"
-              android:paddingTop="15dp">
+              android:paddingBottom="@dimen/m5"
+              android:paddingTop="@dimen/m15">
 
     <TextView
             android:layout_width="wrap_content"
@@ -13,17 +13,17 @@
             android:layout_gravity="center_horizontal"
             android:text="设置推送时间"
             android:textColor="@android:color/black"
-            android:textSize="16dp"
+            android:textSize="@dimen/m16"
             android:textStyle="bold" />
 
     <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="10dp">
+            android:layout_height="@dimen/m200"
+            android:layout_marginTop="@dimen/m10">
 
         <TimePicker
                 android:id="@+id/timePickerStart"
-                android:layout_width="150dp"
+                android:layout_width="@dimen/m150"
                 android:layout_height="match_parent" />
 
         <TextView
@@ -32,11 +32,11 @@
                 android:layout_centerInParent="true"
                 android:text="至"
                 android:textColor="@android:color/black"
-                android:textSize="16sp" />
+                android:textSize="@dimen/sp16" />
 
         <TimePicker
                 android:id="@+id/timePickerEnd"
-                android:layout_width="150dp"
+                android:layout_width="@dimen/m150"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true" />
 
@@ -45,12 +45,12 @@
 
     <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="-20dp">
+            android:layout_height="@dimen/m40"
+            android:layout_marginTop="@dimen/m_d_20">
 
         <TextView
                 android:id="@+id/cancelBtn"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/m0"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -59,7 +59,7 @@
 
         <TextView
                 android:id="@+id/submitBtn"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/m0"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"

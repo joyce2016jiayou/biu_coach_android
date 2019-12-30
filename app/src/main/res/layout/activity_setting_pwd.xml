@@ -15,17 +15,17 @@
             >
         <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="@dimen/m100"
                 >
 
             <ImageView
                     android:id="@+id/back_btn"
-                    android:layout_width="28dp"
-                    android:layout_height="18dp"
+                    android:layout_width="@dimen/m28"
+                    android:layout_height="@dimen/m18"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginBottom="30dp"
+                    android:layout_marginLeft="@dimen/m20"
+                    android:layout_marginBottom="@dimen/m30"
                     android:src="@drawable/back_img" />
 
             <TextView
@@ -34,21 +34,21 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="19dp"
+                    android:layout_marginBottom="@dimen/m19"
                     android:text="@string/setting_pwd"
                     android:textColor="@color/top_heiziti"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/sp20"
                     android:textStyle="bold" />
         </RelativeLayout>
         <www.linwg.org.lib.LCardView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/m56"
                 app:leftTopCornerRadius="@dimen/m10"
-                app:rightBottomCornerRadius="@dimen/dp_10"
+                app:rightBottomCornerRadius="@dimen/m10"
                 app:leftBottomCornerRadius="@dimen/m10"
                 app:rightTopCornerRadius="@dimen/m10"
-                app:leftShadowWidth="0dp"
-                app:rightShadowWidth="0dp">
+                app:leftShadowWidth="@dimen/m0"
+                app:rightShadowWidth="@dimen/m0">
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -57,8 +57,8 @@
                     android:orientation="horizontal">
 
                 <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="23dp"
+                        android:layout_width="@dimen/m20"
+                        android:layout_height="@dimen/m23"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/icon_user_off" />
 
@@ -66,8 +66,8 @@
                         android:id="@+id/edit_phone"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="25dp"
+                        android:layout_marginLeft="@dimen/m5"
+                        android:layout_marginRight="@dimen/m25"
                         android:background="@null"
                         android:hint="@string/edit_hint1"
                         android:inputType="phone"
@@ -76,18 +76,18 @@
                         android:singleLine="true"
                         android:textColor="@color/color_ACACAC"
                         android:textColorHint="@color/color_ACACAC"
-                        android:textSize="15sp" />
+                        android:textSize="@dimen/sp15" />
             </LinearLayout>
         </www.linwg.org.lib.LCardView>
         <www.linwg.org.lib.LCardView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/m56"
                 app:leftTopCornerRadius="@dimen/m10"
-                app:rightBottomCornerRadius="@dimen/dp_10"
+                app:rightBottomCornerRadius="@dimen/m10"
                 app:leftBottomCornerRadius="@dimen/m10"
                 app:rightTopCornerRadius="@dimen/m10"
-                app:leftShadowWidth="0dp"
-                app:rightShadowWidth="0dp">
+                app:leftShadowWidth="@dimen/m0"
+                app:rightShadowWidth="@dimen/m0">
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -96,24 +96,24 @@
                     android:orientation="horizontal">
 
                 <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="23dp"
+                        android:layout_width="@dimen/m20"
+                        android:layout_height="@dimen/m23"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/icon_user_off" />
 
                 <EditText
                         android:id="@+id/edit_yzm"
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/m0"
                         android:layout_weight="1"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginLeft="@dimen/m5"
                         android:background="@null"
                         android:hint="@string/edit_hint5"
                         android:inputType="number"
                         android:maxLength="6"
-                        android:layout_marginRight="25dp"
+                        android:layout_marginRight="@dimen/m25"
                         android:singleLine="true"
-                        android:textSize="15sp" />
+                        android:textSize="@dimen/sp15" />
 
                 <TextView
                         android:id="@+id/tv_send"
@@ -121,9 +121,9 @@
                         android:layout_height="wrap_content"
                         android:text="@string/tv6"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginRight="24dp"
+                        android:layout_marginRight="@dimen/m24"
                         android:textColor="@color/btn_text_color"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/sp15"
                         />
             </LinearLayout>
         </www.linwg.org.lib.LCardView>
@@ -131,11 +131,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/m56"
                 app:leftTopCornerRadius="@dimen/m10"
-                app:rightBottomCornerRadius="@dimen/dp_10"
+                app:rightBottomCornerRadius="@dimen/m10"
                 app:leftBottomCornerRadius="@dimen/m10"
                 app:rightTopCornerRadius="@dimen/m10"
-                app:leftShadowWidth="0dp"
-                app:rightShadowWidth="0dp">
+                app:leftShadowWidth="@dimen/m0"
+                app:rightShadowWidth="@dimen/m0">
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -144,8 +144,8 @@
                     android:orientation="horizontal">
 
                 <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="23dp"
+                        android:layout_width="@dimen/m20"
+                        android:layout_height="@dimen/m23"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/icon_user_off" />
 
@@ -153,8 +153,8 @@
                         android:id="@+id/edit_new_password"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="25dp"
+                        android:layout_marginLeft="@dimen/m5"
+                        android:layout_marginRight="@dimen/m25"
                         android:background="@null"
                         android:hint="@string/edit_hint6"
                         android:inputType="textPassword"
@@ -163,18 +163,18 @@
                         android:singleLine="true"
                         android:textColor="@color/color_ACACAC"
                         android:textColorHint="@color/color_ACACAC"
-                        android:textSize="15sp" />
+                        android:textSize="@dimen/sp15" />
             </LinearLayout>
         </www.linwg.org.lib.LCardView>
         <www.linwg.org.lib.LCardView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/m56"
                 app:leftTopCornerRadius="@dimen/m10"
-                app:rightBottomCornerRadius="@dimen/dp_10"
+                app:rightBottomCornerRadius="@dimen/m10"
                 app:leftBottomCornerRadius="@dimen/m10"
                 app:rightTopCornerRadius="@dimen/m10"
-                app:leftShadowWidth="0dp"
-                app:rightShadowWidth="0dp">
+                app:leftShadowWidth="@dimen/m0"
+                app:rightShadowWidth="@dimen/m0">
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -183,8 +183,8 @@
                     android:orientation="horizontal">
 
                 <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="23dp"
+                        android:layout_width="@dimen/m20"
+                        android:layout_height="@dimen/m23"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/icon_user_off" />
 
@@ -192,8 +192,8 @@
                         android:id="@+id/edit_new_password1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="25dp"
+                        android:layout_marginLeft="@dimen/m5"
+                        android:layout_marginRight="@dimen/m25"
                         android:background="@null"
                         android:maxLength="16"
                         android:hint="@string/edit_hint7"
@@ -202,7 +202,7 @@
                         android:singleLine="true"
                         android:textColor="@color/color_ACACAC"
                         android:textColorHint="@color/color_ACACAC"
-                        android:textSize="15sp" />
+                        android:textSize="@dimen/sp15" />
             </LinearLayout>
         </www.linwg.org.lib.LCardView>
 
@@ -211,13 +211,13 @@
     <TextView
             android:layout_below="@+id/ll_main"
             android:id="@+id/btn_pwd_update"
-            android:layout_width="209dp"
-            android:layout_height="54dp"
+            android:layout_width="@dimen/m209"
+            android:layout_height="@dimen/m54"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/m180"
             android:background="@drawable/btn_click"
             android:gravity="center"
             android:text="完成"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="@dimen/sp20" />
 </RelativeLayout>

@@ -39,10 +39,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="4dp"
+                android:layout_marginLeft="@dimen/m4"
                 android:text="我已阅读并同意《哔呦会员服务协议》"
                 android:textColor="@color/color_B7B7B7"
-                android:textSize="12sp"/>
+                android:textSize="@dimen/sp12"/>
     </LinearLayout>
 
     <com.noplugins.keepfit.coachplatform.util.ui.LoadingButton

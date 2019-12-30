@@ -12,7 +12,7 @@
             android:layout_height="wrap_content"
             android:text="今天"
             android:textColor="@color/color_181818"
-            android:textSize="13sp"
+            android:textSize="@dimen/sp13"
             />
 
     <TextView
@@ -22,7 +22,7 @@
             android:text="7/17"
             android:layout_marginTop="@dimen/m8"
             android:textColor="@color/color_181818"
-            android:textSize="13sp"
+            android:textSize="@dimen/sp13"
             />
     <ImageView
             android:id="@+id/bottom_view"

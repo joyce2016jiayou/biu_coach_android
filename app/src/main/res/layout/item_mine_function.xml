@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/qianbao"
-            android:textSize="13sp"
+            android:textSize="@dimen/sp13"
             android:textColor="@color/color_4A4A4A"
             />
 

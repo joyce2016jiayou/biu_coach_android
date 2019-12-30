@@ -30,7 +30,7 @@
                     android:layout_gravity="center"
                     android:text="验证手机号"
                     android:textColor="@color/color_181818"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/sp20"
                     android:layout_marginTop="@dimen/m20"
                     android:textStyle="bold"/>
         </FrameLayout>
@@ -38,11 +38,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/m56"
                 app:leftTopCornerRadius="@dimen/m10"
-                app:rightBottomCornerRadius="@dimen/dp_10"
+                app:rightBottomCornerRadius="@dimen/m10"
                 app:leftBottomCornerRadius="@dimen/m10"
                 app:rightTopCornerRadius="@dimen/m10"
-                app:leftShadowWidth="0dp"
-                app:rightShadowWidth="0dp">
+                app:leftShadowWidth="@dimen/m0"
+                app:rightShadowWidth="@dimen/m0">
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -60,22 +60,22 @@
                         android:id="@+id/tv_phone"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="25dp"
+                        android:layout_marginLeft="@dimen/m5"
+                        android:layout_marginRight="@dimen/m25"
                         android:gravity="center_vertical"
                         android:textColor="@color/contents_text"
-                        android:textSize="18sp" />
+                        android:textSize="@dimen/sp18" />
             </LinearLayout>
         </www.linwg.org.lib.LCardView>
         <www.linwg.org.lib.LCardView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/m56"
                 app:leftTopCornerRadius="@dimen/m10"
-                app:rightBottomCornerRadius="@dimen/dp_10"
+                app:rightBottomCornerRadius="@dimen/m10"
                 app:leftBottomCornerRadius="@dimen/m10"
                 app:rightTopCornerRadius="@dimen/m10"
-                app:leftShadowWidth="0dp"
-                app:rightShadowWidth="0dp">
+                app:leftShadowWidth="@dimen/m0"
+                app:rightShadowWidth="@dimen/m0">
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -91,17 +91,17 @@
 
                 <EditText
                         android:id="@+id/edit_yzm"
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/m0"
                         android:layout_weight="1"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginLeft="@dimen/m5"
                         android:background="@null"
                         android:hint="@string/edit_hint5"
                         android:inputType="number"
                         android:maxLength="6"
-                        android:layout_marginRight="25dp"
+                        android:layout_marginRight="@dimen/m25"
                         android:singleLine="true"
-                        android:textSize="18dp" />
+                        android:textSize="@dimen/m18" />
 
                 <TextView
                         android:id="@+id/tv_send"
@@ -109,9 +109,9 @@
                         android:layout_height="wrap_content"
                         android:text="@string/tv6"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginRight="24dp"
+                        android:layout_marginRight="@dimen/m24"
                         android:textColor="@color/btn_text_color"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/sp15"
                         />
             </LinearLayout>
         </www.linwg.org.lib.LCardView>
@@ -120,8 +120,8 @@
     </LinearLayout>
     <LinearLayout
             android:id="@+id/btn_ToLogin"
-            android:layout_width="209dp"
-            android:layout_height="54dp"
+            android:layout_width="@dimen/m209"
+            android:layout_height="@dimen/m54"
             android:layout_gravity="bottom|center_horizontal"
             android:layout_marginBottom="@dimen/m70"
             android:background="@drawable/btn_click"
@@ -134,7 +134,7 @@
                 android:gravity="center"
                 android:text="完成"
                 android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textSize="@dimen/sp20" />
 
     </LinearLayout>
 </FrameLayout>

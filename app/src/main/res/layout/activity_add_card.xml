@@ -28,7 +28,7 @@
             android:textColor="@color/color_181818"
             android:layout_marginTop="@dimen/m25"
             android:layout_marginLeft="@dimen/m30"
-            android:textSize="20sp"/>
+            android:textSize="@dimen/sp20"/>
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -44,7 +44,7 @@
                 android:layout_width="@dimen/m75"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:textSize="15sp"
+                android:textSize="@dimen/sp15"
                 android:textColor="@color/color_181818"
                 android:text="@string/tv_card_man"/>
 
@@ -52,10 +52,10 @@
                 android:id="@+id/tv_phone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginRight="25dp"
+                android:layout_marginRight="@dimen/m25"
                 android:gravity="center_vertical"
                 android:textColor="@color/contents_text"
-                android:textSize="18sp"/>
+                android:textSize="@dimen/sp18"/>
     </LinearLayout>
     <LinearLayout
             android:layout_width="match_parent"
@@ -71,7 +71,7 @@
                 android:layout_width="@dimen/m75"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:textSize="15sp"
+                android:textSize="@dimen/sp15"
                 android:textColor="@color/color_181818"
                 android:text="@string/tv_card_num"/>
 
@@ -79,7 +79,7 @@
                 android:id="@+id/et_card"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginRight="25dp"
+                android:layout_marginRight="@dimen/m25"
                 android:gravity="center_vertical"
                 android:background="@null"
                 android:inputType="number"
@@ -87,7 +87,7 @@
                 android:digits="1234567890Xx"
                 android:hint="@string/tv_input_card"
                 android:textColor="@color/contents_text"
-                android:textSize="18sp"/>
+                android:textSize="@dimen/sp18"/>
     </LinearLayout>
 
     <TextView
@@ -98,7 +98,7 @@
             android:layout_marginTop="@dimen/m90"
             android:layout_gravity="center_horizontal"
             android:text="下一步"
-            android:textSize="20sp"
+            android:textSize="@dimen/sp20"
             android:gravity="center"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/m10"

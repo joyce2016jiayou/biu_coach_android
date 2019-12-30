@@ -21,7 +21,7 @@
                 android:layout_height="wrap_content"
                 android:text="7:00-8:00"
                 android:textColor="#ffffff"
-                android:textSize="9sp"
+                android:textSize="@dimen/sp9"
                 />
 
         <TextView
@@ -29,9 +29,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="已结束"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="@dimen/m2"
                 android:textColor="#DBDBDB"
-                android:textSize="9sp"
+                android:textSize="@dimen/sp9"
                 />
 
         <TextView
@@ -39,9 +39,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="古天乐"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="@dimen/m2"
                 android:textColor="#ffffff"
-                android:textSize="9sp"
+                android:textSize="@dimen/sp9"
                 />
 
         <TextView
@@ -49,9 +49,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="燃脂塑形"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="@dimen/m2"
                 android:textColor="#ffffff"
-                android:textSize="9sp"
+                android:textSize="@dimen/sp9"
                 />
 
     </LinearLayout>

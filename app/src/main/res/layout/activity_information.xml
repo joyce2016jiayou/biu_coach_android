@@ -25,7 +25,7 @@
                 android:layout_gravity="center"
                 android:text="个人资料"
                 android:textColor="@color/color_181818"
-                android:textSize="20sp"
+                android:textSize="@dimen/sp20"
                 android:layout_marginTop="@dimen/m20"
                 android:textStyle="bold"/>
     </FrameLayout>
@@ -43,8 +43,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/m85"
                     app:cornerRadius="@dimen/m5"
-                    app:leftShadowWidth="0dp"
-                    app:rightShadowWidth="0dp">
+                    app:leftShadowWidth="@dimen/m0"
+                    app:rightShadowWidth="@dimen/m0">
 
                 <RelativeLayout
                         android:layout_width="match_parent"
@@ -55,7 +55,7 @@
                             android:layout_height="wrap_content"
                             android:text="更改头像"
                             android:textColor="@color/color_101010"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:layout_marginLeft="@dimen/m20"
                             android:layout_centerVertical="true"/>
 
@@ -75,8 +75,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/m56"
                     app:cornerRadius="@dimen/m5"
-                    app:leftShadowWidth="0dp"
-                    app:rightShadowWidth="0dp">
+                    app:leftShadowWidth="@dimen/m0"
+                    app:rightShadowWidth="@dimen/m0">
                 <LinearLayout
                         android:id="@+id/rl_user_name"
                         android:layout_width="match_parent"
@@ -87,7 +87,7 @@
                             android:layout_height="wrap_content"
                             android:text="姓名"
                             android:textColor="@color/color_101010"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:layout_marginLeft="@dimen/m20"
                             android:layout_centerVertical="true"/>
                     <TextView
@@ -99,7 +99,7 @@
                             android:gravity="center_vertical|right"
                             android:textColor="@color/contents_text"
                             android:background="@null"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:layout_marginLeft="@dimen/m20"
                             android:layout_centerVertical="true"/>
                 </LinearLayout>
@@ -109,8 +109,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/m56"
                     app:cornerRadius="@dimen/m5"
-                    app:leftShadowWidth="0dp"
-                    app:rightShadowWidth="0dp">
+                    app:leftShadowWidth="@dimen/m0"
+                    app:rightShadowWidth="@dimen/m0">
                 <LinearLayout
                         android:id="@+id/rl_sex"
                         android:layout_width="match_parent"
@@ -121,7 +121,7 @@
                             android:layout_height="wrap_content"
                             android:text="性别"
                             android:textColor="@color/color_101010"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:layout_marginLeft="@dimen/m20"
                             android:layout_centerVertical="true"/>
                     <TextView
@@ -131,7 +131,7 @@
                             android:gravity="center_vertical|right"
                             android:background="@null"
                             android:textColor="@color/contents_text"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:layout_marginLeft="@dimen/m20"
                             android:layout_marginRight="@dimen/m20"
                             android:layout_centerVertical="true"/>
@@ -143,8 +143,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/m56"
                     app:cornerRadius="@dimen/m5"
-                    app:leftShadowWidth="0dp"
-                    app:rightShadowWidth="0dp">
+                    app:leftShadowWidth="@dimen/m0"
+                    app:rightShadowWidth="@dimen/m0">
                 <LinearLayout
                         android:id="@+id/rl_birthday"
                         android:layout_width="match_parent"
@@ -155,7 +155,7 @@
                             android:layout_height="wrap_content"
                             android:text="年龄"
                             android:textColor="@color/color_101010"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:layout_marginLeft="@dimen/m20"
                             android:layout_centerVertical="true"/>
                     <TextView
@@ -166,7 +166,7 @@
                             android:gravity="center_vertical|right"
                             android:background="@null"
                             android:textColor="@color/contents_text"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:layout_marginRight="@dimen/m20"
                             android:layout_marginLeft="@dimen/m20"
                             android:layout_centerVertical="true"/>
@@ -177,8 +177,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/m56"
                     app:cornerRadius="@dimen/m5"
-                    app:leftShadowWidth="0dp"
-                    app:rightShadowWidth="0dp">
+                    app:leftShadowWidth="@dimen/m0"
+                    app:rightShadowWidth="@dimen/m0">
                 <LinearLayout
                         android:id="@+id/rl_city"
                         android:layout_width="match_parent"
@@ -189,7 +189,7 @@
                             android:layout_height="wrap_content"
                             android:text="所在城市"
                             android:textColor="@color/color_101010"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:layout_marginLeft="@dimen/m20"
                             android:layout_centerVertical="true"/>
                     <TextView
@@ -201,7 +201,7 @@
                             android:background="@null"
                             android:textColor="@color/contents_text"
                             android:layout_marginRight="@dimen/m20"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:layout_marginLeft="@dimen/m20"
                             android:layout_centerVertical="true"/>
 
@@ -211,8 +211,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cornerRadius="@dimen/m5"
-                    app:leftShadowWidth="0dp"
-                    app:rightShadowWidth="0dp">
+                    app:leftShadowWidth="@dimen/m0"
+                    app:rightShadowWidth="@dimen/m0">
                 <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -221,7 +221,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/man_skill"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:layout_marginTop="@dimen/m15"
                             android:layout_marginLeft="@dimen/m20"
                             android:textColor="@color/color_101010"/>
@@ -238,7 +238,7 @@
                                 android:gravity="left|top"
                                 android:padding="@dimen/m11"
                                 android:textColor="@color/color_929292"
-                                android:textSize="15sp"
+                                android:textSize="@dimen/sp15"
                                 android:maxLength="50"
                                 android:layout_marginLeft="@dimen/m20"
                                 android:layout_marginBottom="@dimen/m20"
@@ -251,7 +251,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/color_929292"
-                                android:textSize="12sp"
+                                android:textSize="@dimen/sp12"
                                 android:layout_marginRight="@dimen/m30"
                                 android:layout_gravity="right|bottom"
                                 android:layout_marginBottom="@dimen/m30"
@@ -268,7 +268,7 @@
                     android:layout_marginTop="@dimen/m10"
                     android:layout_gravity="center_horizontal"
                     android:text="保 存"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/sp20"
                     android:gravity="center"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="@dimen/m10"

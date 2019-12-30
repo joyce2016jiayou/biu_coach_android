@@ -9,7 +9,7 @@
             android:layout_width="match_parent"
             android:orientation="vertical"
             app:shadowStartAlpha="10"
-            app:cornerRadius="0dp"
+            app:cornerRadius="@dimen/m0"
             app:shadowSize="@dimen/m2"
             android:gravity="center"
             android:layout_height="wrap_content">
@@ -21,13 +21,13 @@
 
             <LinearLayout
                     android:id="@+id/left"
-                    android:layout_width="55dp"
-                    android:layout_height="74dp"
+                    android:layout_width="@dimen/m55"
+                    android:layout_height="@dimen/m74"
                     android:gravity="center">
 
                 <ImageView
-                        android:layout_width="12dp"
-                        android:layout_height="12dp"
+                        android:layout_width="@dimen/m12"
+                        android:layout_height="@dimen/m12"
                         android:src="@drawable/left_img"/>
             </LinearLayout>
 
@@ -66,7 +66,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/time_reclerview"
-                    android:layout_width="55dp"
+                    android:layout_width="@dimen/m55"
                     android:layout_height="wrap_content"/>
 
             <com.noplugins.keepfit.coachplatform.util.ui.courcetable.ObservableScrollView

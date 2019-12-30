@@ -42,7 +42,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/m5"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/sp13"
                     android:textColor="@color/color_181818"
                     tools:text="杭州市萧山区市民中心广场89号"/>
         </LinearLayout>
@@ -60,7 +60,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/color_181818"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/sp13"
                     tools:text="原动力-萧山店·综合会所"/>
             <!--todo-->
         </FrameLayout>
@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/iv_cg_logo"
                 android:layout_below="@id/ll_cg"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp13"
                 tools:text="面积：1000m²"
                 android:layout_marginLeft="@dimen/m20"
                 android:layout_marginTop="@dimen/m13"
@@ -96,7 +96,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/m5"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/sp13"
                     android:textColor="@color/color_181818"
                     tools:text="900m"/>
         </LinearLayout>

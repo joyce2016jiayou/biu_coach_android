@@ -41,19 +41,19 @@
                         android:layout_height="wrap_content">
 
                     <ImageView
-                            android:layout_width="4dp"
+                            android:layout_width="@dimen/m4"
                             android:src="@drawable/fenge_icon"
-                            android:layout_height="14dp"/>
+                            android:layout_height="@dimen/m14"/>
 
                     <EditText
                             android:id="@+id/shengao_edit"
-                            android:layout_width="50dp"
+                            android:layout_width="@dimen/m50"
                             android:layout_height="wrap_content"
                             android:background="@null"
                             android:hint="0"
                             android:textColorHint="@color/top_heiziti"
-                            android:paddingLeft="5dp"
-                            android:textSize="15sp"
+                            android:paddingLeft="@dimen/m5"
+                            android:textSize="@dimen/sp15"
                             android:maxLength="3"
                             android:digits="1234567890"
                             android:gravity="left|center_vertical"
@@ -66,7 +66,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/tv123"
-                            android:textSize="10dp"
+                            android:textSize="@dimen/m10"
                             android:gravity="center"
                             android:textColor="@color/color_6D7278"
                             />
@@ -83,19 +83,19 @@
                         android:layout_height="wrap_content">
 
                     <ImageView
-                            android:layout_width="4dp"
+                            android:layout_width="@dimen/m4"
                             android:src="@drawable/fenge_icon"
-                            android:layout_height="14dp"/>
+                            android:layout_height="@dimen/m14"/>
 
                     <EditText
                             android:id="@+id/tizhong_edit"
-                            android:layout_width="50dp"
+                            android:layout_width="@dimen/m50"
                             android:layout_height="wrap_content"
                             android:hint="0"
                             android:textColorHint="@color/top_heiziti"
-                            android:paddingLeft="5dp"
+                            android:paddingLeft="@dimen/m5"
                             android:maxLength="4"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:digits="0123456789"
                             android:background="@null"
                             android:gravity="left|center_vertical"
@@ -108,7 +108,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/tv124"
-                            android:textSize="10dp"
+                            android:textSize="@dimen/m10"
                             android:gravity="center"
                             android:textColor="@color/color_6D7278"
                             />
@@ -121,7 +121,7 @@
                     android:layout_width="match_parent"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginTop="17dp"
+                    android:layout_marginTop="@dimen/m17"
                     android:layout_height="wrap_content">
 
                 <LinearLayout
@@ -134,20 +134,20 @@
                         android:layout_height="wrap_content">
 
                     <ImageView
-                            android:layout_width="4dp"
+                            android:layout_width="@dimen/m4"
                             android:src="@drawable/fenge_icon"
-                            android:layout_height="14dp"/>
+                            android:layout_height="@dimen/m14"/>
 
                     <EditText
                             android:id="@+id/tizhi_edit"
-                            android:layout_width="50dp"
+                            android:layout_width="@dimen/m50"
                             android:layout_height="wrap_content"
                             android:background="@null"
                             android:hint="0"
                             android:textColorHint="@color/top_heiziti"
-                            android:paddingLeft="5dp"
+                            android:paddingLeft="@dimen/m5"
                             android:maxLength="4"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:digits="1234567890."
                             android:inputType="number|numberDecimal"
                             android:gravity="left|center_vertical"
@@ -160,7 +160,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="体脂率"
-                            android:textSize="10dp"
+                            android:textSize="@dimen/m10"
                             android:gravity="center"
                             android:textColor="@color/color_6D7278"
                             />
@@ -177,19 +177,19 @@
                         android:layout_height="wrap_content">
 
                     <ImageView
-                            android:layout_width="4dp"
+                            android:layout_width="@dimen/m4"
                             android:src="@drawable/fenge_icon"
-                            android:layout_height="14dp"/>
+                            android:layout_height="@dimen/m14"/>
 
                     <TextView
                             android:id="@+id/bmi_edit"
-                            android:layout_width="50dp"
+                            android:layout_width="@dimen/m50"
                             android:layout_height="wrap_content"
                             android:background="@null"
                             android:hint="0"
                             android:textColorHint="@color/top_heiziti"
-                            android:paddingLeft="5dp"
-                            android:textSize="15sp"
+                            android:paddingLeft="@dimen/m5"
+                            android:textSize="@dimen/sp15"
                             android:maxLength="4"
                             android:gravity="left|center_vertical"
                             android:textStyle="bold"
@@ -201,7 +201,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="BMI"
-                            android:textSize="10dp"
+                            android:textSize="@dimen/m10"
                             android:gravity="center"
                             android:textColor="@color/color_6D7278"
                             />
@@ -213,7 +213,7 @@
                     android:layout_width="match_parent"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginTop="17dp"
+                    android:layout_marginTop="@dimen/m17"
                     android:layout_height="wrap_content">
 
                 <LinearLayout
@@ -226,19 +226,19 @@
                         android:layout_height="wrap_content">
 
                     <ImageView
-                            android:layout_width="4dp"
+                            android:layout_width="@dimen/m4"
                             android:src="@drawable/fenge_icon"
-                            android:layout_height="14dp"/>
+                            android:layout_height="@dimen/m14"/>
 
                     <EditText
                             android:id="@+id/yaotunbi_edit"
-                            android:layout_width="50dp"
+                            android:layout_width="@dimen/m50"
                             android:layout_height="wrap_content"
                             android:hint="0"
                             android:textColorHint="@color/top_heiziti"
-                            android:paddingLeft="5dp"
+                            android:paddingLeft="@dimen/m5"
                             android:enabled="true"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:maxLength="4"
                             android:digits="1234567890."
                             android:inputType="number|numberDecimal"
@@ -251,7 +251,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="腰臀比"
-                            android:textSize="10dp"
+                            android:textSize="@dimen/m10"
                             android:gravity="center"
                             android:textColor="@color/color_6D7278"
                             />
@@ -267,21 +267,21 @@
                         android:layout_height="wrap_content">
 
                     <ImageView
-                            android:layout_width="4dp"
+                            android:layout_width="@dimen/m4"
                             android:src="@drawable/fenge_icon"
-                            android:layout_height="14dp"/>
+                            android:layout_height="@dimen/m14"/>
 
                     <EditText
                             android:id="@+id/daixie_edit"
-                            android:layout_width="50dp"
+                            android:layout_width="@dimen/m50"
                             android:layout_height="wrap_content"
                             android:background="@null"
                             android:hint="0"
                             android:textColorHint="@color/top_heiziti"
-                            android:paddingLeft="5dp"
+                            android:paddingLeft="@dimen/m5"
                             android:enabled="true"
                             android:maxLength="4"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/sp15"
                             android:digits="1234567890."
                             android:inputType="number|numberDecimal"
                             android:gravity="left|center_vertical"
@@ -293,7 +293,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="基础代谢 kcal"
-                            android:textSize="10dp"
+                            android:textSize="@dimen/m10"
                             android:gravity="center"
                             android:textColor="@color/color_6D7278"
                             />

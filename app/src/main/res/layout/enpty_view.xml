@@ -6,8 +6,8 @@
         android:gravity="center">
     <ImageView
             android:id="@+id/iv_empty_view"
-            android:layout_width="212dp"
-            android:layout_height="176dp"
+            android:layout_width="@dimen/m212"
+            android:layout_height="@dimen/m176"
             android:src="@drawable/no_data"/>
     <TextView
             android:id="@+id/tv_empty_tips"
@@ -15,5 +15,5 @@
             android:layout_height="wrap_content"
             android:text="这里空空如也～"
             android:textColor="@color/color_6D7278"
-            android:textSize="13sp"/>
+            android:textSize="@dimen/sp13"/>
 </LinearLayout>

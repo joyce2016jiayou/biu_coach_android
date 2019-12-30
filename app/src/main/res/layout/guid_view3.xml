@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/tips_3"
                 android:layout_below="@+id/iv_2"
-                android:textSize="12sp"
+                android:textSize="@dimen/sp12"
                 android:layout_marginTop="@dimen/m10"
                 android:layout_marginLeft="@dimen/m35"
                 android:layout_marginRight="@dimen/m30"
@@ -83,14 +83,14 @@
     这里为了方便，直接写在了布局文件中-->
     <Button
             android:id="@+id/btn_login"
-            android:layout_width="160dp"
-            android:layout_height="42dp"
+            android:layout_width="@dimen/m160"
+            android:layout_height="@dimen/m42"
             android:layout_gravity="bottom|center_horizontal"
             android:layout_marginBottom="@dimen/m35"
             android:background="@drawable/btn_bg"
             android:text="立刻体验"
             android:textColor="@color/btn_text_color"
-            android:textSize="18sp"
+            android:textSize="@dimen/sp18"
             android:visibility="visible"/>
 
 </FrameLayout>

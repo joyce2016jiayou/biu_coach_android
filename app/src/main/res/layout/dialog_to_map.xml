@@ -9,67 +9,67 @@
             android:background="@drawable/sex_pop_bg"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:layout_height="191dp">
+            android:layout_height="@dimen/m191">
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="跳转到地图"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="@dimen/m30"
                 android:gravity="center_horizontal"
                 android:layout_gravity="center_horizontal"
                 android:textColor="@color/top_heiziti"
-                android:textSize="15sp"
+                android:textSize="@dimen/sp15"
                 />
 
         <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
-                android:paddingLeft="43dp"
-                android:layout_marginTop="17dp"
-                android:paddingRight="43dp"
+                android:paddingLeft="@dimen/m43"
+                android:layout_marginTop="@dimen/m17"
+                android:paddingRight="@dimen/m43"
                 android:layout_height="wrap_content">
 
             <LinearLayout
                     android:id="@+id/iv_baidu"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/m0"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:layout_height="wrap_content">
 
                 <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="@dimen/m50"
+                        android:layout_height="@dimen/m50"
                         android:src="@drawable/baidu"
                         />
             </LinearLayout>
 
             <LinearLayout
                     android:id="@+id/iv_gaode"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/m0"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:layout_height="wrap_content">
 
                 <ImageView
 
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="@dimen/m50"
+                        android:layout_height="@dimen/m50"
                         android:src="@drawable/gaode"
                         />
             </LinearLayout>
 
             <LinearLayout
                     android:id="@+id/iv_qq"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/m0"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:layout_height="wrap_content">
 
                 <ImageView
 
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="@dimen/m50"
+                        android:layout_height="@dimen/m50"
                         android:src="@drawable/tencent"
                         />
             </LinearLayout>
@@ -78,8 +78,8 @@
         <LinearLayout
                 android:layout_width="match_parent"
                 android:background="@color/color_f1f1f1"
-                android:layout_marginTop="29dp"
-                android:layout_height="2dp">
+                android:layout_marginTop="@dimen/m29"
+                android:layout_height="@dimen/m2">
 
         </LinearLayout>
 
@@ -88,7 +88,7 @@
                 android:id="@+id/cancel_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
+                android:textSize="@dimen/sp20"
                 android:gravity="center"
                 android:layout_gravity="center_horizontal"
                 android:textColor="@color/btn_text_gray"

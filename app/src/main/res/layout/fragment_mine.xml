@@ -42,7 +42,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 tools:text="PONY"
-                                android:textSize="18sp"
+                                android:textSize="@dimen/sp18"
                                 android:layout_marginRight="@dimen/m10"
                                 android:textColor="@color/color_181818"/>
 
@@ -64,7 +64,7 @@
                             android:layout_marginTop="@dimen/m15"
                             tools:text="@string/tips_1"
                             android:textColor="@color/color_4A4A4A"
-                            android:textSize="12sp"/>
+                            android:textSize="@dimen/sp12"/>
 
                     <LinearLayout
                             android:layout_width="match_parent"
@@ -74,7 +74,7 @@
                             android:layout_marginBottom="@dimen/m10">
 
                         <LinearLayout
-                                android:layout_width="0dp"
+                                android:layout_width="@dimen/m0"
                                 android:layout_weight="1"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"
@@ -85,20 +85,20 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     tools:text="220h"
-                                    android:textSize="15sp"
+                                    android:textSize="@dimen/sp15"
                                     android:textColor="@color/color_181818"/>
 
                             <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/tv_service"
-                                    android:textSize="12sp"
+                                    android:textSize="@dimen/sp12"
                                     android:layout_marginTop="@dimen/m5"
                                     android:textColor="@color/color_4A4A4A"/>
                         </LinearLayout>
 
                         <LinearLayout
-                                android:layout_width="0dp"
+                                android:layout_width="@dimen/m0"
                                 android:layout_weight="1"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"
@@ -109,20 +109,20 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     tools:text="220h"
-                                    android:textSize="15sp"
+                                    android:textSize="@dimen/sp15"
                                     android:textColor="@color/color_181818"/>
 
                             <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/tv_tk"
-                                    android:textSize="12sp"
+                                    android:textSize="@dimen/sp12"
                                     android:layout_marginTop="@dimen/m5"
                                     android:textColor="@color/color_4A4A4A"/>
                         </LinearLayout>
 
                         <LinearLayout
-                                android:layout_width="0dp"
+                                android:layout_width="@dimen/m0"
                                 android:layout_weight="1"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"
@@ -133,14 +133,14 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     tools:text="220h"
-                                    android:textSize="15sp"
+                                    android:textSize="@dimen/sp15"
                                     android:textColor="@color/color_181818"/>
 
                             <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/tv_sj"
-                                    android:textSize="12sp"
+                                    android:textSize="@dimen/sp12"
                                     android:layout_marginTop="@dimen/m5"
                                     android:textColor="@color/color_4A4A4A"/>
                         </LinearLayout>
@@ -156,7 +156,7 @@
                     android:layout_marginTop="@dimen/m5"
                     android:textStyle="bold"
                     android:layout_marginLeft="@dimen/m20"
-                    android:textSize="26sp"/>
+                    android:textSize="@dimen/sp25"/>
 
             <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/iv_logo"
@@ -194,7 +194,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="我的标签"
-                            android:textSize="10sp"
+                            android:textSize="@dimen/sp10"
                             android:layout_marginTop="@dimen/m5"
                             android:textColor="@color/color_4A4A4A"/>
                 </LinearLayout>
@@ -241,7 +241,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="本月收入"
-                            android:textSize="10sp"
+                            android:textSize="@dimen/sp10"
                             android:layout_marginTop="@dimen/m5"
                             android:textColor="@color/color_4A4A4A"/>
                 </LinearLayout>
@@ -254,7 +254,7 @@
                         android:textColor="@color/color_181818"
                         android:textStyle="bold"
                         android:layout_gravity="center_vertical"
-                        android:textSize="15sp"/>
+                        android:textSize="@dimen/sp15"/>
 
                 <LinearLayout
                         android:layout_width="match_parent"
@@ -271,7 +271,7 @@
                                 android:layout_height="@dimen/m16"
                                 android:text="团"
                                 android:gravity="center"
-                                android:textSize="10sp"
+                                android:textSize="@dimen/sp10"
                                 android:background="@drawable/mine_tuan"
                                 android:textColor="@color/white"/>
                         <TextView
@@ -279,7 +279,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/color_181818"
-                                android:textSize="13sp"
+                                android:textSize="@dimen/sp13"
                                 android:layout_marginLeft="@dimen/m5"
                                 tools:text="¥1000"/>
                     </LinearLayout>
@@ -293,7 +293,7 @@
                                 android:layout_height="@dimen/m16"
                                 android:text="私"
                                 android:gravity="center"
-                                android:textSize="10sp"
+                                android:textSize="@dimen/sp10"
                                 android:background="@drawable/mine_si"
                                 android:textColor="@color/white"/>
                         <TextView
@@ -301,7 +301,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/color_181818"
-                                android:textSize="13sp"
+                                android:textSize="@dimen/sp13"
                                 android:layout_marginLeft="@dimen/m5"
                                 tools:text="¥1000"/>
                     </LinearLayout>

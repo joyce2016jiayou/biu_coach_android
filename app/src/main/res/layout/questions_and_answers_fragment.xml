@@ -17,7 +17,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:textSize="26sp"
+                android:textSize="@dimen/sp25"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:textColor="@color/top_heiziti"
@@ -44,7 +44,7 @@
             android:layout_height="@dimen/m32">
         <RelativeLayout
                 android:id="@+id/class_message_layout"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/m0"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -64,7 +64,7 @@
                         android:layout_centerVertical="true"
                         android:text="课程"
                         android:textColor="@color/color_lan"
-                        android:textSize="18sp"/>
+                        android:textSize="@dimen/sp18"/>
 
                 <LinearLayout
                         android:id="@+id/lin1"
@@ -81,7 +81,7 @@
         </RelativeLayout>
         <RelativeLayout
                 android:id="@+id/cg_message_layout"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/m0"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -100,7 +100,7 @@
                         android:layout_centerVertical="true"
                         android:text="场馆"
                         android:textColor="@color/top_heiziti"
-                        android:textSize="18sp"/>
+                        android:textSize="@dimen/sp18"/>
 
                 <LinearLayout
                         android:id="@+id/lin2"
@@ -116,7 +116,7 @@
         </RelativeLayout>
         <RelativeLayout
                 android:id="@+id/qianbao_message_layout"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/m0"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -136,7 +136,7 @@
                         android:layout_centerVertical="true"
                         android:text="钱包"
                         android:textColor="@color/top_heiziti"
-                        android:textSize="18sp"/>
+                        android:textSize="@dimen/sp18"/>
 
                 <LinearLayout
                         android:id="@+id/lin3"
@@ -151,7 +151,7 @@
         </RelativeLayout>
         <RelativeLayout
                 android:id="@+id/system_message_layout"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/m0"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -171,7 +171,7 @@
                         android:layout_centerVertical="true"
                         android:text="系统"
                         android:textColor="@color/top_heiziti"
-                        android:textSize="18sp"/>
+                        android:textSize="@dimen/sp18"/>
 
                 <LinearLayout
                         android:id="@+id/lin4"

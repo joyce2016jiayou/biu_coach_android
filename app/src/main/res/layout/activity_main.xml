@@ -8,11 +8,11 @@
             android:id="@+id/viewpager_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="48dp"/>
+            android:layout_marginBottom="@dimen/m48"/>
 
     <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="@dimen/m56"
             android:layout_alignParentBottom="true"
             android:background="@drawable/bottom_bg"
             android:orientation="horizontal">
@@ -27,8 +27,8 @@
 
             <ImageView
                     android:id="@+id/home_img"
-                    android:layout_width="30dp"
-                    android:layout_height="31dp"
+                    android:layout_width="@dimen/m30"
+                    android:layout_height="@dimen/m31"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/m6"
                     android:src="@drawable/icon_home_on"/>
@@ -37,9 +37,9 @@
                     android:id="@+id/home_name"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/home_img"
-                    android:layout_width="30dp"
+                    android:layout_width="@dimen/m30"
                     android:gravity="center"
-                    android:textSize="9sp"
+                    android:textSize="@dimen/sp9"
                     android:textColor="@color/color_181818"
                     android:text="@string/find"/>
 
@@ -58,8 +58,8 @@
 
             <ImageView
                     android:id="@+id/movie_img"
-                    android:layout_width="30dp"
-                    android:layout_height="31dp"
+                    android:layout_width="@dimen/m30"
+                    android:layout_height="@dimen/m31"
                     android:layout_marginTop="@dimen/m6"
                     android:src="@drawable/icon_discover_off"/>
 
@@ -67,19 +67,19 @@
                     android:id="@+id/movie_name"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/movie_img"
-                    android:layout_width="30dp"
+                    android:layout_width="@dimen/m30"
                     android:gravity="center"
-                    android:textSize="9sp"
+                    android:textSize="@dimen/sp9"
                     android:textColor="@color/color_4A4A4A"
                     android:text="@string/message"/>
 
 
             <LinearLayout
                     android:id="@+id/message_view"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="-10dp"
+                    android:layout_width="@dimen/m20"
+                    android:layout_height="@dimen/m20"
+                    android:layout_marginTop="@dimen/m5"
+                    android:layout_marginLeft="@dimen/m_d_10"
                     android:layout_toRightOf="@+id/movie_img"
                     android:background="@drawable/circle_bg"
                     android:visibility="gone"
@@ -92,7 +92,7 @@
                         android:text="99+"
                         android:textStyle="normal"
                         android:textColor="@color/white"
-                        android:textSize="11sp"/>
+                        android:textSize="@dimen/sp11"/>
 
             </LinearLayout>
         </RelativeLayout>
@@ -107,8 +107,8 @@
 
             <ImageView
                     android:id="@+id/mine_img"
-                    android:layout_width="30dp"
-                    android:layout_height="31dp"
+                    android:layout_width="@dimen/m30"
+                    android:layout_height="@dimen/m31"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/m6"
                     android:src="@drawable/icon_user_off"/>
@@ -118,9 +118,9 @@
                     android:textColor="@color/color_4A4A4A"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/mine_img"
-                    android:layout_width="30dp"
+                    android:layout_width="@dimen/m30"
                     android:gravity="center"
-                    android:textSize="9sp"
+                    android:textSize="@dimen/sp9"
                     android:text="@string/my_info"/>
         </RelativeLayout>
     </LinearLayout>

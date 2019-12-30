@@ -19,7 +19,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/top_heiziti"
                 android:layout_centerHorizontal="true"
-                android:textSize="18sp"
+                android:textSize="@dimen/sp18"
                 android:layout_marginTop="@dimen/m10"
                 android:text="确认关闭授课？"
                 android:textStyle="normal"
@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:text="关闭授课按钮后，除已约课程，后续您将不接受约课和场馆邀课"
                 android:textColor="#ff4a4a4a"
-                android:textSize="15sp"
+                android:textSize="@dimen/sp15"
                 />
 
         <RelativeLayout
@@ -60,7 +60,7 @@
                         android:layout_height="wrap_content"
                         android:textStyle="normal"
                         android:text="@string/tv18"
-                        android:textSize="18sp"
+                        android:textSize="@dimen/sp18"
                         android:textColor="@color/top_heiziti"
                         />
             </LinearLayout>
@@ -79,7 +79,7 @@
                         android:layout_height="wrap_content"
                         android:textStyle="normal"
                         android:text="@string/cancel"
-                        android:textSize="18sp"
+                        android:textSize="@dimen/sp18"
                         android:textColor="@color/white"
                         />
             </LinearLayout>

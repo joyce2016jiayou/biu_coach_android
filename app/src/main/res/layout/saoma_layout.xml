@@ -28,7 +28,7 @@
                     android:layout_marginTop="@dimen/m20"
                     android:layout_below="@+id/erweima_img"
                     android:textColor="@color/color_4A4A4A"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/sp12"
                     android:layout_height="wrap_content"/>
         </LinearLayout>
 
