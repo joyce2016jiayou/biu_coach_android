@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -14,8 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.qqtheme.framework.wheelview.contract.OnDateSelectedListener;
-import cn.qqtheme.framework.wheelview.entity.DateEntity;
-import cn.qqtheme.framework.wheelview.entity.TimeEntity;
+
 import com.bumptech.glide.Glide;
 import com.huantansheng.easyphotos.EasyPhotos;
 import com.huantansheng.easyphotos.models.album.entity.Photo;
@@ -51,9 +51,6 @@ import org.json.JSONObject;
 import top.zibin.luban.CompressionPredicate;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
-import cn.qqtheme.framework.wheelview.annotation.DateMode;
-import cn.qqtheme.framework.wheelview.annotation.TimeMode;
-
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -62,8 +59,10 @@ import java.util.*;
 import cn.qqtheme.framework.wheelview.contract.OnTimeSelectedListener;
 import cn.qqtheme.framework.wheelpicker.TimePicker;
 import cn.qqtheme.framework.wheelpicker.DatePicker;
-
-import static com.noplugins.keepfit.coachplatform.activity.AddZhengshuActivity.getCompressJpgFileAbsolutePath;
+import cn.qqtheme.framework.wheelview.annotation.DateMode;
+import cn.qqtheme.framework.wheelview.annotation.TimeMode;
+import cn.qqtheme.framework.wheelview.entity.DateEntity;
+import cn.qqtheme.framework.wheelview.entity.TimeEntity;
 
 
 public class AddClassItemActivity extends BaseActivity implements CCRSortableNinePhotoLayout.Delegate {
@@ -1032,6 +1031,22 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
                 // TODO 当压缩过程出现问题时调用
             }
         }).launch();
+    }
+    /**
+     * 获取保存压缩图片文件的位置
+     *
+     * @return
+     */
+    private final static String PHOTO_COMPRESS_JPG_BASEPATH = "/" + "TakePhoto" + "/CompressImgs/";
+
+    public static String getCompressJpgFileAbsolutePath() {
+        String fileBasePath = Environment.getExternalStorageDirectory().getAbsolutePath() + PHOTO_COMPRESS_JPG_BASEPATH;
+        File file = new File(fileBasePath);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+
+        return fileBasePath;
     }
 
     ImageCompressCallBack2 compressCallBack = new ImageCompressCallBack2() {
