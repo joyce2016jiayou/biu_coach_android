@@ -11,6 +11,8 @@ import androidx.multidex.MultiDex;
 import androidx.multidex.MultiDexApplication;
 import cn.jiguang.analytics.android.api.JAnalyticsInterface;
 import cn.jpush.android.api.JPushInterface;
+import cn.qqtheme.framework.logger.CqrLog;
+import cn.qqtheme.framework.logger.impl.LoggerImpl;
 import com.noplugins.keepfit.coachplatform.R;
 import com.noplugins.keepfit.coachplatform.global.AppConstants;
 import com.noplugins.keepfit.coachplatform.util.data.DateUtils;
@@ -141,7 +143,7 @@ public class MyApplication extends MultiDexApplication {
 
         //日志初始化
         Logger.addLogAdapter(new AndroidLogAdapter());
-
+        CqrLog.setLogger(new LoggerImpl());
         //初始化七牛云
         Recorder recorder = null;
         String dirPath = "/storage/emulated/0/Download";
