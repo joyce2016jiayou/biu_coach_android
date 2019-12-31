@@ -57,7 +57,9 @@ public class Network {
             return "http://testapi.noplugins.com/api/coach-service/coachuser/";
         } else if (str.equals("api2")) {
             return "http://api2.noplugins.com/api/coach-service/coachuser/";
-        } else {
+        } else if (str.equals("local")) {
+            return "http://192.168.1.228:8888/api/coach-service/coachuser/";
+        }else {
             return "http://kft.ahcomg.com/api/coach-service/coachuser/";
         }
     }
@@ -67,6 +69,8 @@ public class Network {
             return "http://testapi.noplugins.com/api/gym-service/";
         } else if (str.equals("api2")) {
             return "http://api2.noplugins.com/api/gym-service/";
+        } else if (str.equals("local")) {
+            return "http://192.168.1.228:8888/api/gym-service/";
         } else {
             return "http://kft.ahcomg.com/api/gym-service/";
         }
@@ -77,6 +81,8 @@ public class Network {
             return "http://testapi.noplugins.com/api/cust-service/custuser/";
         } else if (str.equals("api2")) {
             return "http://api2.noplugins.com/api/cust-service/custuser/";
+        } else if (str.equals("local")) {
+            return "http://192.168.1.228:8888/api/cust-service/custuser/";
         } else {
             return "http://kft.ahcomg.com/api/cust-service/custuser/";
         }

@@ -29,11 +29,22 @@
         <item>https://goss4.veer.com/creative/vcg/veer/612/veer-146092500.jpg</item>
     </string-array>
 
-
+    <string-array name="target_types">
+        <item>燃脂</item>
+        <item>塑形</item>
+        <item>减压舒缓</item>
+        <item>体态改善</item>
+    </string-array>
+    <string-array name="nandu_types">
+        <item>容易</item>
+        <item>中等</item>
+        <item>困难</item>
+    </string-array>
     <string-array name="team_class_room">
-        <item>有氧</item>
-        <item>瑜伽</item>
+        <item>有氧操房</item>
+        <item>瑜伽房</item>
         <item>单车房</item>
+        <item>公共区</item>
     </string-array>
 
     <string-array name="user_bq_type">

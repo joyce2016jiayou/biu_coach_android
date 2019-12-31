@@ -20,6 +20,7 @@ import com.noplugins.keepfit.coachplatform.base.BaseFragment
 import com.noplugins.keepfit.coachplatform.bean.manager.ManagerBean
 import com.noplugins.keepfit.coachplatform.bean.manager.ManagerTeamBean
 import com.noplugins.keepfit.coachplatform.global.AppConstants
+import com.noplugins.keepfit.coachplatform.global.PublicPopControl
 import com.noplugins.keepfit.coachplatform.util.SpUtils
 import com.noplugins.keepfit.coachplatform.util.net.Network
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
@@ -90,7 +91,9 @@ class YaoqinFragment : BaseFragment() {
                     val toInfo = Intent(activity, TeamInfoActivity::class.java)
                     val bundle = Bundle()
                     bundle.putInt("type", 2)
-                    bundle.putString("courseNum", datas[position].courseNum)
+                    bundle.putString("courseNum",datas[position].courseNum)
+                    bundle.putString("statusMsg", datas[position].statusMsg)
+                    bundle.putInt("isEdit", datas[position].isEdit)
                     bundle.putInt("status",datas[position].status)
                     toInfo.putExtras(bundle)
                     startActivity(toInfo)
@@ -100,7 +103,7 @@ class YaoqinFragment : BaseFragment() {
                 }
                 R.id.tv_jieshou -> {
                     //接受
-                    agreeCourse(position, 1, "")
+                    toJieshou(position)
                 }
             }
         }
@@ -160,6 +163,8 @@ class YaoqinFragment : BaseFragment() {
         val cancel = view.findViewById<LinearLayout>(R.id.cancel_layout)
         val sure = view.findViewById<LinearLayout>(R.id.sure_layout)
         val edit = view.findViewById<EditText>(R.id.et_content)
+        val tv1 = view.findViewById<TextView>(R.id.tv1)
+        tv1.text = "拒绝团课"
         cancel.setOnClickListener {
             popupWindow.dismiss()
         }
@@ -168,6 +173,44 @@ class YaoqinFragment : BaseFragment() {
             //去申请
             agreeCourse(position, 0, edit.text.toString())
 
+        }
+    }
+
+
+    private fun toJieshou(position: Int){
+        PublicPopControl.alert_dialog_center(activity) { view, popup ->
+            val content = view.findViewById<TextView>(R.id.pop_content)
+            val title = view.findViewById<TextView>(R.id.pop_title)
+            content.setText("接受后请准时前往场馆进行授课，确认接受团课邀请？")
+            title.setText("接受团课")
+            val sure = view.findViewById<TextView>(R.id.sure_tv)
+            sure.text = "确定接受"
+            view.findViewById<LinearLayout>(R.id.cancel_btn)
+                .setOnClickListener {
+                    popup.dismiss()
+                }
+            view.findViewById<LinearLayout>(R.id.sure_btn)
+                .setOnClickListener {  //去申请
+                    popup.dismiss()
+                    agreeCourse(position,1,"")
+                }
+        }
+    }
+
+    private fun toErrorJieshou(){
+        PublicPopControl.alert_dialog_center(activity) { view, popup ->
+            val content = view.findViewById<TextView>(R.id.pop_content)
+            val title = view.findViewById<TextView>(R.id.pop_title)
+            content.setText("2019-09-12 13:00-14:00 已有课程，暂时无法接受该邀请。")
+            title.setText("接受团课")
+            view.findViewById<LinearLayout>(R.id.cancel_btn).visibility = View.GONE
+
+            val sure = view.findViewById<TextView>(R.id.sure_tv)
+            sure.text = "好的"
+            view.findViewById<LinearLayout>(R.id.sure_btn)
+                .setOnClickListener {  //去申请
+                    popup.dismiss()
+                }
         }
     }
 

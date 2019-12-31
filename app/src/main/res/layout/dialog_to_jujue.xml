@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:gravity="center"
@@ -11,7 +12,7 @@
             android:background="@drawable/rizhi_pop_bg"
             android:layout_marginLeft="@dimen/m32"
             android:layout_marginRight="@dimen/m32"
-            android:layout_height="@dimen/m280">
+            android:layout_height="@dimen/m286">
         <TextView
                 android:id="@+id/tv1"
                 android:layout_width="wrap_content"
@@ -19,39 +20,54 @@
                 android:textColor="@color/color_4A4A4A"
                 android:textSize="@dimen/sp18"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/m15"
+                android:layout_marginTop="@dimen/m10"
                 android:layout_gravity="center_horizontal"
                 android:text="拒绝邀请"
+                />
+
+        <TextView
+                android:id="@+id/tv_tips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_4A4A4A"
+                android:textSize="@dimen/sp15"
+                android:layout_below="@+id/tv1"
+                android:layout_marginLeft="@dimen/m30"
+                android:layout_marginTop="@dimen/m8"
+                android:layout_gravity="center_horizontal"
+                android:text="拒绝原因"
                 />
 
         <FrameLayout
                 android:id="@+id/tv_content"
                 android:layout_width="match_parent"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@+id/tv1"
+                android:layout_below="@+id/tv_tips"
                 android:layout_marginLeft="@dimen/m20"
                 android:layout_marginRight="@dimen/m20"
-                android:layout_height="wrap_content">
-            <EditText
-                    android:id="@+id/et_content"
-
+                android:layout_height="@dimen/m125">
+            <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-
-                    android:layout_height="@dimen/m165"
-                    android:textColor="@color/color_4A4A4A"
-                    android:textSize="@dimen/sp15"
-                    android:layout_marginTop="@dimen/m10"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    app:counterEnabled="true"
+                    android:layout_marginTop="@dimen/m5"
                     android:background="@drawable/button_shape"
-                    android:gravity="left|top"
-                    android:hint="请填写拒绝原因"/>
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:textColor="@color/color_929292"
-                    android:textSize="@dimen/sp12"
-                    android:text="50字"
-                    android:layout_gravity="right|bottom"
-                    android:layout_margin="@dimen/m10"
-                    android:layout_height="wrap_content"/>
+                    app:counterMaxLength="30">
+
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/m80"
+                        android:textSize="@dimen/sp15"
+                        android:textColor="@color/color_4A4A4A"
+                        android:maxLength="30"
+                        android:background="@null"
+                        android:layout_marginLeft="@dimen/m5"
+                        android:layout_marginRight="@dimen/m5"
+                        android:hint="请填写拒绝原因"
+                        android:gravity="top|start"/>
+            </com.google.android.material.textfield.TextInputLayout>
         </FrameLayout>
 
 
@@ -66,13 +82,13 @@
 
 
             <LinearLayout
-                    android:id="@+id/sure_layout"
+                    android:id="@+id/cancel_layout"
                     android:layout_weight="1"
                     android:layout_width="@dimen/m0"
                     android:orientation="vertical"
                     android:layout_marginRight="@dimen/m15"
                     android:gravity="center"
-                    android:background="@drawable/sure_bg"
+                    android:background="@drawable/shape_btn_bg_oldgray"
                     android:layout_height="@dimen/m39"
                     android:layout_marginLeft="@dimen/m0"
                     android:layout_marginStart="@dimen/m0">
@@ -81,13 +97,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textStyle="normal"
-                        android:text="@string/tv18"
+                        android:text="@string/cancel"
                         android:textSize="@dimen/sp18"
-                        android:textColor="@color/top_heiziti"
+                        android:textColor="@color/white"
                         />
             </LinearLayout>
             <LinearLayout
-                    android:id="@+id/cancel_layout"
+                    android:id="@+id/sure_layout"
                     android:layout_weight="1"
                     android:layout_width="@dimen/m0"
                     android:orientation="vertical"
@@ -100,7 +116,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textStyle="normal"
-                        android:text="@string/cancel"
+                        android:text="@string/tv18"
                         android:textSize="@dimen/sp18"
                         android:textColor="@color/white"
                         />
