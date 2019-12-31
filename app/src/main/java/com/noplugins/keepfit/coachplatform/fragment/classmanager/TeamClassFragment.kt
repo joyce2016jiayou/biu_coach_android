@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
 import com.noplugins.keepfit.coachplatform.R
+import com.noplugins.keepfit.coachplatform.activity.AddClassItemActivity
 import com.noplugins.keepfit.coachplatform.activity.manager.TeacherAddOrEditActivity
 import com.noplugins.keepfit.coachplatform.adapter.ManagerTeacherAdapter
 import com.noplugins.keepfit.coachplatform.adapter.ManagerTeamClassAdapter
@@ -23,7 +24,7 @@ import com.noplugins.keepfit.coachplatform.util.BaseUtils
 import kotlinx.android.synthetic.main.fragment_manager_team.*
 import java.util.ArrayList
 
-class TeamClassFragment:BaseFragment() {
+class TeamClassFragment : BaseFragment() {
     companion object {
         fun newInstance(title: String): TeamClassFragment {
             val fragment = TeamClassFragment()
@@ -54,36 +55,42 @@ class TeamClassFragment:BaseFragment() {
     }
 
 
-    private fun rbOnClick(){
+    private fun rbOnClick() {
         rb_1.setOnClickListener {
-            Log.d("单选","点击了1")
+            Log.d("单选", "点击了1")
             view_pager.currentItem = 0
         }
         rb_2.setOnClickListener {
-            Log.d("单选","点击了2")
+            Log.d("单选", "点击了2")
             view_pager.currentItem = 1
         }
         rb_3.setOnClickListener {
-            Log.d("单选","点击了3")
+            Log.d("单选", "点击了3")
             view_pager.currentItem = 2
         }
         rb_4.setOnClickListener {
-            Log.d("单选","点击了4")
+            Log.d("单选", "点击了4")
             view_pager.currentItem = 3
         }
         iv_team_add.setOnClickListener {
             //如果登记没完成 则不能添加
-            if(BaseUtils.isFastClick()){
-                val intent = Intent(activity, TeacherAddOrEditActivity::class.java)
-                val bundle = Bundle()
-                bundle.putString("type","add")
-                intent.putExtras(bundle)
+            if (BaseUtils.isFastClick()) {
+//                val intent = Intent(activity, TeacherAddOrEditActivity::class.java)
+//                val bundle = Bundle()
+//                bundle.putString("type","add")
+//                intent.putExtras(bundle)
+//                startActivity(intent)
+                val intent = Intent(activity, AddClassItemActivity::class.java)
+//                val bundle = Bundle()
+//                bundle.putString("type", "add")
+//                intent.putExtras(bundle)
                 startActivity(intent)
+
             }
         }
     }
 
-    private fun initFragment(){
+    private fun initFragment() {
         mFragments.add(ShangjiaFragment.newInstance("已上架"))
         mFragments.add(ShenqinFragment.newInstance("已上架"))
         mFragments.add(YaoqinFragment.newInstance("邀请中"))
@@ -107,11 +114,11 @@ class TeamClassFragment:BaseFragment() {
     }
 
     private fun setTabTextColorAndImageView(position: Int) {
-        when(position){
-            0 ->rb_1.isChecked = true
-            1 ->rb_2.isChecked = true
-            2 ->rb_3.isChecked = true
-            3 ->rb_4.isChecked = true
+        when (position) {
+            0 -> rb_1.isChecked = true
+            1 -> rb_2.isChecked = true
+            2 -> rb_3.isChecked = true
+            3 -> rb_4.isChecked = true
         }
     }
 

@@ -468,14 +468,7 @@ public interface MyService {
     @POST("addClass")
     Observable<Bean<AddClassEntity>> add_class(@Body RequestBody map);
 
-    /**
-     * 获取首页类型
-     *
-     * @return
-     */
-    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
-    @POST("searchDict")
-    Observable<Bean<List<DictionaryeBean>>> get_types(@Body RequestBody json);
+
 
     /**
      * 获取首页数据

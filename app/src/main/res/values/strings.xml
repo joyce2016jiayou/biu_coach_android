@@ -43,7 +43,7 @@
     <string name="edit_hint31">请输入旧密码</string>
     <string name="edit_hint32">请输入新密码</string>
     <string name="edit_hint33">请再次确认密码</string>
-    <string name="edit_hint21">请输入课程名称</string>
+    <string name="edit_hint21">单行输入</string>
     <string name="edit_hint11">详细的课程简介能够吸引更多人来锻炼哦～</string>
     <string name="edit_hint12">让用户知道他/她是否适合这项运动，能够减轻你的工作量哦～</string>
     <string name="edit_hint25">锻炼也要保证安全哦～</string>
@@ -221,6 +221,8 @@
     <string name="tv180">剪裁</string>
     <string name="tv185">图片上传失败~</string>
     <string name="tv186">确定退出创建团课吗？信息将不会保留</string>
+    <string name="tv187">去申请</string>
+    <string name="tv188">新增团课详情</string>
 
 
 

@@ -122,7 +122,7 @@
                         android:layout_marginLeft="@dimen/m10"
                         android:layout_weight="1"
                         android:background="@drawable/edit_bg1"
-                        android:hint="0"
+                        android:hint="40"
                         android:inputType="numberDecimal"
                         android:maxLength="15"
                         android:paddingLeft="@dimen/m20"
@@ -396,7 +396,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/tv176"
                         android:textColor="@color/top_heiziti"
-                        android:textSize="@dimen/sp15" />
+                        android:textSize="@dimen/sp15"/>
 
                 <RelativeLayout
                         android:id="@+id/select_xunhuan_type_btn"
@@ -418,7 +418,7 @@
                             android:singleLine="true"
                             android:textColor="@color/top_heiziti"
                             android:textColorHint="@color/color_9B9B9B"
-                            android:textSize="@dimen/sp15" />
+                            android:textSize="@dimen/sp15"/>
 
                     <ImageView
                             android:layout_width="@dimen/m20"
@@ -426,7 +426,7 @@
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:layout_marginRight="@dimen/m20"
-                            android:src="@drawable/icon_xiala" />
+                            android:src="@drawable/icon_xiala"/>
 
                 </RelativeLayout>
             </LinearLayout>

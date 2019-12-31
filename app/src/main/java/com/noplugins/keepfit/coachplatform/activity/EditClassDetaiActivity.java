@@ -26,10 +26,14 @@ public class EditClassDetaiActivity extends BaseActivity {
     TextView number_tv;
     @BindView(R.id.title_tv)
     TextView title_tv;
-
+    @BindView(R.id.title_tv_top)
+    TextView title_tv_top;
     String type = "";
     String infoType = "";
     int input_max_umber = 0;
+    String class_content = "";
+    String class_shihe_renqun = "";
+    String class_zhuyi_shixiang = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +43,17 @@ public class EditClassDetaiActivity extends BaseActivity {
     @Override
     public void initBundle(Bundle parms) {
         type = getIntent().getStringExtra("type");
-        if (getIntent().getStringExtra("infoType")!=null){
+        if (getIntent().getStringExtra("infoType") != null) {
             infoType = getIntent().getStringExtra("infoType");
+        }
+        if (getIntent().getStringExtra("class_content") != null) {
+            class_content = getIntent().getStringExtra("class_content");
+        }
+        if (getIntent().getStringExtra("class_shihe_renqun") != null) {
+            class_shihe_renqun = getIntent().getStringExtra("class_shihe_renqun");
+        }
+        if (getIntent().getStringExtra("class_zhuyi_shixiang") != null) {
+            class_zhuyi_shixiang = getIntent().getStringExtra("class_zhuyi_shixiang");
         }
 
     }
@@ -55,16 +68,35 @@ public class EditClassDetaiActivity extends BaseActivity {
     @Override
     public void doBusiness(Context mContext) {
         if (type.equals("class_content")) {//课程内容
-            title_tv.setText(getResources().getText(R.string.tv74));
+            title_tv.setText(getResources().getText(R.string.class_jieshao));
+            title_tv_top.setText(getResources().getText(R.string.edit_hint11));
             input_max_umber = 300;
-
+            if (!TextUtils.isEmpty(class_content)) {
+                edit_tv.setText(class_content);
+                number_tv.setText(class_content.length() + "/" + input_max_umber);
+            } else {
+                number_tv.setText("0/" + input_max_umber);
+            }
         } else if (type.equals("shihe_renqun")) {//适合人群
-            title_tv.setText(getResources().getText(R.string.tv75));
+            title_tv.setText(getResources().getText(R.string.class_shihe));
+            title_tv_top.setText(getResources().getText(R.string.edit_hint12));
             input_max_umber = 150;
-
+            if (!TextUtils.isEmpty(class_shihe_renqun)) {
+                edit_tv.setText(class_shihe_renqun);
+                number_tv.setText(class_shihe_renqun.length() + "/" + input_max_umber);
+            } else {
+                number_tv.setText("0/" + input_max_umber);
+            }
         } else if (type.equals("zhuyi_shixiang")) {//注意事项
-            title_tv.setText(getResources().getText(R.string.tv76));
+            title_tv.setText(getResources().getText(R.string.class_zhuyi));
+            title_tv_top.setText(getResources().getText(R.string.edit_hint25));
             input_max_umber = 300;
+            if (!TextUtils.isEmpty(class_zhuyi_shixiang)) {
+                edit_tv.setText(class_zhuyi_shixiang);
+                number_tv.setText(class_zhuyi_shixiang.length() + "/" + input_max_umber);
+            } else {
+                number_tv.setText("0/" + input_max_umber);
+            }
         }
         edit_tv.setMaxEms(input_max_umber);
 
@@ -79,7 +111,7 @@ public class EditClassDetaiActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 if (!TextUtils.isEmpty(edit_tv.getText())) {
-                    if (infoType.equals("edit")){
+                    if (infoType.equals("edit")) {
                         //
 //                        if (type.equals("class_content")) {//课程内容
 //                            ClassItemEditActivity.Companion.setClass_jianjie_tv_edit(edit_tv.getText().toString());
@@ -92,7 +124,7 @@ public class EditClassDetaiActivity extends BaseActivity {
 //                            ClassItemEditActivity.Companion.setZhuyi_shixiang_tv_edit(edit_tv.getText().toString());
 //
 //                        }
-                    } else  {
+                    } else {
                         if (type.equals("class_content")) {//课程内容
                             AddClassItemActivity.class_jianjie_tv = edit_tv.getText().toString();
 

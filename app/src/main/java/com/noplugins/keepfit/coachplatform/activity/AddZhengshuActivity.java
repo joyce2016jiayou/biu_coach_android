@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.*;
 import android.os.Bundle;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
@@ -18,6 +20,7 @@ import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.huantansheng.easyphotos.EasyPhotos;
 import com.noplugins.keepfit.coachplatform.R;
+import com.noplugins.keepfit.coachplatform.adapter.SelectTypeAdapter;
 import com.noplugins.keepfit.coachplatform.adapter.TypeAdapter;
 import com.noplugins.keepfit.coachplatform.base.BaseActivity;
 import com.noplugins.keepfit.coachplatform.base.MyApplication;
@@ -28,12 +31,12 @@ import com.noplugins.keepfit.coachplatform.global.AppConstants;
 import com.noplugins.keepfit.coachplatform.util.GlideEngine;
 import com.noplugins.keepfit.coachplatform.util.MessageEvent;
 import com.noplugins.keepfit.coachplatform.util.data.DateHelper;
-import com.noplugins.keepfit.coachplatform.util.data.FileSizeUtil;
 import com.noplugins.keepfit.coachplatform.util.net.Network;
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean;
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber;
 import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener;
 import com.noplugins.keepfit.coachplatform.util.screen.KeyboardUtils;
+import com.noplugins.keepfit.coachplatform.util.screen.ScreenUtilsHelper;
 import com.noplugins.keepfit.coachplatform.util.ui.ProgressUtil;
 import com.noplugins.keepfit.coachplatform.util.ui.jiugongge.CCRSortableNinePhotoLayout;
 import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow;
@@ -244,7 +247,7 @@ public class AddZhengshuActivity extends BaseActivity {
         int month = Integer.valueOf(DateHelper.getNowMonth());
         int date = Integer.valueOf(DateHelper.getNowDay());
         int year = Integer.valueOf(DateHelper.getNowYear());
-        endDate.set(year, month-1, date);
+        endDate.set(year, month - 1, date);
         //时间选择器 ，自定义布局
         pvCustomTime = new TimePickerBuilder(this, new OnTimeSelectListener() {
             @Override
@@ -335,14 +338,16 @@ public class AddZhengshuActivity extends BaseActivity {
         strings.add("技能证书");
         strings.add("急救证书");
         strings.add("其他");
-        TypeAdapter typeAdapter = new TypeAdapter(strings, getApplicationContext());
-        ListView listView = view.findViewById(R.id.listview);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        SelectTypeAdapter typeAdapter = new SelectTypeAdapter(strings, getApplicationContext());
+        RecyclerView listView = view.findViewById(R.id.listview);
+        listView.setLayoutManager(linearLayoutManager);
         listView.setAdapter(typeAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        typeAdapter.setOnItemClickListener(new SelectTypeAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                zhengshu_type_tv.setText(strings.get(i));
-                select_zhengshu_type_number = i + 1;
+            public void onItemClick(View view, int position) {
+                zhengshu_type_tv.setText(strings.get(position));
+                select_zhengshu_type_number = position + 1;
                 //设置选择证书类型
                 popupWindow.dismiss();
             }
@@ -354,7 +359,6 @@ public class AddZhengshuActivity extends BaseActivity {
 
         } else {
             //Log.e("是否显示","影藏");
-
         }
 
 

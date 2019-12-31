@@ -9,35 +9,37 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.*;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.qqtheme.framework.wheelview.contract.OnDateSelectedListener;
+import cn.qqtheme.framework.wheelview.entity.DateEntity;
+import cn.qqtheme.framework.wheelview.entity.TimeEntity;
 import com.bumptech.glide.Glide;
 import com.huantansheng.easyphotos.EasyPhotos;
 import com.huantansheng.easyphotos.models.album.entity.Photo;
 import com.lxj.xpopup.core.BasePopupView;
 import com.noplugins.keepfit.coachplatform.R;
+import com.noplugins.keepfit.coachplatform.adapter.SelectTypeAdapter;
 import com.noplugins.keepfit.coachplatform.adapter.TypeAdapter;
 import com.noplugins.keepfit.coachplatform.base.BaseActivity;
 import com.noplugins.keepfit.coachplatform.base.MyApplication;
 import com.noplugins.keepfit.coachplatform.bean.*;
-import com.noplugins.keepfit.coachplatform.callback.ImageCompressCallBack;
 import com.noplugins.keepfit.coachplatform.callback.ImageCompressCallBack2;
 import com.noplugins.keepfit.coachplatform.callback.PopViewCallBack;
 import com.noplugins.keepfit.coachplatform.global.AppConstants;
 import com.noplugins.keepfit.coachplatform.global.PublicPopControl;
 import com.noplugins.keepfit.coachplatform.util.GlideEngine;
-import com.noplugins.keepfit.coachplatform.util.SpUtils;
 import com.noplugins.keepfit.coachplatform.util.TimeCheckUtil;
-import com.noplugins.keepfit.coachplatform.util.cropimg.ClipImageActivity;
 import com.noplugins.keepfit.coachplatform.util.cropimg.FileUtil;
 import com.noplugins.keepfit.coachplatform.util.net.Network;
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean;
-import com.noplugins.keepfit.coachplatform.util.net.progress.GsonSubscriberOnNextListener;
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber;
-import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriberNew;
 import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener;
+import com.noplugins.keepfit.coachplatform.util.screen.ScreenUtilsHelper;
 import com.noplugins.keepfit.coachplatform.util.ui.ProgressUtil;
+import com.noplugins.keepfit.coachplatform.util.ui.cropimg.ClipImageActivity;
 import com.noplugins.keepfit.coachplatform.util.ui.jiugongge.CCRSortableNinePhotoLayout;
 import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow;
 import com.othershe.calendarview.utils.CalendarUtil;
@@ -49,11 +51,17 @@ import org.json.JSONObject;
 import top.zibin.luban.CompressionPredicate;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
+import cn.qqtheme.framework.wheelview.annotation.DateMode;
+import cn.qqtheme.framework.wheelview.annotation.TimeMode;
 
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import cn.qqtheme.framework.wheelview.contract.OnTimeSelectedListener;
+import cn.qqtheme.framework.wheelpicker.TimePicker;
+import cn.qqtheme.framework.wheelpicker.DatePicker;
 
 import static com.noplugins.keepfit.coachplatform.activity.AddZhengshuActivity.getCompressJpgFileAbsolutePath;
 
@@ -239,6 +247,9 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
             public void onClick(View view) {
                 Intent intent = new Intent(AddClassItemActivity.this, EditClassDetaiActivity.class);
                 intent.putExtra("type", "class_content");
+                if (!TextUtils.isEmpty(edit_class_jieshao.getText())) {
+                    intent.putExtra("class_content", edit_class_jieshao.getText().toString());
+                }
                 startActivity(intent);
             }
         });
@@ -249,6 +260,9 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
             public void onClick(View view) {
                 Intent intent = new Intent(AddClassItemActivity.this, EditClassDetaiActivity.class);
                 intent.putExtra("type", "shihe_renqun");
+                if (!TextUtils.isEmpty(edit_shihe_renqun.getText())) {
+                    intent.putExtra("class_shihe_renqun", edit_shihe_renqun.getText().toString());
+                }
                 startActivity(intent);
             }
         });
@@ -258,6 +272,9 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
             public void onClick(View view) {
                 Intent intent = new Intent(AddClassItemActivity.this, EditClassDetaiActivity.class);
                 intent.putExtra("type", "zhuyi_shixiang");
+                if (!TextUtils.isEmpty(edit_zhuyi_shixiang.getText())) {
+                    intent.putExtra("class_zhuyi_shixiang", edit_zhuyi_shixiang.getText().toString());
+                }
                 startActivity(intent);
             }
         });
@@ -308,7 +325,7 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
             @Override
             public void onClick(View view) {
                 EasyPhotos.createAlbum(AddClassItemActivity.this, true, GlideEngine.getInstance())
-                        .setFileProviderAuthority("com.noplugins.keepfit.android.fileprovider")
+                        .setFileProviderAuthority("com.noplugins.keepfit.coachplatform.fileprovider")
                         .setPuzzleMenu(false)
                         .setCount(1)
                         .setOriginalMenu(false, true, null)
@@ -420,13 +437,18 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
         for (int i = 0; i < tuanke_types.size(); i++) {
             strings.add(tuanke_types.get(i).getName());
         }
-        TypeAdapter typeAdapter = new TypeAdapter(strings, getApplicationContext());
-        ListView listView = view.findViewById(R.id.listview);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        SelectTypeAdapter typeAdapter = new SelectTypeAdapter(strings, getApplicationContext());
+        RecyclerView listView = view.findViewById(R.id.listview);
+        listView.setLayoutManager(linearLayoutManager);
         listView.setAdapter(typeAdapter);
-        listView.setOnItemClickListener((adapterView, view1, i, l) -> {
-            select_tuanke_type_tv.setText(strings.get(i));
-            select_class_type = tuanke_types.get(i).getValue();
-            popupWindow.dismiss();
+        typeAdapter.setOnItemClickListener(new SelectTypeAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                select_tuanke_type_tv.setText(strings.get(position));
+                select_class_type = tuanke_types.get(position).getValue();
+                popupWindow.dismiss();
+            }
         });
     }
 
@@ -445,13 +467,18 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
         for (int i = 0; i < class_difficultys.size(); i++) {
             strings.add(class_difficultys.get(i).getName());
         }
-        TypeAdapter typeAdapter = new TypeAdapter(strings, getApplicationContext());
-        ListView listView = view.findViewById(R.id.listview);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        SelectTypeAdapter typeAdapter = new SelectTypeAdapter(strings, getApplicationContext());
+        RecyclerView listView = view.findViewById(R.id.listview);
+        listView.setLayoutManager(linearLayoutManager);
         listView.setAdapter(typeAdapter);
-        listView.setOnItemClickListener((adapterView, view1, i, l) -> {
-            select_class_difficulty_tv.setText(strings.get(i));
-            select_nandu_type = class_difficultys.get(i).getValue();
-            popupWindow.dismiss();
+        typeAdapter.setOnItemClickListener(new SelectTypeAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                select_class_difficulty_tv.setText(strings.get(position));
+                select_nandu_type = class_difficultys.get(position).getValue();
+                popupWindow.dismiss();
+            }
         });
     }
 
@@ -471,13 +498,18 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
         for (int i = 0; i < tatget_types.size(); i++) {
             strings.add(tatget_types.get(i).getName());
         }
-        TypeAdapter typeAdapter = new TypeAdapter(strings, getApplicationContext());
-        ListView listView = view.findViewById(R.id.listview);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        SelectTypeAdapter typeAdapter = new SelectTypeAdapter(strings, getApplicationContext());
+        RecyclerView listView = view.findViewById(R.id.listview);
+        listView.setLayoutManager(linearLayoutManager);
         listView.setAdapter(typeAdapter);
-        listView.setOnItemClickListener((adapterView, view1, i, l) -> {
-            select_class_target_tv.setText(strings.get(i));
-            select_target_type = tatget_types.get(i).getValue();
-            popupWindow.dismiss();
+        typeAdapter.setOnItemClickListener(new SelectTypeAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                select_class_target_tv.setText(strings.get(position));
+                select_target_type = tatget_types.get(position).getValue();
+                popupWindow.dismiss();
+            }
         });
     }
 
@@ -494,13 +526,18 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
         View view = popupWindow.getContentView();
         List<String> strings = new ArrayList<>();
         strings.add("单次");
-        TypeAdapter typeAdapter = new TypeAdapter(strings, getApplicationContext());
-        ListView listView = view.findViewById(R.id.listview);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        SelectTypeAdapter typeAdapter = new SelectTypeAdapter(strings, getApplicationContext());
+        RecyclerView listView = view.findViewById(R.id.listview);
+        listView.setLayoutManager(linearLayoutManager);
         listView.setAdapter(typeAdapter);
-        listView.setOnItemClickListener((adapterView, view1, i, l) -> {
-            select_xunhuan_type_tv.setText(strings.get(i));
-            select_xunhuan_type = strings.get(i);
-            popupWindow.dismiss();
+        typeAdapter.setOnItemClickListener(new SelectTypeAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                select_xunhuan_type_tv.setText(strings.get(position));
+                select_xunhuan_type = strings.get(position);
+                popupWindow.dismiss();
+            }
         });
     }
 
@@ -712,61 +749,61 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
     }
 
     private void select_date() {
-//        DateEntity today = DateEntity.to3day();
-//        datePicker = new DatePicker(this, DateMode.YEAR_MONTH_DAY);
-//        datePicker.setRange(today, DateEntity.to30day());
-//        datePicker.setDefaultValue(today);
-//        datePicker.showAtBottom();
-//        datePicker.setOnDateSelectedListener(new OnDateSelectedListener() {
-//            @Override
-//            public void onItemSelected(int year, int month, int day) {
-//                year_tv.setText(String.valueOf(year));
-//                if (month <= 9) {
-//                    month_tv.setText("0" + month);
-//                } else {
-//                    month_tv.setText(String.valueOf(month));
-//                }
-//                if (day <= 9) {
-//                    date_tv.setText("0" + day);
-//                } else {
-//                    date_tv.setText(String.valueOf(day));
-//
-//                }
-//            }
-//        });
+        DateEntity today = DateEntity.to3day();
+        datePicker = new DatePicker(this, DateMode.YEAR_MONTH_DAY);
+        datePicker.setRange(today, DateEntity.to30day());
+        datePicker.setDefaultValue(today);
+        datePicker.showAtBottom();
+        datePicker.setOnDateSelectedListener(new OnDateSelectedListener() {
+            @Override
+            public void onItemSelected(int year, int month, int day) {
+                year_tv.setText(String.valueOf(year));
+                if (month <= 9) {
+                    month_tv.setText("0" + month);
+                } else {
+                    month_tv.setText(String.valueOf(month));
+                }
+                if (day <= 9) {
+                    date_tv.setText("0" + day);
+                } else {
+                    date_tv.setText(String.valueOf(day));
+
+                }
+            }
+        });
     }
 
     private void time_check(TextView textView) {
-//        picker = new TimePicker(this, TimeMode.HOUR_24);
-//        Calendar calendar = Calendar.getInstance();
-//        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-//        int minute = calendar.get(Calendar.MINUTE);
-//        picker.setDefaultValue(new TimeEntity(hour, minute));
-//        picker.showAtBottom();
-//        picker.setOnTimeSelectedListener(new OnTimeSelectedListener() {
-//            @Override
-//            public void onItemSelected(int hour, int minute, int second) {
-//
-//                if (minute <= 9) {
-//                    textView.setText(hour + ":0" + minute);
-//                } else {
-//                    textView.setText(hour + ":" + minute);
-//                }
-//
-//                if (!TextUtils.isEmpty(time1_edit.getText()) && !TextUtils.isEmpty(time2_edit.getText())) {
-//                    //判断结束时候是否大于当前时间
-//                    if (!calculate_time(time1_edit, time2_edit)) {//判断时间是否正确
-//                        return;
-//                    } else {
-//                        String start_time = "2019/01/01 " + time1_edit.getText().toString();
-//                        String end_time = "2019/01/01 " + time2_edit.getText().toString();
-//                        //Log.e("接口少房间数量", start_time + "\n" + end_time);
-//                        //Log.e("计算出来的时间", getTimeExpend(start_time, end_time));
-//                        jisuan_time_tv.setText(getTimeExpend(start_time, end_time));
-//                    }
-//                }
-//            }
-//        });
+        picker = new TimePicker(this, TimeMode.HOUR_24);
+        Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+        picker.setDefaultValue(new TimeEntity(hour, minute));
+        picker.showAtBottom();
+        picker.setOnTimeSelectedListener(new OnTimeSelectedListener() {
+            @Override
+            public void onItemSelected(int hour, int minute, int second) {
+
+                if (minute <= 9) {
+                    textView.setText(hour + ":0" + minute);
+                } else {
+                    textView.setText(hour + ":" + minute);
+                }
+
+                if (!TextUtils.isEmpty(time1_edit.getText()) && !TextUtils.isEmpty(time2_edit.getText())) {
+                    //判断结束时候是否大于当前时间
+                    if (!calculate_time(time1_edit, time2_edit)) {//判断时间是否正确
+                        return;
+                    } else {
+                        String start_time = "2019/01/01 " + time1_edit.getText().toString();
+                        String end_time = "2019/01/01 " + time2_edit.getText().toString();
+                        //Log.e("接口少房间数量", start_time + "\n" + end_time);
+                        //Log.e("计算出来的时间", getTimeExpend(start_time, end_time));
+                        jisuan_time_tv.setText(getTimeExpend(start_time, end_time));
+                    }
+                }
+            }
+        });
     }
 
     private String getTimeExpend(String startTime, String endTime) {
@@ -894,7 +931,7 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
         } else {
             max_num = 9 - AppConstants.ADD_CLASS_SELECT_IMAGES_SIZE;
             EasyPhotos.createAlbum(this, true, GlideEngine.getInstance())
-                    .setFileProviderAuthority("com.noplugins.keepfit.android.fileprovider")
+                    .setFileProviderAuthority("com.noplugins.keepfit.coachplatform.fileprovider")
                     .setPuzzleMenu(false)
                     .setCount(max_num)
                     .setOriginalMenu(false, true, null)

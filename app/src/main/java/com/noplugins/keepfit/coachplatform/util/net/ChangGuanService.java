@@ -47,5 +47,12 @@ public interface ChangGuanService {
     @POST("findAreaPlace")
     Observable<Bean<List<ClassTypeEntity>>> get_class_type(@Body RequestBody json);
 
-
+    /**
+     * 获取首页类型
+     *
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("searchDict")
+    Observable<Bean<List<DictionaryeBean>>> get_types(@Body RequestBody json);
 }

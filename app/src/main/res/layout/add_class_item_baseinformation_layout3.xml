@@ -70,7 +70,7 @@
                 android:layout_marginLeft="@dimen/m20"
                 android:layout_marginTop="@dimen/m10"
                 android:layout_marginBottom="@dimen/m10"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -87,7 +87,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/tv173"
+                            android:text="@string/team_class_img"
                             android:textColor="@color/top_heiziti"
                             android:textSize="@dimen/sp15" />
 
@@ -96,29 +96,29 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/m5"
                             android:text="("
-                            android:textColor="@color/color_9B9B9B"
+                            android:textColor="@color/top_heiziti"
                             android:textSize="@dimen/sp13" />
 
                         <TextView
                             android:id="@+id/select_numbers_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/tv31"
-                            android:textColor="@color/color_9B9B9B"
+                            android:text="0/9"
+                            android:textColor="@color/top_heiziti"
                             android:textSize="@dimen/sp13" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text=")"
-                            android:textColor="@color/color_9B9B9B"
+                            android:textColor="@color/top_heiziti"
                             android:textSize="@dimen/sp13" />
 
                     </LinearLayout>
 
                 </LinearLayout>
 
-                <com.noplugins.keepfit.android.util.ui.jiugongge.CCRSortableNinePhotoLayout
+                <com.noplugins.keepfit.coachplatform.util.ui.jiugongge.CCRSortableNinePhotoLayout
                     android:id="@+id/snpl_moment_add_photos"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -181,8 +181,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/tv175"
-                        android:textColor="#ff22243d"
+                        android:text="@string/tv187"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/sp13" />
 
                 </LinearLayout>

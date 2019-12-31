@@ -74,6 +74,8 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:usesCleartextTraffic="true"
             tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".activity.EditClassDetaiActivity" />
+
         <activity
                 android:name=".activity.AddClassItemActivity"
                 android:hardwareAccelerated="true"

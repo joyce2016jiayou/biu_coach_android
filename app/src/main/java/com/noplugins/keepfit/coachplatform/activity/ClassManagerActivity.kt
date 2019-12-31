@@ -60,9 +60,6 @@ class ClassManagerActivity : BaseActivity() {
             }
         }
 
-        title_tv.clickWithTrigger {
-
-        }
 
     }
 
