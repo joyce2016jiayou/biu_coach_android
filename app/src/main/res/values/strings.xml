@@ -216,13 +216,14 @@
     <string name="tv174">场馆</string>
     <string name="tv175">去邀请</string>
     <string name="tv176">团课循环</string>
-    <string name="tv178">选择教练</string>
-    <string name="tv179">您还未选择教练，课程信息将会保存在邀请状态中</string>
+    <string name="tv178">选择场馆</string>
+    <string name="tv179">您还未选择场馆，课程信息将会保存在申请状态中</string>
     <string name="tv180">剪裁</string>
     <string name="tv185">图片上传失败~</string>
     <string name="tv186">确定退出创建团课吗？信息将不会保留</string>
     <string name="tv187">去申请</string>
     <string name="tv188">新增团课详情</string>
+    <string name="tv189">再看看</string>
 
 
 

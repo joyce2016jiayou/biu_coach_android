@@ -31,6 +31,7 @@ import com.noplugins.keepfit.coachplatform.callback.PopViewCallBack;
 import com.noplugins.keepfit.coachplatform.global.AppConstants;
 import com.noplugins.keepfit.coachplatform.global.PublicPopControl;
 import com.noplugins.keepfit.coachplatform.util.GlideEngine;
+import com.noplugins.keepfit.coachplatform.util.SpUtils;
 import com.noplugins.keepfit.coachplatform.util.TimeCheckUtil;
 import com.noplugins.keepfit.coachplatform.util.cropimg.FileUtil;
 import com.noplugins.keepfit.coachplatform.util.net.Network;
@@ -51,6 +52,7 @@ import org.json.JSONObject;
 import top.zibin.luban.CompressionPredicate;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
+
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -148,8 +150,6 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
     List<DictionaryeBean> tuanke_types = new ArrayList<>();
     List<DictionaryeBean> class_difficultys = new ArrayList<>();
     List<DictionaryeBean> tatget_types = new ArrayList<>();
-    String start = "";
-    String end = "";
     private String room_type = "";
     public static String class_jianjie_tv = "";
     public static String shihe_renqun_tv = "";
@@ -200,8 +200,6 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
         getToken();
         /**七牛云**/
 
-        //设置营业时间
-        getYinyeTime();
 
         select_time();
 
@@ -593,30 +591,6 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
                     "开始时间不能大于结束时间", Toast.LENGTH_SHORT).show();
             return false;
         }
-        int yinyeStartH = Integer.parseInt(start.split(":")[0]);
-        int yinyeStartM = Integer.parseInt(start.split(":")[1]);
-        int yinyeEndH = Integer.parseInt(end.split(":")[0]);
-        int yinyeEndM = Integer.parseInt(end.split(":")[1]);
-        if (startHour < yinyeStartH) {
-            Toast.makeText(AddClassItemActivity.this,
-                    "该时间段场馆未营业", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        if (startHour == yinyeStartH && startMin < yinyeStartM) {
-            Toast.makeText(AddClassItemActivity.this,
-                    "该时间段场馆未营业", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        if (endHour > yinyeEndH) {
-            Toast.makeText(AddClassItemActivity.this,
-                    "该时间段场馆未营业", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        if (endHour == yinyeEndH && endMin > yinyeEndM) {
-            Toast.makeText(AddClassItemActivity.this,
-                    "该时间段场馆未营业", Toast.LENGTH_SHORT).show();
-            return false;
-        }
         return true;
     }
 
@@ -782,13 +756,15 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
         picker.setOnTimeSelectedListener(new OnTimeSelectedListener() {
             @Override
             public void onItemSelected(int hour, int minute, int second) {
-
                 if (minute <= 9) {
                     textView.setText(hour + ":0" + minute);
+                    Log.e("上刊登了房价是考虑到", hour + ":0" + minute);
+
                 } else {
                     textView.setText(hour + ":" + minute);
-                }
+                    Log.e("上刊登了房价是考虑到", hour + ":" + minute);
 
+                }
                 if (!TextUtils.isEmpty(time1_edit.getText()) && !TextUtils.isEmpty(time2_edit.getText())) {
                     //判断结束时候是否大于当前时间
                     if (!calculate_time(time1_edit, time2_edit)) {//判断时间是否正确
@@ -899,28 +875,8 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
     }
 
 
-    private void getYinyeTime() {
-        Map<String, Object> params = new HashMap<>();
-        //params.put("areaNum", SpUtils.getString(getApplicationContext(), AppConstants.CHANGGUAN_NUM));
-        subscription = Network.getInstance("我的", this)
-                .myArea(params,
-                        new ProgressSubscriber<>("我的", new SubscriberOnNextListener<Bean<ChangguanBean>>() {
-                            @Override
-                            public void onNext(Bean<ChangguanBean> addClassEntityBean) {
-                                start = TimeCheckUtil.removeSecond(addClassEntityBean.getData()
-                                        .getArea().getBusinessStart());
-                                end = TimeCheckUtil.removeSecond(addClassEntityBean.getData()
-                                        .getArea().getBusinessEnd());
-                            }
-
-                            @Override
-                            public void onError(String error) {
-
-                            }
-                        }, this, false));
 
 
-    }
 
     @Override
     public void onClickAddNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view, int position, ArrayList<String> models) {
@@ -1032,6 +988,7 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
             }
         }).launch();
     }
+
     /**
      * 获取保存压缩图片文件的位置
      *
