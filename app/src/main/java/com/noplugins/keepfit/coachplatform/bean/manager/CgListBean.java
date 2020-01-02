@@ -473,4 +473,21 @@ public class CgListBean {
             this.name = name;
         }
     }
+
+
+    public static class ChangguanNumBean {
+        /**
+         * num : CUS19101136561526
+         */
+
+        private String num;
+
+        public String getNum() {
+            return num;
+        }
+
+        public void setNum(String num) {
+            this.num = num;
+        }
+    }
 }

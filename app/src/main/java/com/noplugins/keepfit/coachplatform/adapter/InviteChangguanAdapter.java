@@ -1,8 +1,10 @@
 package com.noplugins.keepfit.coachplatform.adapter;
 
 import android.view.View;
+import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.noplugins.keepfit.coachplatform.R;
@@ -17,18 +19,12 @@ public class InviteChangguanAdapter extends BaseQuickAdapter<CgListBean.AreaList
 
     @Override
     protected void convert(@NonNull BaseViewHolder helper, CgListBean.AreaListBean item) {
-        helper.setText(R.id.pingfen_tv,item.getFinalGradle()+"分");
-
-
-//        helper.setText(R.id.tv_type, "【" + item.getMessageTitle() + "】");
-//        helper.setText(R.id.tv_message_date, item.getMessageTime());
-//        helper.setText(R.id.tv_content, item.getMessageCon());
-//        if (item.getDeleted() == 1) {
-//            helper.getView(R.id.iv_red_point).setVisibility(View.VISIBLE);
-//        } else {
-//            helper.getView(R.id.iv_red_point).setVisibility(View.GONE);
-//        }
-//        helper.addOnClickListener(R.id.ll_item)
-//                .addOnClickListener(R.id.tv_look);
+        helper.setText(R.id.pingfen_tv, item.getFinalGradle() + "分");
+        Glide.with(mContext)
+                .load(item.getLogo())
+                .into((ImageView) helper.getView(R.id.iv_cg_logo));
+        helper.setText(R.id.tv_cg_name, item.getAreaName());
+        helper.setText(R.id.tv_juli, item.getDistance() + "");
+        helper.setText(R.id.tv_address, item.getAddress());
     }
 }

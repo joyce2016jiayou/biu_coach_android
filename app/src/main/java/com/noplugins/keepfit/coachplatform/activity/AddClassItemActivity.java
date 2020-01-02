@@ -154,7 +154,6 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
     List<DictionaryeBean> tuanke_types = new ArrayList<>();
     List<DictionaryeBean> class_difficultys = new ArrayList<>();
     List<DictionaryeBean> tatget_types = new ArrayList<>();
-    private String room_type = "";
     public static String class_jianjie_tv = "";
     public static String shihe_renqun_tv = "";
     public static String zhuyi_shixiang_tv = "";
@@ -415,31 +414,6 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
         });
     }
 
-    private void get_class_room_type() {
-        Map<String, Object> params = new HashMap<>();
-        //params.put("areaNum", SpUtils.getString(getApplicationContext(), AppConstants.CHANGGUAN_NUM));//场馆编号
-        subscription = Network.getInstance("获取房间类型", this)
-                .get_class_type(params,
-                        new ProgressSubscriber<>("获取房间类型", new SubscriberOnNextListener<Bean<List<ClassTypeEntity>>>() {
-                            @Override
-                            public void onNext(Bean<List<ClassTypeEntity>> result) {
-                                if (class_room_types.size() > 0) {
-                                    class_room_types.clear();
-                                }
-                                class_room_types.addAll(result.getData());
-                                //获取最大人数
-                                room_type = class_room_types.get(0).getKey() + "";
-
-
-                            }
-
-                            @Override
-                            public void onError(String error) {
-
-                            }
-                        }, this, false));
-    }
-
 
     private void select_class_type_pop() {
         CommonPopupWindow popupWindow = new CommonPopupWindow.Builder(this)
@@ -639,17 +613,16 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
         params.put("course_name", edit_class_name.getText().toString());//团课名称
         params.put("target", select_target_type);//训练目标
         params.put("difficulty", select_nandu_type);//训练难度
-        params.put("type", room_type);//房间类型
         params.put("gymPlaceNum", select_room_name_id);//选择的房间名称编号
         params.put("placeName", select_room_name);//选择的房间名称
         params.put("logo", icon_net_path);
-//        List<CgBindingBean.TeacherNumBean> teacherBeanList = new ArrayList<>();
-//        for (TeacherBean teacherBean : submit_tescher_list) {
-//            CgBindingBean.TeacherNumBean teacherNumBean = new CgBindingBean.TeacherNumBean();
-//            teacherNumBean.setNum(teacherBean.getTeacherNum());
-//            teacherBeanList.add(teacherNumBean);
-//        }
-        //params.put("areaNum", teacherBeanList);//选择的场馆列表
+        List<CgBindingBean.TeacherNumBean> teacherBeanList = new ArrayList<>();
+        for (CgListBean.AreaListBean areaListBean : submit_changguan_list) {
+            CgBindingBean.TeacherNumBean teacherNumBean = new CgBindingBean.TeacherNumBean();
+            teacherNumBean.setNum(areaListBean.getAreaNum());
+            teacherBeanList.add(teacherNumBean);
+        }
+        params.put("areaNum", teacherBeanList);//选择的场馆列表
         params.put("gen_teacher_num", SpUtils.getString(getApplicationContext(), AppConstants.USER_NAME));//团课名称
         params.put("class_type", select_class_type);//团课类型
         params.put("start_time",
@@ -712,8 +685,6 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
             }
             return true;
         }
-
-
     }
 
     private void select_time() {
