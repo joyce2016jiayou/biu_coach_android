@@ -43,11 +43,10 @@
                 android:textColor="@color/color_4A4A4A"
                 android:textSize="@dimen/sp15"/>
 
-        <LinearLayout
+        <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:gravity="center"
                 android:layout_marginBottom="@dimen/m15">
 
 
@@ -75,19 +74,21 @@
                     android:layout_height="@dimen/m39"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="@dimen/m10"
-                    android:layout_marginLeft="@dimen/sp15"
-                    android:background="@drawable/cancel_bg"
+                    android:background="@drawable/add_bg"
                     android:gravity="center">
+
 
                 <TextView
                         android:id="@+id/sure_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/tv18"
+                        android:layout_marginLeft="@dimen/sp15"
+                        android:background="@drawable/cancel_bg"
+                        android:text="@string/tv189"
                         android:textColor="@color/white"
                         android:textSize="@dimen/sp18"/>
             </LinearLayout>
-        </LinearLayout>
+        </RelativeLayout>
 
     </RelativeLayout>
 
