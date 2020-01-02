@@ -3,6 +3,7 @@ package com.noplugins.keepfit.coachplatform.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.TextUtils;
@@ -16,6 +17,7 @@ import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.huantansheng.easyphotos.EasyPhotos;
+import com.huantansheng.easyphotos.models.album.entity.Photo;
 import com.noplugins.keepfit.coachplatform.R;
 import com.noplugins.keepfit.coachplatform.activity.AddZhengshuActivity;
 import com.noplugins.keepfit.coachplatform.activity.CheckStatusActivity;
@@ -519,9 +521,9 @@ public class StepTwoFragment extends ViewPagerFragment {
             zhengshu_images_select.clear();
             zhengshu_images_select.addAll(AppConstants.SELECT_PHOTO_NUM);
             Log.e("传过来的图片数量", "" + zhengshu_images_select.size());
-            List<String> iamge_paths = new ArrayList<>();
+            List<Uri> iamge_paths = new ArrayList<>();
             for (CheckInformationBean.CoachPicCertificatesBean coachPicCertificatesBean : zhengshu_images_select) {
-                iamge_paths.add(coachPicCertificatesBean.getZheng_local_img_path());
+                iamge_paths.add(Uri.parse(coachPicCertificatesBean.getZheng_local_img_path()));
             }
             select_zhengshu_view.setData(iamge_paths);
             AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE = zhengshu_images_select.size();
@@ -565,7 +567,7 @@ public class StepTwoFragment extends ViewPagerFragment {
     CCRSortableNinePhotoLayout.Delegate select_zhengshu = new CCRSortableNinePhotoLayout.Delegate() {
 
         @Override
-        public void onClickAddNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view, int position, ArrayList<String> models) {
+        public void onClickAddNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view, int position, ArrayList<Uri> models) {
             if (AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE >= 20) {
                 Toast.makeText(getActivity(), "只能上传20张证书哦～", Toast.LENGTH_SHORT).show();
             } else if (AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE < 20) {
@@ -583,14 +585,14 @@ public class StepTwoFragment extends ViewPagerFragment {
         }
 
         @Override
-        public void onClickDeleteNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view, int position, String model, ArrayList<String> models) {
+        public void onClickDeleteNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view, int position, Uri model, ArrayList<Uri> models) {
             delete_pop(position);
 
 
         }
 
         @Override
-        public void onClickNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view, int position, String model, ArrayList<String> models) {
+        public void onClickNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view, int position, Uri model, ArrayList<Uri> models) {
 
         }
     };
@@ -641,7 +643,7 @@ public class StepTwoFragment extends ViewPagerFragment {
 
     CCRSortableNinePhotoLayout.Delegate select_shouke = new CCRSortableNinePhotoLayout.Delegate() {
         @Override
-        public void onClickAddNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view, int position, ArrayList<String> models) {
+        public void onClickAddNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view, int position, ArrayList<Uri> models) {
             if (AppConstants.SELECT_SHOUKE_IMAGE_SIZE >= 10) {
                 Toast.makeText(getActivity(), "只能上传10张图片哦～", Toast.LENGTH_SHORT).show();
             } else if (AppConstants.SELECT_SHOUKE_IMAGE_SIZE < 10) {
@@ -656,13 +658,13 @@ public class StepTwoFragment extends ViewPagerFragment {
         }
 
         @Override
-        public void onClickDeleteNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view, int position, String model, ArrayList<String> models) {
+        public void onClickDeleteNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view, int position, Uri model, ArrayList<Uri> models) {
             select_shouke_view.removeItem(position);
             AppConstants.SELECT_SHOUKE_IMAGE_SIZE = AppConstants.SELECT_SHOUKE_IMAGE_SIZE - 1;
         }
 
         @Override
-        public void onClickNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view, int position, String model, ArrayList<String> models) {
+        public void onClickNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view, int position, Uri model, ArrayList<Uri> models) {
 
         }
     };
@@ -698,16 +700,18 @@ public class StepTwoFragment extends ViewPagerFragment {
 //                AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE = zhengshu_images_select.size();
                 return;
             } else if (requestCode == 102) {
-                ArrayList<String> resultPaths = data.getStringArrayListExtra(EasyPhotos.RESULT_PATHS);
+                ArrayList<Photo> resultPaths = data.getParcelableArrayListExtra(EasyPhotos.RESULT_PHOTOS);
+//                ArrayList<String> resultPaths = data.getStringArrayListExtra(EasyPhotos.RESULT_PATHS);
+                assert resultPaths != null;
                 for (int i = 0; i < resultPaths.size(); i++) {
                     CheckInformationBean.CoachPicTeachingsBean coachPicTeachingsBean = new CheckInformationBean.CoachPicTeachingsBean();
-                    coachPicTeachingsBean.setLocal_iamge_path(resultPaths.get(i));
+                    coachPicTeachingsBean.setLocal_iamge_path(resultPaths.get(i).uri.toString());
                     shouke_images_select.add(coachPicTeachingsBean);
                 }
                 //设置九宫格
-                List<String> images = new ArrayList<>();
+                List<Uri> images = new ArrayList<>();
                 for (int i = 0; i < shouke_images_select.size(); i++) {
-                    images.add(shouke_images_select.get(i).getLocal_iamge_path());
+                    images.add(Uri.parse(shouke_images_select.get(i).getLocal_iamge_path()));
                 }
                 select_shouke_view.setData(images);//设置九宫格
                 AppConstants.SELECT_SHOUKE_IMAGE_SIZE = shouke_images_select.size();

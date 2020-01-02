@@ -156,7 +156,7 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
     public static String zhuyi_shixiang_tv = "";
     private String icon_image_path = "";
     private int max_num = 0;
-    private List<String> strings = new ArrayList<>();
+    private List<Uri> strings = new ArrayList<>();
     public static List<TeacherBean> submit_tescher_list = new ArrayList<>();
     public static boolean is_refresh_teacher_list;
     List<SelectRoomBean> room_lists = new ArrayList<>();
@@ -923,7 +923,7 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
     }
 
     @Override
-    public void onClickAddNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view, int position, ArrayList<String> models) {
+    public void onClickAddNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view, int position, ArrayList<Uri> models) {
         //设置最多只能上传9张图片
         if (AppConstants.ADD_CLASS_SELECT_IMAGES_SIZE >= 9) {
             Toast.makeText(getApplicationContext(), "只能上传9张图片哦～", Toast.LENGTH_SHORT).show();
@@ -939,14 +939,14 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
     }
 
     @Override
-    public void onClickDeleteNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view, int position, String model, ArrayList<String> models) {
+    public void onClickDeleteNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view, int position, Uri model, ArrayList<Uri> models) {
         mPhotosSnpl.removeItem(position);
         AppConstants.ADD_CLASS_SELECT_IMAGES_SIZE = AppConstants.ADD_CLASS_SELECT_IMAGES_SIZE - 1;
         select_numbers_tv.setText(AppConstants.ADD_CLASS_SELECT_IMAGES_SIZE + "/9");
     }
 
     @Override
-    public void onClickNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view, int position, String model, ArrayList<String> models) {
+    public void onClickNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view, int position, Uri model, ArrayList<Uri> models) {
 
     }
 
@@ -962,19 +962,25 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
 //                    Log.e("图片地址", resultPhotos.get(i).path);
 //                }
                 //返回图片地址集合：如果你只需要获取图片的地址，可以用这个
-                ArrayList<String> resultPaths = data.getStringArrayListExtra(EasyPhotos.RESULT_PATHS);
+//                ArrayList<String> resultPaths = data.getStringArrayListExtra(EasyPhotos.RESULT_PATHS);
                 //返回图片地址集合时如果你需要知道用户选择图片时是否选择了原图选项，用如下方法获取
                 boolean selectedOriginal = data.getBooleanExtra(EasyPhotos.RESULT_SELECTED_ORIGINAL, false);
-                strings.addAll(resultPaths);
+//
+                if (resultPhotos.size()>0){
+                    for (int i = 0; i < resultPhotos.size(); i++) {
+                        strings.add(resultPhotos.get(i).uri);
+                    }
+                }
+//                strings.addAll(resultPhotos);
                 mPhotosSnpl.setData(strings);//设置九宫格
                 AppConstants.ADD_CLASS_SELECT_IMAGES_SIZE = strings.size();
                 select_numbers_tv.setText(AppConstants.ADD_CLASS_SELECT_IMAGES_SIZE + "/9");
                 return;
             } else if (requestCode == 102) {//添加icon,上传icon
-                ArrayList<String> resultPaths = data.getStringArrayListExtra(EasyPhotos.RESULT_PATHS);
-                if (resultPaths.size() > 0) {
-                    icon_image_path = resultPaths.get(0);
-                    gotoClipActivity(Uri.fromFile(new File(icon_image_path)));
+                ArrayList<Photo> resultPhotos = data.getParcelableArrayListExtra(EasyPhotos.RESULT_PHOTOS);
+                assert resultPhotos != null;
+                if (resultPhotos.size() > 0) {
+                    gotoClipActivity(resultPhotos.get(0).uri);
                 }
             } else if (requestCode == 103) {
                 final Uri uri = data.getData();
@@ -983,6 +989,7 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
                 }
                 String cropImagePath = FileUtil.getRealFilePathFromUri(getApplicationContext(), uri);
                 //Bitmap bitMap = BitmapFactory.decodeFile(cropImagePath);
+                icon_image_path = cropImagePath;
                 File icon_iamge_file = new File(cropImagePath);
                 Glide.with(getApplicationContext()).load(icon_iamge_file).into(logo_image);
                 delete_icon_btn.setVisibility(View.VISIBLE);

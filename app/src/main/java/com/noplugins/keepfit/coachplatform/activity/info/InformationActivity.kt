@@ -1,8 +1,10 @@
 package com.noplugins.keepfit.coachplatform.activity.info
 
+import android.Manifest
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
@@ -20,6 +22,7 @@ import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.huantansheng.easyphotos.EasyPhotos
+import com.huantansheng.easyphotos.models.album.entity.Photo
 import com.noplugins.keepfit.coachplatform.R
 import com.noplugins.keepfit.coachplatform.base.BaseActivity
 import com.noplugins.keepfit.coachplatform.base.MyApplication
@@ -48,6 +51,8 @@ import com.ycuwq.datepicker.date.DatePickerDialogFragment
 import kotlinx.android.synthetic.main.activity_information.*
 import okhttp3.RequestBody
 import org.greenrobot.eventbus.EventBus
+import pub.devrel.easypermissions.AfterPermissionGranted
+import pub.devrel.easypermissions.EasyPermissions
 import top.zibin.luban.Luban
 import top.zibin.luban.OnCompressListener
 import java.io.File
@@ -80,6 +85,7 @@ class InformationActivity : BaseActivity() {
         qiniu_key = "icon_" + sdf!!.format(Date())
         getToken()//获取七牛云token
         requestData()
+        requestPR()
     }
 
     private fun getToken() {
@@ -213,11 +219,13 @@ class InformationActivity : BaseActivity() {
         if (requestCode == 102) {
             //添加icon,上传icon
             if (data == null) return
-            val resultPaths = data.getStringArrayListExtra(EasyPhotos.RESULT_PATHS)
-            if (resultPaths!!.size > 0) {
+            val resultPhotos:ArrayList<Photo> = data.getParcelableArrayListExtra(EasyPhotos.RESULT_PHOTOS)
+            if (resultPhotos!!.size > 0) {
 //                icon_image_path = resultPaths[0]
-                val icon_iamge_file = File(resultPaths[0])
-                gotoClipActivity(Uri.fromFile(icon_iamge_file))
+                Log.d("infomation","uri:"+resultPhotos[0].uri)
+                Log.d("infomation","path:"+resultPhotos[0].path)
+//                gotoClipActivity(Uri.fromFile(File(resultPhotos[0].path)))
+                gotoClipActivity(resultPhotos[0].uri)
             }
         } else if (requestCode == 103) {
             if (data == null){
@@ -336,7 +344,30 @@ class InformationActivity : BaseActivity() {
         intent.setClass(this, ClipImageActivity::class.java)
         intent.putExtra("type", 2)//1:圆形 2:方形
         intent.data = uri
+        intent.setFlags(FLAG_GRANT_READ_URI_PERMISSION)
         startActivityForResult(intent, 103)
+    }
+
+    @AfterPermissionGranted(100)
+    private fun requestPR(){
+        val perms = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+
+        if (EasyPermissions.hasPermissions(this, *perms)) {
+            // Already have permission, do the thing
+            // ...
+        } else {
+            EasyPermissions.requestPermissions(this, "获取读写内存权限,Camera权限和wifi权限", 100, *perms)
+
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            100 ->{
+                EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults,this)//注意这个this，内部对实现该方法进行了查询，所以没有this的话，回调结果的方法不生效
+            }
+        }
     }
 }
 

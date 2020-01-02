@@ -13,8 +13,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.noplugins.keepfit.coachplatform.R
 import com.noplugins.keepfit.coachplatform.adapter.TeamDetail9ImgAdapter
 import com.noplugins.keepfit.coachplatform.base.BaseActivity
@@ -23,7 +21,6 @@ import com.noplugins.keepfit.coachplatform.global.AppConstants
 import com.noplugins.keepfit.coachplatform.global.PublicPopControl
 import com.noplugins.keepfit.coachplatform.global.clickWithTrigger
 import com.noplugins.keepfit.coachplatform.util.BaseUtils
-import com.noplugins.keepfit.coachplatform.util.GlideRoundTransform
 import com.noplugins.keepfit.coachplatform.util.SpUtils
 import com.noplugins.keepfit.coachplatform.util.data.DateHelper
 import com.noplugins.keepfit.coachplatform.util.net.Network

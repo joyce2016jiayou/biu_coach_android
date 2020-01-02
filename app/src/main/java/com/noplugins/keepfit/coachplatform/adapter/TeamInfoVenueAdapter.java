@@ -17,5 +17,7 @@ public class TeamInfoVenueAdapter extends BaseQuickAdapter<String, BaseViewHolde
     @Override
     protected void convert(@NonNull BaseViewHolder helper, String item) {
 
+
+
     }
 }

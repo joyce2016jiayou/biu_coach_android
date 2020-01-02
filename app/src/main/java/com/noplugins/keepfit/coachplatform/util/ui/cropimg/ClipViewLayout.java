@@ -6,6 +6,7 @@ import android.graphics.*;
 import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -14,8 +15,10 @@ import android.view.MotionEvent;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import androidx.annotation.RequiresApi;
 import com.noplugins.keepfit.coachplatform.R;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 
@@ -55,17 +58,21 @@ public class ClipViewLayout extends RelativeLayout {
     //最大缩放比例
     private float maxScale = 4;
 
+    private static Context mContext;
 
     public ClipViewLayout(Context context) {
         this(context, null);
+        mContext = context;
     }
 
     public ClipViewLayout(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
+        mContext = context;
     }
 
     public ClipViewLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        mContext = context;
         init(context, attrs);
     }
 
@@ -125,20 +132,23 @@ public class ClipViewLayout extends RelativeLayout {
             return;
         }
         Log.d("evan", "**********clip_view uri*******  " + uri);
-        String path = FileUtil.getRealFilePathFromUri(getContext(), uri);
-        Log.d("evan", "**********clip_view path*******  " + path);
-        if (TextUtils.isEmpty(path)) {
-            return;
-        }
+//        String path = FileUtil.getRealFilePathFromUri(getContext(), uri);
+//        Log.d("evan", "**********clip_view path*******  " + path);
+//        if (TextUtils.isEmpty(path)) {
+//            return;
+//        }
 
         //这里decode出720*1280 左右的照片,防止OOM
-        Bitmap bitmap = decodeSampledBitmap(path, 720, 1280);
+        Bitmap bitmap = decodeSampledBitmap(uri, 720, 1280);
         if (bitmap == null) {
             return;
         }
 
         //竖屏拍照的照片，直接使用的话，会旋转90度，下面代码把角度旋转过来
-        int rotation = getExifOrientation(path); //查询旋转角度
+        int rotation = 0; //查询旋转角度
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            rotation = getExifOrientation(uri);
+        }
         Matrix m = new Matrix();
         m.setRotate(rotation);
         bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), m, true);
@@ -185,11 +195,12 @@ public class ClipViewLayout extends RelativeLayout {
     /**
      * 查询图片旋转角度
      */
-    public static int getExifOrientation(String filepath) {// YOUR MEDIA PATH AS STRING
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public static int getExifOrientation(Uri filepath) {// YOUR MEDIA PATH AS STRING
         int degree = 0;
         ExifInterface exif = null;
         try {
-            exif = new ExifInterface(filepath);
+            exif = new ExifInterface(mContext.getContentResolver().openInputStream(filepath));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -383,23 +394,29 @@ public class ClipViewLayout extends RelativeLayout {
      * @param reqHeight 期望的高
      * @return
      */
-    public static Bitmap decodeSampledBitmap(String filePath, int reqWidth,
+    public static Bitmap decodeSampledBitmap(Uri filePath, int reqWidth,
                                              int reqHeight) {
 
         // First decode with inJustDecodeBounds=true to check dimensions
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         options.inPreferredConfig = Bitmap.Config.RGB_565;
-        //bitmap is null
-        Bitmap bitmap = BitmapFactory.decodeFile(filePath, options);
-
         // Calculate inSampleSize
         options.inSampleSize = calculateInSampleSize(options, reqWidth,
                 reqHeight);
 
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeFile(filePath, options);
+        //bitmap is null
+        Bitmap bitmap = null;
+        try {
+            bitmap = BitmapFactory.decodeStream(mContext.getContentResolver().openInputStream(filePath),null,options);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
+        return bitmap;
     }
 
     /**

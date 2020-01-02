@@ -6,13 +6,12 @@ import android.os.Bundle
 import android.view.ViewGroup
 import android.widget.TextView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.ms.banner.BannerConfig
 import com.noplugins.keepfit.coachplatform.R
 import com.noplugins.keepfit.coachplatform.base.BaseActivity
 import com.noplugins.keepfit.coachplatform.bean.manager.ManagerTeamBean
 import com.noplugins.keepfit.coachplatform.holder.CustomViewHolder
-import com.noplugins.keepfit.coachplatform.util.GlideRoundTransform
 import com.noplugins.keepfit.coachplatform.util.net.Network
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber
@@ -61,7 +60,7 @@ class TeamDetailActivity : BaseActivity() {
 
 
         Glide.with(this).load(code.courseList.imgUrl)
-                .transform( CenterCrop(this), GlideRoundTransform(this,10))
+                .transform( RoundedCorners(20))
                 .placeholder(R.drawable.logo_gray)
                 .into(logo_image)
 

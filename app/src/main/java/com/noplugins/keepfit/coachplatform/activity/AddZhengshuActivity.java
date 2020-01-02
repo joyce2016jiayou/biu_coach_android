@@ -3,6 +3,7 @@ package com.noplugins.keepfit.coachplatform.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
@@ -19,6 +20,7 @@ import com.bigkoo.pickerview.listener.CustomListener;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.huantansheng.easyphotos.EasyPhotos;
+import com.huantansheng.easyphotos.models.album.entity.Photo;
 import com.noplugins.keepfit.coachplatform.R;
 import com.noplugins.keepfit.coachplatform.adapter.SelectTypeAdapter;
 import com.noplugins.keepfit.coachplatform.adapter.TypeAdapter;
@@ -217,7 +219,7 @@ public class AddZhengshuActivity extends BaseActivity {
                     zhengshu_type_tv.setText("");
                     zhengshu_tv.setText("");
                     time_tv.setText("");
-                    List<String> iamges = new ArrayList<>();
+                    List<Uri> iamges = new ArrayList<>();
                     add_zhengshu_photos_view.setData(iamges);//清空九宫格
                     upload_coachPicCertificatesBean = null;//清空对象
 
@@ -367,7 +369,7 @@ public class AddZhengshuActivity extends BaseActivity {
 
     CCRSortableNinePhotoLayout.Delegate select_zhengshu = new CCRSortableNinePhotoLayout.Delegate() {
         @Override
-        public void onClickAddNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view, int position, ArrayList<String> models) {
+        public void onClickAddNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view, int position, ArrayList<Uri> models) {
             if (AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE_TWO >= 2) {
                 Toast.makeText(AddZhengshuActivity.this, "只能上传2张图片哦～", Toast.LENGTH_SHORT).show();
             } else if (AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE_TWO < 2) {
@@ -382,7 +384,7 @@ public class AddZhengshuActivity extends BaseActivity {
         }
 
         @Override
-        public void onClickDeleteNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view, int position, String model, ArrayList<String> models) {
+        public void onClickDeleteNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view, int position, Uri model, ArrayList<Uri> models) {
             add_zhengshu_photos_view.removeItem(position);
 
             AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE_TWO = AppConstants.SELECT_ZHENGSHU_IMAGE_SIZE_TWO - 1;
@@ -393,7 +395,7 @@ public class AddZhengshuActivity extends BaseActivity {
         }
 
         @Override
-        public void onClickNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view, int position, String model, ArrayList<String> models) {
+        public void onClickNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view, int position, Uri model, ArrayList<Uri> models) {
 
         }
     };
@@ -413,7 +415,7 @@ public class AddZhengshuActivity extends BaseActivity {
                 boolean selectedOriginal = data.getBooleanExtra(EasyPhotos.RESULT_SELECTED_ORIGINAL, false);
                 */
 
-                ArrayList<String> resultPaths = data.getStringArrayListExtra(EasyPhotos.RESULT_PATHS);
+                ArrayList<Photo> resultPaths = data.getParcelableArrayListExtra(EasyPhotos.RESULT_PHOTOS);
                 Log.e("返回的path:", resultPaths.size() + "");
                 if (null == upload_coachPicCertificatesBean) {
                     upload_coachPicCertificatesBean = new CheckInformationBean.CoachPicCertificatesBean();
@@ -424,16 +426,16 @@ public class AddZhengshuActivity extends BaseActivity {
                 }
                 if (resultPaths.size() == 1) {
                     if (null == upload_coachPicCertificatesBean.getZheng_local_img_path()) {
-                        upload_coachPicCertificatesBean.setZheng_local_img_path(resultPaths.get(0));//设置正面的本地路径
+                        upload_coachPicCertificatesBean.setZheng_local_img_path(resultPaths.get(0).uri.toString());//设置正面的本地路径
                     } else {
-                        upload_coachPicCertificatesBean.setFan_local_img_path(resultPaths.get(0));
+                        upload_coachPicCertificatesBean.setFan_local_img_path(resultPaths.get(0).uri.toString());
                     }
 
 
                 } else if (resultPaths.size() == 2) {
                     if (null == upload_coachPicCertificatesBean.getFan_local_img_path()) {
-                        upload_coachPicCertificatesBean.setZheng_local_img_path(resultPaths.get(0));//设置正面的本地路径
-                        upload_coachPicCertificatesBean.setFan_local_img_path(resultPaths.get(1));//设置反面的本地路径
+                        upload_coachPicCertificatesBean.setZheng_local_img_path(resultPaths.get(0).uri.toString());//设置正面的本地路径
+                        upload_coachPicCertificatesBean.setFan_local_img_path(resultPaths.get(1).uri.toString());//设置反面的本地路径
                     }
 
                 }
@@ -534,12 +536,12 @@ public class AddZhengshuActivity extends BaseActivity {
      * 设置证书的九宫格
      */
     private void set_jiugongge() {
-        List<String> iamges = new ArrayList<>();
+        List<Uri> iamges = new ArrayList<>();
         if (null != upload_coachPicCertificatesBean.getZheng_local_img_path()) {
-            iamges.add(upload_coachPicCertificatesBean.getZheng_local_img_path());
+            iamges.add(Uri.parse(upload_coachPicCertificatesBean.getZheng_local_img_path()));
         }
         if (null != upload_coachPicCertificatesBean.getFan_local_img_path()) {
-            iamges.add(upload_coachPicCertificatesBean.getFan_local_img_path());
+            iamges.add(Uri.parse(upload_coachPicCertificatesBean.getFan_local_img_path()));
         }
         add_zhengshu_photos_view.setData(iamges);//设置九宫格
 

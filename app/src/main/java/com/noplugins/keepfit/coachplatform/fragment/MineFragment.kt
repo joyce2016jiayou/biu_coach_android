@@ -153,7 +153,7 @@ class MineFragment : BaseFragment() {
         tv_team_num.text = "${min.classTotal}"
         tv_teacher_num.text = "${min.privateTotal}"
         SpUtils.putString(activity,AppConstants.LOGO,min.logoUrl)
-        Glide.with(activity)
+        Glide.with(this)
             .load(min.logoUrl)
             .into(iv_logo)
 
