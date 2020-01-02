@@ -38,6 +38,7 @@ import com.noplugins.keepfit.coachplatform.util.net.entity.Bean;
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber;
 import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextListener;
 import com.noplugins.keepfit.coachplatform.util.ui.*;
+import com.noplugins.keepfit.coachplatform.util.ui.cropimg.FileUtil;
 import com.noplugins.keepfit.coachplatform.util.ui.jiugongge.CCRSortableNinePhotoLayout;
 import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow;
 import com.qiniu.android.http.ResponseInfo;
@@ -214,7 +215,7 @@ public class StepTwoFragment extends ViewPagerFragment {
             int finalI = i;
             String expectKey = UUID.randomUUID().toString();
             Luban.with(getActivity())
-                    .load(teachingsBean.getLocal_iamge_path())
+                    .load(new File(teachingsBean.getLocal_iamge_path()))
                     .ignoreBy(100)
                     .setTargetDir(getCompressJpgFileAbsolutePath())
                     .filter(new CompressionPredicate() {
@@ -268,6 +269,7 @@ public class StepTwoFragment extends ViewPagerFragment {
 
         @Override
         public void onFailure(String msg) {
+            progress_upload.dismissProgressDialog();
             Log.e("压缩失败的", msg);
         }
     };
@@ -286,7 +288,9 @@ public class StepTwoFragment extends ViewPagerFragment {
                     }
                 } else {
                     Log.e("qiniu", "Upload Fail");
+//                    Log.e("qiniu", "Upload Fail:"+rinfo);
                     //如果失败，这里可以把info信息上报自己的服务器，便于后面分析上传错误原因
+                    progress_upload.dismissProgressDialog();
                 }
             }
         }, new UploadOptions(null, "test-type", true, null, null));
@@ -660,6 +664,8 @@ public class StepTwoFragment extends ViewPagerFragment {
         @Override
         public void onClickDeleteNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view, int position, Uri model, ArrayList<Uri> models) {
             select_shouke_view.removeItem(position);
+            images.remove(position);
+            shouke_images_select.remove(position);
             AppConstants.SELECT_SHOUKE_IMAGE_SIZE = AppConstants.SELECT_SHOUKE_IMAGE_SIZE - 1;
         }
 
@@ -681,6 +687,7 @@ public class StepTwoFragment extends ViewPagerFragment {
         }
     }
 
+    List<Uri> images = new ArrayList<>();
     @Override
     public void onActivityResult(int requestCode, int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -704,15 +711,12 @@ public class StepTwoFragment extends ViewPagerFragment {
 //                ArrayList<String> resultPaths = data.getStringArrayListExtra(EasyPhotos.RESULT_PATHS);
                 assert resultPaths != null;
                 for (int i = 0; i < resultPaths.size(); i++) {
+                    images.add(resultPaths.get(i).uri);
                     CheckInformationBean.CoachPicTeachingsBean coachPicTeachingsBean = new CheckInformationBean.CoachPicTeachingsBean();
-                    coachPicTeachingsBean.setLocal_iamge_path(resultPaths.get(i).uri.toString());
+                    coachPicTeachingsBean.setLocal_iamge_path(FileUtil.getRealFilePathFromUri(getActivity(), resultPaths.get(i).uri));
                     shouke_images_select.add(coachPicTeachingsBean);
                 }
                 //设置九宫格
-                List<Uri> images = new ArrayList<>();
-                for (int i = 0; i < shouke_images_select.size(); i++) {
-                    images.add(Uri.parse(shouke_images_select.get(i).getLocal_iamge_path()));
-                }
                 select_shouke_view.setData(images);//设置九宫格
                 AppConstants.SELECT_SHOUKE_IMAGE_SIZE = shouke_images_select.size();
             }

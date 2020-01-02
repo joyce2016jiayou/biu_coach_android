@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -51,6 +52,7 @@ import com.noplugins.keepfit.coachplatform.util.ui.LoadingButton;
 import com.noplugins.keepfit.coachplatform.util.ui.NoScrollViewPager;
 import com.noplugins.keepfit.coachplatform.util.ui.StepView;
 import com.noplugins.keepfit.coachplatform.util.ui.ViewPagerFragment;
+import com.noplugins.keepfit.coachplatform.util.ui.cropimg.FileUtil;
 import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow;
 import org.json.JSONArray;
 import rx.Subscription;
@@ -114,9 +116,9 @@ public class StepOneFragment extends ViewPagerFragment {
     private ArrayList<JsonBean.QuBean> options3Items_codes = new ArrayList<>();
     private Thread thread;
     private static boolean isLoaded = false;
-    private List<String> strings = new ArrayList<>();
-    private String select_card_zheng_path = "";
-    private String select_card_fan_path = "";
+    private List<Uri> strings = new ArrayList<>();
+    private Uri select_card_zheng_path;
+    private Uri select_card_fan_path;
     private StepView stepView;
     private boolean is_set_card_zheng;
     private CheckStatusActivity checkStatusActivity;
@@ -169,10 +171,10 @@ public class StepOneFragment extends ViewPagerFragment {
     }
 
     private boolean check_value() {
-        if (TextUtils.isEmpty(select_card_zheng_path)) {
+        if (select_card_zheng_path==null) {
             Toast.makeText(getActivity(), R.string.tv130, Toast.LENGTH_SHORT).show();
             return false;
-        } else if (TextUtils.isEmpty(select_card_fan_path)) {
+        } else if (select_card_fan_path==null) {
             Toast.makeText(getActivity(), R.string.tv131, Toast.LENGTH_SHORT).show();
             return false;
         } else if (TextUtils.isEmpty(user_name_tv.getText())) {
@@ -219,8 +221,8 @@ public class StepOneFragment extends ViewPagerFragment {
 
                 if (check_value()) {
                     //传递参数
-                    checkStatusActivity.select_card_zheng_path = select_card_zheng_path;
-                    checkStatusActivity.select_card_fan_path = select_card_fan_path;
+                    checkStatusActivity.select_card_zheng_path = FileUtil.getRealFilePathFromUri(getActivity(), select_card_zheng_path);
+                    checkStatusActivity.select_card_fan_path = FileUtil.getRealFilePathFromUri(getActivity(), select_card_fan_path);
                     checkStatusActivity.user_name = user_name_tv.getText().toString();
                     checkStatusActivity.card_id = card_id_tv.getText().toString();
                     checkStatusActivity.sex = sex_tv.getText().toString();
@@ -459,16 +461,20 @@ public class StepOneFragment extends ViewPagerFragment {
             public void onClick(View view) {
                 EasyPhotos.createCamera(StepOneFragment.this)
                         .setFileProviderAuthority("com.noplugins.keepfit.coachplatform.fileprovider")
+                        .setPuzzleMenu(false)
+                        .setOriginalMenu(false, true, null)
                         .start(102);
-
                 popupWindow.dismiss();
             }
         });
         xiangce_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EasyPhotos.createAlbum(StepOneFragment.this, true, GlideEngine.getInstance())
-                        .setFileProviderAuthority("com.noplugins.keepfit.android.fileprovider")
+                EasyPhotos.createAlbum(
+                        StepOneFragment.this,
+                        true, GlideEngine.getInstance()
+                )
+                        .setFileProviderAuthority("com.noplugins.keepfit.coachplatform.fileprovider")
                         .setPuzzleMenu(false)
                         .setCount(1)
                         .setOriginalMenu(false, true, null)
@@ -762,16 +768,16 @@ public class StepOneFragment extends ViewPagerFragment {
             Bundle bundle = msg.getData();
             String is_front = bundle.getString("is_front");
             if (is_front.equals("true")) {
-                File icon_iamge_file = new File(select_card_zheng_path);
+//                File icon_iamge_file = new File(select_card_zheng_path);
                 card_zheng_view.setVisibility(View.GONE);
                 card_zheng_img.setVisibility(View.VISIBLE);
-                Glide.with(getActivity()).load(icon_iamge_file).into(card_zheng_img);
+                Glide.with(getActivity()).load(select_card_zheng_path).into(card_zheng_img);
 
             } else {
-                File icon_iamge_file_1 = new File(select_card_fan_path);
+//                File icon_iamge_file_1 = new File(select_card_fan_path);
                 card_fan_view.setVisibility(View.GONE);
                 card_fan_img.setVisibility(View.VISIBLE);
-                Glide.with(getActivity()).load(icon_iamge_file_1).into(card_fan_img);
+                Glide.with(getActivity()).load(select_card_fan_path).into(card_fan_img);
             }
         }
     };
@@ -837,29 +843,26 @@ public class StepOneFragment extends ViewPagerFragment {
                 assert resultPaths != null;
                 if (resultPaths.size()>0){
                     for (int i = 0; i < resultPaths.size(); i++) {
-                        strings.add(resultPaths.get(i).uri.toString());
+                        strings.add(resultPaths.get(i).uri);
                     }
                 }
                 return;
-            } else {
+            } else if (requestCode == 102){
                 ArrayList<Photo> resultPaths = data.getParcelableArrayListExtra(EasyPhotos.RESULT_PHOTOS);
                 assert resultPaths != null;
                 if (resultPaths.size() > 0) {
-                    String img_path = resultPaths.get(0).uri.toString();
-                    Log.e("选择照片的地址", select_card_zheng_path);
+                    Uri img_path = resultPaths.get(0).uri;
 
                     if (is_set_card_zheng) {//设置身份证正面
                         select_card_zheng_path = img_path;
-                        File icon_iamge_file = new File(select_card_zheng_path);
                         card_zheng_view.setVisibility(View.GONE);
                         card_zheng_img.setVisibility(View.VISIBLE);
-                        Glide.with(getActivity()).load(icon_iamge_file).into(card_zheng_img);
+                        Glide.with(getActivity()).load(img_path).into(card_zheng_img);
                     } else {
                         select_card_fan_path = img_path;
-                        File icon_iamge_file = new File(select_card_fan_path);
                         card_fan_view.setVisibility(View.GONE);
                         card_fan_img.setVisibility(View.VISIBLE);
-                        Glide.with(getActivity()).load(icon_iamge_file).into(card_fan_img);
+                        Glide.with(getActivity()).load(img_path).into(card_fan_img);
                     }
 
                 }
