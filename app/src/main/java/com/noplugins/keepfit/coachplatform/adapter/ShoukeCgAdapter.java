@@ -5,13 +5,12 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.noplugins.keepfit.coachplatform.R;
 import com.noplugins.keepfit.coachplatform.bean.ChangguanBean;
 import com.noplugins.keepfit.coachplatform.bean.manager.CgListBean;
-import com.noplugins.keepfit.coachplatform.util.GlideRoundTransform;
 
 import java.util.List;
 
@@ -25,7 +24,7 @@ public class ShoukeCgAdapter extends BaseQuickAdapter<ChangguanBean, BaseViewHol
 
         Glide.with(mContext)
                 .load(item.getLogo())
-                .transform(new CenterCrop(mContext),new GlideRoundTransform(mContext,8))
+                .transform(new RoundedCorners(20))
                 .into((ImageView) helper.getView(R.id.iv_cg_logo));
 
         helper

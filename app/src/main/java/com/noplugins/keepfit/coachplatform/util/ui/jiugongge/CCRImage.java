@@ -16,6 +16,7 @@
 package com.noplugins.keepfit.coachplatform.util.ui.jiugongge;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.widget.ImageView;
 import androidx.annotation.DrawableRes;
 
@@ -57,24 +58,24 @@ public class CCRImage {
         }
     }
 
-    public static void display(ImageView imageView, @DrawableRes int loadingResId, @DrawableRes int failResId, String path, int width, int height, final CCRImageLoader.DisplayDelegate delegate) {
-        getImageLoader().display(imageView, path, loadingResId, failResId, width, height, delegate);
+    public static void display(ImageView imageView, @DrawableRes int loadingResId, @DrawableRes int failResId, Uri uri, int width, int height, final CCRImageLoader.DisplayDelegate delegate) {
+        getImageLoader().display(imageView, uri, loadingResId, failResId, width, height, delegate);
     }
 
-    public static void display(ImageView imageView, @DrawableRes int placeholderResId, String path, int width, int height, final CCRImageLoader.DisplayDelegate delegate) {
-        display(imageView, placeholderResId, placeholderResId, path, width, height, delegate);
+    public static void display(ImageView imageView, @DrawableRes int placeholderResId, Uri uri, int width, int height, final CCRImageLoader.DisplayDelegate delegate) {
+        display(imageView, placeholderResId, placeholderResId, uri, width, height, delegate);
     }
 
-    public static void display(ImageView imageView, @DrawableRes int placeholderResId, String path, int width, int height) {
-        display(imageView, placeholderResId, path, width, height, null);
+    public static void display(ImageView imageView, @DrawableRes int placeholderResId, Uri uri, int width, int height) {
+        display(imageView, placeholderResId, uri, width, height, null);
     }
 
-    public static void display(ImageView imageView, @DrawableRes int placeholderResId, String path, int size) {
-        display(imageView, placeholderResId, path, size, size);
+    public static void display(ImageView imageView, @DrawableRes int placeholderResId, Uri uri, int size) {
+        display(imageView, placeholderResId, uri, size, size);
     }
 
-    public static void download(String path, final CCRImageLoader.DownloadDelegate delegate) {
-        getImageLoader().download(path, delegate);
+    public static void download(Uri uri, final CCRImageLoader.DownloadDelegate delegate) {
+        getImageLoader().download(uri, delegate);
     }
 
     /**

@@ -19,6 +19,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -289,7 +290,7 @@ public class CCRSortableNinePhotoLayout extends RecyclerView implements CCROnIte
      *
      * @param photos
      */
-    public void setData(List<String> photos) {
+    public void setData(List<Uri> photos) {
         mPhotoAdapter.setData(photos);
     }
 
@@ -298,7 +299,7 @@ public class CCRSortableNinePhotoLayout extends RecyclerView implements CCROnIte
      *
      * @param photos
      */
-    public void addMoreData(ArrayList<String> photos) {
+    public void addMoreData(ArrayList<Uri> photos) {
         if (photos != null) {
             mPhotoAdapter.getData().addAll(photos);
             mPhotoAdapter.notifyDataSetChanged();
@@ -310,8 +311,8 @@ public class CCRSortableNinePhotoLayout extends RecyclerView implements CCROnIte
      *
      * @param photo
      */
-    public void addLastItem(String photo) {
-        if (!TextUtils.isEmpty(photo)) {
+    public void addLastItem(Uri photo) {
+        if (!TextUtils.isEmpty(photo.toString())) {
             mPhotoAdapter.getData().add(photo);
             mPhotoAdapter.notifyDataSetChanged();
         }
@@ -348,8 +349,8 @@ public class CCRSortableNinePhotoLayout extends RecyclerView implements CCROnIte
      *
      * @return
      */
-    public ArrayList<String> getData() {
-        return (ArrayList<String>) mPhotoAdapter.getData();
+    public ArrayList<Uri> getData() {
+        return (ArrayList<Uri>) mPhotoAdapter.getData();
     }
 
     /**
@@ -373,7 +374,7 @@ public class CCRSortableNinePhotoLayout extends RecyclerView implements CCROnIte
     @Override
     public void onItemChildClick(ViewGroup parent, View childView, int position) {
         if (mDelegate != null) {
-            mDelegate.onClickDeleteNinePhotoItem(this, childView, position, mPhotoAdapter.getItem(position), (ArrayList<String>) mPhotoAdapter.getData());
+            mDelegate.onClickDeleteNinePhotoItem(this, childView, position, mPhotoAdapter.getItem(position), (ArrayList<Uri>) mPhotoAdapter.getData());
         }
     }
 
@@ -381,11 +382,11 @@ public class CCRSortableNinePhotoLayout extends RecyclerView implements CCROnIte
     public void onRVItemClick(ViewGroup parent, View itemView, int position) {
         if (mPhotoAdapter.isPlusItem(position)) {
             if (mDelegate != null) {
-                mDelegate.onClickAddNinePhotoItem(this, itemView, position, (ArrayList<String>) mPhotoAdapter.getData());
+                mDelegate.onClickAddNinePhotoItem(this, itemView, position, (ArrayList<Uri>) mPhotoAdapter.getData());
             }
         } else {
             if (mDelegate != null && ViewCompat.getScaleX(itemView) <= 1.0f) {
-                mDelegate.onClickNinePhotoItem(this, itemView, position, mPhotoAdapter.getItem(position), (ArrayList<String>) mPhotoAdapter.getData());
+                mDelegate.onClickNinePhotoItem(this, itemView, position, mPhotoAdapter.getItem(position), (ArrayList<Uri>) mPhotoAdapter.getData());
             }
         }
     }
@@ -416,7 +417,7 @@ public class CCRSortableNinePhotoLayout extends RecyclerView implements CCROnIte
 
 
 
-    private class PhotoAdapter extends CCRRecyclerViewAdapter<String> {
+    private class PhotoAdapter extends CCRRecyclerViewAdapter<Uri> {
         private int mImageSize;
 
         public PhotoAdapter(RecyclerView recyclerView) {
@@ -442,7 +443,7 @@ public class CCRSortableNinePhotoLayout extends RecyclerView implements CCROnIte
         }
 
         @Override
-        public String getItem(int position) {
+        public Uri getItem(int position) {
             if (isPlusItem(position)) {
                 return null;
             }
@@ -455,7 +456,7 @@ public class CCRSortableNinePhotoLayout extends RecyclerView implements CCROnIte
         }
 
         @Override
-        protected void fillData(CCRViewHolderHelper helper, int position, String model) {
+        protected void fillData(CCRViewHolderHelper helper, int position, Uri model) {
             MarginLayoutParams params = (MarginLayoutParams) helper.getView(R.id.iv_item_nine_photo_photo).getLayoutParams();
             params.setMargins(0, mPhotoTopRightMargin, mPhotoTopRightMargin, 0);
 
@@ -540,13 +541,13 @@ public class CCRSortableNinePhotoLayout extends RecyclerView implements CCROnIte
 
     public interface Delegate {
         void onClickAddNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view,
-                                     int position, ArrayList<String> models);
+                                     int position, ArrayList<Uri> models);
 
         void onClickDeleteNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view,
-                                        int position, String model, ArrayList<String> models);
+                                        int position, Uri model, ArrayList<Uri> models);
 
         void onClickNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view,
-                                  int position, String model, ArrayList<String> models);
+                                  int position, Uri model, ArrayList<Uri> models);
 
 
 

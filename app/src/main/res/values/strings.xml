@@ -316,4 +316,8 @@
     <string name="tv_rzje">入账金额</string>
     <string name="tv_call">联系客服</string>
     <string name="tv162">剪裁</string>
+
+
+    <string name="team_goal">训练目标</string>
+    <string name="team_difficulty">训练难度</string>
 </resources>

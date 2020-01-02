@@ -19,6 +19,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.view.View;
 import android.widget.ImageView;
 import androidx.annotation.DrawableRes;
@@ -55,21 +56,21 @@ public abstract class CCRImageLoader {
         return null;
     }
 
-    public abstract void display(ImageView imageView, String path, @DrawableRes int loadingResId, @DrawableRes int failResId, int width, int height, DisplayDelegate delegate);
+    public abstract void display(ImageView imageView, Uri uri, @DrawableRes int loadingResId, @DrawableRes int failResId, int width, int height, DisplayDelegate delegate);
 
-    public abstract void download(String path, DownloadDelegate delegate);
+    public abstract void download(Uri uri, DownloadDelegate delegate);
 
     public abstract void pause(Activity activity);
 
     public abstract void resume(Activity activity);
 
     public interface DisplayDelegate {
-        void onSuccess(View view, String path);
+        void onSuccess(View view, Uri uri);
     }
 
     public interface DownloadDelegate {
-        void onSuccess(String path, Bitmap bitmap);
+        void onSuccess(Uri uri, Bitmap bitmap);
 
-        void onFailed(String path);
+        void onFailed(Uri uri);
     }
 }
