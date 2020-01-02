@@ -75,6 +75,7 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:usesCleartextTraffic="true"
+            android:requestLegacyExternalStorage="true"
             tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".activity.EditClassDetaiActivity" />
 

@@ -36,7 +36,6 @@ import com.noplugins.keepfit.coachplatform.global.PublicPopControl;
 import com.noplugins.keepfit.coachplatform.util.GlideEngine;
 import com.noplugins.keepfit.coachplatform.util.SpUtils;
 import com.noplugins.keepfit.coachplatform.util.TimeCheckUtil;
-import com.noplugins.keepfit.coachplatform.util.cropimg.FileUtil;
 import com.noplugins.keepfit.coachplatform.util.net.Network;
 import com.noplugins.keepfit.coachplatform.util.net.entity.Bean;
 import com.noplugins.keepfit.coachplatform.util.net.progress.ProgressSubscriber;
@@ -44,6 +43,7 @@ import com.noplugins.keepfit.coachplatform.util.net.progress.SubscriberOnNextLis
 import com.noplugins.keepfit.coachplatform.util.screen.ScreenUtilsHelper;
 import com.noplugins.keepfit.coachplatform.util.ui.ProgressUtil;
 import com.noplugins.keepfit.coachplatform.util.ui.cropimg.ClipImageActivity;
+import com.noplugins.keepfit.coachplatform.util.ui.cropimg.FileUtil;
 import com.noplugins.keepfit.coachplatform.util.ui.jiugongge.CCRSortableNinePhotoLayout;
 import com.noplugins.keepfit.coachplatform.util.ui.pop.CommonPopupWindow;
 import com.othershe.calendarview.utils.CalendarUtil;
