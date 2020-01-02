@@ -29,13 +29,12 @@ public class ManagerTeamClassAdapter extends BaseQuickAdapter<ManagerBean.Course
         helper.setText(R.id.tv_time_hour, item.getTime());
 
         helper.setText(R.id.tv_team_name, item.getCourseName());
-        if (item.getType()!=null){
+        if (item.getType()!=null&&item.getType().length()>0){
             helper.setText(R.id.tv_team_room, roomType(Integer.parseInt(item.getType())));
         }
 
         helper.setText(R.id.tv_team_price, "¥"+item.getFinalPrice());
 
-        //
 
 //        int timeLength = DateHelper.getOffectMinutes(item.getStartTime(),item.getEndTime());
         helper.setText(R.id.tv_team_man, item.getMaxNum()+"人");

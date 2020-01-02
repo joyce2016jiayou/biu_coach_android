@@ -21,11 +21,14 @@ import com.huantansheng.easyphotos.EasyPhotos;
 import com.huantansheng.easyphotos.models.album.entity.Photo;
 import com.lxj.xpopup.core.BasePopupView;
 import com.noplugins.keepfit.coachplatform.R;
+import com.noplugins.keepfit.coachplatform.activity.manager.ClassShouquanActivity;
+import com.noplugins.keepfit.coachplatform.adapter.InviteChangguanAdapter;
 import com.noplugins.keepfit.coachplatform.adapter.SelectTypeAdapter;
 import com.noplugins.keepfit.coachplatform.adapter.TypeAdapter;
 import com.noplugins.keepfit.coachplatform.base.BaseActivity;
 import com.noplugins.keepfit.coachplatform.base.MyApplication;
 import com.noplugins.keepfit.coachplatform.bean.*;
+import com.noplugins.keepfit.coachplatform.bean.manager.CgListBean;
 import com.noplugins.keepfit.coachplatform.callback.ImageCompressCallBack2;
 import com.noplugins.keepfit.coachplatform.callback.PopViewCallBack;
 import com.noplugins.keepfit.coachplatform.global.AppConstants;
@@ -106,7 +109,6 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
     RelativeLayout select_class_target_btn;
     @BindView(R.id.select_class_target_tv)
     TextView select_class_target_tv;
-
     @BindView(R.id.select_xunhuan_type_tv)
     TextView select_xunhuan_type_tv;
     @BindView(R.id.input_class_detail_btn)
@@ -135,6 +137,8 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
     TextView jisuan_time_tv;
     @BindView(R.id.select_xunhuan_type_btn)
     RelativeLayout select_xunhuan_type_btn;
+    @BindView(R.id.invite_teacher_number_tv)
+    TextView invite_teacher_number_tv;
     private String select_target_type = "1";
     private String select_class_type = "1";
     private String select_nandu_type = "容易";
@@ -157,12 +161,13 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
     private String icon_image_path = "";
     private int max_num = 0;
     private List<Uri> strings = new ArrayList<>();
-    public static List<TeacherBean> submit_tescher_list = new ArrayList<>();
-    public static boolean is_refresh_teacher_list;
+    public static List<CgListBean.AreaListBean> submit_changguan_list = new ArrayList<>();
+    public static boolean is_refresh_changguan_list;
     List<SelectRoomBean> room_lists = new ArrayList<>();
     private String select_room_name = "";
     private String select_room_name_id;
     private ProgressUtil progress_upload;
+    private InviteChangguanAdapter inviteChangguanAdapter;
     /**
      * 七牛云
      **/
@@ -285,16 +290,21 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
         invite_teacher_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(AddClassItemActivity.this, TeacherSelectActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putString("enter_type", "add_page");
-//                intent.putExtras(bundle);
-//                startActivity(intent);
+                Intent intent = new Intent(AddClassItemActivity.this, ClassShouquanActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("enter_type", "add_page");
+                intent.putExtras(bundle);
+                startActivity(intent);
 
 
             }
         });
-
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        speed_recyclerview.setLayoutManager(linearLayoutManager);
+        speed_recyclerview.setHasFixedSize(true);
+        speed_recyclerview.setNestedScrollingEnabled(false);
+        inviteChangguanAdapter = new InviteChangguanAdapter(submit_changguan_list);
+        speed_recyclerview.setAdapter(inviteChangguanAdapter);
 
     }
 
@@ -344,7 +354,12 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        submit_tescher_list.clear();
+        if (submit_changguan_list.size() > 0) {
+            submit_changguan_list.clear();
+        }
+        class_jianjie_tv = "";
+        shihe_renqun_tv = "";
+        zhuyi_shixiang_tv = "";
     }
 
     @Override
@@ -367,7 +382,14 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
         } else {
             edit_zhuyi_shixiang.setText(zhuyi_shixiang_tv);
         }
-
+        //判断是否刷新教练邀请列表
+        if (is_refresh_changguan_list) {
+            if (submit_changguan_list.size() > 0) {
+                inviteChangguanAdapter.notifyDataSetChanged();
+                invite_teacher_number_tv.setText("(" + submit_changguan_list.size() + "/20)");
+            }
+            is_refresh_changguan_list = false;
+        }
     }
 
     @Override
@@ -550,6 +572,15 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
             public void return_view(View view, BasePopupView popup) {
                 TextView pop_title = view.findViewById(R.id.pop_title);
                 TextView pop_content = view.findViewById(R.id.pop_content);
+                TextView sure_tv = view.findViewById(R.id.sure_tv);
+                TextView dissmiss_tv = view.findViewById(R.id.dissmiss_tv);
+                if (is_no_invite_teacher) {
+                    sure_tv.setText(R.string.tv189);
+                    dissmiss_tv.setText(R.string.tv191);
+                } else {
+                    sure_tv.setText(R.string.tv190);
+                    dissmiss_tv.setText(R.string.tv192);
+                }
                 if (is_no_invite_teacher) {//弹出"选择教练"提示
                     pop_title.setText(R.string.tv178);
                     pop_content.setText(R.string.tv179);
@@ -557,7 +588,14 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
                 view.findViewById(R.id.cancel_btn).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        popup.dismiss();
+                        if (is_no_invite_teacher) {
+                            add_class();
+                            popup.dismiss();
+
+                        } else {
+                            popup.dismiss();
+                            finish();
+                        }
                     }
                 });
                 view.findViewById(R.id.sure_btn).setOnClickListener(new View.OnClickListener() {
@@ -565,11 +603,10 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
                     public void onClick(View v) {
                         if (is_no_invite_teacher) {
                             //这边调用新增团课的接口
-                            add_class();
+                            popup.dismiss();
                         } else {
-                            finish();
+                            popup.dismiss();
                         }
-                        popup.dismiss();
                     }
                 });
             }
@@ -598,7 +635,6 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
         if (!calculate_time(time1_edit, time2_edit)) {//判断时间是否正确
             return;
         }
-
         Map<String, Object> params = new HashMap<>();
         params.put("course_name", edit_class_name.getText().toString());//团课名称
         params.put("target", select_target_type);//训练目标
@@ -607,14 +643,15 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
         params.put("gymPlaceNum", select_room_name_id);//选择的房间名称编号
         params.put("placeName", select_room_name);//选择的房间名称
         params.put("logo", icon_net_path);
-        List<CgBindingBean.TeacherNumBean> teacherBeanList = new ArrayList<>();
-        for (TeacherBean teacherBean : submit_tescher_list) {
-            CgBindingBean.TeacherNumBean teacherNumBean = new CgBindingBean.TeacherNumBean();
-            teacherNumBean.setNum(teacherBean.getTeacherNum());
-            teacherBeanList.add(teacherNumBean);
-        }
-        params.put("teacherNum", teacherBeanList);//选择的教练列表
-        params.put("class_type", select_class_type);//团课类型：1单车2瑜伽3普拉提4拳击5舞蹈6功能性7儿童
+//        List<CgBindingBean.TeacherNumBean> teacherBeanList = new ArrayList<>();
+//        for (TeacherBean teacherBean : submit_tescher_list) {
+//            CgBindingBean.TeacherNumBean teacherNumBean = new CgBindingBean.TeacherNumBean();
+//            teacherNumBean.setNum(teacherBean.getTeacherNum());
+//            teacherBeanList.add(teacherNumBean);
+//        }
+        //params.put("areaNum", teacherBeanList);//选择的场馆列表
+        params.put("gen_teacher_num", SpUtils.getString(getApplicationContext(), AppConstants.USER_NAME));//团课名称
+        params.put("class_type", select_class_type);//团课类型
         params.put("start_time",
                 year_tv.getText().toString() + "-" + month_tv.getText().toString() + "-" + date_tv.getText().toString() + " "
                         + time1_edit.getText().toString());//开始时间
@@ -633,14 +670,7 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
                         new ProgressSubscriber<>("添加课程", new SubscriberOnNextListener<Bean<AddClassEntity>>() {
                             @Override
                             public void onNext(Bean<AddClassEntity> result) {
-//                                Intent intent = new Intent(AddClassItemActivity.this, TeamInfoActivity.class);
-//                                Bundle bundle = new Bundle();
-//                                bundle.putString("create_time", result.getData().getStartTime());
-//                                bundle.putString("gym_course_num", result.getData().getGym_course_num());
-//                                intent.putExtras(bundle);
-//                                startActivity(intent);
                                 finish();
-
                             }
 
                             @Override
@@ -676,7 +706,7 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
             Toast.makeText(this, R.string.alert_dialog_tishi40, Toast.LENGTH_SHORT).show();
             return false;
         } else {
-            if (submit_tescher_list.size() == 0) {//邀请老师列表
+            if (submit_changguan_list.size() == 0) {//邀请老师列表
                 pop(true);
                 return false;
             }
@@ -875,9 +905,6 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
     }
 
 
-
-
-
     @Override
     public void onClickAddNinePhotoItem(CCRSortableNinePhotoLayout sortableNinePhotoLayout, View view, int position, ArrayList<Uri> models) {
         //设置最多只能上传9张图片
@@ -922,7 +949,7 @@ public class AddClassItemActivity extends BaseActivity implements CCRSortableNin
                 //返回图片地址集合时如果你需要知道用户选择图片时是否选择了原图选项，用如下方法获取
                 boolean selectedOriginal = data.getBooleanExtra(EasyPhotos.RESULT_SELECTED_ORIGINAL, false);
 //
-                if (resultPhotos.size()>0){
+                if (resultPhotos.size() > 0) {
                     for (int i = 0; i < resultPhotos.size(); i++) {
                         strings.add(resultPhotos.get(i).uri);
                     }

@@ -171,7 +171,6 @@ dependencies {
         exclude group: "com.android.support"
     }
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
-//    implementation project(':easyPhotos')
     implementation 'com.github.HuanTanSheng:EasyPhotos:3.0.3' //androidx版本，支持android 10，永久维护
     //下拉刷新列表
     implementation project(':XrefreshLibrary')

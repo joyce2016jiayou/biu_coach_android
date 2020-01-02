@@ -94,6 +94,7 @@ public class CgListBean {
         private String businessEnd;
         private String facility;
         private int status;
+
         /**
          * gymAreaNum : GYM19091204791290
          * bingdingDate : 2019-09-25 19:28:32
@@ -109,6 +110,16 @@ public class CgListBean {
         private String gymBindingNum;
         private String genTeacherNum;
         private Object name;
+        private Double finalGradle;
+
+        public Double getFinalGradle() {
+            return finalGradle;
+        }
+
+        public void setFinalGradle(Double finalGradle) {
+            this.finalGradle = finalGradle;
+        }
+
 
         public String getEdxtendVar05() {
             return edxtendVar05;

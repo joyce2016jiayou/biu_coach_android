@@ -465,7 +465,7 @@ public interface MyService {
      * @return
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
-    @POST("addClass")
+    @POST("addClassByCoach")
     Observable<Bean<AddClassEntity>> add_class(@Body RequestBody map);
 
 

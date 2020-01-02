@@ -28,6 +28,7 @@ import com.amap.api.services.geocoder.GeocodeSearch
 import com.amap.api.services.geocoder.RegeocodeResult
 import com.google.gson.Gson
 import com.noplugins.keepfit.coachplatform.R
+import com.noplugins.keepfit.coachplatform.activity.AddClassItemActivity
 import com.noplugins.keepfit.coachplatform.adapter.PopUpAdapter
 import com.noplugins.keepfit.coachplatform.adapter.TeacherCgSelectAdapter
 import com.noplugins.keepfit.coachplatform.base.BaseActivity
@@ -67,15 +68,15 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
                 /*currentLatLng = new LatLng(currentLat, currentLon);*/   //latlng形式的
 //                amapLocation.accuracy//获取精度信息
 
-                Log.d("LogInfo","getCity():"+amapLocation.city)
-                Log.d("LogInfo","district():"+amapLocation.district)
+                Log.d("LogInfo", "getCity():" + amapLocation.city)
+                Log.d("LogInfo", "district():" + amapLocation.district)
                 tv_location.text = amapLocation.district
-                val code = amapLocation.adCode.toString().substring(0,4)+"00"
-                province = amapLocation.adCode.toString().substring(0,2)+"0000"
+                val code = amapLocation.adCode.toString().substring(0, 4) + "00"
+                province = amapLocation.adCode.toString().substring(0, 2) + "0000"
                 city = code
                 district = amapLocation.adCode
 
-                Log.d("LogInfo","cityCode():"+amapLocation.adCode)
+                Log.d("LogInfo", "cityCode():" + amapLocation.adCode)
                 Log.d("LogInfo", "city():$code")
                 initAdapter()
                 requsetData(code)
@@ -103,7 +104,9 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
     private var longitude = 0.0
     private var page = 1
     private var skillSelect = -1
-    private var submitList:MutableList<BindingCgBean> = ArrayList()
+    private var submitList: MutableList<BindingCgBean> = ArrayList()
+    private var bind_changguan_list: MutableList<CgListBean.AreaListBean> = ArrayList()
+
     val bean = BindingListBean()
 
     //声明AMapLocationClient类对象
@@ -114,7 +117,12 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
     private val mPerms = arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION)
 
     private var selectAddress = ""
+    var enter_type = ""
+
     override fun initBundle(parms: Bundle?) {
+        if (parms != null) {
+            enter_type = parms.getString("enter_type", "")
+        }
     }
 
     override fun initView() {
@@ -127,15 +135,22 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
             finish()
         }
         queren_btn.clickWithTrigger {
-            if (BaseUtils.isFastClick()){
-                val gson = Gson().toJson(submitList)
-                Log.d("tag",gson)
-                if (submitList.size > 0){
-                    submitData()
+            if (BaseUtils.isFastClick()) {
+                if (enter_type.equals("add_page")) {
+                    AddClassItemActivity.submit_changguan_list.addAll(bind_changguan_list)
+                    AddClassItemActivity.is_refresh_changguan_list = true
+                    finish()
                 } else {
-                    SuperCustomToast.getInstance(applicationContext)
-                        .show("请选择授课场馆")
+                    val gson = Gson().toJson(submitList)
+                    Log.d("tag", gson)
+                    if (submitList.size > 0) {
+                        submitData()
+                    } else {
+                        SuperCustomToast.getInstance(applicationContext)
+                            .show("请选择授课场馆")
+                    }
                 }
+
             }
         }
         iv_delete_edit.clickWithTrigger {
@@ -198,7 +213,7 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
         })
 
 
-        }
+    }
 
     private lateinit var layoutManager: LinearLayoutManager
     private fun initAdapter() {
@@ -207,7 +222,7 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
             listClass,
             PopUpAdapter.OnItemClickListener { _, _, position ->
                 tv_cg_select.text = listClass[position]
-                skillSelect = if (position == listClass.size -1){
+                skillSelect = if (position == listClass.size - 1) {
                     -1
                 } else {
                     position + 1
@@ -217,7 +232,7 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
                 popWindow!!.dismiss()
             })
         changguan_eat.setOnClickListener {
-            showPopwindow(popWindow!!,changguan_eat)
+            showPopwindow(popWindow!!, changguan_eat)
 
         }
         adapter = TeacherCgSelectAdapter(data)
@@ -240,16 +255,18 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
 
                 R.id.ck_select -> {
                     //选中或者取消选中
-                    if ((view as CheckBox).isChecked){
-                        Log.d("item","点击了")
+                    if ((view as CheckBox).isChecked) {
+                        Log.d("item", "点击了")
                         val bindingCgBean = BindingCgBean()
                         bindingCgBean.areaNum = data[position].areaNum
-                        bindingCgBean.teacherNum = SpUtils.getString(this,AppConstants.USER_NAME)
+                        bindingCgBean.teacherNum = SpUtils.getString(this, AppConstants.USER_NAME)
                         submitList.add(bindingCgBean)
+                        bind_changguan_list.add(data[position])
+
                     } else {
-                        Log.d("item","取消了")
-                        for (i in 0 until submitList.size){
-                            if (submitList[i].areaNum == data[position].areaNum){
+                        Log.d("item", "取消了")
+                        for (i in 0 until submitList.size) {
+                            if (submitList[i].areaNum == data[position].areaNum) {
                                 submitList.removeAt(i)
                                 return@setOnItemChildClickListener
                             }
@@ -274,12 +291,12 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
         }
     }
 
-    private fun initArea(list:List<String>){
+    private fun initArea(list: List<String>) {
         popWindowArea = SpinnerPopWindow(this,
             list,
             PopUpAdapter.OnItemClickListener { _, _, position ->
                 page = 1
-                if (position == 0){
+                if (position == 0) {
                     district = ""
                     agreeCourse()
                 } else {
@@ -290,20 +307,21 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
                 popWindowArea!!.dismiss()
             })
         ll_location.setOnClickListener {
-            showPopwindow(popWindowArea!!,ll_location)
+            showPopwindow(popWindowArea!!, ll_location)
 
         }
     }
 
-    private fun showPopwindow(pop: SpinnerPopWindow<String>, view: View){
+    private fun showPopwindow(pop: SpinnerPopWindow<String>, view: View) {
         pop.width = view.width
         pop.showAsDropDown(view)
 
     }
+
     private var popWindow: SpinnerPopWindow<String>? = null
     private var popWindowArea: SpinnerPopWindow<String>? = null
 
-    private fun requsetData(citycd:String) {
+    private fun requsetData(citycd: String) {
         val params = HashMap<String, Any>()
         params["citycd"] = citycd
 
@@ -312,9 +330,9 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
                 params,
                 ProgressSubscriber("获取所有三级城市列表", object : SubscriberOnNextListener<Bean<AddressBean>> {
                     override fun onNext(result: Bean<AddressBean>) {
-                        val list:MutableList<String> = ArrayList()
+                        val list: MutableList<String> = ArrayList()
                         list.add("全部")
-                        for (i in 0 until result.data.area.size){
+                        for (i in 0 until result.data.area.size) {
                             list.add(result.data.area[i].distnm)
                         }
                         //申请成功
@@ -338,13 +356,13 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
         params["latitude"] = latitude
 //        params["province"] = province
 //        params["city"] = city
-        if (district != ""){
+        if (district != "") {
             params["district"] = district
         }
-        if (skillSelect > -1){
+        if (skillSelect > -1) {
             params["type"] = skillSelect
         }
-        if (edit_search.text.toString() != ""){
+        if (edit_search.text.toString() != "") {
             params["data"] = edit_search.text.toString().trim()
         }
         val subscription = Network.getInstance("场馆列表", this)
@@ -353,15 +371,15 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
                 ProgressSubscriber("场馆列表", object : SubscriberOnNextListener<Bean<CgListBean>> {
                     override fun onNext(result: Bean<CgListBean>) {
                         submitList.clear()
-                        if (result.data.areaList.size <=0){
+                        if (result.data.areaList.size <= 0) {
                             refresh_layout.setEnableLoadMore(false)
                         } else {
                             refresh_layout.setEnableLoadMore(true)
                         }
-                        if (page == 1){
+                        if (page == 1) {
                             data.clear()
                             data.addAll(result.data.areaList)
-                        } else{
+                        } else {
                             data.addAll(result.data.areaList)
                         }
                         adapter.notifyDataSetChanged()
@@ -375,16 +393,17 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
             )
     }
 
-    private fun submitData(){
+    private fun submitData() {
 
         bean.areaNumList = submitList
         subscription = Network.getInstance("绑定场馆", this)
-            .bindingArea(bean,
+            .bindingArea(
+                bean,
                 ProgressSubscriber("绑定场馆", object : SubscriberOnNextListener<Bean<Any>> {
                     override fun onNext(result: Bean<Any>) {
                         //提交成功
                         SuperCustomToast.getInstance(this@ClassShouquanActivity)
-                            .show("申请绑定场馆已提交",2000)
+                            .show("申请绑定场馆已提交", 2000)
                         finish()
                     }
 
@@ -395,6 +414,7 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
                 }, this, false)
             )
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data1: Intent?) {
         super.onActivityResult(requestCode, resultCode, data1)
         if (requestCode == 1) {
@@ -410,7 +430,7 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
                     }
                     val bindingCgBean = BindingCgBean()
                     bindingCgBean.areaNum = data[item].areaNum
-                    bindingCgBean.teacherNum = SpUtils.getString(this,AppConstants.USER_NAME)
+                    bindingCgBean.teacherNum = SpUtils.getString(this, AppConstants.USER_NAME)
                     submitList.add(bindingCgBean)
                 }
 
@@ -473,35 +493,36 @@ class ClassShouquanActivity : BaseActivity(), AMapLocationListener {
         private const val PERMISSIONS = 100//请求码
     }
 
-    private fun getLatlon(address:String){
-        val geocodeSearch= GeocodeSearch(this)
-        geocodeSearch.setOnGeocodeSearchListener(object : GeocodeSearch.OnGeocodeSearchListener{
+    private fun getLatlon(address: String) {
+        val geocodeSearch = GeocodeSearch(this)
+        geocodeSearch.setOnGeocodeSearchListener(object : GeocodeSearch.OnGeocodeSearchListener {
             override fun onRegeocodeSearched(p0: RegeocodeResult?, p1: Int) {
 
             }
 
             override fun onGeocodeSearched(geocodeResult: GeocodeResult?, i: Int) {
-                if (i == 1000){
+                if (i == 1000) {
                     if (geocodeResult?.geocodeAddressList != null &&
-                        geocodeResult.geocodeAddressList.size>0){
+                        geocodeResult.geocodeAddressList.size > 0
+                    ) {
                         val geocodeAddress = geocodeResult.getGeocodeAddressList().get(0)
 //                        latitude = geocodeAddress.latLonPoint.latitude//纬度
 //                        longitude = geocodeAddress.latLonPoint.longitude//经度
 
                         val adcode = geocodeAddress.adcode//区域编码
-                        province = adcode.toString().substring(0,2)+"0000"
-                        city = adcode.toString().substring(0,4)+"00"
+                        province = adcode.toString().substring(0, 2) + "0000"
+                        city = adcode.toString().substring(0, 4) + "00"
                         district = adcode
                         agreeCourse()
 
                     }
-                } else{
+                } else {
                     //地址输入错误
                 }
             }
 
         })
-        val geocodeQuery = GeocodeQuery(address.trim(),"29")
+        val geocodeQuery = GeocodeQuery(address.trim(), "29")
         geocodeSearch.getFromLocationNameAsyn(geocodeQuery)
 
     }
